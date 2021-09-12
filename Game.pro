@@ -3,6 +3,7 @@ TEMPLATE = app
 CONFIG += console c++17
 
 SOURCES += \
+        Controller/Calculations.cpp \
         Graphics/Cell.cpp \
         Graphics/GameWindow.cpp \
         Graphics/Map.cpp \
@@ -10,6 +11,7 @@ SOURCES += \
         Controller/Game.cpp
 
 HEADERS += \
+    Controller/Calculations.h \
     Graphics/Cell.h \
     Graphics/GameWindow.h \
     Graphics/IDrawObject.h \

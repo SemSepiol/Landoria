@@ -1,27 +1,22 @@
 #include "GameWindow.h"
-
+#include <iostream>
 
 GameWindow::GameWindow(IGame* game)
   : QWidget(), game_controller{game}
-{
-//  QWidget::showFullScreen();
-  QWidget::resize(width_win, height_win);
-  QWidget::move(p_win);
-//  map->draw(std::unique_ptr<IGame>{this});
-}
+{}
 
 GameWindow::~GameWindow(){
-  game_controller.~unique_ptr();
 }
 
-int GameWindow::height_window(){
-  return height_win;
+void GameWindow::show()
+{
+  //  QWidget::showFullScreen();
+  QWidget::setFixedSize(game_controller->width_win(), game_controller->height_win());
+  QWidget::move(_p_win);
+  QWidget::show();
 }
 
-int GameWindow::width_window(){
-  return width_win;
-}
-
-QPoint GameWindow::center_window(){
-  return QPoint{width_win/2, height_win/2};
+void GameWindow::paintEvent(QPaintEvent* e)
+{
+  game_controller->draw_map();
 }
