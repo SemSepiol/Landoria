@@ -53,3 +53,35 @@ QPoint Calculations::point_300()
 {
   return {hexagon_height(), -side/2};
 }
+
+QPoint Calculations::point_circle_for_unit(int num_unit)
+{
+  switch (num_unit)
+  {
+  case 0:
+    return {-hexagon_height()/3, -side/2};
+  case 1:
+    return {hexagon_height()/3, -side/2};
+  case 2:
+    return {-hexagon_height()*2/3, 0};
+  case 3:
+    return {hexagon_height()*2/3, 0};
+  default:
+    throw std::runtime_error("The max number of units in a cell is 4");
+  }
+}
+
+QPoint Calculations::point_circle_for_res()
+{
+  return {-hexagon_height()/3, side/2};
+}
+
+QPoint Calculations::point_circle_for_mod()
+{
+  return {hexagon_height()/3, side/2};
+}
+
+int Calculations::circle_radius()
+{
+  return hexagon_side()/4;
+}

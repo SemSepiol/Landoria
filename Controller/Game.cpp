@@ -4,9 +4,9 @@
 Game::Game()
   :game_window{new GameWindow(this)}, map{new Map(this)}, calc{new Calculations{}}
 {
-  num_cell_x = 10;
-  num_cell_y = 10;
-  calc->set_side(50);
+  num_cell_x = 5;
+  num_cell_y = 5;
+  calc->set_side(100);
   _height_win = calc->hexagon_side()*num_cell_y + calc->hexagon_side()*(num_cell_y+1)/2;
   _width_win = calc->hexagon_height()*(num_cell_x*2+1);
 

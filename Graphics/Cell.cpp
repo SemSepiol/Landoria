@@ -4,12 +4,13 @@
 Cell::Cell(IMap* map)
   :map{map}
 {
+  FactoryContents fcontens{this};
+  contents = fcontens.contents();
 }
 
 void Cell::draw(QPoint point)
 {
-//  std::cout << "c " << point.x() << " " << point.y() << std::endl;
-  Calculations* calc = map->calculations();
+  Calculations* calc = calculations();
 
   QPoint p1 = point - calc->point_0();
   QPoint p2 = point - calc->point_60();
@@ -17,11 +18,10 @@ void Cell::draw(QPoint point)
   QPoint p4 = point - calc->point_180();
   QPoint p5 = point - calc->point_240();
   QPoint p6 = point - calc->point_300();
-//  std::cout << p1.x() << " " << p1.y() << std::endl;
 
 
 
-  QWidget* win = map->window();
+  QWidget* win = window();
   QPainter qp(win);
 
   QPen pen(Qt::black, 2, Qt::SolidLine);
@@ -32,4 +32,34 @@ void Cell::draw(QPoint point)
   qp.drawLine(p4, p5);
   qp.drawLine(p5, p6);
   qp.drawLine(p6, p1);
+
+  int count_drawn_unit = 0;
+  for(size_t i{0}; i < contents.size(); ++i)
+    if(contents[i]->what_content_I() == Contents::Unit){
+      if (count_drawn_unit < 4){
+        QPoint p = calculations()->point_circle_for_unit(count_drawn_unit);
+        std::cout << p.x() << ":" << p.y() << std::endl;
+        contents[i]->draw(point + p);
+      } else if (count_drawn_unit == 4){
+        QPoint p = calculations()->point_circle_for_res();
+        std::cout << p.x() << ":" << p.y() << std::endl;
+        contents[i]->draw(point + p);
+      } else if (count_drawn_unit == 5) {
+        QPoint p = calculations()->point_circle_for_mod();
+        std::cout << p.x() << ":" << p.y() << std::endl;
+        contents[i]->draw(point + p);
+      }
+      count_drawn_unit++;
+    }
+}
+
+QWidget* Cell::window() const
+{
+  return map->window();
+}
+
+
+Calculations* Cell::calculations() const
+{
+  return map->calculations();
 }
