@@ -5,12 +5,31 @@ enum Contents
 {
   Resource,
   Unit,
-  Modification
+  Building
 };
 
 enum Units
 {
   Worker
+};
+
+enum Landscapes
+{
+  Ocean,
+  Coast,
+  Plain,
+  Mountain,
+  Hills
+};
+
+enum Resources
+{
+  res
+};
+
+enum Buildings
+{
+  build
 };
 
 #endif // ENUMS_H

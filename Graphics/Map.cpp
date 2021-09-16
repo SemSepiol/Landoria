@@ -16,7 +16,7 @@ void Map::do_cells()
 //  std::cout << cells.size() << std::endl;
   for(int i{0}; i < c_cell_y; ++i)
   {
-    std::cout << cells.size() << std::endl;
+//    std::cout << cells.size() << std::endl;
     cells.push_back(std::vector<std::unique_ptr<Cell>>());
     for(int j{0}; j < c_cell_x; ++j)
       cells[i].push_back(std::unique_ptr<Cell>{new Cell{this}});
@@ -56,3 +56,9 @@ Calculations* Map::calculations() const
 {
   return game_controller->calculations();
 }
+
+Cell* Map::cell_by_index(size_t x, size_t y)
+{
+  return cells[y][x].get();
+}
+

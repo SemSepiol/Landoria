@@ -17,8 +17,16 @@ public:
 
   void show();
   virtual void paintEvent(QPaintEvent* event) override;
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
+  virtual void mousePressEvent(QMouseEvent *event) override;
+  virtual void mouseReleaseEvent(QMouseEvent *event) override;
+  virtual void wheelEvent(QWheelEvent *event) override;
+  virtual void resizeEvent(QResizeEvent *event) override;
 private:
   IGame* game_controller;
+
+  QPoint pos_mouse{-1, -1};
+  bool mouse_is_moved = false;
 };
 
 #endif // GAME_WINDOW_H

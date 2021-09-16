@@ -9,6 +9,7 @@
 #include "Calculations.h"
 #include "../Graphics/GameWindow.h"
 #include "../Graphics/Map.h"
+#include "../Graphics/Cell.h"
 
 class Game : IGame
 {
@@ -27,13 +28,22 @@ public:
   virtual int height_map() const override;
 
   virtual void draw_map() override;
+  virtual void move_map(QPoint move_point) override;
+  virtual void resize_map(double coefficient) override;
+  virtual void resize_win(const QSize& new_size) override;
+  void do_size_map();
 private:
   QPoint center_window() const;
 
+  void do_contents();
+
   int _height_win;
   int _width_win;
+  int _height_map;
+  int _width_map;
   int num_cell_x;
   int num_cell_y;
+  QPoint map_center;
 
   std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<Map> map;

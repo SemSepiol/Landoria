@@ -10,7 +10,8 @@
 #include "IContent.h"
 #include "../Controller/Enums.h"
 #include "../Controller/Calculations.h"
-#include "../Controller/FactoryContents.h"
+#include "Units/Worker.h"
+//#include "../Controller/ControlContents.h"
 
 class Cell : public ICell
 {
@@ -24,6 +25,37 @@ public:
 private:
   IMap* map;
   std::vector<std::unique_ptr<IContent>> contents;
+  Landscapes landscape;
+
+  friend class ControlContents;
+};
+
+
+class ControlContents : public IObject
+{
+
+public:
+  ControlContents(Cell* cell) : cell{cell}{}
+
+  void set_landscape(Landscapes type_landscape);
+  void add_resource(Resources type_resource);
+  void add_building(Buildings type_building);
+  void add_unit(Units type_unit);
+
+  void del_content(IContent* content);
+
+  Landscapes get_landscapes() const;
+  Resources get_resource() const;
+  Buildings get_building() const;
+  std::vector<Units> get_units() const;
+
+  bool has_resource() const;
+  bool has_building() const;
+  int count_units();
+
+  virtual ~ControlContents() {}
+private:
+  Cell* cell;
 };
 
 #endif // CELL_H

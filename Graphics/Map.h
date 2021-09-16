@@ -25,6 +25,8 @@ public:
 
   virtual ~Map() override {}
 
+  Cell* cell_by_index(size_t x, size_t y);
+
 private:
   IGame* game_controller;
   std::vector<std::vector<std::unique_ptr<Cell>>> cells;

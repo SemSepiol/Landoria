@@ -2,6 +2,7 @@
 #define IGAME_H
 
 #include <QWidget>
+#include <QPoint>
 #include <QSize>
 
 #include "../IObject.h"
@@ -22,6 +23,9 @@ public:
   virtual int height_map() const = 0;
 
   virtual void draw_map() = 0;
+  virtual void move_map(QPoint move_point) = 0;
+  virtual void resize_map(double coefficient) = 0;
+  virtual void resize_win(const QSize& new_size) = 0;
 protected:
   IGame(){}
 };
