@@ -24,12 +24,12 @@ enum Landscapes
 
 enum Resources
 {
-  res
+  Iron
 };
 
 enum Buildings
 {
-  build
+  Town
 };
 
 #endif // ENUMS_H

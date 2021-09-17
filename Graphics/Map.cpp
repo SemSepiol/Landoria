@@ -1,7 +1,18 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(IGame* game)
+CubicCoordinates::CubicCoordinates(int a, int b)
+{
+  x = a;
+  y = static_cast<int>(round(b*sqrt(3)/2)) + a/2;
+  z = static_cast<int>(round(b*sqrt(3)/2)) + a/2;
+}
+
+CubicCoordinates::CubicCoordinates(int _x, int _y, int _z)
+  :x{_x}, y{_y}, z{_z}
+{}
+
+Map::Map(IGameForMap* game)
   :IMap{}, game_controller{game}
 {
 
@@ -62,3 +73,53 @@ Cell* Map::cell_by_index(size_t x, size_t y)
   return cells[y][x].get();
 }
 
+IContent* Map::click(QPoint pos)
+{
+//  Calculations* calc = calculations();
+//  QPoint p_certer_cell;
+//  int index_x_center_cell = game_controller->count_cell_x() / 2 - 1;
+//  int index_y_center_cell = game_controller->count_cell_y() / 2 - 1;
+//  if (game_controller->count_cell_y() % 2 == 1)
+//  {
+//    index_y_center_cell++;
+//  }
+//  if (game_controller->count_cell_x() % 2 == 1)
+//  {
+//    index_x_center_cell++;
+//    pos += QPoint{calc->hexagon_height()/2,0};
+//  }
+//  else
+//    pos += QPoint{int(calc->hexagon_height()*1.5),0};
+
+//  int cub_index_x_center_cell = index_x_center_cell - index_y_center_cell/2;
+//  if (game_controller->count_cell_y() % 2 == 0)
+//    cub_index_x_center_cell--;
+
+//  int cub_index_y_center_cell = index_y_center_cell;
+//  std::cout << cub_index_x_center_cell << " " << cub_index_y_center_cell << std::endl;
+
+//  CubicCoordinates ccoord{pos.x(), pos.y()};
+//  int cub_index_y = coord_to_cub_index(ccoord.y);
+
+//  int cub_i = cub_index_y_center_cell + cub_index_y;
+
+//  int cub_index_x = coord_to_cub_index(pos.x() - calc->my_round(cub_index_y*calc->hexagon_height()));
+//  int cub_j = cub_index_x_center_cell + cub_index_x;
+
+
+//  std::cout << cub_index_x << " " << cub_index_y << std::endl;
+//  std::cout << cub_j << " " << cub_i << std::endl;
+//  std::cout << "---------" << std::endl;
+}
+
+int Map::sign(int a)
+{
+  if (!a)
+    return 0;
+  return (a>0) ? 1:-1;
+}
+
+int Map::coord_to_cub_index(int a)
+{
+  return (a/calculations()->hexagon_height()+sign(a)) / 2;
+}

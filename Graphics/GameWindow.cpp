@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 #include <iostream>
 
-GameWindow::GameWindow(IGame* game)
+GameWindow::GameWindow(IGameForWindow* game)
   : QWidget(), game_controller{game}
 {}
 
@@ -39,7 +39,7 @@ void GameWindow::mousePressEvent(QMouseEvent* event)
 void GameWindow::mouseReleaseEvent(QMouseEvent* event)
 {
   if(!mouse_is_moved)
-    std::cout << "ok" << std::endl;
+    game_controller->click(event->pos());
   mouse_is_moved = false;
 }
 

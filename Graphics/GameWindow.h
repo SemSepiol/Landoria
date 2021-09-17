@@ -11,7 +11,7 @@ class GameWindow : public QWidget
 {
   const QPoint _p_win = QPoint{0,0};
 public:
-  GameWindow(IGame* game);
+  GameWindow(IGameForWindow* game);
 
   ~GameWindow() override;
 
@@ -23,7 +23,7 @@ public:
   virtual void wheelEvent(QWheelEvent *event) override;
   virtual void resizeEvent(QResizeEvent *event) override;
 private:
-  IGame* game_controller;
+  IGameForWindow* game_controller;
 
   QPoint pos_mouse{-1, -1};
   bool mouse_is_moved = false;

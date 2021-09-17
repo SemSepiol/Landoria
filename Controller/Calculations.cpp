@@ -76,7 +76,7 @@ QPoint Calculations::point_circle_for_res()
   return {-hexagon_height()/3, side/2};
 }
 
-QPoint Calculations::point_circle_for_mod()
+QPoint Calculations::point_circle_for_build()
 {
   return {hexagon_height()/3, side/2};
 }

@@ -31,7 +31,7 @@ public:
 
   QPoint point_circle_for_unit(int num_unit);
   QPoint point_circle_for_res();
-  QPoint point_circle_for_mod();
+  QPoint point_circle_for_build();
 
   int circle_radius();
 

@@ -8,10 +8,18 @@
 #include "IMap.h"
 #include "ICell.h"
 #include "IContent.h"
+
 #include "../Controller/Enums.h"
 #include "../Controller/Calculations.h"
+
+#include "Units/IUnit.h"
 #include "Units/Worker.h"
-//#include "../Controller/ControlContents.h"
+
+#include "Resources/IRes.h"
+#include "Resources/Iron.h"
+
+#include "Buildings/IBuilding.h"
+#include "Buildings/Town.h"
 
 class Cell : public ICell
 {
@@ -33,7 +41,6 @@ private:
 
 class ControlContents : public IObject
 {
-
 public:
   ControlContents(Cell* cell) : cell{cell}{}
 

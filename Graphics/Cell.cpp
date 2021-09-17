@@ -33,22 +33,23 @@ void Cell::draw(QPoint point)
 
   int count_drawn_unit = 0;
   for(size_t i{0}; i < contents.size(); ++i)
+  {
     if(contents[i]->what_content_I() == Contents::Unit){
       if (count_drawn_unit < 4){
         QPoint p = calculations()->point_circle_for_unit(count_drawn_unit);
-//        std::cout << p.x() << ":" << p.y() << std::endl;
-        contents[i]->draw(point + p);
-      } else if (count_drawn_unit == 4){
-        QPoint p = calculations()->point_circle_for_res();
-//        std::cout << p.x() << ":" << p.y() << std::endl;
-        contents[i]->draw(point + p);
-      } else if (count_drawn_unit == 5) {
-        QPoint p = calculations()->point_circle_for_mod();
-//        std::cout << p.x() << ":" << p.y() << std::endl;
         contents[i]->draw(point + p);
       }
       count_drawn_unit++;
     }
+    else if (contents[i]->what_content_I() == Contents::Resource){
+        QPoint p = calculations()->point_circle_for_res();
+        contents[i]->draw(point + p);
+    }
+    else if (contents[i]->what_content_I() == Contents::Building) {
+        QPoint p = calculations()->point_circle_for_build();
+        contents[i]->draw(point + p);
+    }
+  }
 }
 
 QWidget* Cell::window() const
@@ -69,12 +70,14 @@ void ControlContents::set_landscape(Landscapes type_landscape)
 
 void ControlContents::add_resource(Resources type_resource)
 {
-
+  if (type_resource == Resources::Iron)
+    cell->contents.push_back(std::unique_ptr<IContent>{new class Iron(cell)});
 }
 
 void ControlContents::add_building(Buildings type_building)
 {
-
+  if (type_building == Buildings::Town)
+    cell->contents.push_back(std::unique_ptr<IContent>{new class Town(cell)});
 }
 
 void ControlContents::add_unit(Units type_unit)
@@ -101,16 +104,22 @@ Resources ControlContents::get_resource() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
     if(cell->contents[i]->what_content_I() == Contents::Resource)
-      return Resources::res; // тут нужный ресурс
+    {
+      IRes* res = static_cast<IRes*>(cell->contents[i].get());
+      res->what_resource_I();
+    }
   throw std::runtime_error("Hasn't got resource");
 }
 
 Buildings ControlContents::get_building() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Resource)
-      return Buildings::build; // тут нужные здание
-  throw std::runtime_error("Hasn't got resource");
+    if(cell->contents[i]->what_content_I() == Contents::Building)
+    {
+      IBuilding* building = static_cast<IBuilding*>(cell->contents[i].get());
+      building->what_building_I();
+    }
+  throw std::runtime_error("Hasn't got building");
 }
 
 std::vector<Units> ControlContents::get_units() const
