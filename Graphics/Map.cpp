@@ -22,40 +22,21 @@ void Map::do_cells()
 {
   int c_cell_x = game_controller->count_cell_x();
   int c_cell_y = game_controller->count_cell_y();
-//  std::cout << "cell_x " << c_cell_x << std::endl;
-//  std::cout << "cell_y " << c_cell_y << std::endl;
-//  std::cout << cells.size() << std::endl;
   for(int i{0}; i < c_cell_y; ++i)
   {
-//    std::cout << cells.size() << std::endl;
     cells.push_back(std::vector<std::unique_ptr<Cell>>());
     for(int j{0}; j < c_cell_x; ++j)
-      cells[i].push_back(std::unique_ptr<Cell>{new Cell{this}});
+      cells[size_t(i)].push_back(std::unique_ptr<Cell>{new Cell{this}});
   }
 }
 
 void Map::draw(QPoint point)
 {
-//  std::cout << "m " << point.x() << " " << point.y() << std::endl;
-  Calculations* calc = game_controller->calculations();
+  point -= QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
 
-  QPoint cell_point_start = point - QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
-  QPoint cell_point = cell_point_start;
   for(size_t i{0}; i < cells.size(); ++i)
-  {
-    cell_point = cell_point_start;
-    int y = int(i+1)*calc->hexagon_side() + int(i)*calc->hexagon_side()/2;
-    if (i % 2 == 0)
-      cell_point += QPoint{calc->hexagon_height(), y};
-    else
-      cell_point += QPoint{calc->hexagon_height()*2, y};
-
     for(size_t j{0}; j < cells[i].size(); ++j)
-    {
-      cells[i][j]->draw(cell_point);
-      cell_point += QPoint{calc->hexagon_height()*2, 0};
-    }
-  }
+      cells[i][j]->draw(point_of_cell(j, i) + point);
 }
 
 QWidget* Map::window() const
@@ -73,43 +54,17 @@ Cell* Map::cell_by_index(size_t x, size_t y)
   return cells[y][x].get();
 }
 
-IContent* Map::click(QPoint pos)
+std::pair<Cell*, IContent*> Map::click(QPoint pos)
 {
-//  Calculations* calc = calculations();
-//  QPoint p_certer_cell;
-//  int index_x_center_cell = game_controller->count_cell_x() / 2 - 1;
-//  int index_y_center_cell = game_controller->count_cell_y() / 2 - 1;
-//  if (game_controller->count_cell_y() % 2 == 1)
-//  {
-//    index_y_center_cell++;
-//  }
-//  if (game_controller->count_cell_x() % 2 == 1)
-//  {
-//    index_x_center_cell++;
-//    pos += QPoint{calc->hexagon_height()/2,0};
-//  }
-//  else
-//    pos += QPoint{int(calc->hexagon_height()*1.5),0};
+  auto pair = point_to_indexes_cell(pos);
+  size_t i = pair.first;
+  size_t j = pair.second;
+  if (i == size_t(game_controller->count_cell_y()))
+    return {nullptr, nullptr};
 
-//  int cub_index_x_center_cell = index_x_center_cell - index_y_center_cell/2;
-//  if (game_controller->count_cell_y() % 2 == 0)
-//    cub_index_x_center_cell--;
-
-//  int cub_index_y_center_cell = index_y_center_cell;
-//  std::cout << cub_index_x_center_cell << " " << cub_index_y_center_cell << std::endl;
-
-//  CubicCoordinates ccoord{pos.x(), pos.y()};
-//  int cub_index_y = coord_to_cub_index(ccoord.y);
-
-//  int cub_i = cub_index_y_center_cell + cub_index_y;
-
-//  int cub_index_x = coord_to_cub_index(pos.x() - calc->my_round(cub_index_y*calc->hexagon_height()));
-//  int cub_j = cub_index_x_center_cell + cub_index_x;
-
-
-//  std::cout << cub_index_x << " " << cub_index_y << std::endl;
-//  std::cout << cub_j << " " << cub_i << std::endl;
-//  std::cout << "---------" << std::endl;
+  pos += QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
+  pos -= point_of_cell(j, i);
+  return {cells[i][j].get(), cells[i][j]->click(pos)};
 }
 
 int Map::sign(int a)
@@ -122,4 +77,27 @@ int Map::sign(int a)
 int Map::coord_to_cub_index(int a)
 {
   return (a/calculations()->hexagon_height()+sign(a)) / 2;
+}
+
+std::pair<size_t, size_t> Map::point_to_indexes_cell(QPoint pos)
+{
+  pos += QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
+  for(size_t i{0}; i < size_t(game_controller->count_cell_x()); ++i)
+    for(size_t j{0}; j < size_t(game_controller->count_cell_y()); ++j)
+      if(calculations()->point_in_hexagon(pos - point_of_cell(i, j)))
+        return {j, i};
+  return {game_controller->count_cell_y(), game_controller->count_cell_x()};
+}
+
+QPoint Map::point_of_cell(size_t ind_x, size_t ind_y)
+{
+  Calculations* calc = calculations();
+
+  int y = int(ind_y+1)*calc->hexagon_side() + int(ind_y)*calc->hexagon_side()/2;
+  QPoint cell_point{calc->hexagon_height(), y};
+  if (ind_y % 2 == 1)
+    cell_point += QPoint{calc->hexagon_height(), 0};
+
+  cell_point += QPoint{calc->hexagon_height()*2*int(ind_x), 0};
+  return cell_point;
 }

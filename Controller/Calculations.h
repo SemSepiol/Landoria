@@ -16,8 +16,21 @@ public:
   int hexagon_height();
   int hexagon_side();
 
+  // точка указывается относительно центра
+  bool point_in_hexagon(QPoint point);
 
-//функции возвращающие вершины относительно центра, число - градусы от вертикали вверх
+  /*
+   * точка указывается относительно центра,
+   * выдает номер окружности:
+   * 0-3: номера окружностей юнитов
+   * 4:   номер окружности ресурса
+   * 5:   номер окружности строения
+   * если точка не в окружностях, то выдает -1
+  */
+  int point_in_circle(QPoint point);
+
+
+  // функции возвращающие вершины относительно центра, число - градусы от вертикали вверх
   QPoint point_0();
   QPoint point_60();
   QPoint point_120();
@@ -25,10 +38,8 @@ public:
   QPoint point_240();
   QPoint point_300();
 
-// функции возвращающие центры окружности относительно центра,
-// число - градусы от вертикали вверх
-
-
+  // функции возвращающие центры окружности относительно центра,
+  // число - градусы от вертикали вверх
   QPoint point_circle_for_unit(int num_unit);
   QPoint point_circle_for_res();
   QPoint point_circle_for_build();
@@ -36,6 +47,10 @@ public:
   int circle_radius();
 
 private:
+  typedef std::pair<QPoint, QPoint> pair_of_QPoint;
+  int vector_product(pair_of_QPoint v1, pair_of_QPoint v2);
+  bool check_intersect_of_vectors(pair_of_QPoint v1, pair_of_QPoint v2);
+
   int side = 0;
 };
 

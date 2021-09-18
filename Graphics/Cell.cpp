@@ -63,6 +63,50 @@ Calculations* Cell::calculations() const
   return map->calculations();
 }
 
+IContent* Cell::click(QPoint pos)
+{
+  int num_circle = calculations()->point_in_circle(pos);
+
+  if (num_circle == -1)
+    return nullptr;
+
+  ControlContents control_contents{this};
+
+  if (num_circle < 4)
+  {
+    if (control_contents.count_units() < num_circle+1)
+      return nullptr;
+
+    int counter = 0;
+    for(size_t j{0}; j < contents.size(); ++j)
+      if(contents[j]->what_content_I() == Contents::Unit)
+        if(++counter == num_circle+1)
+          return contents[j].get();
+  }
+
+  if(num_circle == 4)
+  {
+    if (!control_contents.has_resource())
+      return nullptr;
+
+    for(size_t j{0}; j < contents.size(); ++j)
+      if(contents[j]->what_content_I() == Contents::Resource)
+        return contents[j].get();
+  }
+
+  if(num_circle == 5)
+  {
+    if (!control_contents.has_building())
+      return nullptr;
+
+    for(size_t j{0}; j < contents.size(); ++j)
+      if(contents[j]->what_content_I() == Contents::Building)
+        return contents[j].get();
+  }
+
+  throw std::runtime_error("Can't find content");
+}
+
 void ControlContents::set_landscape(Landscapes type_landscape)
 {
   cell->landscape = type_landscape;

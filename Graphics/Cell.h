@@ -30,6 +30,11 @@ public:
   virtual void draw(QPoint point) override;
   virtual QWidget* window() const override;
   virtual Calculations* calculations() const override;
+
+  // точка относительно центра клетки
+  IContent* click(QPoint pos);
+
+
 private:
   IMap* map;
   std::vector<std::unique_ptr<IContent>> contents;

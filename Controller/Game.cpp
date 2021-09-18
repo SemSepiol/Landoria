@@ -4,8 +4,8 @@
 Game::Game()
   :game_window{new GameWindow(this)}, map{new Map(this)}, calc{new Calculations{}}
 {
-  num_cell_x = 4;
-  num_cell_y = 5;
+  num_cell_x = 20;
+  num_cell_y = 20;
   calc->set_side(130);
 
   _height_win = 1000;
@@ -148,9 +148,18 @@ void Game::resize_win(const QSize& new_size)
 
 void Game::click(QPoint pos)
 {
-  std::cout << (pos - map_center).x() << " " << (pos - map_center).y() << std::endl;
-  std::cout << "=====" << std::endl;
-  IContent* content = map->click(pos - map_center);
+//  std::cout << (pos - map_center).x() << " " << (pos - map_center).y() << std::endl;
+//  std::cout << "=====" << std::endl;
+  auto pair = map->click(pos - map_center);
+  Cell* cell = pair.first;
+  IContent* content = pair.second;
+
+//  if (!cell)
+//    std::cout << "No cell" << std::endl;
+//  if (content)
+//    std::cout << content->what_content_I() << std::endl;
+//  else
+//    std::cout << "No content" << std::endl;
 }
 
 void Game::do_size_map()

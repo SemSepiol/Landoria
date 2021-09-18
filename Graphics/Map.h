@@ -34,11 +34,19 @@ public:
   virtual ~Map() override {}
 
   Cell* cell_by_index(size_t x, size_t y);
-  IContent* click(QPoint pos);
+  std::pair<Cell*, IContent*> click(QPoint pos);
 
 private:
   int sign(int a);
   int coord_to_cub_index(int a);
+
+  // выдает индекс в массиве клетки,
+  // если точка не в клетки, то выдает {count_cell_y(), count_cell_x()}
+  std::pair<size_t, size_t> point_to_indexes_cell(QPoint pos);
+
+  // точка центра клетки относительно левого верхнего угла
+  QPoint point_of_cell(size_t ind_x, size_t ind_y);
+
   IGameForMap* game_controller;
   std::vector<std::vector<std::unique_ptr<Cell>>> cells;
 };

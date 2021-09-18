@@ -47,7 +47,7 @@ void GameWindow::wheelEvent(QWheelEvent* event)
 {
   int angle_delta = event->angleDelta().y();
   double coefficient = 1. + angle_delta*1./1000;
-  std::cout << coefficient << std::endl;
+//  std::cout << coefficient << std::endl;
   game_controller->resize_map(coefficient);
 }
 
