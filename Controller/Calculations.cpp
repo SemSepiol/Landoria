@@ -27,8 +27,7 @@ int Calculations::hexagon_side()
 
 bool Calculations::point_in_hexagon(QPoint p)
 {
-  int r = my_round(std::sqrt(p.x()*p.x() + p.y()*p.y()));
-  if (r > side)
+  if (abs(p.x()) >= hexagon_height() || abs(p.y()) >= hexagon_side())
     return false;
 
   pair_of_QPoint vector{QPoint(0,0), p};

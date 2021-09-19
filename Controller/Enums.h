@@ -10,7 +10,8 @@ enum Contents
 
 enum Units
 {
-  Worker
+  Worker,
+  Citizen
 };
 
 enum Landscapes
@@ -24,7 +25,9 @@ enum Landscapes
 
 enum Resources
 {
-  Iron
+  Iron,
+  Gold,
+  Stone
 };
 
 enum Buildings
