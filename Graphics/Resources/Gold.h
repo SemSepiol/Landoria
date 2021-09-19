@@ -1,24 +1,15 @@
 #ifndef GOLD_H
 #define GOLD_H
 
-#include <QPainter>
-
-#include "IRes.h"
+#include "Res.h"
 #include "../../Controller/Enums.h"
-#include "../ICell.h"
 
-class Gold : public IRes
+class Gold : public Res
 {
 public:
-  Gold(ICell* cell) : cell{cell}{}
-
-  virtual void draw(QPoint point) override;
-  virtual QWidget* window() const override;
-  virtual Calculations* calculations() const override;
+  Gold(ICell* cell) : Res{cell}{}
   virtual Resources what_resource_I() const override { return Resources::Gold; }
-
-private:
-  ICell* cell;
+  virtual ~Gold() override {}
 };
 
 #endif // GOLD_H

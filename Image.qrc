@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Graphics/image/resources/Aluminum.png</file>
+        <file>Graphics/image/resources/Coal.png</file>
+        <file>Graphics/image/resources/Gold.png</file>
+        <file>Graphics/image/resources/Horses.png</file>
+        <file>Graphics/image/resources/Iron.png</file>
+        <file>Graphics/image/resources/Oil.png</file>
+        <file>Graphics/image/resources/Stone.png</file>
+        <file>Graphics/image/resources/Uranium.png</file>
+        <file>Graphics/image/resources/Fish.png</file>
+        <file>Graphics/image/resources/Silver.png</file>
+    </qresource>
+</RCC>

@@ -1,4 +1,4 @@
-#include "FubricBuild.h"
+#include "FactoryBuild.h"
 
 
 IContent* FubricBuild::CreateBuilding(Buildings type_build, ICell *cell) const
@@ -7,8 +7,7 @@ IContent* FubricBuild::CreateBuilding(Buildings type_build, ICell *cell) const
     {
     case Buildings::Town:
         return new class Town(cell);
-
     default:
-        throw std::runtime_error("This unit doesn't exist");
+        throw std::runtime_error("This build doesn't exist");
     }
 }

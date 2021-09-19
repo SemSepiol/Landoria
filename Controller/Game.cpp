@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <random>
 
 Game::Game()
   :game_window{new GameWindow(this)}, map{new Map(this)}, calc{new Calculations{}}
@@ -173,12 +174,13 @@ void Game::do_contents()
   for(int i{0}; i < num_cell_x; ++i)
     for(int j{0}; j < num_cell_y; ++j)
     {
-      ControlContents controlcontents{map->cell_by_index(i,j)};
+      ControlContents controlcontents{map->cell_by_index(size_t(i), size_t(j))};
       controlcontents.add_unit(Units::Worker);
       controlcontents.add_unit(Units::Worker);
       controlcontents.add_unit(Units::Worker);
       controlcontents.add_unit(Units::Worker);
-      controlcontents.add_resource(Resources::Iron);
+      controlcontents.add_resource(Resources(rand() % 10));
+//      controlcontents.add_resource(Resources::Aluminum);
       controlcontents.add_building(Buildings::Town);
     }
 //  ControlContents controlcontents{map->cell_by_index(num_cell_x/2-1, num_cell_y/2)};

@@ -114,8 +114,7 @@ void ControlContents::set_landscape(Landscapes type_landscape)
 
 void ControlContents::add_resource(Resources type_resource)
 {
-  if (type_resource == Resources::Iron)
-    cell->contents.push_back(std::unique_ptr<IContent>{new class Iron(cell)});
+  cell->contents.push_back(std::unique_ptr<IContent>{FubricRes().create_res(type_resource, cell)});
 }
 
 void ControlContents::add_building(Buildings type_building)

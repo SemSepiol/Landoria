@@ -27,7 +27,14 @@ enum Resources
 {
   Iron,
   Gold,
-  Stone
+  Stone,
+  Aluminum,
+  Horses,
+  Oil,
+  Uranium,
+  Coal,
+  Fish,
+  Silver
 };
 
 enum Buildings

@@ -12,14 +12,9 @@
 #include "../Controller/Enums.h"
 #include "../Controller/Calculations.h"
 
-#include "Units/IUnit.h"
-#include "Units/Worker.h"
-
-#include "Resources/IRes.h"
-#include "Resources/Iron.h"
-
-#include "Buildings/IBuilding.h"
-#include "Buildings/Town.h"
+#include "Fubrics/FactoryBuild.h"
+#include "Fubrics/FactoryUnits.h"
+#include "Fubrics/FactoryRes.h"
 
 class Cell : public ICell
 {
