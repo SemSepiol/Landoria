@@ -7,12 +7,14 @@
 
 #include "../Units/Worker.h"
 #include "../Units/Citizen.h"
+#include "../Units/Swordsman.h"
+#include "../Units/Bowman.h"
 
 
 class FubricUnits : public QObject
 {
  public:
-  IContent* CreateUnit(Units type_unit, ICell* cell) const;
+  IContent* create_unit(Units type_unit, ICell* cell) const;
 };
 
 

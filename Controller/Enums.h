@@ -11,7 +11,9 @@ enum Contents
 enum Units
 {
   Worker,
-  Citizen
+  Citizen,
+  Bowman,
+  Swordsman
 };
 
 enum Landscapes

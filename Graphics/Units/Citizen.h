@@ -1,24 +1,16 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#include <QPainter>
-
-#include "IUnit.h"
+#include "Unit.h"
 #include "../../Controller/Enums.h"
 #include "../ICell.h"
 
-class Citizen : public IUnit
+class Citizen : public Unit
 {
 public:
-  Citizen(ICell* cell) : cell{cell}{}
-
-  virtual void draw(QPoint point) override;
-  virtual QWidget* window() const override;
-  virtual Calculations* calculations() const override;
+  Citizen(ICell* cell) : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Citizen; }
 
-private:
-  ICell* cell;
 };
 
 #endif // CITIZEN_H

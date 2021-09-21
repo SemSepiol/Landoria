@@ -176,9 +176,9 @@ void Game::do_contents()
     {
       ControlContents controlcontents{map->cell_by_index(size_t(i), size_t(j))};
       controlcontents.add_unit(Units::Worker);
-      controlcontents.add_unit(Units::Worker);
-      controlcontents.add_unit(Units::Worker);
-      controlcontents.add_unit(Units::Worker);
+      controlcontents.add_unit(Units::Citizen);
+      controlcontents.add_unit(Units::Swordsman);
+      controlcontents.add_unit(Units::Bowman);
       controlcontents.add_resource(Resources(rand() % 10));
 //      controlcontents.add_resource(Resources::Aluminum);
       controlcontents.add_building(Buildings::Town);

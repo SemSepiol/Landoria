@@ -13,8 +13,7 @@ SOURCES += \
         Graphics/GameWindow.cpp \
         Graphics/Map.cpp \
         Graphics/Resources/Res.cpp \
-        Graphics/Units/Citizen.cpp \
-        Graphics/Units/Worker.cpp \
+        Graphics/Units/Unit.cpp \
         main.cpp \
         Controller/Game.cpp
 
@@ -49,12 +48,15 @@ HEADERS += \
     Graphics/Resources/Silver.h \
     Graphics/Resources/Stone.h \
     Graphics/Resources/Uranium.h \
+    Graphics/Units/Bowman.h \
     Graphics/Units/Citizen.h \
     Graphics/Units/IUnit.h \
+    Graphics/Units/Swordsman.h \
+    Graphics/Units/Unit.h \
     Graphics/Units/Worker.h \
     IObject.h \
     Controller/Game.h \
     Controller/IGame.h
 
 RESOURCES += \
-    Image.qrc
+    Images.qrc

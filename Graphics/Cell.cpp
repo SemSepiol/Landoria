@@ -125,8 +125,7 @@ void ControlContents::add_building(Buildings type_building)
 
 void ControlContents::add_unit(Units type_unit)
 {
-  if (type_unit == Units::Worker)
-    cell->contents.push_back(std::unique_ptr<IContent>{new class Worker(cell)});
+  cell->contents.push_back(std::unique_ptr<IContent>{FubricUnits().create_unit(type_unit, cell)});
 }
 
 

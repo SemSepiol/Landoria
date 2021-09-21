@@ -14,7 +14,8 @@ public:
 
 private:
   const QString image_path {":/Graphics/image/"};
-  const QString resource_dir {"resources/"};
+  const QString resources_dir {"resources/"};
+  const QString units_dir {"units/"};
 };
 
 #endif // FACTORYPIXMAP_H
