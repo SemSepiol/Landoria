@@ -32,11 +32,30 @@ void Map::do_cells()
 
 void Map::draw(QPoint point)
 {
-  point -= QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
+  Calculations* calc = calculations();
+  int height_win_map = game_controller->height_win_map();
+  int width_win_map = game_controller->width_win_map();
+
+  QPoint corner_of_map_win = game_controller->win_map_center() -
+      QPoint{width_win_map/2, height_win_map/2};
+
+  QPoint corner_of_map = point -
+      QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
 
   for(size_t i{0}; i < cells.size(); ++i)
     for(size_t j{0}; j < cells[i].size(); ++j)
-      cells[i][j]->draw(point_of_cell(j, i) + point);
+    {
+      QPoint cell_point = point_of_cell(j, i) + corner_of_map;
+      if (cell_point.x() + calc->hexagon_height() < corner_of_map_win.x())
+        continue;
+      if (cell_point.x() - calc->hexagon_height() > corner_of_map_win.x() + width_win_map)
+        continue;
+      if (cell_point.y() + calc->hexagon_side() < corner_of_map_win.y())
+        continue;
+      if (cell_point.y() - calc->hexagon_side() > corner_of_map_win.y() + height_win_map)
+        continue;
+      cells[i][j]->draw(cell_point);
+    }
 }
 
 QWidget* Map::window() const

@@ -17,8 +17,6 @@ void Cell::draw(QPoint point)
   QPoint p5 = point - calc->point_240();
   QPoint p6 = point - calc->point_300();
 
-
-
   QWidget* win = window();
   QPainter qp(win);
 
@@ -31,6 +29,19 @@ void Cell::draw(QPoint point)
   qp.drawLine(p5, p6);
   qp.drawLine(p6, p1);
 
+
+  QPixmap pixmap = FactoryPixmap().create_pixmap_for_landscape(landscape);
+  QRectF source{0., 0., 500., 500.};
+  QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
+        calc->hexagon_side()*2., calc->hexagon_side()*2.};
+  qp.drawPixmap(target, pixmap, source);
+
+  if (landscape == Landscapes::Plain || landscape == Landscapes::Tundra)
+  {
+    QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_forest();
+    qp.drawPixmap(target, pixmap2, source);
+  }
+
   int count_drawn_unit = 0;
   for(size_t i{0}; i < contents.size(); ++i)
   {
@@ -42,12 +53,12 @@ void Cell::draw(QPoint point)
       count_drawn_unit++;
     }
     else if (contents[i]->what_content_I() == Contents::Resource){
-        QPoint p = calculations()->point_circle_for_res();
-        contents[i]->draw(point + p);
+      QPoint p = calculations()->point_circle_for_res();
+      contents[i]->draw(point + p);
     }
     else if (contents[i]->what_content_I() == Contents::Building) {
-        QPoint p = calculations()->point_circle_for_build();
-        contents[i]->draw(point + p);
+      QPoint p = calculations()->point_circle_for_build();
+      contents[i]->draw(point + p);
     }
   }
 }
@@ -119,8 +130,7 @@ void ControlContents::add_resource(Resources type_resource)
 
 void ControlContents::add_building(Buildings type_building)
 {
-  if (type_building == Buildings::Town)
-    cell->contents.push_back(std::unique_ptr<IContent>{new class Town(cell)});
+  cell->contents.push_back(std::unique_ptr<IContent>{FubricBuild().create_building(type_building, cell)});
 }
 
 void ControlContents::add_unit(Units type_unit)

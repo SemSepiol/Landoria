@@ -34,6 +34,7 @@ public:
   virtual int height_map() const = 0;
   virtual int width_win_map() const = 0;
   virtual int height_win_map() const = 0;
+  virtual QPoint win_map_center() const = 0;
 };
 
 #endif // IGAME_H

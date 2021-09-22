@@ -6,7 +6,7 @@
 
 #include "IRes.h"
 #include "../ICell.h"
-#include "../Fubrics/FactoryPixmap.h"
+#include "../Factories/FactoryPixmap.h"
 
 class Res : public IRes
 {

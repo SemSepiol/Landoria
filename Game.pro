@@ -4,12 +4,12 @@ CONFIG += console c++17
 
 SOURCES += \
         Controller/Calculations.cpp \
-        Graphics/Buildings/Town.cpp \
+        Graphics/Buildings/Building.cpp \
         Graphics/Cell.cpp \
-        Graphics/Fubrics/FactoryBuild.cpp \
-        Graphics/Fubrics/FactoryPixmap.cpp \
-        Graphics/Fubrics/FactoryRes.cpp \
-        Graphics/Fubrics/FactoryUnits.cpp \
+        Graphics/Factories/FactoryBuild.cpp \
+        Graphics/Factories/FactoryPixmap.cpp \
+        Graphics/Factories/FactoryRes.cpp \
+        Graphics/Factories/FactoryUnits.cpp \
         Graphics/GameWindow.cpp \
         Graphics/Map.cpp \
         Graphics/Resources/Res.cpp \
@@ -20,13 +20,23 @@ SOURCES += \
 HEADERS += \
     Controller/Calculations.h \
     Controller/Enums.h \
+    Graphics/Buildings/Building.h \
+    Graphics/Buildings/Farm.h \
+    Graphics/Buildings/FishingBoats.h \
+    Graphics/Buildings/Fort.h \
     Graphics/Buildings/IBuilding.h \
+    Graphics/Buildings/LumberMill.h \
+    Graphics/Buildings/Mine.h \
+    Graphics/Buildings/OilWell.h \
+    Graphics/Buildings/Pasture.h \
+    Graphics/Buildings/Quarry.h \
     Graphics/Buildings/Town.h \
+    Graphics/Buildings/TradingPost.h \
     Graphics/Cell.h \
-    Graphics/Fubrics/FactoryBuild.h \
-    Graphics/Fubrics/FactoryPixmap.h \
-    Graphics/Fubrics/FactoryRes.h \
-    Graphics/Fubrics/FactoryUnits.h \
+    Graphics/Factories/FactoryBuild.h \
+    Graphics/Factories/FactoryPixmap.h \
+    Graphics/Factories/FactoryRes.h \
+    Graphics/Factories/FactoryUnits.h \
     Graphics/GameWindow.h \
     Graphics/IBuild.h \
     Graphics/ICell.h \

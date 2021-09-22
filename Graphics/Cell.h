@@ -12,9 +12,10 @@
 #include "../Controller/Enums.h"
 #include "../Controller/Calculations.h"
 
-#include "Fubrics/FactoryBuild.h"
-#include "Fubrics/FactoryUnits.h"
-#include "Fubrics/FactoryRes.h"
+#include "Factories/FactoryBuild.h"
+#include "Factories/FactoryUnits.h"
+#include "Factories/FactoryRes.h"
+#include "Factories/FactoryPixmap.h"
 
 class Cell : public ICell
 {
@@ -33,7 +34,7 @@ public:
 private:
   IMap* map;
   std::vector<std::unique_ptr<IContent>> contents;
-  Landscapes landscape;
+  Landscapes landscape = Landscapes::Plain;
 
   friend class ControlContents;
 };

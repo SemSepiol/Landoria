@@ -1,16 +1,18 @@
-#ifndef UNIT_H
-#define UNIT_H
+#ifndef BUILDING_H
+#define BUILDING_H
 
 #include <QPainter>
 
-#include "IUnit.h"
+#include "IBuilding.h"
+#include "../../Controller/Enums.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../ICell.h"
 
-class Unit : public IUnit
+class Building : public IBuilding
 {
 public:
-  Unit(ICell* cell) : cell{cell}{}
+  Building(ICell* cell) : cell{cell}{}
+
   virtual void draw(QPoint point) override;
   virtual QWidget* window() const override;
   virtual Calculations* calculations() const override;
@@ -19,4 +21,4 @@ private:
   ICell* cell;
 };
 
-#endif // UNIT_H
+#endif // BUILDING_H

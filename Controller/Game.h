@@ -28,6 +28,7 @@ public:
   virtual int height_win_map() const override;
   virtual int width_map() const override;
   virtual int height_map() const override;
+  virtual QPoint win_map_center() const override;
 
   virtual void draw_map() override;
   virtual void move_map(QPoint move_point) override;
@@ -48,7 +49,7 @@ private:
   int num_cell_x;
   int num_cell_y;
   QPoint map_center;
-  QPoint win_map_center;
+  QPoint _win_map_center;
 
   std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<Map> map;

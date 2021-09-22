@@ -16,8 +16,8 @@ Game::Game()
   _width_win_map = _width_win;
 
   do_size_map();
-  win_map_center = {_height_win/2, _width_win/2};
-  map_center = win_map_center;
+  _win_map_center = {_height_win/2, _width_win/2};
+  map_center = _win_map_center;
   map->do_cells();
   do_contents();
 }
@@ -77,6 +77,11 @@ int Game::height_map() const
   return _height_map;
 }
 
+QPoint Game::win_map_center() const
+{
+  return _win_map_center;
+}
+
 void Game::draw_map()
 {
   map->draw(map_center);
@@ -85,9 +90,9 @@ void Game::draw_map()
 void Game::move_map(QPoint move_point)
 {
   QPoint new_map_center = map_center + move_point;
-  if (abs(new_map_center.y() - win_map_center.y()) + _height_win_map/2 > _height_map/2)
+  if (abs(new_map_center.y() - _win_map_center.y()) + _height_win_map/2 > _height_map/2)
     move_point.setY(0);
-  if (abs(new_map_center.x() - win_map_center.x()) + _width_win_map/2 > _width_map/2)
+  if (abs(new_map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
     move_point.setX(0);
   map_center += move_point;
   game_window->update();
@@ -107,28 +112,28 @@ void Game::resize_map(double coefficient)
   }
   else
   {
-    if (abs(map_center.x() - win_map_center.x()) + _width_win_map/2 > _width_map/2)
+    if (abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
     {
-      QPoint move = QPoint{abs(map_center.x() - win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
-      if (map_center.x() - win_map_center.x() < 0)
+      QPoint move = QPoint{abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
+      if (map_center.x() - _win_map_center.x() < 0)
         map_center += move;
       else
         map_center -= move;
     }
 
-    if (abs(map_center.x() - win_map_center.x()) + _width_win_map/2 > _width_map/2)
+    if (abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
     {
-      QPoint move = QPoint{abs(map_center.x() - win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
-      if (map_center.x() - win_map_center.x() < 0)
+      QPoint move = QPoint{abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
+      if (map_center.x() - _win_map_center.x() < 0)
         map_center += move;
       else
         map_center -= move;
     }
 
-    if (abs(map_center.y() - win_map_center.y()) + _height_win_map/2 > _height_map/2)
+    if (abs(map_center.y() - _win_map_center.y()) + _height_win_map/2 > _height_map/2)
     {
-      QPoint move = QPoint{0, abs(map_center.y() - win_map_center.y()) + _height_win_map/2 - _height_map/2};
-      if (map_center.y() - win_map_center.y() < 0)
+      QPoint move = QPoint{0, abs(map_center.y() - _win_map_center.y()) + _height_win_map/2 - _height_map/2};
+      if (map_center.y() - _win_map_center.y() < 0)
         map_center += move;
       else
         map_center -= move;
@@ -181,7 +186,8 @@ void Game::do_contents()
       controlcontents.add_unit(Units::Bowman);
       controlcontents.add_resource(Resources(rand() % 10));
 //      controlcontents.add_resource(Resources::Aluminum);
-      controlcontents.add_building(Buildings::Town);
+      controlcontents.add_building(Buildings(rand() % 10));
+      controlcontents.set_landscape(Landscapes(rand() % 6));
     }
 //  ControlContents controlcontents{map->cell_by_index(num_cell_x/2-1, num_cell_y/2)};
 //  controlcontents.add_unit(Units::Worker);

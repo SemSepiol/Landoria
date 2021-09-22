@@ -22,7 +22,8 @@ enum Landscapes
   Coast,
   Plain,
   Mountain,
-  Hills
+  Tundra,
+  Desert
 };
 
 enum Resources
@@ -41,7 +42,16 @@ enum Resources
 
 enum Buildings
 {
-  Town
+  Town,
+  Farm,
+  FishingBoats,
+  Fort,
+  LumberMill,
+  Mine,
+  OilWell,
+  Pasture,
+  Quarry,
+  TradingPost
 };
 
 #endif // ENUMS_H

@@ -18,5 +18,26 @@
         <file>Graphics/image/units/pngegg (5).png</file>
         <file>Graphics/image/units/Swordsman.png</file>
         <file>Graphics/image/units/Worker.png</file>
+        <file>Graphics/image/building/Academy.png</file>
+        <file>Graphics/image/building/Camp.png</file>
+        <file>Graphics/image/building/Farm.png</file>
+        <file>Graphics/image/building/Fort.png</file>
+        <file>Graphics/image/building/Manufactory.png</file>
+        <file>Graphics/image/building/Mine.png</file>
+        <file>Graphics/image/building/Pasture.png</file>
+        <file>Graphics/image/building/Quarry.png</file>
+        <file>Graphics/image/building/Town.png</file>
+        <file>Graphics/image/landscapes/Plain.png</file>
+        <file>Graphics/image/landscapes/Mountain.png</file>
+        <file>Graphics/image/landscapes/Coast.png</file>
+        <file>Graphics/image/landscapes/Ocean.png</file>
+        <file>Graphics/image/landscapes/Tundra.png</file>
+        <file>Graphics/image/landscapes/Forest.png</file>
+        <file>Graphics/image/landscapes/Desert.png</file>
+        <file>Graphics/image/building/CustomsHouse.png</file>
+        <file>Graphics/image/building/FishingBoats.png</file>
+        <file>Graphics/image/building/LumberMill.png</file>
+        <file>Graphics/image/building/TradingPost.png</file>
+        <file>Graphics/image/building/OilWell.png</file>
     </qresource>
 </RCC>
