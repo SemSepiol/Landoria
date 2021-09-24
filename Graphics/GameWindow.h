@@ -6,13 +6,13 @@
 #include <QPoint>
 #include <QResizeEvent>
 #include <QPalette>
-#include "../Controller/IGame.h"
+#include "GraphicsController/IGraphicsController.h"
 
 class GameWindow : public QWidget
 {
   const QPoint _p_win = QPoint{0,0};
 public:
-  GameWindow(IGameForWindow* game);
+  GameWindow(IGraphicsControllerForWindow* game);
 
   void show();
   virtual void paintEvent(QPaintEvent* event) override;
@@ -22,7 +22,7 @@ public:
   virtual void wheelEvent(QWheelEvent *event) override;
   virtual void resizeEvent(QResizeEvent *event) override;
 private:
-  IGameForWindow* game_controller;
+  IGraphicsControllerForWindow* graphics_controller;
 
   QPoint pos_mouse{-1, -1};
   bool mouse_is_moved = false;

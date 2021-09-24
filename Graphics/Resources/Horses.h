@@ -2,7 +2,7 @@
 #define HORSES_H
 
 #include "Res.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 class Horses : public Res
 {

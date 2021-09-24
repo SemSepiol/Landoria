@@ -1,7 +1,7 @@
 #ifndef FUBRICRES_H
 #define FUBRICRES_H
 
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../ICell.h"
 #include "../IContent.h"
 

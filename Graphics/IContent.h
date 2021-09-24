@@ -1,7 +1,7 @@
 #ifndef ICONTENT_H
 #define ICONTENT_H
 
-#include "../Controller/Enums.h"
+#include "../Controllers/Enums.h"
 #include "IDrawObject.h"
 
 class IContent : public IDrawObject

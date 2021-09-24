@@ -3,7 +3,7 @@
 
 #include <QPainter>
 
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../ICell.h"
 #include "../IContent.h"

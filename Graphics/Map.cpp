@@ -12,16 +12,16 @@ CubicCoordinates::CubicCoordinates(int _x, int _y, int _z)
   :x{_x}, y{_y}, z{_z}
 {}
 
-Map::Map(IGameForMap* game)
-  :IMap{}, game_controller{game}
+Map::Map(IGraphicsControllerForMap* game)
+  :IMap{}, graphics_controller{game}
 {
 
 }
 
 void Map::do_cells()
 {
-  int c_cell_x = game_controller->count_cell_x();
-  int c_cell_y = game_controller->count_cell_y();
+  int c_cell_x = graphics_controller->count_cell_x();
+  int c_cell_y = graphics_controller->count_cell_y();
   for(int i{0}; i < c_cell_y; ++i)
   {
     cells.push_back(std::vector<std::unique_ptr<Cell>>());
@@ -33,14 +33,14 @@ void Map::do_cells()
 void Map::draw(QPoint point)
 {
   Calculations* calc = calculations();
-  int height_win_map = game_controller->height_win_map();
-  int width_win_map = game_controller->width_win_map();
+  int height_win_map = graphics_controller->height_win_map();
+  int width_win_map = graphics_controller->width_win_map();
 
-  QPoint corner_of_map_win = game_controller->win_map_center() -
+  QPoint corner_of_map_win = graphics_controller->win_map_center() -
       QPoint{width_win_map/2, height_win_map/2};
 
   QPoint corner_of_map = point -
-      QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
+      QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
 
   for(size_t i{0}; i < cells.size(); ++i)
     for(size_t j{0}; j < cells[i].size(); ++j)
@@ -60,12 +60,12 @@ void Map::draw(QPoint point)
 
 QWidget* Map::window() const
 {
-  return game_controller->window();
+  return graphics_controller->window();
 }
 
 Calculations* Map::calculations() const
 {
-  return game_controller->calculations();
+  return graphics_controller->calculations();
 }
 
 Cell* Map::cell_by_index(size_t x, size_t y)
@@ -78,10 +78,10 @@ std::pair<Cell*, IContent*> Map::click(QPoint pos)
   auto pair = point_to_indexes_cell(pos);
   size_t i = pair.first;
   size_t j = pair.second;
-  if (i == size_t(game_controller->count_cell_y()))
+  if (i == size_t(graphics_controller->count_cell_y()))
     return {nullptr, nullptr};
 
-  pos += QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
+  pos += QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
   pos -= point_of_cell(j, i);
   return {cells[i][j].get(), cells[i][j]->click(pos)};
 }
@@ -100,12 +100,12 @@ int Map::coord_to_cub_index(int a)
 
 std::pair<size_t, size_t> Map::point_to_indexes_cell(QPoint pos)
 {
-  pos += QPoint{game_controller->width_map()/2, game_controller->height_map()/2};
-  for(size_t i{0}; i < size_t(game_controller->count_cell_x()); ++i)
-    for(size_t j{0}; j < size_t(game_controller->count_cell_y()); ++j)
+  pos += QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
+  for(size_t i{0}; i < size_t(graphics_controller->count_cell_x()); ++i)
+    for(size_t j{0}; j < size_t(graphics_controller->count_cell_y()); ++j)
       if(calculations()->point_in_hexagon(pos - point_of_cell(i, j)))
         return {j, i};
-  return {game_controller->count_cell_y(), game_controller->count_cell_x()};
+  return {graphics_controller->count_cell_y(), graphics_controller->count_cell_x()};
 }
 
 QPoint Map::point_of_cell(size_t ind_x, size_t ind_y)

@@ -2,26 +2,14 @@ QT += core gui widgets
 TEMPLATE = app
 CONFIG += console c++17
 
-SOURCES += \
-        Controller/Calculations.cpp \
-        Controller/CreateMap.cpp \
-        Graphics/Buildings/Building.cpp \
-        Graphics/Cell.cpp \
-        Graphics/Factories/FactoryBuild.cpp \
-        Graphics/Factories/FactoryPixmap.cpp \
-        Graphics/Factories/FactoryRes.cpp \
-        Graphics/Factories/FactoryUnits.cpp \
-        Graphics/GameWindow.cpp \
-        Graphics/Map.cpp \
-        Graphics/Resources/Res.cpp \
-        Graphics/Units/Unit.cpp \
-        main.cpp \
-        Controller/Game.cpp
+
+RESOURCES += \
+    Images.qrc
 
 HEADERS += \
-    Controller/Calculations.h \
-    Controller/CreateMap.h \
-    Controller/Enums.h \
+    Controllers/Enums.h \
+    Controllers/Game.h \
+    Controllers/IGame.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
     Graphics/Buildings/FishingBoats.h \
@@ -38,15 +26,18 @@ HEADERS += \
     Graphics/Factories/FactoryPixmap.h \
     Graphics/Factories/FactoryRes.h \
     Graphics/Factories/FactoryUnits.h \
+    Graphics/FubricUnits.h \
     Graphics/GameWindow.h \
-    Graphics/IBuild.h \
+    Graphics/GraphicsController/Calculations.h \
+    Graphics/GraphicsController/CreateMap.h \
+    Graphics/GraphicsController/GraphicsController.h \
+    Graphics/GraphicsController/IGraphicsController.h \
     Graphics/ICell.h \
     Graphics/IContent.h \
     Graphics/IDrawObject.h \
     Graphics/IMap.h \
-    Graphics/IRes.h \
-    Graphics/IUnit.h \
     Graphics/Map.h \
+    Graphics/Menus/IMenu.h \
     Graphics/Resources/Aluminum.h \
     Graphics/Resources/Coal.h \
     Graphics/Resources/Fish.h \
@@ -60,12 +51,25 @@ HEADERS += \
     Graphics/Resources/Uranium.h \
     Graphics/Units/Bowman.h \
     Graphics/Units/Citizen.h \
+    Graphics/Units/IUnit.h \
     Graphics/Units/Swordsman.h \
     Graphics/Units/Unit.h \
     Graphics/Units/Worker.h \
-    IObject.h \
-    Controller/Game.h \
-    Controller/IGame.h
+    IObject.h
 
-RESOURCES += \
-    Images.qrc
+SOURCES += \
+    Controllers/Game.cpp \
+    Graphics/Buildings/Building.cpp \
+    Graphics/Cell.cpp \
+    Graphics/Factories/FactoryBuild.cpp \
+    Graphics/Factories/FactoryPixmap.cpp \
+    Graphics/Factories/FactoryRes.cpp \
+    Graphics/Factories/FactoryUnits.cpp \
+    Graphics/GameWindow.cpp \
+    Graphics/GraphicsController/Calculations.cpp \
+    Graphics/GraphicsController/CreateMap.cpp \
+    Graphics/GraphicsController/GraphicsController.cpp \
+    Graphics/Map.cpp \
+    Graphics/Resources/Res.cpp \
+    Graphics/Units/Unit.cpp \
+    main.cpp

@@ -1,7 +1,7 @@
 #ifndef FUBRICBUILD_H
 #define FUBRICBUILD_H
 
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../ICell.h"
 #include "../IContent.h"
 

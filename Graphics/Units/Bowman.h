@@ -2,7 +2,7 @@
 #define BOWMAN_H
 
 #include "Unit.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 
 class Bowman : public Unit

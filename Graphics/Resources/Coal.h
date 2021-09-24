@@ -2,7 +2,7 @@
 #define COAL_H
 
 #include "Res.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 class Coal : public Res
 {

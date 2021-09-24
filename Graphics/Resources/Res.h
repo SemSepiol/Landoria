@@ -6,7 +6,7 @@
 
 #include "../IContent.h"
 #include "../ICell.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../Factories/FactoryPixmap.h"
 
 class Res : public IContent

@@ -6,8 +6,8 @@
 #include "GameWindow.h"
 #include "IMap.h"
 #include "Cell.h"
-#include "../Controller/IGame.h"
-#include "../Controller/Calculations.h"
+#include "GraphicsController/IGraphicsController.h"
+#include "GraphicsController/Calculations.h"
 
 struct CubicCoordinates
 {
@@ -22,7 +22,7 @@ class Map : public IMap
 {
 
 public:
-  Map(IGameForMap* game);
+  Map(IGraphicsControllerForMap* game);
 
   // point - центр карты
   void do_cells();
@@ -47,7 +47,7 @@ private:
   // точка центра клетки относительно левого верхнего угла
   QPoint point_of_cell(size_t ind_x, size_t ind_y);
 
-  IGameForMap* game_controller;
+  IGraphicsControllerForMap* graphics_controller;
   std::vector<std::vector<std::unique_ptr<Cell>>> cells;
 };
 

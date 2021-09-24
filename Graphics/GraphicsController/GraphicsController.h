@@ -1,21 +1,22 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GRAPHICSCONTROLLER_H
+#define GRAPHICSCONTROLLER_H
 
 #include <memory>
 #include <QWidget>
 #include <QPoint>
 
-#include "IGame.h"
+#include "IGraphicsController.h"
 #include "Calculations.h"
-#include "../Graphics/GameWindow.h"
-#include "../Graphics/Map.h"
-#include "../Graphics/Cell.h"
+#include "../GameWindow.h"
+#include "../Map.h"
+#include "../Cell.h"
 #include "CreateMap.h"
+#include "../../Controllers/IGame.h"
 
-class Game : public IGameForWindow, public IGameForMap
+class GraphicsController : public IGraphicsControllerForWindow, public IGraphicsControllerForMap
 {
 public:
-  Game();
+  GraphicsController(class IGame* game_controller, int count_cell_x, int count_cell_y);
   void start();
   virtual QWidget* window() const override;
   virtual Calculations* calculations() const override;
@@ -53,9 +54,11 @@ private:
   QPoint map_center;
   QPoint _win_map_center;
 
+  IGame* game_controller;
+
   std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<Map> map;
   std::unique_ptr<Calculations> calc;
 };
 
-#endif // GAME_H
+#endif // GRAPHICSCONTROLLER_H

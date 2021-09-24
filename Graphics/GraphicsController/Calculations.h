@@ -3,7 +3,7 @@
 
 #include <QPoint>
 #include <cmath>
-#include "../IObject.h"
+#include "../../IObject.h"
 
 class Calculations : public IObject
 {

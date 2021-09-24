@@ -3,7 +3,7 @@
 #include <QPixmap>
 
 #include "../../IObject.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 class FactoryPixmap : IObject
 {

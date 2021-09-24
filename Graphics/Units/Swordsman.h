@@ -2,7 +2,7 @@
 #define SWORDSMAN_H
 
 #include "Unit.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 
 class Swordsman : public Unit

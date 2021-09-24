@@ -2,7 +2,7 @@
 #define CITIZEN_H
 
 #include "Unit.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../ICell.h"
 
 class Citizen : public Unit

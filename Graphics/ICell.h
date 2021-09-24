@@ -5,7 +5,7 @@
 #include <QWidget>
 
 #include "IDrawObject.h"
-#include "../Controller/Calculations.h"
+#include "GraphicsController/Calculations.h"
 
 
 class ICell : public IDrawObject

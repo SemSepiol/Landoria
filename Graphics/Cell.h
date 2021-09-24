@@ -9,8 +9,8 @@
 #include "ICell.h"
 #include "IContent.h"
 
-#include "../Controller/Enums.h"
-#include "../Controller/Calculations.h"
+#include "../Controllers/Enums.h"
+#include "GraphicsController/Calculations.h"
 
 #include "Factories/FactoryBuild.h"
 #include "Factories/FactoryUnits.h"

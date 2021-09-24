@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QPoint>
 
-#include "../Controller/Calculations.h"
+#include "GraphicsController/Calculations.h"
 #include "../IObject.h"
 
 class IDrawObject : public IObject

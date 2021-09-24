@@ -1,14 +1,14 @@
-#ifndef IGAME_H
-#define IGAME_H
+#ifndef IGRAPHICSCONTROLLER_H
+#define IGRAPHICSCONTROLLER_H
 
 #include <QWidget>
 #include <QPoint>
 #include <QSize>
 
-#include "../IObject.h"
+#include "../../IObject.h"
 #include "Calculations.h"
 
-class IGameForWindow : public IObject
+class IGraphicsControllerForWindow : public IObject
 {
 public:
   virtual int width_win() const = 0;
@@ -21,7 +21,7 @@ public:
   virtual void click(QPoint pos) = 0;
 };
 
-class IGameForMap : public IObject
+class IGraphicsControllerForMap : public IObject
 {
 public:
   virtual QWidget* window() const = 0;
@@ -37,4 +37,4 @@ public:
   virtual QPoint win_map_center() const = 0;
 };
 
-#endif // IGAME_H
+#endif // IGRAPHICSCONTROLLER_H

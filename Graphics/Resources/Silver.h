@@ -2,7 +2,7 @@
 #define SILVER_H
 
 #include "Res.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 
 class Silver : public Res
 {

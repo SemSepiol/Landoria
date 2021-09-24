@@ -2,7 +2,7 @@
 #define FISHING_BOATS_H
 
 #include "Building.h"
-#include "../../Controller/Enums.h"
+#include "../../Controllers/Enums.h"
 #include "../ICell.h"
 
 class FishingBoats : public Building
