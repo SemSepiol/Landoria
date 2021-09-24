@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QPoint>
 #include <QResizeEvent>
+#include <QPalette>
 #include "../Controller/IGame.h"
 
 class GameWindow : public QWidget
@@ -12,8 +13,6 @@ class GameWindow : public QWidget
   const QPoint _p_win = QPoint{0,0};
 public:
   GameWindow(IGameForWindow* game);
-
-  ~GameWindow() override;
 
   void show();
   virtual void paintEvent(QPaintEvent* event) override;

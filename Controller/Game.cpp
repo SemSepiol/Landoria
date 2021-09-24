@@ -10,15 +10,10 @@ Game::Game()
   calc->set_side(130);
 
   _height_win = 1000;
-  _width_win = 1000;
+  _width_win = 2000;
 
-  _height_win_map = _height_win;
-  _width_win_map = _width_win;
+  create_map();
 
-  do_size_map();
-  _win_map_center = {_height_win/2, _width_win/2};
-  map_center = _win_map_center;
-  map->do_cells();
   do_contents();
 }
 
@@ -168,6 +163,21 @@ void Game::click(QPoint pos)
 //    std::cout << "No content" << std::endl;
 }
 
+void Game::create_map()
+{
+  _height_win_map = _height_win;
+  _width_win_map = _width_win;
+
+  do_size_map();
+  _win_map_center = {_width_win/2, _height_win/2};
+  map_center = _win_map_center;
+  map->do_cells();
+
+  CreateMap creator_map{this};
+  creator_map.create_map(map.get());
+  creator_map.add_resource(map.get());
+}
+
 void Game::do_size_map()
 {
   _height_map = calc->hexagon_side()*num_cell_y + calc->hexagon_side()*(num_cell_y+1)/2;
@@ -180,14 +190,11 @@ void Game::do_contents()
     for(int j{0}; j < num_cell_y; ++j)
     {
       ControlContents controlcontents{map->cell_by_index(size_t(i), size_t(j))};
-      controlcontents.add_unit(Units::Worker);
-      controlcontents.add_unit(Units::Citizen);
-      controlcontents.add_unit(Units::Swordsman);
-      controlcontents.add_unit(Units::Bowman);
-      controlcontents.add_resource(Resources(rand() % 10));
-//      controlcontents.add_resource(Resources::Aluminum);
-      controlcontents.add_building(Buildings(rand() % 10));
-      controlcontents.set_landscape(Landscapes(rand() % 6));
+//      controlcontents.add_unit(Units::Worker);
+//      controlcontents.add_unit(Units::Citizen);
+//      controlcontents.add_unit(Units::Swordsman);
+//      controlcontents.add_unit(Units::Bowman);
+//      controlcontents.add_building(Buildings(rand() % 10));
     }
 //  ControlContents controlcontents{map->cell_by_index(num_cell_x/2-1, num_cell_y/2)};
 //  controlcontents.add_unit(Units::Worker);

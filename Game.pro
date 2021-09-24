@@ -4,6 +4,7 @@ CONFIG += console c++17
 
 SOURCES += \
         Controller/Calculations.cpp \
+        Controller/CreateMap.cpp \
         Graphics/Buildings/Building.cpp \
         Graphics/Cell.cpp \
         Graphics/Factories/FactoryBuild.cpp \
@@ -19,12 +20,12 @@ SOURCES += \
 
 HEADERS += \
     Controller/Calculations.h \
+    Controller/CreateMap.h \
     Controller/Enums.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
     Graphics/Buildings/FishingBoats.h \
     Graphics/Buildings/Fort.h \
-    Graphics/Buildings/IBuilding.h \
     Graphics/Buildings/LumberMill.h \
     Graphics/Buildings/Mine.h \
     Graphics/Buildings/OilWell.h \
@@ -51,7 +52,6 @@ HEADERS += \
     Graphics/Resources/Fish.h \
     Graphics/Resources/Gold.h \
     Graphics/Resources/Horses.h \
-    Graphics/Resources/IRes.h \
     Graphics/Resources/Iron.h \
     Graphics/Resources/Oil.h \
     Graphics/Resources/Res.h \
@@ -60,7 +60,6 @@ HEADERS += \
     Graphics/Resources/Uranium.h \
     Graphics/Units/Bowman.h \
     Graphics/Units/Citizen.h \
-    Graphics/Units/IUnit.h \
     Graphics/Units/Swordsman.h \
     Graphics/Units/Unit.h \
     Graphics/Units/Worker.h \

@@ -16,7 +16,7 @@ enum Units
   Swordsman
 };
 
-enum Landscapes
+enum MainLandscapes
 {
   Ocean,
   Coast,
@@ -24,6 +24,15 @@ enum Landscapes
   Mountain,
   Tundra,
   Desert
+};
+
+enum OtherLandscapes
+{
+    Nothing,
+    Forest,
+    Jungles,
+    ForestAndHills,
+    JunglesAndHills
 };
 
 enum Resources

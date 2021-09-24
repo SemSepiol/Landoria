@@ -10,6 +10,7 @@
 #include "../Graphics/GameWindow.h"
 #include "../Graphics/Map.h"
 #include "../Graphics/Cell.h"
+#include "CreateMap.h"
 
 class Game : public IGameForWindow, public IGameForMap
 {
@@ -37,6 +38,7 @@ public:
   virtual void click(QPoint pos) override;
 
 private:
+  void create_map();
   void do_size_map();
   void do_contents();
 

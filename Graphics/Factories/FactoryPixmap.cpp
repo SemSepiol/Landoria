@@ -75,28 +75,43 @@ QPixmap FactoryPixmap::create_pixmap_for_building(Buildings type_building) const
   }
 }
 
-QPixmap FactoryPixmap::create_pixmap_for_landscape(Landscapes type_landscape) const
+QPixmap FactoryPixmap::create_pixmap_for_main_landscape(MainLandscapes type_landscape) const
 {
   switch (type_landscape)
   {
-  case Landscapes::Plain:
+  case MainLandscapes::Plain:
     return QPixmap{image_path + landscapes_dir + "Plain.png/"};
-  case Landscapes::Mountain:
+  case MainLandscapes::Mountain:
     return QPixmap{image_path + landscapes_dir + "Mountain.png/"};
-  case Landscapes::Ocean:
+  case MainLandscapes::Ocean:
     return QPixmap{image_path + landscapes_dir + "Ocean.png/"};
-  case Landscapes::Coast:
+  case MainLandscapes::Coast:
     return QPixmap{image_path + landscapes_dir + "Coast.png/"};
-  case Landscapes::Tundra:
+  case MainLandscapes::Tundra:
     return QPixmap{image_path + landscapes_dir + "Tundra.png/"};
-  case Landscapes::Desert:
+  case MainLandscapes::Desert:
     return QPixmap{image_path + landscapes_dir + "Desert.png/"};
   default:
     throw std::runtime_error("There are no images for this landscape");
   }
 }
 
-QPixmap FactoryPixmap::create_pixmap_for_forest() const
+
+QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_landscape) const
 {
-  return QPixmap{image_path + landscapes_dir + "Forest.png/"};
+  switch (type_landscape)
+  {
+  case OtherLandscapes::Forest:
+    return QPixmap{image_path + landscapes_dir + "Forest.png/"};
+  case OtherLandscapes::ForestAndHills:
+    return QPixmap{image_path + landscapes_dir + "Forest_hills.png/"};
+  case OtherLandscapes::Jungles:
+    return QPixmap{image_path + landscapes_dir + "Jungles.png/"};
+  case OtherLandscapes::JunglesAndHills:
+    return QPixmap{image_path + landscapes_dir + "Jungles_hills.png/"};
+  case OtherLandscapes::Nothing:
+    return QPixmap{""};
+  default:
+    throw std::runtime_error("There are no images for this other landscape");
+  }
 }

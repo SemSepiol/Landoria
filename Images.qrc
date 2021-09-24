@@ -39,5 +39,9 @@
         <file>Graphics/image/building/LumberMill.png</file>
         <file>Graphics/image/building/TradingPost.png</file>
         <file>Graphics/image/building/OilWell.png</file>
+        <file>Graphics/image/landscapes/forest_hills.png</file>
+        <file>Graphics/image/landscapes/Jungles.png</file>
+        <file>Graphics/image/landscapes/Jungles_hills.png</file>
+        <file>Graphics/image/landscapes/Forest_hills.png</file>
     </qresource>
 </RCC>

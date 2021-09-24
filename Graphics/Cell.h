@@ -17,6 +17,10 @@
 #include "Factories/FactoryRes.h"
 #include "Factories/FactoryPixmap.h"
 
+#include "Resources/Res.h"
+#include "Units/Unit.h"
+#include "Buildings/Building.h"
+
 class Cell : public ICell
 {
 public:
@@ -34,7 +38,11 @@ public:
 private:
   IMap* map;
   std::vector<std::unique_ptr<IContent>> contents;
-  Landscapes landscape = Landscapes::Plain;
+
+  bool is_there_main_landscape = false;
+  bool is_there_other_landscape = false;
+  MainLandscapes mainlandscape = MainLandscapes::Plain;
+  OtherLandscapes otherlandscape= OtherLandscapes::Nothing;
 
   friend class ControlContents;
 };
@@ -45,18 +53,20 @@ class ControlContents : public IObject
 public:
   ControlContents(Cell* cell) : cell{cell}{}
 
-  void set_landscape(Landscapes type_landscape);
+  void set_main_landscape(MainLandscapes type_landscape);
+  void set_other_landscape(OtherLandscapes type_landscape);
   void add_resource(Resources type_resource);
   void add_building(Buildings type_building);
   void add_unit(Units type_unit);
 
   void del_content(IContent* content);
 
-  Landscapes get_landscapes() const;
+  MainLandscapes get_landscape() const;
   Resources get_resource() const;
   Buildings get_building() const;
   std::vector<Units> get_units() const;
 
+  bool has_landscape() const;
   bool has_resource() const;
   bool has_building() const;
   int count_units();

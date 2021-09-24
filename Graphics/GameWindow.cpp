@@ -3,9 +3,8 @@
 
 GameWindow::GameWindow(IGameForWindow* game)
   : QWidget(), game_controller{game}
-{}
-
-GameWindow::~GameWindow(){
+{
+  setStyleSheet("background-color:black;");
 }
 
 void GameWindow::show()
