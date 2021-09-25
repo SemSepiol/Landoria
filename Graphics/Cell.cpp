@@ -37,8 +37,6 @@ void Cell::draw(QPoint point)
         calc->hexagon_side()*2., calc->hexagon_side()*2.};
   qp.drawPixmap(target, pixmap, source);
 
-  if (!is_there_main_landscape)
-    throw std::runtime_error("The other landscape is not set in the cell");
   QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
   qp.drawPixmap(target, pixmap2, source);
 

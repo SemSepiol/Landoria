@@ -91,6 +91,10 @@ QPixmap FactoryPixmap::create_pixmap_for_main_landscape(MainLandscapes type_land
     return QPixmap{image_path + landscapes_dir + "Tundra.png/"};
   case MainLandscapes::Desert:
     return QPixmap{image_path + landscapes_dir + "Desert.png/"};
+  case MainLandscapes::Snow:
+    return QPixmap{image_path + landscapes_dir + "Snow.png/"};
+  case MainLandscapes::Ice:
+    return QPixmap{image_path + landscapes_dir + "Ice.png/"};
   default:
     throw std::runtime_error("There are no images for this landscape");
   }

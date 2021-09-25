@@ -23,7 +23,9 @@ enum MainLandscapes
   Plain,
   Mountain,
   Tundra,
-  Desert
+  Desert,
+  Snow,
+  Ice
 };
 
 enum OtherLandscapes

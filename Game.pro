@@ -10,6 +10,7 @@ HEADERS += \
     Controllers/Enums.h \
     Controllers/Game.h \
     Controllers/IGame.h \
+    Controllers/Player.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
     Graphics/Buildings/FishingBoats.h \

@@ -44,5 +44,7 @@
         <file>Graphics/image/landscapes/Jungles_hills.png</file>
         <file>Graphics/image/landscapes/Forest_hills.png</file>
         <file>Graphics/image/menu/exit.png</file>
+        <file>Graphics/image/landscapes/Ice.png</file>
+        <file>Graphics/image/landscapes/Snow.png</file>
     </qresource>
 </RCC>
