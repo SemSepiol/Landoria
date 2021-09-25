@@ -4,16 +4,17 @@
 GameWindow::GameWindow(IGraphicsControllerForWindow* game)
   : QWidget(), graphics_controller{game}
 {
+//  setWindowState(windowState() ^ Qt::WindowFullScreen);
   setStyleSheet("background-color:black;");
 }
 
 void GameWindow::show()
 {
-//  QWidget::showFullScreen();
-  QWidget::setFixedSize(graphics_controller->width_win(), graphics_controller->height_win());
+  QWidget::showFullScreen();
+//  QWidget::setFixedSize(graphics_controller->width_win(), graphics_controller->height_win());
 //  QWidget::resize(game_controller->width_win(), game_controller->height_win());
-  QWidget::move(_p_win);
-  QWidget::show();
+//  QWidget::move(_p_win);
+//  QWidget::show();
 }
 
 void GameWindow::paintEvent(QPaintEvent* event)

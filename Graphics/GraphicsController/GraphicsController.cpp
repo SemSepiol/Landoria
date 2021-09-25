@@ -2,24 +2,18 @@
 #include <iostream>
 #include <random>
 
-GraphicsController::GraphicsController(class IGame* game_controller, int count_cell_x, int count_cell_y)
-  :game_controller{game_controller}, game_window{new GameWindow(this)},
+GraphicsController::GraphicsController(class IGameForGraphic* _game_controller)
+  :game_controller{_game_controller}, game_window{new GameWindow(this)}, upper_menu{new class UpperMenu(this)},
     map{new Map(this)}, calc{new Calculations{}}
 {
-  num_cell_x = count_cell_x;
-  num_cell_y = count_cell_y;
-  calc->set_side(130);
-
-  _height_win = 1000;
-  _width_win = 2000;
-
-  create_map();
-
-  do_contents();
 }
 
 void GraphicsController::start()
 {
+  set_win_settings();
+  create_uppermenu();
+  create_map();
+//  upper_menu->show();
   game_window->show();
 }
 
@@ -31,6 +25,40 @@ QWidget* GraphicsController::window() const
 Calculations* GraphicsController::calculations() const
 {
   return calc.get();
+}
+
+void GraphicsController::create_uppermenu()
+{
+  _height_menu = 50;
+  _width_menu = _width_win;
+  upper_menu->set_size();
+}
+
+void GraphicsController::create_map()
+{
+  num_cell_x = game_controller->count_cell_x();
+  num_cell_y = game_controller->count_cell_y();
+  calc->set_side(130);
+  _height_win_map = _height_win - _height_menu;
+  _width_win_map = _width_win;
+
+  do_size_map();
+  _win_map_center = {_width_win/2, _height_win/2 + _height_menu};
+  map_center = _win_map_center;
+  map->do_cells();
+
+  CreateMap creator_map{this};
+  creator_map.create_map(map.get());
+  creator_map.add_resource(map.get());
+
+//  game_window->update();
+}
+
+void GraphicsController::set_win_settings()
+{
+  _height_win = game_controller->height_win();
+  _width_win = game_controller->width_win();
+//  std::cout << _height_win << " " << _width_win << std::endl;
 }
 
 int GraphicsController::count_cell_x() const
@@ -164,19 +192,21 @@ void GraphicsController::click(QPoint pos)
 //    std::cout << "No content" << std::endl;
 }
 
-void GraphicsController::create_map()
+int GraphicsController::width_menu() const
 {
-  _height_win_map = _height_win;
-  _width_win_map = _width_win;
+  return _width_menu;
+}
 
-  do_size_map();
-  _win_map_center = {_width_win/2, _height_win/2};
-  map_center = _win_map_center;
-  map->do_cells();
+int GraphicsController::height_menu() const
+{
+  return _height_menu;
+}
 
-  CreateMap creator_map{this};
-  creator_map.create_map(map.get());
-  creator_map.add_resource(map.get());
+void GraphicsController::exit()
+{
+//  std::cout << "exit" << std::endl;
+  game_window->hide();
+  game_controller->exit();
 }
 
 void GraphicsController::do_size_map()

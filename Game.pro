@@ -38,6 +38,7 @@ HEADERS += \
     Graphics/IMap.h \
     Graphics/Map.h \
     Graphics/Menus/IMenu.h \
+    Graphics/Menus/UpperMenu.h \
     Graphics/Resources/Aluminum.h \
     Graphics/Resources/Coal.h \
     Graphics/Resources/Fish.h \
@@ -51,7 +52,6 @@ HEADERS += \
     Graphics/Resources/Uranium.h \
     Graphics/Units/Bowman.h \
     Graphics/Units/Citizen.h \
-    Graphics/Units/IUnit.h \
     Graphics/Units/Swordsman.h \
     Graphics/Units/Unit.h \
     Graphics/Units/Worker.h \
@@ -70,6 +70,8 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/Map.cpp \
+    Graphics/Menus/UpperMenu.cpp \
     Graphics/Resources/Res.cpp \
     Graphics/Units/Unit.cpp \
     main.cpp
+

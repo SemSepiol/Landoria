@@ -5,6 +5,7 @@
 
 class IMenu : public QWidget
 {
+public:
 
 };
 

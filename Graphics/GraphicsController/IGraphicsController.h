@@ -37,4 +37,13 @@ public:
   virtual QPoint win_map_center() const = 0;
 };
 
+class IGraphicsForUpperMenu : public IObject
+{
+public:
+  virtual QWidget* window() const = 0;
+  virtual int width_menu() const = 0;
+  virtual int height_menu() const = 0;
+  virtual void exit() = 0;
+};
+
 #endif // IGRAPHICSCONTROLLER_H
