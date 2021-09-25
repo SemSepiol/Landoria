@@ -58,6 +58,7 @@ public:
   void add_resource(Resources type_resource);
   void add_building(Buildings type_building);
   void add_unit(Units type_unit);
+  void add_unit(IContent* unit);
 
   void del_content(IContent* content);
 

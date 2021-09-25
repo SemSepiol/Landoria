@@ -29,8 +29,10 @@ HEADERS += \
     Graphics/Factories/FactoryUnits.h \
     Graphics/FubricUnits.h \
     Graphics/GameWindow.h \
+    Graphics/GraphicsController/AGraphicsController.h \
     Graphics/GraphicsController/Calculations.h \
     Graphics/GraphicsController/CreateMap.h \
+    Graphics/GraphicsController/EventsStructures.h \
     Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IGraphicsController.h \
     Graphics/ICell.h \
@@ -67,6 +69,7 @@ SOURCES += \
     Graphics/Factories/FactoryRes.cpp \
     Graphics/Factories/FactoryUnits.cpp \
     Graphics/GameWindow.cpp \
+    Graphics/GraphicsController/AGraphicsController.cpp \
     Graphics/GraphicsController/Calculations.cpp \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \

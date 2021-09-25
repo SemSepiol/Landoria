@@ -43,7 +43,13 @@ public:
   virtual QWidget* window() const = 0;
   virtual int width_menu() const = 0;
   virtual int height_menu() const = 0;
+  virtual QPoint uppermenu_top_left() const = 0;
   virtual void exit() = 0;
+};
+
+class IGraphicsForPlayer : public IObject
+{
+
 };
 
 #endif // IGRAPHICSCONTROLLER_H

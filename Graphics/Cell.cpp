@@ -33,8 +33,8 @@ void Cell::draw(QPoint point)
     throw std::runtime_error("The main landscape is not set in the cell");
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
   QRectF source{0., 0., 500., 500.};
-  QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
-        calc->hexagon_side()*2., calc->hexagon_side()*2.};
+  QRectF target{1.* (point.x() - calc->hexagon_side() - 1), 1.* (point.y() - calc->hexagon_side() - 1),
+        calc->hexagon_side()*2. + 2, calc->hexagon_side()*2. + 2};
   qp.drawPixmap(target, pixmap, source);
 
   QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
@@ -119,7 +119,7 @@ IContent* Cell::click(QPoint pos)
 void ControlContents::set_main_landscape(MainLandscapes type_landscape)
 {
   if (cell->is_there_main_landscape)
-    throw std::runtime_error("There is already a landscape in the cell");
+    throw std::runtime_error("set_main_landscape: There is already a landscape in the cell");
 
   cell->is_there_main_landscape = true;
   cell->mainlandscape = type_landscape;
@@ -128,7 +128,7 @@ void ControlContents::set_main_landscape(MainLandscapes type_landscape)
 void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
 {
   if (cell->is_there_other_landscape)
-    throw std::runtime_error("There is already other landscape in the cell");
+    throw std::runtime_error("set_other_landscape: There is already other landscape in the cell");
 
   cell->is_there_other_landscape = true;
   cell->otherlandscape = type_landscape;
@@ -137,22 +137,31 @@ void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
 void ControlContents::add_resource(Resources type_resource)
 {
   if (has_resource())
-    throw std::runtime_error("There is already a resource in the cell");
+    throw std::runtime_error("add_resource: There is already a resource in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricRes().create_res(type_resource, cell)});
 }
 
 void ControlContents::add_building(Buildings type_building)
 {
   if (has_building())
-    throw std::runtime_error("There is already a building in the cell");
+    throw std::runtime_error("add_building: There is already a building in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricBuild().create_building(type_building, cell)});
 }
 
 void ControlContents::add_unit(Units type_unit)
 {
   if(count_units() == 4)
-    throw std::runtime_error("there are already 4 units in the cell");
+    throw std::runtime_error("add_unit: there are already 4 units in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricUnits().create_unit(type_unit, cell)});
+}
+
+void ControlContents::add_unit(IContent* unit)
+{
+  if (unit->what_content_I() != Contents::Unit)
+    throw std::runtime_error("add_unit: It isn't unit");
+  if(count_units() == 4)
+    throw std::runtime_error("add_unit: there are already 4 units in the cell");
+  cell->contents.push_back(std::unique_ptr<IContent>{unit});
 }
 
 
