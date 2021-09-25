@@ -55,12 +55,13 @@ public:
 
   void set_main_landscape(MainLandscapes type_landscape);
   void set_other_landscape(OtherLandscapes type_landscape);
-  void add_resource(Resources type_resource);
-  void add_building(Buildings type_building);
-  void add_unit(Units type_unit);
+  IContent* add_resource(Resources type_resource);
+  IContent* add_building(Buildings type_building);
+  IContent* add_unit(Units type_unit);
   void add_unit(IContent* unit);
 
   void del_content(IContent* content);
+  IContent* pop_content(IContent* content);
 
   MainLandscapes get_landscape() const;
   Resources get_resource() const;

@@ -134,25 +134,28 @@ void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
   cell->otherlandscape = type_landscape;
 }
 
-void ControlContents::add_resource(Resources type_resource)
+IContent* ControlContents::add_resource(Resources type_resource)
 {
   if (has_resource())
     throw std::runtime_error("add_resource: There is already a resource in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricRes().create_res(type_resource, cell)});
+  return cell->contents[cell->contents.size()-1].get();
 }
 
-void ControlContents::add_building(Buildings type_building)
+IContent* ControlContents::add_building(Buildings type_building)
 {
   if (has_building())
     throw std::runtime_error("add_building: There is already a building in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricBuild().create_building(type_building, cell)});
+  return cell->contents[cell->contents.size()-1].get();
 }
 
-void ControlContents::add_unit(Units type_unit)
+IContent* ControlContents::add_unit(Units type_unit)
 {
   if(count_units() == 4)
     throw std::runtime_error("add_unit: there are already 4 units in the cell");
   cell->contents.push_back(std::unique_ptr<IContent>{FubricUnits().create_unit(type_unit, cell)});
+  return cell->contents[cell->contents.size()-1].get();
 }
 
 void ControlContents::add_unit(IContent* unit)
@@ -168,8 +171,24 @@ void ControlContents::add_unit(IContent* unit)
 void ControlContents::del_content(IContent* content)
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].get() == content)
+    if(cell->contents[i].get() == content){
       cell->contents.erase(cell->contents.begin() + i);
+    }
+}
+
+IContent* ControlContents::pop_content(IContent* content)
+{
+  std::cout << content << std::endl;
+  for(size_t i{0}; i < cell->contents.size(); ++i)
+  {
+    if(cell->contents[i].get() == content){
+      IContent* temp{nullptr};
+      temp = cell->contents[i].release();
+      cell->contents.erase(cell->contents.begin() + i);
+      return temp;
+    }
+  }
+  throw std::runtime_error("pop_content: hasn't this constent");
 }
 
 

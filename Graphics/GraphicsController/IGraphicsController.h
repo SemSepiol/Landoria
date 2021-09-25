@@ -7,6 +7,8 @@
 
 #include "../../IObject.h"
 #include "Calculations.h"
+#include "../../Controllers/Enums.h"
+#include "../Units/Unit.h"
 
 class IGraphicsControllerForWindow : public IObject
 {
@@ -47,9 +49,12 @@ public:
   virtual void exit() = 0;
 };
 
-class IGraphicsForPlayer : public IObject
+class IGraphicsControllerForPlayer : public IObject
 {
-
+public:
+  virtual class Unit* add_unit(Units unit, size_t cell_x, size_t cell_y) = 0;
+  virtual void move_unit(class Unit* unit, size_t old_position_x, size_t old_position_y,
+                         size_t new_position_x, size_t new_position_y) = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

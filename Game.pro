@@ -10,6 +10,7 @@ HEADERS += \
     Controllers/Enums.h \
     Controllers/Game.h \
     Controllers/IGame.h \
+    Controllers/IPlayer.h \
     Controllers/Player.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -62,6 +63,7 @@ HEADERS += \
 
 SOURCES += \
     Controllers/Game.cpp \
+    Controllers/Player.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Cell.cpp \
     Graphics/Factories/FactoryBuild.cpp \

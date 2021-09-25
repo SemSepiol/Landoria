@@ -5,14 +5,10 @@
 AGraphicsController::AGraphicsController(class IGameForGraphic* _game_controller)
   :game_controller{_game_controller}, game_window{new GameWindow(this)}, upper_menu{new class UpperMenu(this)},
     map{new Map(this)}, calc{new Calculations{}}
-{
-}
+{}
 
 void AGraphicsController::start()
 {
-  set_win_settings();
-  create_uppermenu();
-  create_map();
   game_window->show();
 }
 
@@ -24,6 +20,13 @@ QWidget* AGraphicsController::window() const
 Calculations* AGraphicsController::calculations() const
 {
   return calc.get();
+}
+
+void AGraphicsController::create_elements()
+{
+  set_win_settings();
+  create_uppermenu();
+  create_map();
 }
 
 void AGraphicsController::create_uppermenu()

@@ -15,7 +15,7 @@
 #include "../Menus/UpperMenu.h"
 
 class AGraphicsController : public IGraphicsControllerForWindow, public IGraphicsControllerForMap,
-    public IGraphicsForUpperMenu, public IGraphicsForPlayer
+    public IGraphicsForUpperMenu, public IGraphicsControllerForPlayer
 {
 public:
   AGraphicsController(IGameForGraphic* game_controller);
@@ -24,9 +24,8 @@ public:
 //  virtual QWidget* window() const override {return window();}
   virtual Calculations* calculations() const override;
 
-  void create_uppermenu();
-  void create_map();
-  void set_win_settings();
+  void create_elements();
+
 
   virtual int count_cell_x() const override;
   virtual int count_cell_y() const override;
@@ -51,6 +50,10 @@ public:
   virtual void exit() override;
 
 protected:
+  void create_uppermenu();
+  void create_map();
+  void set_win_settings();
+
   void do_size_map();
   void do_contents();
 
