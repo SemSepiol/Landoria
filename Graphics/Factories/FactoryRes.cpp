@@ -1,6 +1,6 @@
 #include "FactoryRes.h"
 
-IContent* FubricRes::create_res(Resources type_res, ICell* cell) const
+IContent* FactoryRes::create_res(Resources type_res, ICell* cell) const
 {
   switch (type_res)
   {

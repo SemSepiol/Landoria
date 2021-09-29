@@ -10,7 +10,7 @@ void Res::draw(QPoint point)
   qp.drawEllipse(point, rad, rad);
 
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_res(what_resource_I());
-  QRectF source{0., 0., 188., 188.};
+  QRectF source  = FactoryPixmap().size_picture_content();
   int adjustment = rad/10;
   QRectF target{(point.x() - rad - adjustment)*1., (point.y() - rad - adjustment)*1., 2.*(rad+adjustment), 2.*(rad+adjustment)};
   qp.drawPixmap(target, pixmap, source);

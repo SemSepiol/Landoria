@@ -7,28 +7,32 @@
 #include <QPushButton>
 //#include <QStyleOptionButton>
 
-#include "IMenu.h"
+#include "AMenu.h"
 #include "../GraphicsController/IGraphicsController.h"
 
-class UpperMenu : public IMenu
+class UpperMenu : public QWidget
 {
 public:
-  explicit UpperMenu(IGraphicsForUpperMenu* graphic_controller);
-  virtual ~UpperMenu();
-  void set_size();
+  explicit UpperMenu(IGraphicsControllerForUpperMenu* graphic_controller);
+  virtual ~UpperMenu() override;
+  virtual void set_geometry(QPoint pos, int width, int height);
   virtual void paintEvent(QPaintEvent* event) override;
+  virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
+  virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
-  virtual void draw(QPoint point) override;
+  virtual void draw();
 
 private:
-  QRect exit_butt(QPoint point) const;
+  QRect exit_butt() const;
 
   bool point_in_rect(QRectF rect, QPoint point);
 
   int width_menu;
   int height_menu;
   QPoint pos;
-  IGraphicsForUpperMenu* graphic_controller;
+  IGraphicsControllerForUpperMenu* graphic_controller;
+
+  QPoint mouse_pos_clicked;
 };
 
 #endif // UPPERMENU_H

@@ -33,7 +33,9 @@ public:
 
   virtual ~Map() override {}
 
-  Cell* cell_by_index(size_t x, size_t y);
+  Cell* cell_by_indexes(size_t x, size_t y) const;
+  std::pair<size_t, size_t> indexes_by_cell(Cell* cell) const;
+  std::vector<std::pair<size_t, size_t>> adjacent_cells(size_t x, size_t y) const;
   std::pair<Cell*, IContent*> click(QPoint pos);
 
 private:

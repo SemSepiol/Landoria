@@ -9,6 +9,7 @@
 #include "Calculations.h"
 #include "../../Controllers/Enums.h"
 #include "../Units/Unit.h"
+#include "../../Controllers/IPlayer.h"
 
 class IGraphicsControllerForWindow : public IObject
 {
@@ -39,13 +40,10 @@ public:
   virtual QPoint win_map_center() const = 0;
 };
 
-class IGraphicsForUpperMenu : public IObject
+class IGraphicsControllerForUpperMenu : public IObject
 {
 public:
   virtual QWidget* window() const = 0;
-  virtual int width_menu() const = 0;
-  virtual int height_menu() const = 0;
-  virtual QPoint uppermenu_top_left() const = 0;
   virtual void exit() = 0;
 };
 
@@ -55,6 +53,9 @@ public:
   virtual class Unit* add_unit(Units unit, size_t cell_x, size_t cell_y) = 0;
   virtual void move_unit(class Unit* unit, size_t old_position_x, size_t old_position_y,
                          size_t new_position_x, size_t new_position_y) = 0;
+  virtual void del_unit(class Unit* unit, size_t cell_x, size_t cell_y) = 0;
+
+  virtual void do_menu_unit(IPlayerForMenu* player, class Unit*) = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

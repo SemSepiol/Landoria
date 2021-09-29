@@ -28,7 +28,7 @@ private:
 
   std::unique_ptr<GraphicsController> _graphics_controller;
   std::vector<std::unique_ptr<Player>> players;
-  size_t _current_player;
+  Player* _current_player;
 
   int _count_cell_x;
   int _count_cell_y;

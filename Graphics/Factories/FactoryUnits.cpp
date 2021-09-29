@@ -1,7 +1,7 @@
 #include "FactoryUnits.h"
 
 
-IContent* FubricUnits::create_unit(Units type_unit, ICell *cell) const
+IContent* FactoryUnits::create_unit(Units type_unit, ICell *cell) const
 {
     switch (type_unit)
     {

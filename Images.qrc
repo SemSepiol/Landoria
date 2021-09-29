@@ -46,5 +46,7 @@
         <file>Graphics/image/menu/exit.png</file>
         <file>Graphics/image/landscapes/Ice.png</file>
         <file>Graphics/image/landscapes/Snow.png</file>
+        <file>Graphics/image/menu/Move.png</file>
+        <file>Graphics/image/menu/Slip.png</file>
     </qresource>
 </RCC>

@@ -25,6 +25,7 @@ HEADERS += \
     Graphics/Buildings/TradingPost.h \
     Graphics/Cell.h \
     Graphics/Factories/FactoryBuild.h \
+    Graphics/Factories/FactoryMenusUnit.h \
     Graphics/Factories/FactoryPixmap.h \
     Graphics/Factories/FactoryRes.h \
     Graphics/Factories/FactoryUnits.h \
@@ -41,8 +42,10 @@ HEADERS += \
     Graphics/IDrawObject.h \
     Graphics/IMap.h \
     Graphics/Map.h \
-    Graphics/Menus/IMenu.h \
+    Graphics/Menus/AMenu.h \
+    Graphics/Menus/CitizenMenu.h \
     Graphics/Menus/UpperMenu.h \
+    Graphics/Menus/WorkerMenu.h \
     Graphics/Resources/Aluminum.h \
     Graphics/Resources/Coal.h \
     Graphics/Resources/Fish.h \
@@ -67,6 +70,7 @@ SOURCES += \
     Graphics/Buildings/Building.cpp \
     Graphics/Cell.cpp \
     Graphics/Factories/FactoryBuild.cpp \
+    Graphics/Factories/FactoryMenusUnit.cpp \
     Graphics/Factories/FactoryPixmap.cpp \
     Graphics/Factories/FactoryRes.cpp \
     Graphics/Factories/FactoryUnits.cpp \
@@ -76,7 +80,10 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/Map.cpp \
+    Graphics/Menus/AMenu.cpp \
+    Graphics/Menus/CitizenMenu.cpp \
     Graphics/Menus/UpperMenu.cpp \
+    Graphics/Menus/WorkerMenu.cpp \
     Graphics/Resources/Res.cpp \
     Graphics/Units/Unit.cpp \
     main.cpp

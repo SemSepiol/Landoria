@@ -3,12 +3,12 @@
 
 #include <vector>
 #include "../../Controllers/Enums.h"
-#include "../Cell.h"
 
 enum Events
 {
   Move,
-  Build
+  Build,
+  Slip
 };
 
 struct Event
@@ -19,22 +19,27 @@ protected:
   Event(Events _event) :event{_event} {}
 };
 
-struct Move : Event
+struct Move_event : Event
 {
   size_t cell_move_x;
   size_t cell_move_y;
-  Cell* move_cell;
-  Move(size_t _cell_move_x, size_t _cell_move_y, Cell* _move_cell)
+  Move_event(size_t _cell_move_x, size_t _cell_move_y)
     : Event{Events::Move}, cell_move_x{_cell_move_x},
-      cell_move_y{_cell_move_y}, move_cell{_move_cell} {}
+      cell_move_y{_cell_move_y} {}
 };
 
-struct Build : Event
+struct Build_event : Event
 {
   Buildings building;
 
-  Build(Buildings _building)
+  Build_event(Buildings _building)
     : Event{Events::Build}, building{_building} {}
+};
+
+struct Slip_event : Event
+{
+  Slip_event()
+    : Event{Events::Slip} {}
 };
 
 #endif // EVENTSSTRUCTURES_H

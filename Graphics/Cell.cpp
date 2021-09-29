@@ -8,6 +8,9 @@ Cell::Cell(IMap* map)
 
 void Cell::draw(QPoint point)
 {
+  if(!show_cell)
+    return;
+
   Calculations* calc = calculations();
 
   QPoint p1 = point - calc->point_0();
@@ -32,7 +35,7 @@ void Cell::draw(QPoint point)
   if (!is_there_main_landscape)
     throw std::runtime_error("The main landscape is not set in the cell");
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
-  QRectF source{0., 0., 500., 500.};
+  QRectF source = FactoryPixmap().size_picture_landscape();
   QRectF target{1.* (point.x() - calc->hexagon_side() - 1), 1.* (point.y() - calc->hexagon_side() - 1),
         calc->hexagon_side()*2. + 2, calc->hexagon_side()*2. + 2};
   qp.drawPixmap(target, pixmap, source);
@@ -43,20 +46,23 @@ void Cell::draw(QPoint point)
   int count_drawn_unit = 0;
   for(size_t i{0}; i < contents.size(); ++i)
   {
-    if(contents[i]->what_content_I() == Contents::Unit){
+    if(!contents[i].show_content)
+      continue;
+
+    if(contents[i].content->what_content_I() == Contents::Unit){
       if (count_drawn_unit < 4){
         QPoint p = calculations()->point_circle_for_unit(count_drawn_unit);
-        contents[i]->draw(point + p);
+        contents[i].content->draw(point + p);
       }
       count_drawn_unit++;
     }
-    else if (contents[i]->what_content_I() == Contents::Resource){
+    else if (contents[i].content->what_content_I() == Contents::Resource){
       QPoint p = calculations()->point_circle_for_res();
-      contents[i]->draw(point + p);
+      contents[i].content->draw(point + p);
     }
-    else if (contents[i]->what_content_I() == Contents::Building) {
+    else if (contents[i].content->what_content_I() == Contents::Building) {
       QPoint p = calculations()->point_circle_for_build();
-      contents[i]->draw(point + p);
+      contents[i].content->draw(point + p);
     }
   }
 }
@@ -88,9 +94,9 @@ IContent* Cell::click(QPoint pos)
 
     int counter = 0;
     for(size_t j{0}; j < contents.size(); ++j)
-      if(contents[j]->what_content_I() == Contents::Unit)
+      if(contents[j].content->what_content_I() == Contents::Unit)
         if(++counter == num_circle+1)
-          return contents[j].get();
+          return contents[j].content.get();
   }
 
   if(num_circle == 4)
@@ -99,8 +105,8 @@ IContent* Cell::click(QPoint pos)
       return nullptr;
 
     for(size_t j{0}; j < contents.size(); ++j)
-      if(contents[j]->what_content_I() == Contents::Resource)
-        return contents[j].get();
+      if(contents[j].content->what_content_I() == Contents::Resource)
+        return contents[j].content.get();
   }
 
   if(num_circle == 5)
@@ -109,8 +115,8 @@ IContent* Cell::click(QPoint pos)
       return nullptr;
 
     for(size_t j{0}; j < contents.size(); ++j)
-      if(contents[j]->what_content_I() == Contents::Building)
-        return contents[j].get();
+      if(contents[j].content->what_content_I() == Contents::Building)
+        return contents[j].content.get();
   }
 
   throw std::runtime_error("Can't find content");
@@ -118,8 +124,8 @@ IContent* Cell::click(QPoint pos)
 
 void ControlContents::set_main_landscape(MainLandscapes type_landscape)
 {
-  if (cell->is_there_main_landscape)
-    throw std::runtime_error("set_main_landscape: There is already a landscape in the cell");
+//  if (cell->is_there_main_landscape)
+//    throw std::runtime_error("set_main_landscape: There is already a landscape in the cell");
 
   cell->is_there_main_landscape = true;
   cell->mainlandscape = type_landscape;
@@ -127,8 +133,8 @@ void ControlContents::set_main_landscape(MainLandscapes type_landscape)
 
 void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
 {
-  if (cell->is_there_other_landscape)
-    throw std::runtime_error("set_other_landscape: There is already other landscape in the cell");
+//  if (cell->is_there_other_landscape)
+//    throw std::runtime_error("set_other_landscape: There is already other landscape in the cell");
 
   cell->is_there_other_landscape = true;
   cell->otherlandscape = type_landscape;
@@ -138,24 +144,24 @@ IContent* ControlContents::add_resource(Resources type_resource)
 {
   if (has_resource())
     throw std::runtime_error("add_resource: There is already a resource in the cell");
-  cell->contents.push_back(std::unique_ptr<IContent>{FubricRes().create_res(type_resource, cell)});
-  return cell->contents[cell->contents.size()-1].get();
+  cell->contents.push_back({FactoryRes().create_res(type_resource, cell)});
+  return cell->contents[cell->contents.size()-1].content.get();
 }
 
 IContent* ControlContents::add_building(Buildings type_building)
 {
   if (has_building())
     throw std::runtime_error("add_building: There is already a building in the cell");
-  cell->contents.push_back(std::unique_ptr<IContent>{FubricBuild().create_building(type_building, cell)});
-  return cell->contents[cell->contents.size()-1].get();
+  cell->contents.push_back({FactoryBuild().create_building(type_building, cell)});
+  return cell->contents[cell->contents.size()-1].content.get();
 }
 
 IContent* ControlContents::add_unit(Units type_unit)
 {
   if(count_units() == 4)
     throw std::runtime_error("add_unit: there are already 4 units in the cell");
-  cell->contents.push_back(std::unique_ptr<IContent>{FubricUnits().create_unit(type_unit, cell)});
-  return cell->contents[cell->contents.size()-1].get();
+  cell->contents.push_back({FactoryUnits().create_unit(type_unit, cell)});
+  return cell->contents[cell->contents.size()-1].content.get();
 }
 
 void ControlContents::add_unit(IContent* unit)
@@ -164,14 +170,14 @@ void ControlContents::add_unit(IContent* unit)
     throw std::runtime_error("add_unit: It isn't unit");
   if(count_units() == 4)
     throw std::runtime_error("add_unit: there are already 4 units in the cell");
-  cell->contents.push_back(std::unique_ptr<IContent>{unit});
+  cell->contents.push_back({unit});
 }
 
 
 void ControlContents::del_content(IContent* content)
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].get() == content){
+    if(cell->contents[i].content.get() == content){
       cell->contents.erase(cell->contents.begin() + i);
     }
 }
@@ -181,9 +187,9 @@ IContent* ControlContents::pop_content(IContent* content)
   std::cout << content << std::endl;
   for(size_t i{0}; i < cell->contents.size(); ++i)
   {
-    if(cell->contents[i].get() == content){
+    if(cell->contents[i].content.get() == content){
       IContent* temp{nullptr};
-      temp = cell->contents[i].release();
+      temp = cell->contents[i].content.release();
       cell->contents.erase(cell->contents.begin() + i);
       return temp;
     }
@@ -202,9 +208,9 @@ MainLandscapes ControlContents::get_landscape() const
 Resources ControlContents::get_resource() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Resource)
+    if(cell->contents[i].content->what_content_I() == Contents::Resource)
     {
-      Res* res = static_cast<Res*>(cell->contents[i].get());
+      Res* res = static_cast<Res*>(cell->contents[i].content.get());
       res->what_resource_I();
     }
   throw std::runtime_error("Hasn't got resource");
@@ -213,9 +219,9 @@ Resources ControlContents::get_resource() const
 Buildings ControlContents::get_building() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Building)
+    if(cell->contents[i].content->what_content_I() == Contents::Building)
     {
-      class Building* building = static_cast<class Building*>(cell->contents[i].get());
+      class Building* building = static_cast<class Building*>(cell->contents[i].content.get());
       building->what_building_I();
     }
   throw std::runtime_error("Hasn't got building");
@@ -225,9 +231,9 @@ std::vector<Units> ControlContents::get_units() const
 {
   std::vector<Units> units;
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Unit)
+    if(cell->contents[i].content->what_content_I() == Contents::Unit)
     {
-      class Unit* unit = static_cast<class Unit*>(cell->contents[i].get());
+      class Unit* unit = static_cast<class Unit*>(cell->contents[i].content.get());
       units.push_back(unit->what_unit_I());
     }
   return units;
@@ -241,7 +247,7 @@ bool ControlContents::has_landscape() const
 bool ControlContents::has_resource() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Resource)
+    if(cell->contents[i].content->what_content_I() == Contents::Resource)
       return true;
   return false;
 }
@@ -249,17 +255,36 @@ bool ControlContents::has_resource() const
 bool ControlContents::has_building() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Building)
+    if(cell->contents[i].content->what_content_I() == Contents::Building)
       return true;
   return false;
 }
 
-int ControlContents::count_units()
+int ControlContents::count_units() const
 {
   int count{0};
   for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i]->what_content_I() == Contents::Unit)
+    if(cell->contents[i].content->what_content_I() == Contents::Unit)
       count++;
   return count;
 }
 
+void ControlContents::set_show_cell(bool _show_cell)
+{
+  cell->show_cell = _show_cell;
+}
+
+void ControlContents::set_show_res(bool show_res)
+{
+  for(size_t i{0}; i < cell->contents.size(); ++i)
+    if(cell->contents[i].content->what_content_I() == Contents::Resource)
+      cell->contents[i].show_content = show_res;
+}
+
+void ControlContents::set_show_unit(bool show_unit, class Unit* unit)
+{
+  for(size_t i{0}; i < cell->contents.size(); ++i)
+    if(cell->contents[i].content->what_content_I() == Contents::Unit)
+      if(cell->contents[i].content.get() == unit)
+        cell->contents[i].show_content = show_unit;
+}

@@ -68,9 +68,55 @@ Calculations* Map::calculations() const
   return graphics_controller->calculations();
 }
 
-Cell* Map::cell_by_index(size_t x, size_t y)
+Cell* Map::cell_by_indexes(size_t x, size_t y) const
 {
   return cells[y][x].get();
+}
+
+std::pair<size_t, size_t> Map::indexes_by_cell(Cell* cell) const
+{
+  for(size_t j{0}; j < size_t(graphics_controller->count_cell_y()); ++j)
+    for(size_t i{0}; i < size_t(graphics_controller->count_cell_x()); ++i)
+      if(cells[j][i].get() == cell)
+        return {i,j};
+  throw std::runtime_error("indexes_by_cell: Hasn't this got this cell");
+}
+
+std::vector<std::pair<size_t, size_t>> Map::adjacent_cells(size_t x, size_t y) const
+{
+  std::vector<std::pair<size_t, size_t>> res;
+  size_t max_ind_x =  size_t(graphics_controller->count_cell_x() - 1);
+  size_t max_ind_y =  size_t(graphics_controller->count_cell_y() - 1);
+
+
+  if(y < max_ind_y)
+    res.push_back({x, y+1});
+  if(y > 0)
+    res.push_back({x, y-1});
+
+  if(x > 0)
+    res.push_back({x-1, y});
+  if(x < max_ind_x)
+    res.push_back({x+1, y});
+
+  if (y % 2 == 0 && x > 0)
+  {
+    if(y > 0)
+      res.push_back({x-1, y-1});
+
+    if(y < max_ind_y)
+      res.push_back({x-1, y+1});
+  }
+  else if(y % 2 == 1 && x < max_ind_x)
+  {
+    if(y > 0)
+      res.push_back({x+1, y-1});
+
+    if(y < max_ind_y)
+        res.push_back({x+1, y+1});
+  }
+
+  return res;
 }
 
 std::pair<Cell*, IContent*> Map::click(QPoint pos)

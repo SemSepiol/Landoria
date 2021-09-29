@@ -31,9 +31,9 @@ void AGraphicsController::create_elements()
 
 void AGraphicsController::create_uppermenu()
 {
-  _height_menu = 50;
-  _width_menu = _width_win;
-  upper_menu->set_size();
+  _height_uppermenu = _height_win/30;
+  _width_uppermenu = _width_win;
+  upper_menu->set_geometry({0,0}, _width_uppermenu, _height_uppermenu);
 }
 
 void AGraphicsController::create_map()
@@ -41,11 +41,11 @@ void AGraphicsController::create_map()
   num_cell_x = game_controller->count_cell_x();
   num_cell_y = game_controller->count_cell_y();
   calc->set_side(130);
-  _height_win_map = _height_win - _height_menu;
+  _height_win_map = _height_win - _height_uppermenu;
   _width_win_map = _width_win;
 
   do_size_map();
-  _win_map_center = {_width_win/2, _height_win/2 + _height_menu};
+  _win_map_center = {_width_win/2, _height_win/2 + _height_uppermenu};
   map_center = _win_map_center;
   map->do_cells();
 
@@ -194,21 +194,6 @@ void AGraphicsController::resize_win(const QSize& new_size)
 ////    std::cout << "No content" << std::endl;
 //}
 
-int AGraphicsController::width_menu() const
-{
-  return _width_menu;
-}
-
-int AGraphicsController::height_menu() const
-{
-  return _height_menu;
-}
-
-QPoint AGraphicsController::uppermenu_top_left() const
-{
-  return _uppermenu_top_left;
-}
-
 void AGraphicsController::exit()
 {
 //  std::cout << "exit" << std::endl;
@@ -227,7 +212,7 @@ void AGraphicsController::do_contents()
   for(int i{0}; i < num_cell_x; ++i)
     for(int j{0}; j < num_cell_y; ++j)
     {
-      ControlContents controlcontents{map->cell_by_index(size_t(i), size_t(j))};
+      ControlContents controlcontents{map->cell_by_indexes(size_t(i), size_t(j))};
 //      controlcontents.add_unit(Units::Worker);
 //      controlcontents.add_unit(Units::Citizen);
 //      controlcontents.add_unit(Units::Swordsman);

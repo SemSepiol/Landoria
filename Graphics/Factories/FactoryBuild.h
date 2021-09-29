@@ -18,7 +18,7 @@
 
 
 
-class FubricBuild : public QObject
+class FactoryBuild : public QObject
 {
  public:
   IContent* create_building(Buildings type_build, ICell* cell) const;

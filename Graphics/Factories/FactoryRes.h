@@ -18,7 +18,7 @@
 
 
 
-class FubricRes : public QObject
+class FactoryRes : public QObject
 {
  public:
   IContent* create_res(Resources type_res, ICell* cell) const;

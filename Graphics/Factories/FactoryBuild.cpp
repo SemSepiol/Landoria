@@ -1,7 +1,7 @@
 #include "FactoryBuild.h"
 
 
-IContent* FubricBuild::create_building(Buildings type_build, ICell *cell) const
+IContent* FactoryBuild::create_building(Buildings type_build, ICell *cell) const
 {
     switch (type_build)
     {

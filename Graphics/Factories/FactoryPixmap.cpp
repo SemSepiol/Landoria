@@ -119,3 +119,39 @@ QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_la
     throw std::runtime_error("There are no images for this other landscape");
   }
 }
+
+QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
+{
+  switch (event->event)
+  {
+  case Events::Move:
+  {
+    delete event;
+    return QPixmap{image_path + menu_dir + "Move.png/"};
+  }
+  case Events::Build:
+  {
+    delete event;
+    Build_event* build_event = static_cast<Build_event*>(event);
+    return create_pixmap_for_building(build_event->building);
+  }
+  case Events::Slip:
+  {
+    delete event;
+    return QPixmap{image_path + menu_dir + "Slip.png/"};
+  }
+  default:
+    throw std::runtime_error("There are no images for this event");
+  }
+}
+
+QRectF FactoryPixmap::size_picture_content() const
+{
+  return {0., 0., 188., 188.};
+}
+
+QRectF FactoryPixmap::size_picture_landscape() const
+{
+  return {0., 0., 500., 500.};
+}
+

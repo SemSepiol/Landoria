@@ -11,7 +11,7 @@
 #include "../Units/Bowman.h"
 
 
-class FubricUnits : public QObject
+class FactoryUnits : public QObject
 {
  public:
   IContent* create_unit(Units type_unit, ICell* cell) const;

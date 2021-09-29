@@ -16,7 +16,7 @@ Game::Game(QApplication* app, int count_cell_x, int count_cell_y, size_t count_p
     throw std::runtime_error("There can't be less than 1 players");
   do_players(count_players);
 
-  _current_player = 0;
+  _current_player = players[0].get();
 }
 
 void Game::start()
@@ -46,7 +46,7 @@ int Game::height_win() const
 
 IPlayer* Game::current_player() const
 {
-  return players[_current_player].get();
+  return _current_player;
 }
 
 IGraphicsControllerForPlayer* Game::graphics_controller() const

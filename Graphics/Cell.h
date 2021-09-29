@@ -21,6 +21,13 @@
 #include "Units/Unit.h"
 #include "Buildings/Building.h"
 
+struct Content
+{
+  std::unique_ptr<IContent> content;
+  bool show_content = true;
+  Content(IContent* _content) : content{_content} {}
+};
+
 class Cell : public ICell
 {
 public:
@@ -37,12 +44,14 @@ public:
 
 private:
   IMap* map;
-  std::vector<std::unique_ptr<IContent>> contents;
+  std::vector<Content> contents;
 
   bool is_there_main_landscape = false;
   bool is_there_other_landscape = false;
   MainLandscapes mainlandscape = MainLandscapes::Plain;
   OtherLandscapes otherlandscape= OtherLandscapes::Nothing;
+
+  bool show_cell = true;
 
   friend class ControlContents;
 };
@@ -71,7 +80,11 @@ public:
   bool has_landscape() const;
   bool has_resource() const;
   bool has_building() const;
-  int count_units();
+  int count_units() const;
+
+  void set_show_cell(bool show_cell);
+  void set_show_res(bool show_res);
+  void set_show_unit(bool show_unit, class Unit* unit);
 
   virtual ~ControlContents() {}
 private:
