@@ -22,7 +22,7 @@ class Map : public IMap
 {
 
 public:
-  Map(IGraphicsControllerForMap* game);
+  Map(IGraphicsControllerForMap* graphics_controller);
 
   // point - центр карты
   void do_cells();

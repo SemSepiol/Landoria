@@ -2,7 +2,7 @@
 #include <iostream>
 
 GraphicsController::GraphicsController(IGameForGraphic* _game_controller)
-  : AGraphicsController{_game_controller}
+  : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), map.get(), this}}
 {
 }
 
@@ -10,6 +10,7 @@ void GraphicsController::create_elements()
 {
   AGraphicsController::create_elements();
   side_square_unit_menu = _width_win/20;
+  create_minimap();
 }
 
 void GraphicsController::do_menu_unit(IPlayerForMenu* player, class Unit* unit)
@@ -56,4 +57,50 @@ void GraphicsController::del_unit(class Unit* unit, size_t cell_x, size_t cell_y
 {
   ControlContents controlcontents{map->cell_by_indexes(cell_x, cell_y)};
   controlcontents.del_content(unit);
+}
+
+void GraphicsController::move_map(QPoint move_point)
+{
+  AGraphicsController::move_map(move_point);
+  set_win_rect_minimap();
+}
+
+void GraphicsController::resize_map(double coefficient)
+{
+  AGraphicsController::resize_map(coefficient);
+  set_win_rect_minimap();
+}
+
+void GraphicsController::move_map(double coeffx, double coeffy)
+{
+   map_center.setX(int(_width_map * coeffx));
+   map_center.setY(int(_height_map * coeffy));
+   control_pos_map();
+   set_win_rect_minimap();
+   game_window->update();
+}
+
+void GraphicsController::create_minimap()
+{
+  int width_minimap = _width_win/3;
+  int height_minimap = _height_win/3;
+
+  int hexagon_height1 = width_minimap/(num_cell_x*2+1);
+  int side1 = calc->my_round(hexagon_height1*2/sqrt(3));
+
+  int side2 = height_minimap*2 / (3*num_cell_y+1);
+
+  hexagon_side_minimap = std::min(side1, side2);
+
+  minimap->set_geometry(QPoint{_width_win, _height_win}, hexagon_side_minimap);
+  set_win_rect_minimap();
+}
+
+void GraphicsController::set_win_rect_minimap()
+{
+  double coeffx = map_center.x()*1. / _width_map;
+  double coeffy = map_center.y()*1. / _height_map;
+  double coeff_width = _width_win_map*1. / _width_map;
+  double coeff_height = _height_win_map*1. / _height_map;
+  minimap->set_win_rect(coeffx, coeffy, coeff_width, coeff_height);
 }

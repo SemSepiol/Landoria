@@ -29,7 +29,6 @@ HEADERS += \
     Graphics/Factories/FactoryPixmap.h \
     Graphics/Factories/FactoryRes.h \
     Graphics/Factories/FactoryUnits.h \
-    Graphics/FubricUnits.h \
     Graphics/GameWindow.h \
     Graphics/GraphicsController/AGraphicsController.h \
     Graphics/GraphicsController/Calculations.h \
@@ -46,6 +45,7 @@ HEADERS += \
     Graphics/Menus/CitizenMenu.h \
     Graphics/Menus/UpperMenu.h \
     Graphics/Menus/WorkerMenu.h \
+    Graphics/Minimap.h \
     Graphics/Resources/Aluminum.h \
     Graphics/Resources/Coal.h \
     Graphics/Resources/Fish.h \
@@ -84,6 +84,7 @@ SOURCES += \
     Graphics/Menus/CitizenMenu.cpp \
     Graphics/Menus/UpperMenu.cpp \
     Graphics/Menus/WorkerMenu.cpp \
+    Graphics/Minimap.cpp \
     Graphics/Resources/Res.cpp \
     Graphics/Units/Unit.cpp \
     main.cpp

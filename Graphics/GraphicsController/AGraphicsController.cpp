@@ -45,7 +45,7 @@ void AGraphicsController::create_map()
   _width_win_map = _width_win;
 
   do_size_map();
-  _win_map_center = {_width_win/2, _height_win/2 + _height_uppermenu};
+  _win_map_center = {_width_win_map/2, _height_win_map/2 + _height_uppermenu};
   map_center = _win_map_center;
   map->do_cells();
 
@@ -116,11 +116,8 @@ void AGraphicsController::draw_map()
 void AGraphicsController::move_map(QPoint move_point)
 {
   QPoint new_map_center = map_center + move_point;
-  if (abs(new_map_center.y() - _win_map_center.y()) + _height_win_map/2 > _height_map/2)
-    move_point.setY(0);
-  if (abs(new_map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
-    move_point.setX(0);
   map_center += move_point;
+  control_pos_map();
   game_window->update();
 }
 
@@ -138,32 +135,7 @@ void AGraphicsController::resize_map(double coefficient)
   }
   else
   {
-    if (abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
-    {
-      QPoint move = QPoint{abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
-      if (map_center.x() - _win_map_center.x() < 0)
-        map_center += move;
-      else
-        map_center -= move;
-    }
-
-    if (abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 > _width_map/2)
-    {
-      QPoint move = QPoint{abs(map_center.x() - _win_map_center.x()) + _width_win_map/2 - _width_map/2,0};
-      if (map_center.x() - _win_map_center.x() < 0)
-        map_center += move;
-      else
-        map_center -= move;
-    }
-
-    if (abs(map_center.y() - _win_map_center.y()) + _height_win_map/2 > _height_map/2)
-    {
-      QPoint move = QPoint{0, abs(map_center.y() - _win_map_center.y()) + _height_win_map/2 - _height_map/2};
-      if (map_center.y() - _win_map_center.y() < 0)
-        map_center += move;
-      else
-        map_center -= move;
-    }
+    control_pos_map();
   }
 
   game_window->update();
@@ -199,6 +171,19 @@ void AGraphicsController::exit()
 //  std::cout << "exit" << std::endl;
   game_window->hide();
   game_controller->exit();
+}
+
+void AGraphicsController::control_pos_map()
+{
+  if (map_center.y() - _win_map_center.y() + _height_win_map/2 > _height_map/2)
+    map_center.setY(_win_map_center.y() - _height_win_map/2 + _height_map/2);
+  else if (_win_map_center.y() - map_center.y() + _height_win_map/2 > _height_map/2)
+    map_center.setY(_win_map_center.y() + _height_win_map/2 - _height_map/2);
+
+  if (map_center.x() - _win_map_center.x() + _width_win_map/2 > _width_map/2)
+    map_center.setX(_win_map_center.x() - _width_win_map/2 + _width_map/2);
+  else if (_win_map_center.x() - map_center.x() + _width_win_map/2 > _width_map/2)
+    map_center.setX(_win_map_center.x() + _width_win_map/2 - _width_map/2);
 }
 
 void AGraphicsController::do_size_map()

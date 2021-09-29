@@ -58,4 +58,15 @@ public:
   virtual void do_menu_unit(IPlayerForMenu* player, class Unit*) = 0;
 };
 
+class IGraphicsControllerForMiniMap : public IObject
+{
+public:
+  virtual int count_cell_x() const = 0;
+  virtual int count_cell_y() const = 0;
+
+  // coeffx = new_map_center.x / width_map
+  // coeffy = new_map_center.y / height_map
+  virtual void move_map(double coeffx, double coeffy) = 0;
+};
+
 #endif // IGRAPHICSCONTROLLER_H

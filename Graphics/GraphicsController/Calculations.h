@@ -11,6 +11,7 @@ public:
   Calculations(int hexagon_side = 0);
 
   void set_side(int hexagon_side);
+  void set_height(int hexagon_height);
 
   int my_round(double a);
   int hexagon_height();

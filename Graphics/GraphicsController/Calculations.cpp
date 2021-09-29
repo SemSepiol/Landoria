@@ -10,6 +10,11 @@ void Calculations::set_side(int hexagon_side)
   side = hexagon_side;
 }
 
+void Calculations::set_height(int hexagon_height)
+{
+  side = my_round(hexagon_height*2/sqrt(3));
+}
+
 int Calculations::my_round(double a)
 {
   return static_cast<int>(round(a));

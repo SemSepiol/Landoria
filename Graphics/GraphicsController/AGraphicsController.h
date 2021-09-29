@@ -15,7 +15,8 @@
 #include "../Menus/UpperMenu.h"
 
 class AGraphicsController : public IGraphicsControllerForWindow, public IGraphicsControllerForMap,
-    public IGraphicsControllerForUpperMenu, public IGraphicsControllerForPlayer
+    public IGraphicsControllerForUpperMenu, public IGraphicsControllerForPlayer,
+    public IGraphicsControllerForMiniMap
 {
 public:
   AGraphicsController(IGameForGraphic* game_controller);
@@ -49,6 +50,7 @@ protected:
   void create_uppermenu();
   void create_map();
   void set_win_settings();
+  void control_pos_map();
 
   void do_size_map();
   void do_contents();
