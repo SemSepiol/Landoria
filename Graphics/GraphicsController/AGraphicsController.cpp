@@ -29,6 +29,11 @@ void AGraphicsController::create_elements()
   create_map();
 }
 
+QPoint AGraphicsController::map_center_in_win_map()
+{
+  return {map_center.x(), map_center.y()-_height_uppermenu};
+}
+
 void AGraphicsController::create_uppermenu()
 {
   _height_uppermenu = _height_win/30;
@@ -115,7 +120,7 @@ void AGraphicsController::draw_map()
 
 void AGraphicsController::move_map(QPoint move_point)
 {
-  QPoint new_map_center = map_center + move_point;
+//  QPoint new_map_center = map_center + move_point;
   map_center += move_point;
   control_pos_map();
   game_window->update();
@@ -123,52 +128,27 @@ void AGraphicsController::move_map(QPoint move_point)
 
 void AGraphicsController::resize_map(double coefficient)
 {
+  if(6*calc->hexagon_side() * coefficient > _height_win)
+    return;
+
   int old_side = calc->hexagon_side();
 
   calc->set_side(calc->my_round(coefficient * calc->hexagon_side()));
   do_size_map();
 
-  if((_height_map < _height_win_map) ||( _width_map < _width_win_map))
+  if((_height_map < _height_win_map) || ( _width_map < _width_win_map))
   {
     calc->set_side(old_side);
     do_size_map();
   }
   else
-  {
     control_pos_map();
-  }
 
   game_window->update();
 }
-
-void AGraphicsController::resize_win(const QSize& new_size)
-{
-//  resize_map(std::max(new_size.width()*1. / _width_win, new_size.height()*1. / _height_win));
-
-  _width_win = new_size.width();
-  _height_win = new_size.height();
-  game_window->update();
-}
-
-//void AGraphicsController::click(QPoint pos)
-//{
-////  std::cout << (pos - map_center).x() << " " << (pos - map_center).y() << std::endl;
-////  std::cout << "=====" << std::endl;
-//  auto pair = map->click(pos - map_center);
-//  Cell* cell = pair.first;
-//  IContent* content = pair.second;
-
-////  if (!cell)
-////    std::cout << "No cell" << std::endl;
-////  if (content)
-////    std::cout << content->what_content_I() << std::endl;
-////  else
-////    std::cout << "No content" << std::endl;
-//}
 
 void AGraphicsController::exit()
 {
-//  std::cout << "exit" << std::endl;
   game_window->hide();
   game_controller->exit();
 }
@@ -191,24 +171,3 @@ void AGraphicsController::do_size_map()
   _height_map = calc->hexagon_side()*num_cell_y + calc->hexagon_side()*(num_cell_y+1)/2;
   _width_map = calc->hexagon_height()*(num_cell_x*2+1);
 }
-
-void AGraphicsController::do_contents()
-{
-  for(int i{0}; i < num_cell_x; ++i)
-    for(int j{0}; j < num_cell_y; ++j)
-    {
-      ControlContents controlcontents{map->cell_by_indexes(size_t(i), size_t(j))};
-//      controlcontents.add_unit(Units::Worker);
-//      controlcontents.add_unit(Units::Citizen);
-//      controlcontents.add_unit(Units::Swordsman);
-//      controlcontents.add_unit(Units::Bowman);
-//      controlcontents.add_building(Buildings(rand() % 10));
-    }
-//  ControlContents controlcontents{map->cell_by_index(num_cell_x/2-1, num_cell_y/2)};
-//  controlcontents.add_unit(Units::Worker);
-//  controlcontents.add_unit(Units::Worker);
-//  controlcontents.add_unit(Units::Worker);
-//  controlcontents.add_unit(Units::Worker);
-}
-
-

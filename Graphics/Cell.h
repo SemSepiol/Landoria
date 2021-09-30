@@ -43,6 +43,9 @@ public:
 
 
 private:
+  void draw_landscape(QPoint point);
+  void draw_contents(QPoint point);
+
   IMap* map;
   std::vector<Content> contents;
 

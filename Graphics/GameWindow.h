@@ -20,7 +20,6 @@ public:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
-  virtual void resizeEvent(QResizeEvent *event) override;
 private:
   IGraphicsControllerForWindow* graphics_controller;
 

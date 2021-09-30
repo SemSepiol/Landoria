@@ -41,19 +41,19 @@ public:
 
   virtual void draw_map() override;
   virtual void move_map(QPoint move_point) override;
+  virtual void move_map(double coeffx, double coeffy) override = 0;
   virtual void resize_map(double coefficient) override;
-  virtual void resize_win(const QSize& new_size) override;
-//  virtual void click(QPoint pos) override;
   virtual void exit() override;
 
 protected:
+  // Возвращает центр кары относительно центра окна карты
+  QPoint map_center_in_win_map();
   void create_uppermenu();
   void create_map();
   void set_win_settings();
   void control_pos_map();
 
   void do_size_map();
-  void do_contents();
 
   int _height_win;
   int _width_win;

@@ -25,53 +25,18 @@ void Cell::draw(QPoint point)
 
   QPen pen(Qt::black, 2, Qt::SolidLine);
   qp.setPen(pen);
-  qp.drawLine(p1, p2);
-  qp.drawLine(p2, p3);
-  qp.drawLine(p3, p4);
-  qp.drawLine(p4, p5);
-  qp.drawLine(p5, p6);
-  qp.drawLine(p6, p1);
+  QPointF points[6] {p1, p2, p3, p4, p5, p6};
+  qp.drawPolygon(points, 6);
 
-  if (!is_there_main_landscape)
-    throw std::runtime_error("The main landscape is not set in the cell");
-  QPixmap pixmap = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
-  QRectF source = FactoryPixmap().size_picture_landscape();
-  QRectF target{1.* (point.x() - calc->hexagon_side() - 1), 1.* (point.y() - calc->hexagon_side() - 1),
-        calc->hexagon_side()*2. + 2, calc->hexagon_side()*2. + 2};
-  qp.drawPixmap(target, pixmap, source);
+  draw_landscape(point);
+  draw_contents(point);
 
-  QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
-  qp.drawPixmap(target, pixmap2, source);
-
-  int count_drawn_unit = 0;
-  for(size_t i{0}; i < contents.size(); ++i)
-  {
-    if(!contents[i].show_content)
-      continue;
-
-    if(contents[i].content->what_content_I() == Contents::Unit){
-      if (count_drawn_unit < 4){
-        QPoint p = calculations()->point_circle_for_unit(count_drawn_unit);
-        contents[i].content->draw(point + p);
-      }
-      count_drawn_unit++;
-    }
-    else if (contents[i].content->what_content_I() == Contents::Resource){
-      QPoint p = calculations()->point_circle_for_res();
-      contents[i].content->draw(point + p);
-    }
-    else if (contents[i].content->what_content_I() == Contents::Building) {
-      QPoint p = calculations()->point_circle_for_build();
-      contents[i].content->draw(point + p);
-    }
-  }
 }
 
 QWidget* Cell::window() const
 {
   return map->window();
 }
-
 
 Calculations* Cell::calculations() const
 {
@@ -120,6 +85,52 @@ IContent* Cell::click(QPoint pos)
   }
 
   throw std::runtime_error("Can't find content");
+}
+
+void Cell::draw_landscape(QPoint point)
+{
+  Calculations* calc = calculations();
+  QWidget* win = window();
+  QPainter qp(win);
+
+  if (!is_there_main_landscape)
+    throw std::runtime_error("The main landscape is not set in the cell");
+
+  QPixmap pixmap = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
+  QRectF source = FactoryPixmap().size_picture_landscape();
+  QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
+        calc->hexagon_side()*2., calc->hexagon_side()*2.};
+  qp.drawPixmap(target, pixmap, source);
+
+  QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
+  qp.drawPixmap(target, pixmap2, source);
+}
+
+void Cell::draw_contents(QPoint point)
+{
+  Calculations* calc = calculations();
+  int count_drawn_unit = 0;
+  for(size_t i{0}; i < contents.size(); ++i)
+  {
+    if(!contents[i].show_content)
+      continue;
+
+    if(contents[i].content->what_content_I() == Contents::Unit){
+      if (count_drawn_unit < 4){
+        QPoint p = calc->point_circle_for_unit(count_drawn_unit);
+        contents[i].content->draw(point + p);
+      }
+      count_drawn_unit++;
+    }
+    else if (contents[i].content->what_content_I() == Contents::Resource){
+      QPoint p = calc->point_circle_for_res();
+      contents[i].content->draw(point + p);
+    }
+    else if (contents[i].content->what_content_I() == Contents::Building) {
+      QPoint p = calc->point_circle_for_build();
+      contents[i].content->draw(point + p);
+    }
+  }
 }
 
 void ControlContents::set_main_landscape(MainLandscapes type_landscape)
@@ -196,7 +207,6 @@ IContent* ControlContents::pop_content(IContent* content)
   }
   throw std::runtime_error("pop_content: hasn't this constent");
 }
-
 
 MainLandscapes ControlContents::get_landscape() const
 {

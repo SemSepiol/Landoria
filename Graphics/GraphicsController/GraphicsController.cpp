@@ -69,6 +69,7 @@ void GraphicsController::resize_map(double coefficient)
 {
   AGraphicsController::resize_map(coefficient);
   set_win_rect_minimap();
+  game_window->update();
 }
 
 void GraphicsController::move_map(double coeffx, double coeffy)
@@ -98,8 +99,8 @@ void GraphicsController::create_minimap()
 
 void GraphicsController::set_win_rect_minimap()
 {
-  double coeffx = map_center.x()*1. / _width_map;
-  double coeffy = map_center.y()*1. / _height_map;
+  double coeffx = map_center_in_win_map().x()*1. / _width_map;
+  double coeffy = map_center_in_win_map().y()*1. / _height_map;
   double coeff_width = _width_win_map*1. / _width_map;
   double coeff_height = _height_win_map*1. / _height_map;
   minimap->set_win_rect(coeffx, coeffy, coeff_width, coeff_height);

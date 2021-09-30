@@ -20,7 +20,6 @@ public:
   virtual void draw_map() = 0;
   virtual void move_map(QPoint move_point) = 0;
   virtual void resize_map(double coefficient) = 0;
-  virtual void resize_win(const QSize& new_size) = 0;
   virtual void click(QPoint pos) = 0;
 };
 
