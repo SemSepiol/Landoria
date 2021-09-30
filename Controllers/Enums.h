@@ -30,11 +30,12 @@ enum MainLandscapes
 
 enum OtherLandscapes
 {
-    Nothing,
-    Forest,
-    Jungles,
-    ForestAndHills,
-    JunglesAndHills
+  Nothing,
+  Forest,
+  Jungles,
+  Hills,
+  ForestAndHills,
+  JunglesAndHills
 };
 
 enum Resources

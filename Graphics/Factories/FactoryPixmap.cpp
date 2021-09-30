@@ -115,6 +115,8 @@ QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_la
     return QPixmap{image_path + landscapes_dir + "Jungles_hills.png/"};
   case OtherLandscapes::Nothing:
     return QPixmap{""};
+  case OtherLandscapes::Hills:
+    return QPixmap{image_path + landscapes_dir + "Hills.png/"};
   default:
     throw std::runtime_error("There are no images for this other landscape");
   }
@@ -153,6 +155,11 @@ QPixmap FactoryPixmap::create_pixmap_for_exit() const
 QPixmap FactoryPixmap::create_pixmap_for_minimap() const
 {
   return QPixmap{":/Graphics/image/menu/Map.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_nextmotion() const
+{
+  return QPixmap{":/Graphics/image/menu/NextMotion.png"};
 }
 
 QRectF FactoryPixmap::size_picture_content() const

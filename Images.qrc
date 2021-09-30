@@ -49,5 +49,7 @@
         <file>Graphics/image/menu/Move.png</file>
         <file>Graphics/image/menu/Slip.png</file>
         <file>Graphics/image/menu/Map.png</file>
+        <file>Graphics/image/menu/NextMotion.png</file>
+        <file>Graphics/image/landscapes/Hills.png</file>
     </qresource>
 </RCC>

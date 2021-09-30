@@ -37,7 +37,7 @@ void GraphicsController::click(QPoint pos)
   if (menu.get())
     menu.reset();
   auto pair = map->click(pos - map_center);
-  Cell* cell = pair.first;
+//  Cell* cell = pair.first;
   IContent* content = pair.second;
 
   if(content)
