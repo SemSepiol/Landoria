@@ -1,10 +1,10 @@
 #ifndef CITIZENMENU_H
 #define CITIZENMENU_H
 
-#include "AMenu.h"
+#include "AMenuForUnit.h"
 #include "../GraphicsController/EventsStructures.h"
 
-class CitizenMenu : public AMenu
+class CitizenMenu : public AMenuForUnit
 {
   const int _count_button = 3;
 public:

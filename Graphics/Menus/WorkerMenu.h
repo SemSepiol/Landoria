@@ -3,10 +3,10 @@
 
 #include <QPoint>
 
-#include "AMenu.h"
+#include "AMenuForUnit.h"
 #include "../GraphicsController/EventsStructures.h"
 
-class WorkerMenu : public AMenu
+class WorkerMenu : public AMenuForUnit
 {
   const int _count_button = 1;
 public:

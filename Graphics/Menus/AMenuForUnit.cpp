@@ -1,27 +1,27 @@
-#include "AMenu.h"
+#include "AMenuForUnit.h"
 
-AMenu::AMenu(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
+AMenuForUnit::AMenuForUnit(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
   :QWidget(win), player{_player}, unit{_unit}
 {}
 
-void AMenu::set_geometry(QPoint pos, int _side_square)
+void AMenuForUnit::set_geometry(QPoint pos, int _side_square)
 {
   side_square = _side_square;
   QWidget::setGeometry(pos.x(), pos.y(), side_square, side_square*count_button());
 }
 
-void AMenu::paintEvent(QPaintEvent *event)
+void AMenuForUnit::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event)
   draw();
 }
 
-void AMenu::mousePressEvent(QMouseEvent *event)
+void AMenuForUnit::mousePressEvent(QMouseEvent *event)
 {
   mouse_click_pos = event->pos();
 }
 
-void AMenu::mouseReleaseEvent(QMouseEvent *event)
+void AMenuForUnit::mouseReleaseEvent(QMouseEvent *event)
 {
   if(event->pos() != mouse_click_pos)
     return;
@@ -35,7 +35,7 @@ void AMenu::mouseReleaseEvent(QMouseEvent *event)
 
 }
 
-void AMenu::draw()
+void AMenuForUnit::draw()
 {
   QPainter qp(this);
   QPen pen{Qt::white, 2, Qt::SolidLine};
@@ -50,12 +50,12 @@ void AMenu::draw()
   qp.drawRects(list);
 }
 
-void AMenu::click_butt(int num_butt)
+void AMenuForUnit::click_butt(int num_butt)
 {
   player->menu_event(what_butt(num_butt), unit);
 }
 
-bool AMenu::point_in_rect(QRectF rect, QPoint point)
+bool AMenuForUnit::point_in_rect(QRectF rect, QPoint point)
 {
   if (point.x() >= rect.topLeft().x() && point.x() < rect.bottomRight().x())
     if (point.y() >= rect.topLeft().y() && point.y() <= rect.bottomRight().y())
@@ -63,7 +63,7 @@ bool AMenu::point_in_rect(QRectF rect, QPoint point)
   return false;
 }
 
-QRectF AMenu::rect_butt(int i)
+QRectF AMenuForUnit::rect_butt(int i)
 {
   return QRectF{0., i*side_square*1., side_square*1., side_square*1.};
 }

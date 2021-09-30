@@ -11,7 +11,7 @@
 #include "../Minimap.h"
 
 
-class GraphicsController : public AGraphicsController
+class GraphicsController : public AGraphicsController, public IGraphicsControllerForPlayer
 {
 public:
   GraphicsController(IGameForGraphic* game_controller);
@@ -27,20 +27,21 @@ public:
   virtual void move_map(QPoint move_point) override;
   virtual void resize_map(double coefficient) override;
 
-  // coeffx = new_map_center.x / width_map
-  // coeffy = new_map_center.y / height_map
+  /* coeffx = new_map_center.x / width_map
+     coeffy = new_map_center.y / height_map */
   virtual void move_map(double coeffx, double coeffy) override;
 private:
   void create_minimap();
   void set_win_rect_minimap();
 
+  virtual void show_minimap() override;
+
   int side_square_unit_menu;
   int hexagon_side_minimap;
 
   Cell* click_cell = nullptr;
-  std::unique_ptr<AMenu> menu{nullptr};
+  std::unique_ptr<AMenuForUnit> menu{nullptr};
   std::unique_ptr<Minimap> minimap;
-
 };
 
 #endif // GRAPHICSCONTROLLER_H

@@ -13,20 +13,18 @@
 #include "CreateMap.h"
 #include "../../Controllers/IGame.h"
 #include "../Menus/UpperMenu.h"
+#include "../Menus/BottomMenu.h"
 
 class AGraphicsController : public IGraphicsControllerForWindow, public IGraphicsControllerForMap,
-    public IGraphicsControllerForUpperMenu, public IGraphicsControllerForPlayer,
-    public IGraphicsControllerForMiniMap
+    public IGraphicsControllerForMenuInWindow, public IGraphicsControllerForMiniMap
 {
 public:
   AGraphicsController(IGameForGraphic* game_controller);
   void start();
   virtual QWidget* window() const override;
-//  virtual QWidget* window() const override {return window();}
   virtual Calculations* calculations() const override;
 
   virtual void create_elements();
-
 
   virtual int count_cell_x() const override;
   virtual int count_cell_y() const override;
@@ -41,7 +39,6 @@ public:
 
   virtual void draw_map() override;
   virtual void move_map(QPoint move_point) override;
-  virtual void move_map(double coeffx, double coeffy) override = 0;
   virtual void resize_map(double coefficient) override;
   virtual void exit() override;
 
@@ -49,6 +46,7 @@ protected:
   // Возвращает центр кары относительно центра окна карты
   QPoint map_center_in_win_map();
   void create_uppermenu();
+  void create_bottommenu();
   void create_map();
   void set_win_settings();
   void control_pos_map();
@@ -59,6 +57,8 @@ protected:
   int _width_win;
   int _height_uppermenu;
   int _width_uppermenu;
+  int _height_bottommenu;
+  int _width_bottommenu;
   int _height_win_map;
   int _width_win_map;
   int _height_map;
@@ -73,6 +73,7 @@ protected:
 
   std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<UpperMenu> upper_menu;
+  std::unique_ptr<BottomMenu> bottom_menu;
   std::unique_ptr<Map> map;
   std::unique_ptr<Calculations> calc;
 };

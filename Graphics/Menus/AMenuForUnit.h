@@ -1,5 +1,5 @@
-#ifndef AMENU_H
-#define AMENU_H
+#ifndef AMENUFORUNIT_H
+#define AMENUFORUNIT_H
 
 #include <QWidget>
 #include <QPoint>
@@ -11,10 +11,10 @@
 #include "../GraphicsController/EventsStructures.h"
 #include "../Factories/FactoryPixmap.h"
 
-class AMenu : public QWidget
+class AMenuForUnit : public QWidget
 {
 public:
-  AMenu(QWidget* widget, IPlayerForMenu* player, class Unit* unit);
+  AMenuForUnit(QWidget* widget, IPlayerForMenu* player, class Unit* unit);
   virtual void set_geometry(QPoint pos, int side_square);
   virtual void draw();
   virtual int count_button() const = 0;
@@ -39,4 +39,4 @@ private:
   QRectF rect_butt(int i);
 };
 
-#endif // AMENU_H
+#endif // AMENUFORUNIT_H

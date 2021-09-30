@@ -1,6 +1,6 @@
 #include "FactoryMenusUnit.h"
 
-AMenu* FactoryMenusUnit::create_menu(QWidget* win, IPlayerForMenu* player, class Unit* unit)
+AMenuForUnit* FactoryMenusUnit::create_menu(QWidget* win, IPlayerForMenu* player, class Unit* unit)
 {
   switch (unit->what_unit_I())
   {

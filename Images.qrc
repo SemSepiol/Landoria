@@ -43,10 +43,11 @@
         <file>Graphics/image/landscapes/Jungles.png</file>
         <file>Graphics/image/landscapes/Jungles_hills.png</file>
         <file>Graphics/image/landscapes/Forest_hills.png</file>
-        <file>Graphics/image/menu/exit.png</file>
+        <file>Graphics/image/menu/Exit.png</file>
         <file>Graphics/image/landscapes/Ice.png</file>
         <file>Graphics/image/landscapes/Snow.png</file>
         <file>Graphics/image/menu/Move.png</file>
         <file>Graphics/image/menu/Slip.png</file>
+        <file>Graphics/image/menu/Map.png</file>
     </qresource>
 </RCC>

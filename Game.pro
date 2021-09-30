@@ -41,7 +41,9 @@ HEADERS += \
     Graphics/IDrawObject.h \
     Graphics/IMap.h \
     Graphics/Map.h \
-    Graphics/Menus/AMenu.h \
+    Graphics/Menus/AMenuForUnit.h \
+    Graphics/Menus/AMenuInWindow.h \
+    Graphics/Menus/BottomMenu.h \
     Graphics/Menus/CitizenMenu.h \
     Graphics/Menus/UpperMenu.h \
     Graphics/Menus/WorkerMenu.h \
@@ -80,7 +82,9 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/Map.cpp \
-    Graphics/Menus/AMenu.cpp \
+    Graphics/Menus/AMenuForUnit.cpp \
+    Graphics/Menus/AMenuInWindow.cpp \
+    Graphics/Menus/BottomMenu.cpp \
     Graphics/Menus/CitizenMenu.cpp \
     Graphics/Menus/UpperMenu.cpp \
     Graphics/Menus/WorkerMenu.cpp \

@@ -4,7 +4,7 @@
 
 AGraphicsController::AGraphicsController(class IGameForGraphic* _game_controller)
   :game_controller{_game_controller}, game_window{new GameWindow(this)}, upper_menu{new class UpperMenu(this)},
-    map{new Map(this)}, calc{new Calculations{}}
+    bottom_menu{new class BottomMenu(this)}, map{new Map(this)}, calc{new Calculations{}}
 {}
 
 void AGraphicsController::start()
@@ -26,6 +26,7 @@ void AGraphicsController::create_elements()
 {
   set_win_settings();
   create_uppermenu();
+  create_bottommenu();
   create_map();
 }
 
@@ -41,12 +42,21 @@ void AGraphicsController::create_uppermenu()
   upper_menu->set_geometry({0,0}, _width_uppermenu, _height_uppermenu);
 }
 
+void AGraphicsController::create_bottommenu()
+{
+
+  _height_bottommenu = _height_win/30;
+  _width_bottommenu = _width_win;
+  QPoint pos{_width_win - _width_uppermenu, _height_win - _height_uppermenu};
+  bottom_menu->set_geometry(pos, _width_uppermenu, _height_uppermenu);
+}
+
 void AGraphicsController::create_map()
 {
   num_cell_x = game_controller->count_cell_x();
   num_cell_y = game_controller->count_cell_y();
   calc->set_side(130);
-  _height_win_map = _height_win - _height_uppermenu;
+  _height_win_map = _height_win - _height_uppermenu - _height_bottommenu;
   _width_win_map = _width_win;
 
   do_size_map();
@@ -58,14 +68,14 @@ void AGraphicsController::create_map()
   creator_map.create_map(map.get());
   creator_map.add_resource(map.get());
 
-//  game_window->update();
+  //  game_window->update();
 }
 
 void AGraphicsController::set_win_settings()
 {
   _height_win = game_controller->height_win();
   _width_win = game_controller->width_win();
-//  std::cout << _height_win << " " << _width_win << std::endl;
+  //  std::cout << _height_win << " " << _width_win << std::endl;
 }
 
 int AGraphicsController::count_cell_x() const
@@ -120,7 +130,7 @@ void AGraphicsController::draw_map()
 
 void AGraphicsController::move_map(QPoint move_point)
 {
-//  QPoint new_map_center = map_center + move_point;
+  //  QPoint new_map_center = map_center + move_point;
   map_center += move_point;
   control_pos_map();
   game_window->update();

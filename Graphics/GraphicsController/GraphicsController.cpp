@@ -16,7 +16,7 @@ void GraphicsController::create_elements()
 void GraphicsController::do_menu_unit(IPlayerForMenu* player, class Unit* unit)
 {
   menu.reset(FactoryMenusUnit().create_menu(game_window.get(), player, unit));
-  menu->set_geometry({0, _height_win - side_square_unit_menu * menu->count_button()},
+  menu->set_geometry({0, _height_win - side_square_unit_menu * menu->count_button() - _height_bottommenu},
                      side_square_unit_menu);
   menu->hide();
   menu->show();
@@ -93,8 +93,9 @@ void GraphicsController::create_minimap()
 
   hexagon_side_minimap = std::min(side1, side2);
 
-  minimap->set_geometry(QPoint{_width_win, _height_win}, hexagon_side_minimap);
+  minimap->set_geometry(QPoint{_width_win, _height_win - _height_bottommenu}, hexagon_side_minimap);
   set_win_rect_minimap();
+  minimap->hide();
 }
 
 void GraphicsController::set_win_rect_minimap()
@@ -104,4 +105,12 @@ void GraphicsController::set_win_rect_minimap()
   double coeff_width = _width_win_map*1. / _width_map;
   double coeff_height = _height_win_map*1. / _height_map;
   minimap->set_win_rect(coeffx, coeffy, coeff_width, coeff_height);
+}
+
+void GraphicsController::show_minimap()
+{
+  if(minimap->isVisible())
+    minimap->hide();
+  else
+    minimap->show();
 }

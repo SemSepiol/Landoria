@@ -2,7 +2,7 @@
 #include <iostream>
 
 CitizenMenu::CitizenMenu(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
-  :AMenu(win, _player, _unit)
+  :AMenuForUnit(win, _player, _unit)
 {}
 
 int CitizenMenu::count_button() const

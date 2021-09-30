@@ -2,7 +2,7 @@
 #include <iostream>
 
 WorkerMenu::WorkerMenu(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
-  :AMenu(win, _player, _unit)
+  :AMenuForUnit(win, _player, _unit)
 {}
 
 int WorkerMenu::count_button() const

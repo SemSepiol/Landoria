@@ -145,6 +145,16 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
   }
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_exit() const
+{
+  return QPixmap{":/Graphics/image/menu/Exit.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_minimap() const
+{
+  return QPixmap{":/Graphics/image/menu/Map.png"};
+}
+
 QRectF FactoryPixmap::size_picture_content() const
 {
   return {0., 0., 188., 188.};

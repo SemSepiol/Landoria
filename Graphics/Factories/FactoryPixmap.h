@@ -15,6 +15,8 @@ public:
   QPixmap create_pixmap_for_main_landscape(MainLandscapes type_landscape) const;
   QPixmap create_pixmap_for_other_landscape(OtherLandscapes type_landscape) const;
   QPixmap create_pixmap_for_butt_menu(Event* event) const;
+  QPixmap create_pixmap_for_exit() const;
+  QPixmap create_pixmap_for_minimap() const;
 
   QRectF size_picture_content() const;
   QRectF size_picture_landscape() const;
