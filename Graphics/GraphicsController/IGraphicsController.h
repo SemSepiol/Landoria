@@ -53,9 +53,10 @@ public:
   virtual class Unit* add_unit(Units unit, size_t cell_x, size_t cell_y) = 0;
   virtual void move_unit(class Unit* unit, size_t old_position_x, size_t old_position_y,
                          size_t new_position_x, size_t new_position_y) = 0;
+  virtual void build(Buildings building, size_t position_x, size_t position_y) = 0;
   virtual void del_unit(class Unit* unit, size_t cell_x, size_t cell_y) = 0;
 
-  virtual void do_menu_unit(IPlayerForMenu* player, class Unit*) = 0;
+  virtual void do_menu_unit(class Unit*) = 0;
 };
 
 class IGraphicsControllerForMiniMap : public IObject
@@ -67,6 +68,12 @@ public:
   // coeffx = new_map_center.x / width_map
   // coeffy = new_map_center.y / height_map
   virtual void move_map(double coeffx, double coeffy) = 0;
+};
+
+class IGraphicsControllerMenuForUnit : public IObject
+{
+public:
+  virtual void menu_unit_event(class Unit* unit, Event* event) = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

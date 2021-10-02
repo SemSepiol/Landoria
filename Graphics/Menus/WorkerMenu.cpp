@@ -1,8 +1,8 @@
 #include "WorkerMenu.h"
 #include <iostream>
 
-WorkerMenu::WorkerMenu(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
-  :AMenuForUnit(win, _player, _unit)
+WorkerMenu::WorkerMenu(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller, class Unit* _unit)
+  :AMenuForUnit(win, _graphics_controller, _unit)
 {}
 
 int WorkerMenu::count_button() const

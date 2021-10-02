@@ -27,7 +27,8 @@ void AMenuInWindow::mousePressEvent(QMouseEvent *event)
 
 void AMenuInWindow::mouseReleaseEvent(QMouseEvent* event)
 {
-  if(event->pos() != mouse_pos_clicked)
+  QPoint mouse_move = event->pos() - mouse_pos_clicked;
+  if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
   click(event->pos());
 

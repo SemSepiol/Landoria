@@ -8,7 +8,7 @@ class CitizenMenu : public AMenuForUnit
 {
   const int _count_button = 3;
 public:
-  CitizenMenu(QWidget* win, IPlayerForMenu* player, class Unit* unit);
+  CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit);
   virtual int count_button() const override;
 
 protected:

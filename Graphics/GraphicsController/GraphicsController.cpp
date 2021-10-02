@@ -13,13 +13,13 @@ void GraphicsController::create_elements()
   create_minimap();
 }
 
-void GraphicsController::do_menu_unit(IPlayerForMenu* player, class Unit* unit)
+void GraphicsController::do_menu_unit(class Unit* unit)
 {
-  menu.reset(FactoryMenusUnit().create_menu(game_window.get(), player, unit));
-  menu->set_geometry({0, _height_win - side_square_unit_menu * menu->count_button() - _height_bottommenu},
+  menu_for_unit.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit));
+  menu_for_unit->set_geometry({0, _height_win - side_square_unit_menu * menu_for_unit->count_button() - _height_bottommenu},
                      side_square_unit_menu);
-  menu->hide();
-  menu->show();
+  menu_for_unit->hide();
+  menu_for_unit->show();
 }
 
 void GraphicsController::move_unit(class Unit* unit, size_t old_position_x, size_t old_position_y,
@@ -30,16 +30,31 @@ void GraphicsController::move_unit(class Unit* unit, size_t old_position_x, size
 
   controlcontents_old.pop_content(unit);
   controlcontents_new.add_unit(unit);
+  game_window->update();
+}
+
+void GraphicsController::build(Buildings building, size_t position_x, size_t position_y)
+{
+  ControlContents controlcontents{map->cell_by_indexes(position_x, position_y)};
+  if(controlcontents.has_building())
+    throw std::runtime_error("build: There is already a building in this cell");
+  controlcontents.add_building(building);
+  game_window->update();
 }
 
 void GraphicsController::click(QPoint pos)
 {
-  if (menu.get())
-    menu.reset();
   auto pair = map->click(pos - map_center);
-//  Cell* cell = pair.first;
+  Cell* cell = pair.first;
   IContent* content = pair.second;
 
+  if(is_checking_move_unit)
+  {
+    unit_moved(cell);
+    return;
+  }
+
+  menu_for_unit.reset();
   if(content)
     if (content->what_content_I() == Contents::Unit)
       game_controller->current_player()->click_unit(static_cast<class Unit*>(content));
@@ -81,6 +96,20 @@ void GraphicsController::move_map(double coeffx, double coeffy)
    game_window->update();
 }
 
+void GraphicsController::menu_unit_event(class Unit* unit, Event* event)
+{
+  if(event->event == Events::Move)
+  {
+    if(is_checking_move_unit)
+      stop_check_move_unit();
+    else
+      start_check_move_unit(unit);
+    return;
+  }
+  game_controller->current_player()->menu_event(unit, event);
+  menu_for_unit.reset();
+}
+
 void GraphicsController::create_minimap()
 {
   int width_minimap = _width_win/3;
@@ -113,4 +142,27 @@ void GraphicsController::show_minimap()
     minimap->hide();
   else
     minimap->show();
+}
+
+void GraphicsController::start_check_move_unit(class Unit* unit)
+{
+  unit_what_moving = unit;
+  is_checking_move_unit = true;
+}
+
+void GraphicsController::stop_check_move_unit()
+{
+  is_checking_move_unit = false;
+  unit_what_moving = nullptr;
+}
+
+void GraphicsController::unit_moved(Cell* cell)
+{
+  auto pair_of_ind = map->indexes_by_cell(cell);
+  if(!unit_what_moving)
+    throw std::runtime_error("click: unit_what_moving not set");
+  Move_event* move_event = new Move_event{pair_of_ind.first, pair_of_ind.second};
+  game_controller->current_player()->menu_event(unit_what_moving, move_event);
+  stop_check_move_unit();
+  menu_for_unit.reset();
 }

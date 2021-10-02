@@ -1,8 +1,8 @@
 #include "CitizenMenu.h"
 #include <iostream>
 
-CitizenMenu::CitizenMenu(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
-  :AMenuForUnit(win, _player, _unit)
+CitizenMenu::CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller, class Unit* _unit)
+  :AMenuForUnit(win, _graphics_controller, _unit)
 {}
 
 int CitizenMenu::count_button() const

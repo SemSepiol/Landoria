@@ -7,7 +7,7 @@
 
 #include "../Buildings/Town.h"
 #include "../Buildings/Farm.h"
-#include "../Buildings/FishingBoats.h"
+#include "../Buildings/FishingBoat.h"
 #include "../Buildings/Fort.h"
 #include "../Buildings/LumberMill.h"
 #include "../Buildings/Mine.h"

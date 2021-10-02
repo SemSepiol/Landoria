@@ -56,7 +56,7 @@ enum Buildings
 {
   Town,
   Farm,
-  FishingBoats,
+  FishingBoat,
   Fort,
   LumberMill,
   Mine,

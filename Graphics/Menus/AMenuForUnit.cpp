@@ -1,7 +1,7 @@
 #include "AMenuForUnit.h"
 
-AMenuForUnit::AMenuForUnit(QWidget* win, IPlayerForMenu* _player, class Unit* _unit)
-  :QWidget(win), player{_player}, unit{_unit}
+AMenuForUnit::AMenuForUnit(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller, class Unit* _unit)
+  :QWidget(win), graphics_controller{_graphics_controller}, unit{_unit}
 {}
 
 void AMenuForUnit::set_geometry(QPoint pos, int _side_square)
@@ -18,12 +18,13 @@ void AMenuForUnit::paintEvent(QPaintEvent *event)
 
 void AMenuForUnit::mousePressEvent(QMouseEvent *event)
 {
-  mouse_click_pos = event->pos();
+  mouse_pos_clicked = event->pos();
 }
 
 void AMenuForUnit::mouseReleaseEvent(QMouseEvent *event)
 {
-  if(event->pos() != mouse_click_pos)
+  QPoint mouse_move = event->pos() - mouse_pos_clicked;
+  if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
 
   for(int i{0}; i < count_button(); ++i)
@@ -32,7 +33,6 @@ void AMenuForUnit::mouseReleaseEvent(QMouseEvent *event)
       click_butt(i);
       break;
     }
-
 }
 
 void AMenuForUnit::draw()
@@ -52,7 +52,7 @@ void AMenuForUnit::draw()
 
 void AMenuForUnit::click_butt(int num_butt)
 {
-  player->menu_event(what_butt(num_butt), unit);
+  graphics_controller->menu_unit_event(unit, what_butt(num_butt));
 }
 
 bool AMenuForUnit::point_in_rect(QRectF rect, QPoint point)

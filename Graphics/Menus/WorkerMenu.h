@@ -10,7 +10,7 @@ class WorkerMenu : public AMenuForUnit
 {
   const int _count_button = 1;
 public:
-  WorkerMenu(QWidget* win, IPlayerForMenu* player, class Unit* unit);
+  WorkerMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit);
   virtual int count_button() const override;
 
 protected:

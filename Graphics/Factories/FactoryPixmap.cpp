@@ -54,7 +54,7 @@ QPixmap FactoryPixmap::create_pixmap_for_building(Buildings type_building) const
     return QPixmap{image_path + buildings_dir + "Town.png/"};
   case Buildings::Farm:
     return QPixmap{image_path + buildings_dir + "Farm.png/"};
-  case Buildings::FishingBoats:
+  case Buildings::FishingBoat:
     return QPixmap{image_path + buildings_dir + "FishingBoats.png/"};
   case Buildings::Fort:
     return QPixmap{image_path + buildings_dir + "Fort.png/"};

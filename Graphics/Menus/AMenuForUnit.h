@@ -7,14 +7,15 @@
 #include <QPainter>
 
 #include "../Units/Unit.h"
-#include "../../Controllers/IPlayer.h"
+//#include "../../Controllers/IPlayer.h"
 #include "../GraphicsController/EventsStructures.h"
+#include "../GraphicsController/IGraphicsController.h"
 #include "../Factories/FactoryPixmap.h"
 
 class AMenuForUnit : public QWidget
 {
 public:
-  AMenuForUnit(QWidget* widget, IPlayerForMenu* player, class Unit* unit);
+  AMenuForUnit(QWidget* widget, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit);
   virtual void set_geometry(QPoint pos, int side_square);
   virtual void draw();
   virtual int count_button() const = 0;
@@ -29,8 +30,8 @@ protected:
   virtual void click_butt(int num_butt);
 
   int side_square;
-  QPoint mouse_click_pos;
-  IPlayerForMenu* player;
+  QPoint mouse_pos_clicked;
+  IGraphicsControllerMenuForUnit* graphics_controller;
   class Unit* unit;
 private:
   bool point_in_rect(QRectF rect, QPoint point);

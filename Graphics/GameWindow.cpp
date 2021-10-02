@@ -6,6 +6,7 @@ GameWindow::GameWindow(IGraphicsControllerForWindow* game)
 {
 //  setWindowState(windowState() ^ Qt::WindowFullScreen);
   setStyleSheet("background-color:black;");
+  QWidget::setMouseTracking(true);
 }
 
 void GameWindow::show()
@@ -25,22 +26,25 @@ void GameWindow::paintEvent(QPaintEvent* event)
 
 void GameWindow::mouseMoveEvent(QMouseEvent* event)
 {
-  mouse_is_moved = true;
-  graphics_controller->move_map(event->pos() - pos_mouse);
-  pos_mouse = event->pos();
-//  std::cout << event->pos().x() << "::" << event->pos().y() << std::endl;
+  if(mouse_is_clicked){
+    graphics_controller->move_map(event->pos() - pos_mouse);
+    pos_mouse = event->pos();
+  }
 }
 
 void GameWindow::mousePressEvent(QMouseEvent* event)
 {
   pos_mouse = event->pos();
+  mouse_is_clicked = true;
+  pos_mouse_clicked = event->pos();
 }
 
 void GameWindow::mouseReleaseEvent(QMouseEvent* event)
 {
-  if(!mouse_is_moved)
+  QPoint move_mouse = event->pos() - pos_mouse_clicked;
+  if(abs(move_mouse.x()) < 5 and abs(move_mouse.y()) < 5)
     graphics_controller->click(event->pos());
-  mouse_is_moved = false;
+  mouse_is_clicked = false;
 }
 
 void GameWindow::wheelEvent(QWheelEvent* event)

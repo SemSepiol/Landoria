@@ -39,6 +39,7 @@ public:
 
   virtual void draw_map() override;
   virtual void move_map(QPoint move_point) override;
+  virtual void move_map(double coeffx, double coeffy) override = 0;
   virtual void resize_map(double coefficient) override;
   virtual void exit() override;
 

@@ -9,8 +9,8 @@ IContent* FactoryBuild::create_building(Buildings type_build, ICell *cell) const
         return new class Town(cell);
     case Buildings::Farm:
         return new class Farm(cell);
-    case Buildings::FishingBoats:
-        return new class FishingBoats(cell);
+    case Buildings::FishingBoat:
+        return new class FishingBoat(cell);
     case Buildings::Fort:
         return new class Fort(cell);
     case Buildings::LumberMill:

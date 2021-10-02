@@ -24,7 +24,8 @@ private:
   IGraphicsControllerForWindow* graphics_controller;
 
   QPoint pos_mouse{-1, -1};
-  bool mouse_is_moved = false;
+  QPoint pos_mouse_clicked{-1, -1};
+  bool mouse_is_clicked = false;
 };
 
 #endif // GAME_WINDOW_H

@@ -12,13 +12,12 @@ struct PlayerUnit : public IObject
   size_t cell_x;
   size_t cell_y;
   class Unit* unit;
-  Event* event;
+  std::unique_ptr<Event> event;
   PlayerUnit(size_t _cell_x, size_t _cell_y, class Unit* _unit)
     :cell_x{_cell_x}, cell_y{_cell_y}, unit{_unit} {}
-  ~PlayerUnit() {delete event;}
 };
 
-class Player : public IPlayer, public IPlayerForMenu
+class Player : public IPlayer
 {
 public:
     Player(IGameForPlayer* game_controller);
@@ -27,10 +26,13 @@ public:
     virtual void click_unit(class Unit* unit) override;
     virtual void set_initial_units(size_t initial_cell_x, size_t initial_cell_y) override;
 
-    virtual void menu_event(Event* event, class Unit* unit) override;
+    virtual void menu_event(class Unit* unit, Event* event) override;
 
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
+    void set_event_to_unit(PlayerUnit* my_unit, Event* event);
+    void event_for_citizen(PlayerUnit* my_unit, Event* event);
+    void move_unit_event(PlayerUnit* my_unit, Move_event* event);
 
     IGameForPlayer* game_controller;
 

@@ -14,7 +14,7 @@ HEADERS += \
     Controllers/Player.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
-    Graphics/Buildings/FishingBoats.h \
+    Graphics/Buildings/FishingBoat.h \
     Graphics/Buildings/Fort.h \
     Graphics/Buildings/LumberMill.h \
     Graphics/Buildings/Mine.h \
