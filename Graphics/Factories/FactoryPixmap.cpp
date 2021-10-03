@@ -138,7 +138,7 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
   }
   case Events::Build:
   {
-    Build_event* build_event = static_cast<Build_event*>(event);
+    BuildEvent* build_event = static_cast<BuildEvent*>(event);
     delete event;
     return create_pixmap_for_building(build_event->building);
   }

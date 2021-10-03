@@ -21,28 +21,28 @@ protected:
   Event(Events _event) :event{_event} {}
 };
 
-struct Move_event : Event
+struct MoveEvent : Event
 {
   size_t cell_move_x;
   size_t cell_move_y;
   virtual Event* copy() const override;
-  Move_event(size_t _cell_move_x, size_t _cell_move_y)
+  MoveEvent(size_t _cell_move_x, size_t _cell_move_y)
     : Event{Events::Move}, cell_move_x{_cell_move_x},
       cell_move_y{_cell_move_y} {}
 };
 
-struct Build_event : Event
+struct BuildEvent : Event
 {
   Buildings building;
   virtual Event* copy() const override;
-  Build_event(Buildings _building)
+  BuildEvent(Buildings _building)
     : Event{Events::Build}, building{_building} {}
 };
 
-struct Slip_event : Event
+struct SlipEvent : Event
 {
   virtual Event* copy() const override;
-  Slip_event()
+  SlipEvent()
     : Event{Events::Slip} {}
 };
 

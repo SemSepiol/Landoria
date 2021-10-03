@@ -43,7 +43,7 @@ void Player::menu_event(class Unit* unit, Event* event)
   {
     if(event->event == Events::Move)
     {
-      Move_event* move_event = static_cast<Move_event*>(event);
+      MoveEvent* move_event = static_cast<MoveEvent*>(event);
       move_unit_event(my_unit, move_event);
       return;
     }
@@ -68,7 +68,7 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
 {
   if(event->event == Events::Build)
   {
-    Build_event* build_event = static_cast<Build_event*>(event);
+    BuildEvent* build_event = static_cast<BuildEvent*>(event);
     if(build_event->building == Buildings::Town)
     {
       game_controller->graphics_controller()->build(Buildings::Town, my_unit->cell_x, my_unit->cell_y);
@@ -78,7 +78,7 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
     set_event_to_unit(my_unit, event);
 }
 
-void Player::move_unit_event(PlayerUnit* my_unit, Move_event* event)
+void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
 {
   game_controller->graphics_controller()->move_unit(
         my_unit->unit, my_unit->cell_x, my_unit->cell_y, event->cell_move_x, event->cell_move_y);

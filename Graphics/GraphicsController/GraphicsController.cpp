@@ -228,7 +228,7 @@ void GraphicsController::unit_moved_to_cell(Cell* cell)
     throw std::runtime_error("click: unit_what_moving not set");
   FindUnitWay().get_way(tracking_unit, map.get(), pos_tracking_unit, {pair_of_ind});
 
-  Move_event* move_event = new Move_event{pair_of_ind.first, pair_of_ind.second};
+  MoveEvent* move_event = new MoveEvent{pair_of_ind.first, pair_of_ind.second};
   game_controller->current_player()->menu_event(tracking_unit, move_event);
   stop_check_move_unit();
   del_menu_unit();

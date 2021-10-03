@@ -5,7 +5,7 @@ CitizenMenu::CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* _graphics
                          class Unit* _unit, Cell* _cell)
   :AMenuForUnit(win, _graphics_controller, _unit, _cell)
 {
-  buttons.push_back(new Build_event{Buildings::Town});
-  buttons.push_back(new Move_event{0,0});
-  buttons.push_back(new Slip_event{});
+  buttons.push_back(new BuildEvent{Buildings::Town});
+  buttons.push_back(new MoveEvent{0,0});
+  buttons.push_back(new SlipEvent{});
 }
