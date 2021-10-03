@@ -1,26 +1,11 @@
 #include "CitizenMenu.h"
 #include <iostream>
 
-CitizenMenu::CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller, class Unit* _unit)
-  :AMenuForUnit(win, _graphics_controller, _unit)
-{}
-
-int CitizenMenu::count_button() const
+CitizenMenu::CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller,
+                         class Unit* _unit, Cell* _cell)
+  :AMenuForUnit(win, _graphics_controller, _unit, _cell)
 {
-  return _count_button;
-}
-
-Event* CitizenMenu::what_butt(int num_butt)
-{
-  switch (num_butt)
-  {
-  case 0:
-    return new Build_event{Buildings::Town};
-  case 1:
-    return new Move_event{0,0};
-  case 2:
-    return new Slip_event{};
-  default:
-    throw std::runtime_error("No button with this number");
-  }
+  buttons.push_back(new Build_event{Buildings::Town});
+  buttons.push_back(new Move_event{0,0});
+  buttons.push_back(new Slip_event{});
 }

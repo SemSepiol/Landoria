@@ -5,16 +5,13 @@
 
 #include "AMenuForUnit.h"
 #include "../GraphicsController/EventsStructures.h"
+#include "../Cell.h"
 
 class WorkerMenu : public AMenuForUnit
 {
-  const int _count_button = 1;
 public:
-  WorkerMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit);
-  virtual int count_button() const override;
-
-protected:
-  virtual Event* what_butt(int num_butt) override;
+  WorkerMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+             class Unit* unit, Cell* cell);
 };
 
 #endif // WORKERMENU_H

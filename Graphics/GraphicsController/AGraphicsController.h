@@ -36,11 +36,14 @@ public:
   virtual int width_map() const override;
   virtual int height_map() const override;
   virtual QPoint win_map_center() const override;
+  virtual QPoint map_center() const override;
 
-  virtual void draw_map() override;
+  virtual void draw_elements() override;
   virtual void move_map(QPoint move_point) override;
   virtual void move_map(double coeffx, double coeffy) override = 0;
   virtual void resize_map(double coefficient) override;
+  virtual int map_upper_edge() const override;
+  virtual int map_bottom_edge() const override;
   virtual void exit() override;
 
 protected:
@@ -66,7 +69,7 @@ protected:
   int _width_map;
   int num_cell_x;
   int num_cell_y;
-  QPoint map_center;
+  QPoint _map_center;
   QPoint _win_map_center;
   QPoint _uppermenu_top_left = {0,0};
 

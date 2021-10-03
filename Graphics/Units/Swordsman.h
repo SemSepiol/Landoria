@@ -8,7 +8,8 @@
 class Swordsman : public Unit
 {
 public:
-  Swordsman(ICell* cell) : Unit{cell}{}
+  Swordsman(ICell* cell)
+    : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Swordsman; }
 };
 

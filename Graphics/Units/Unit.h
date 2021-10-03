@@ -11,14 +11,30 @@
 class Unit : public IContent
 {
 public:
-  Unit(ICell* cell) : cell{cell}{}
+  Unit(ICell* _cell)
+    : cell{_cell}
+  {}
+
   virtual void draw(QPoint point) override;
   virtual QWidget* window() const override;
   virtual Calculations* calculations() const override;
   virtual Contents what_content_I() const override {return Contents::Unit;}
   virtual Units what_unit_I() const = 0;
+
+  void set_health(int health);
+  int get_health() const;
+  void set_max_health(int max_health);
+  int get_max_health() const;
+  void set_movement(int movement);
+  int get_movement() const;
+  void set_max_movement(int max_movement);
+  int get_max_movement() const;
 private:
   ICell* cell;
+  int max_health;
+  int health;
+  int max_movement;
+  int movement;
 };
 
 #endif // UNIT_H

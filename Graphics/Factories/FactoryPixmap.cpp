@@ -1,4 +1,6 @@
 #include "FactoryPixmap.h"
+#include <iostream>
+
 
 QPixmap FactoryPixmap::create_pixmap_for_res(Resources type_resource) const
 {
@@ -124,6 +126,9 @@ QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_la
 
 QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
 {
+  if(!event)
+    throw std::runtime_error("create_pixmap_for_butt_menu(): event == nullptr");
+
   switch (event->event)
   {
   case Events::Move:
@@ -133,8 +138,8 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
   }
   case Events::Build:
   {
-    delete event;
     Build_event* build_event = static_cast<Build_event*>(event);
+    delete event;
     return create_pixmap_for_building(build_event->building);
   }
   case Events::Slip:
@@ -143,7 +148,9 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
     return QPixmap{image_path + menu_dir + "Slip.png/"};
   }
   default:
-    throw std::runtime_error("There are no images for this event");
+  {
+    throw std::runtime_error("create_pixmap_for_butt_menu(): There are no images for this event");
+  }
   }
 }
 

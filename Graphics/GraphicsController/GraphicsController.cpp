@@ -1,10 +1,13 @@
 #include "GraphicsController.h"
 #include <iostream>
 
+#include "windows.h"
+
+
+
 GraphicsController::GraphicsController(IGameForGraphic* _game_controller)
   : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), map.get(), this}}
-{
-}
+{}
 
 void GraphicsController::create_elements()
 {
@@ -13,9 +16,14 @@ void GraphicsController::create_elements()
   create_minimap();
 }
 
-void GraphicsController::do_menu_unit(class Unit* unit)
+void GraphicsController::do_menu_unit(class Unit* unit, size_t position_x, size_t position_y)
 {
-  menu_for_unit.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit));
+  is_tracking_unit = true;
+  tracking_unit = unit;
+  pos_tracking_unit = {position_x, position_y};
+
+  Cell* cell = map->cell_by_indexes(position_x, position_y);
+  menu_for_unit.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit, cell));
   menu_for_unit->set_geometry({0, _height_win - side_square_unit_menu * menu_for_unit->count_button() - _height_bottommenu},
                      side_square_unit_menu);
   menu_for_unit->hide();
@@ -42,19 +50,55 @@ void GraphicsController::build(Buildings building, size_t position_x, size_t pos
   game_window->update();
 }
 
+void GraphicsController::start_check_move_unit()
+{
+  if(tracking_unit)
+    start_check_move_unit(tracking_unit);
+}
+
+void GraphicsController::stop_check_move_unit(QPoint mouse_pos)
+{
+  if(!tracking_unit)
+    return;
+
+  auto pair = map->click(mouse_pos - _map_center);
+  Cell* cell = pair.first;
+  if(cell)
+    unit_moved_to_cell(cell);
+}
+
+void GraphicsController::move_mouse(QPoint new_pos)
+{
+  if(is_moving_unit)
+  {
+    auto pair = map->click(new_pos - _map_center);
+    Cell* cell = pair.first;
+    if(!cell)
+    {
+      return;
+    }
+    Position end_way = map->indexes_by_cell(pair.first);
+    if(drawway)
+      drawway->set_end_way(end_way);
+    game_window->update();
+  }
+
+}
+
 void GraphicsController::click(QPoint pos)
 {
-  auto pair = map->click(pos - map_center);
+  auto pair = map->click(pos - _map_center);
   Cell* cell = pair.first;
   IContent* content = pair.second;
 
-  if(is_checking_move_unit)
+
+  if(is_moving_unit)
   {
-    unit_moved(cell);
+    unit_moved_to_cell(cell);
     return;
   }
 
-  menu_for_unit.reset();
+  del_menu_unit();
   if(content)
     if (content->what_content_I() == Contents::Unit)
       game_controller->current_player()->click_unit(static_cast<class Unit*>(content));
@@ -62,16 +106,30 @@ void GraphicsController::click(QPoint pos)
   game_window->update();
 }
 
-class Unit* GraphicsController::add_unit(Units unit, size_t cell_x, size_t cell_y)
+class Unit* GraphicsController::add_unit(Units type_unit, size_t cell_x, size_t cell_y, int max_health, int max_movement)
 {
   ControlContents controlcontents{map->cell_by_indexes(cell_x, cell_y)};
-  return static_cast<class Unit*>(controlcontents.add_unit(unit));
+  class Unit* unit = static_cast<class Unit*>(controlcontents.add_unit(type_unit));
+  unit->set_max_health(max_health);
+  unit->set_health(max_health);
+  unit->set_max_movement(max_movement);
+  unit->set_movement(max_movement);
+  return unit;
 }
 
 void GraphicsController::del_unit(class Unit* unit, size_t cell_x, size_t cell_y)
 {
   ControlContents controlcontents{map->cell_by_indexes(cell_x, cell_y)};
   controlcontents.del_content(unit);
+}
+
+void GraphicsController::draw_elements()
+{
+  AGraphicsController::draw_elements();
+  if(drawway.get()){
+//    std::cout << "draw way" << std::endl;
+    drawway->draw();
+  }
 }
 
 void GraphicsController::move_map(QPoint move_point)
@@ -89,8 +147,8 @@ void GraphicsController::resize_map(double coefficient)
 
 void GraphicsController::move_map(double coeffx, double coeffy)
 {
-   map_center.setX(int(_width_map * coeffx));
-   map_center.setY(int(_height_map * coeffy));
+   _map_center.setX(int(_width_map * coeffx));
+   _map_center.setY(int(_height_map * coeffy));
    control_pos_map();
    set_win_rect_minimap();
    game_window->update();
@@ -100,14 +158,14 @@ void GraphicsController::menu_unit_event(class Unit* unit, Event* event)
 {
   if(event->event == Events::Move)
   {
-    if(is_checking_move_unit)
+    if(is_moving_unit)
       stop_check_move_unit();
     else
       start_check_move_unit(unit);
     return;
   }
   game_controller->current_player()->menu_event(unit, event);
-  menu_for_unit.reset();
+  del_menu_unit();
 }
 
 void GraphicsController::create_minimap()
@@ -146,23 +204,33 @@ void GraphicsController::show_minimap()
 
 void GraphicsController::start_check_move_unit(class Unit* unit)
 {
-  unit_what_moving = unit;
-  is_checking_move_unit = true;
+  is_moving_unit = true;
+  drawway.reset(new DrawWay{game_window.get(), map.get(), pos_tracking_unit, unit});
 }
 
 void GraphicsController::stop_check_move_unit()
 {
-  is_checking_move_unit = false;
-  unit_what_moving = nullptr;
+  drawway.reset();
+  is_moving_unit = false;
 }
 
-void GraphicsController::unit_moved(Cell* cell)
+void GraphicsController::del_menu_unit()
+{
+  menu_for_unit.reset();
+  is_tracking_unit = false;
+  tracking_unit = nullptr;
+}
+
+void GraphicsController::unit_moved_to_cell(Cell* cell)
 {
   auto pair_of_ind = map->indexes_by_cell(cell);
-  if(!unit_what_moving)
+  if(!tracking_unit)
     throw std::runtime_error("click: unit_what_moving not set");
+  FindUnitWay().get_way(tracking_unit, map.get(), pos_tracking_unit, {pair_of_ind});
+
   Move_event* move_event = new Move_event{pair_of_ind.first, pair_of_ind.second};
-  game_controller->current_player()->menu_event(unit_what_moving, move_event);
+  game_controller->current_player()->menu_event(tracking_unit, move_event);
   stop_check_move_unit();
-  menu_for_unit.reset();
+  del_menu_unit();
 }
+

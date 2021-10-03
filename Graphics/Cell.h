@@ -67,7 +67,7 @@ public:
 
   void set_main_landscape(MainLandscapes type_landscape);
   void set_other_landscape(OtherLandscapes type_landscape);
-  IContent* add_resource(Resources type_resource);
+  IContent* add_resource(Resources type_resource, int count_of_res = 0);
   IContent* add_building(Buildings type_building);
   IContent* add_unit(Units type_unit);
   void add_unit(IContent* unit);
@@ -89,8 +89,12 @@ public:
   void set_show_res(bool show_res);
   void set_show_unit(bool show_unit, class Unit* unit);
 
+  void set_count_of_res(int count);
+  int get_count_of_res() const;
+
   virtual ~ControlContents() {}
 private:
+  Res* _get_resource() const;
   Cell* cell;
 };
 

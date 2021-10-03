@@ -13,7 +13,7 @@
 
 class FactoryUnits : public QObject
 {
- public:
+public:
   IContent* create_unit(Units type_unit, ICell* cell) const;
 };
 

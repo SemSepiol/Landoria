@@ -17,7 +17,6 @@
 #include "../Buildings/TradingPost.h"
 
 
-
 class FactoryBuild : public QObject
 {
  public:

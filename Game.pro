@@ -8,10 +8,12 @@ RESOURCES += \
 
 HEADERS += \
     Controllers/Enums.h \
+    Controllers/FindUnitWay.h \
     Controllers/Game.h \
     Controllers/IGame.h \
     Controllers/IPlayer.h \
     Controllers/Player.h \
+    Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
     Graphics/Buildings/FishingBoat.h \
@@ -24,6 +26,7 @@ HEADERS += \
     Graphics/Buildings/Town.h \
     Graphics/Buildings/TradingPost.h \
     Graphics/Cell.h \
+    Graphics/DrawWay.h \
     Graphics/Factories/FactoryBuild.h \
     Graphics/Factories/FactoryMenusUnit.h \
     Graphics/Factories/FactoryPixmap.h \
@@ -67,10 +70,12 @@ HEADERS += \
     IObject.h
 
 SOURCES += \
+    Controllers/FindUnitWay.cpp \
     Controllers/Game.cpp \
     Controllers/Player.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Cell.cpp \
+    Graphics/DrawWay.cpp \
     Graphics/Factories/FactoryBuild.cpp \
     Graphics/Factories/FactoryMenusUnit.cpp \
     Graphics/Factories/FactoryPixmap.cpp \
@@ -80,6 +85,7 @@ SOURCES += \
     Graphics/GraphicsController/AGraphicsController.cpp \
     Graphics/GraphicsController/Calculations.cpp \
     Graphics/GraphicsController/CreateMap.cpp \
+    Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/Map.cpp \
     Graphics/Menus/AMenuForUnit.cpp \

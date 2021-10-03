@@ -32,7 +32,7 @@ void AGraphicsController::create_elements()
 
 QPoint AGraphicsController::map_center_in_win_map()
 {
-  return {map_center.x(), map_center.y()-_height_uppermenu};
+  return {_map_center.x(), _map_center.y()-_height_uppermenu};
 }
 
 void AGraphicsController::create_uppermenu()
@@ -61,7 +61,7 @@ void AGraphicsController::create_map()
 
   do_size_map();
   _win_map_center = {_width_win_map/2, _height_win_map/2 + _height_uppermenu};
-  map_center = _win_map_center;
+  _map_center = _win_map_center;
   map->do_cells();
 
   CreateMap creator_map{this};
@@ -123,15 +123,20 @@ QPoint AGraphicsController::win_map_center() const
   return _win_map_center;
 }
 
-void AGraphicsController::draw_map()
+QPoint AGraphicsController::map_center() const
 {
-  map->draw(map_center);
+  return _map_center;
+}
+
+void AGraphicsController::draw_elements()
+{
+  map->draw(_map_center);
 }
 
 void AGraphicsController::move_map(QPoint move_point)
 {
   //  QPoint new_map_center = map_center + move_point;
-  map_center += move_point;
+  _map_center += move_point;
   control_pos_map();
   game_window->update();
 }
@@ -157,6 +162,16 @@ void AGraphicsController::resize_map(double coefficient)
   game_window->update();
 }
 
+int AGraphicsController::map_upper_edge() const
+{
+  return _height_uppermenu;
+}
+
+int AGraphicsController::map_bottom_edge() const
+{
+  return _height_win - _height_bottommenu;
+}
+
 void AGraphicsController::exit()
 {
   game_window->hide();
@@ -165,15 +180,15 @@ void AGraphicsController::exit()
 
 void AGraphicsController::control_pos_map()
 {
-  if (map_center.y() - _win_map_center.y() + _height_win_map/2 > _height_map/2)
-    map_center.setY(_win_map_center.y() - _height_win_map/2 + _height_map/2);
-  else if (_win_map_center.y() - map_center.y() + _height_win_map/2 > _height_map/2)
-    map_center.setY(_win_map_center.y() + _height_win_map/2 - _height_map/2);
+  if (_map_center.y() - _win_map_center.y() + _height_win_map/2 > _height_map/2)
+    _map_center.setY(_win_map_center.y() - _height_win_map/2 + _height_map/2);
+  else if (_win_map_center.y() - _map_center.y() + _height_win_map/2 > _height_map/2)
+    _map_center.setY(_win_map_center.y() + _height_win_map/2 - _height_map/2);
 
-  if (map_center.x() - _win_map_center.x() + _width_win_map/2 > _width_map/2)
-    map_center.setX(_win_map_center.x() - _width_win_map/2 + _width_map/2);
-  else if (_win_map_center.x() - map_center.x() + _width_win_map/2 > _width_map/2)
-    map_center.setX(_win_map_center.x() + _width_win_map/2 - _width_map/2);
+  if (_map_center.x() - _win_map_center.x() + _width_win_map/2 > _width_map/2)
+    _map_center.setX(_win_map_center.x() - _width_win_map/2 + _width_map/2);
+  else if (_win_map_center.x() - _map_center.x() + _width_win_map/2 > _width_map/2)
+    _map_center.setX(_win_map_center.x() + _width_win_map/2 - _width_map/2);
 }
 
 void AGraphicsController::do_size_map()

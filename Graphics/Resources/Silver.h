@@ -7,7 +7,7 @@
 class Silver : public Res
 {
 public:
-  Silver(ICell* cell) : Res{cell}{}
+  Silver(ICell* cell, int count_of_res) : Res{cell, count_of_res}{}
   virtual Resources what_resource_I() const override { return Resources::Silver; }
   virtual ~Silver() override {}
 };

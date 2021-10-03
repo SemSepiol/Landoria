@@ -7,7 +7,7 @@
 class Oil : public Res
 {
 public:
-  Oil(ICell* cell) : Res{cell}{}
+  Oil(ICell* cell, int count_of_res) : Res{cell, count_of_res}{}
   virtual Resources what_resource_I() const override { return Resources::Oil; }
   virtual ~Oil() override {}
 };

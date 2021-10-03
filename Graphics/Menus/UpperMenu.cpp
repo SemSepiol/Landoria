@@ -5,6 +5,11 @@ UpperMenu::UpperMenu(IGraphicsControllerForMenuInWindow* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
 {}
 
+void UpperMenu::mouseMoveEvent(QMouseEvent *event)
+{
+  if(event->pos().y() < 5)
+    graphics_controller->move_map({0, 50});
+}
 
 void UpperMenu::draw()
 {
@@ -31,5 +36,5 @@ QRect UpperMenu::exit_butt() const
 void UpperMenu::click(QPoint pos)
 {
   if (point_in_rect(exit_butt(), pos))
-    graphic_controller->exit();
+    graphics_controller->exit();
 }

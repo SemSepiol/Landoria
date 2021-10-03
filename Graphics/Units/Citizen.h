@@ -8,7 +8,8 @@
 class Citizen : public Unit
 {
 public:
-  Citizen(ICell* cell) : Unit{cell}{}
+  Citizen(ICell* cell)
+    : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Citizen; }
 
 };

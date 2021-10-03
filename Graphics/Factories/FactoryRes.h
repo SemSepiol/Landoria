@@ -21,7 +21,7 @@
 class FactoryRes : public QObject
 {
  public:
-  IContent* create_res(Resources type_res, ICell* cell) const;
+  IContent* create_res(Resources type_res, ICell* cell, int count_of_res) const;
 };
 
 

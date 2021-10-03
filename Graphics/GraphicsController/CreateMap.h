@@ -3,6 +3,7 @@
 
 #include "../../IObject.h"
 #include "../Map.h"
+#include "../Cell.h"
 
 class CreateMap : public IObject
 {

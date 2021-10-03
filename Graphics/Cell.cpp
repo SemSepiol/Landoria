@@ -151,11 +151,11 @@ void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
   cell->otherlandscape = type_landscape;
 }
 
-IContent* ControlContents::add_resource(Resources type_resource)
+IContent* ControlContents::add_resource(Resources type_resource, int count_of_res)
 {
   if (has_resource())
     throw std::runtime_error("add_resource: There is already a resource in the cell");
-  cell->contents.push_back({FactoryRes().create_res(type_resource, cell)});
+  cell->contents.push_back({FactoryRes().create_res(type_resource, cell, count_of_res)});
   return cell->contents[cell->contents.size()-1].content.get();
 }
 
@@ -195,7 +195,6 @@ void ControlContents::del_content(IContent* content)
 
 IContent* ControlContents::pop_content(IContent* content)
 {
-  std::cout << content << std::endl;
   for(size_t i{0}; i < cell->contents.size(); ++i)
   {
     if(cell->contents[i].content.get() == content){
@@ -217,13 +216,7 @@ MainLandscapes ControlContents::get_landscape() const
 
 Resources ControlContents::get_resource() const
 {
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Resource)
-    {
-      Res* res = static_cast<Res*>(cell->contents[i].content.get());
-      res->what_resource_I();
-    }
-  throw std::runtime_error("Hasn't got resource");
+  return _get_resource()->what_resource_I();
 }
 
 Buildings ControlContents::get_building() const
@@ -297,4 +290,25 @@ void ControlContents::set_show_unit(bool show_unit, class Unit* unit)
     if(cell->contents[i].content->what_content_I() == Contents::Unit)
       if(cell->contents[i].content.get() == unit)
         cell->contents[i].show_content = show_unit;
+}
+
+void ControlContents::set_count_of_res(int count)
+{
+  _get_resource()->set_count_of_res(count);
+}
+
+int ControlContents::get_count_of_res() const
+{
+  return _get_resource()->count_of_res();
+}
+
+Res* ControlContents::_get_resource() const
+{
+  for(size_t i{0}; i < cell->contents.size(); ++i)
+    if(cell->contents[i].content->what_content_I() == Contents::Resource)
+    {
+      Res* res = static_cast<Res*>(cell->contents[i].content.get());
+      return res;
+    }
+  throw std::runtime_error("Hasn't got resource");
 }

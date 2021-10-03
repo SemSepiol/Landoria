@@ -7,7 +7,7 @@
 class Gold : public Res
 {
 public:
-  Gold(ICell* cell) : Res{cell}{}
+  Gold(ICell* cell, int count_of_res) : Res{cell, count_of_res}{}
   virtual Resources what_resource_I() const override { return Resources::Gold; }
   virtual ~Gold() override {}
 };

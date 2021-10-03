@@ -1,18 +1,17 @@
 #ifndef CITIZENMENU_H
 #define CITIZENMENU_H
 
+#include <vector>
+
 #include "AMenuForUnit.h"
 #include "../GraphicsController/EventsStructures.h"
+#include "../Cell.h"
 
 class CitizenMenu : public AMenuForUnit
 {
-  const int _count_button = 3;
 public:
-  CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit);
-  virtual int count_button() const override;
-
-protected:
-  virtual Event* what_butt(int num_butt) override;
+  CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+              class Unit* unit, Cell* cell);
 };
 
 #endif // CITIZENMENU_H

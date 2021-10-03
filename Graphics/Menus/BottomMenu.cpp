@@ -4,6 +4,12 @@ BottomMenu::BottomMenu(IGraphicsControllerForMenuInWindow* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
 {}
 
+void BottomMenu::mouseMoveEvent(QMouseEvent *event)
+{
+  if(event->pos().y() > height_menu - 5)
+    graphics_controller->move_map({0, -50});
+}
+
 void BottomMenu::draw()
 {
   QPainter qp(this);
@@ -29,5 +35,5 @@ QRect BottomMenu::show_minimap_butt() const
 void BottomMenu::click(QPoint pos)
 {
   if (point_in_rect(show_minimap_butt(), pos))
-    graphic_controller->show_minimap();
+    graphics_controller->show_minimap();
 }

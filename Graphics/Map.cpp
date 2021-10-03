@@ -124,12 +124,20 @@ std::pair<Cell*, IContent*> Map::click(QPoint pos)
   auto pair = point_to_indexes_cell(pos);
   size_t i = pair.first;
   size_t j = pair.second;
-  if (i == size_t(graphics_controller->count_cell_y()))
+  if (i == size_t(graphics_controller->count_cell_y())){
+//    std::cout << "click: " << pos.x() << " " << pos.y() << std::endl;
     return {nullptr, nullptr};
-
+  }
   pos += QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
   pos -= point_of_cell(j, i);
   return {cells[i][j].get(), cells[i][j]->click(pos)};
+}
+
+QPoint Map::point_of_cell_in_win(size_t ind_x, size_t ind_y)
+{
+  QPoint corner_of_map = graphics_controller->map_center() -
+      QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
+  return point_of_cell(ind_x, ind_y) + corner_of_map;
 }
 
 int Map::sign(int a)
@@ -148,9 +156,10 @@ std::pair<size_t, size_t> Map::point_to_indexes_cell(QPoint pos)
 {
   pos += QPoint{graphics_controller->width_map()/2, graphics_controller->height_map()/2};
   for(size_t i{0}; i < size_t(graphics_controller->count_cell_x()); ++i)
-    for(size_t j{0}; j < size_t(graphics_controller->count_cell_y()); ++j)
+    for(size_t j{0}; j < size_t(graphics_controller->count_cell_y()); ++j){
       if(calculations()->point_in_hexagon(pos - point_of_cell(i, j)))
         return {j, i};
+    }
   return {graphics_controller->count_cell_y(), graphics_controller->count_cell_x()};
 }
 

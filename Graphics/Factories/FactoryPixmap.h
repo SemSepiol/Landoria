@@ -1,5 +1,7 @@
 #ifndef FACTORYPIXMAP_H
 #define FACTORYPIXMAP_H
+
+#include <sstream>
 #include <QPixmap>
 
 #include "../../IObject.h"

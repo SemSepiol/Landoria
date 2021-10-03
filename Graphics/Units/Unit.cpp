@@ -26,3 +26,44 @@ Calculations* Unit::calculations() const
 {
   return cell->calculations();
 }
+
+void Unit::set_health(int _health)
+{
+  health = _health;
+}
+
+int Unit::get_health() const
+{
+  return health;
+}
+
+void Unit::set_max_health(int _max_health)
+{
+    max_health = _max_health;
+}
+
+int Unit::get_max_health() const
+{
+  return max_health;
+}
+
+void Unit::set_movement(int _movement)
+{
+  movement = _movement;
+}
+
+int Unit::get_movement() const
+{
+  return movement;
+}
+
+void Unit::set_max_movement(int _max_movement)
+{
+    max_movement = _max_movement;
+}
+
+int Unit::get_max_movement() const
+{
+  return max_movement;
+}
+

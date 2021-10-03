@@ -6,6 +6,7 @@
 #include "../Graphics/Units/Unit.h"
 #include "../Graphics/GraphicsController/EventsStructures.h"
 #include "IGame.h"
+#include "UnitsCharaterichtics.h"
 
 struct PlayerUnit : public IObject
 {
@@ -34,6 +35,7 @@ private:
     void event_for_citizen(PlayerUnit* my_unit, Event* event);
     void move_unit_event(PlayerUnit* my_unit, Move_event* event);
 
+    void add_unit(Units type_unit, size_t position_x, size_t position_y);
     IGameForPlayer* game_controller;
 
     std::vector<PlayerUnit> my_units;

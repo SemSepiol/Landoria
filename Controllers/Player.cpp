@@ -17,14 +17,13 @@ void Player::click_unit(class Unit* unit)
   PlayerUnit* my_unit = get_my_unit(unit);
   if (my_unit)
   {
-    game_controller->graphics_controller()->do_menu_unit(unit);
+    game_controller->graphics_controller()->do_menu_unit(unit, my_unit->cell_x, my_unit->cell_y);
   }
 }
 
 void Player::set_initial_units(size_t initial_cell_x, size_t initial_cell_y)
 {
-  class Unit* unit = game_controller->graphics_controller()->add_unit(Units::Citizen, initial_cell_x, initial_cell_y);
-  my_units.push_back({initial_cell_x, initial_cell_y, unit});
+  add_unit(Units::Citizen, initial_cell_x, initial_cell_y);
 }
 
 PlayerUnit* Player::get_my_unit(class Unit* unit)
@@ -37,7 +36,7 @@ PlayerUnit* Player::get_my_unit(class Unit* unit)
 
 void Player::menu_event(class Unit* unit, Event* event)
 {
-  std::cout << "ok" << std::endl;
+  std::cout << "menu_event_ok" << std::endl;
 
   PlayerUnit* my_unit = get_my_unit(unit);
   if(my_unit)
@@ -86,5 +85,16 @@ void Player::move_unit_event(PlayerUnit* my_unit, Move_event* event)
   my_unit->cell_x = event->cell_move_x;
   my_unit->cell_y = event->cell_move_y;
   my_unit->event.reset();
+}
+
+void Player::add_unit(Units type_unit, size_t position_x, size_t position_y)
+{
+  UnitsCharaterichtics unitcharaterichtics;
+  int max_health = unitcharaterichtics.get_unit_max_health(type_unit);
+  int max_movement = unitcharaterichtics.get_unit_max_movement(type_unit);
+  class Unit* unit = game_controller->graphics_controller()->add_unit(
+        type_unit, position_x, position_y, max_health, max_movement);
+
+  my_units.push_back({position_x, position_y, unit});
 }
 

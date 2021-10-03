@@ -98,6 +98,8 @@ QColor Minimap::color(Cell* cell)
     return QColor(Qt::white);
   case MainLandscapes::Ice:
     return QColor(Qt::white);
+  default:
+    throw std::runtime_error("Minimap::color(): here are no color for this landscape");
   }
 }
 

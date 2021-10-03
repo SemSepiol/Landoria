@@ -7,7 +7,7 @@
 class Uranium : public Res
 {
 public:
-  Uranium(ICell* cell) : Res{cell}{}
+  Uranium(ICell* cell, int count_of_res) : Res{cell, count_of_res}{}
   virtual Resources what_resource_I() const override { return Resources::Uranium; }
   virtual ~Uranium() override {}
 };

@@ -21,11 +21,14 @@ public:
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
 private:
+  void control_mouse_at_edge(QPoint event_pos);
+
   IGraphicsControllerForWindow* graphics_controller;
 
   QPoint pos_mouse{-1, -1};
   QPoint pos_mouse_clicked{-1, -1};
   bool mouse_is_clicked = false;
+  Qt::MouseButton mouse_button_cliked = Qt::NoButton;
 };
 
 #endif // GAME_WINDOW_H

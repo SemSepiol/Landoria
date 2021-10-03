@@ -9,7 +9,8 @@
 class Worker : public Unit
 {
 public:
-  Worker(ICell* cell) : Unit{cell}{}
+  Worker(ICell* cell)
+    : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Worker; }
 };
 

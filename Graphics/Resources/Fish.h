@@ -7,7 +7,7 @@
 class Fish : public Res
 {
 public:
-  Fish(ICell* cell) : Res{cell}{}
+  Fish(ICell* cell, int count_of_res) : Res{cell, count_of_res}{}
   virtual Resources what_resource_I() const override { return Resources::Fish; }
   virtual ~Fish() override {}
 };
