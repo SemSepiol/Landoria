@@ -221,11 +221,12 @@ Resources ControlContents::get_resource() const
 
 Buildings ControlContents::get_building() const
 {
+
   for(size_t i{0}; i < cell->contents.size(); ++i)
     if(cell->contents[i].content->what_content_I() == Contents::Building)
     {
       class Building* building = static_cast<class Building*>(cell->contents[i].content.get());
-      building->what_building_I();
+      return building->what_building_I();
     }
   throw std::runtime_error("Hasn't got building");
 }

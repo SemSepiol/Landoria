@@ -20,6 +20,7 @@ public:
   QPixmap create_pixmap_for_exit() const;
   QPixmap create_pixmap_for_minimap() const;
   QPixmap create_pixmap_for_nextmotion() const;
+  QPixmap create_pixmap_for_butt_build() const;
 
   QRectF size_picture_content() const;
   QRectF size_picture_landscape() const;

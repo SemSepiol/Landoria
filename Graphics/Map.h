@@ -9,14 +9,6 @@
 #include "GraphicsController/IGraphicsController.h"
 #include "GraphicsController/Calculations.h"
 
-struct CubicCoordinates
-{
-  CubicCoordinates(int a, int b);
-  CubicCoordinates(int x, int y, int z);
-  int x;
-  int y;
-  int z;
-};
 
 class Map : public IMap
 {

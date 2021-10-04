@@ -156,17 +156,22 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
 
 QPixmap FactoryPixmap::create_pixmap_for_exit() const
 {
-  return QPixmap{":/Graphics/image/menu/Exit.png"};
+  return QPixmap{image_path + menu_dir + "Exit.png"};
 }
 
 QPixmap FactoryPixmap::create_pixmap_for_minimap() const
 {
-  return QPixmap{":/Graphics/image/menu/Map.png"};
+  return QPixmap{image_path + menu_dir + "Map.png"};
 }
 
 QPixmap FactoryPixmap::create_pixmap_for_nextmotion() const
 {
-  return QPixmap{":/Graphics/image/menu/NextMotion.png"};
+  return QPixmap{image_path + menu_dir + "NextMotion.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_butt_build() const
+{
+  return QPixmap{image_path + menu_dir + "Build.png"};
 }
 
 QRectF FactoryPixmap::size_picture_content() const

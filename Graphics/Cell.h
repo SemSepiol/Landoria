@@ -41,7 +41,6 @@ public:
   // точка относительно центра клетки
   IContent* click(QPoint pos);
 
-
 private:
   void draw_landscape(QPoint point);
   void draw_contents(QPoint point);

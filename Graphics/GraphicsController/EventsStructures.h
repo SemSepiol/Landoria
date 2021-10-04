@@ -9,7 +9,8 @@ enum Events
 {
   Move,
   Build,
-  Slip
+  Slip,
+  Demolish
 };
 
 struct Event
@@ -44,6 +45,13 @@ struct SlipEvent : Event
   virtual Event* copy() const override;
   SlipEvent()
     : Event{Events::Slip} {}
+};
+
+struct DemolishEvent : Event
+{
+  virtual Event* copy() const override;
+  DemolishEvent()
+    : Event{Events::Demolish} {}
 };
 
 #endif // EVENTSSTRUCTURES_H

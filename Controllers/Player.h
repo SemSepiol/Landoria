@@ -33,6 +33,7 @@ private:
     PlayerUnit* get_my_unit(class Unit* unit);
     void set_event_to_unit(PlayerUnit* my_unit, Event* event);
     void event_for_citizen(PlayerUnit* my_unit, Event* event);
+    void event_for_worker(PlayerUnit* my_unit, Event* event);
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
 
     void add_unit(Units type_unit, size_t position_x, size_t position_y);

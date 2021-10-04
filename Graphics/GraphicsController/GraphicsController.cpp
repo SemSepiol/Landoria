@@ -212,6 +212,7 @@ void GraphicsController::stop_check_move_unit()
 {
   drawway.reset();
   is_moving_unit = false;
+  game_window->update();
 }
 
 void GraphicsController::del_menu_unit()

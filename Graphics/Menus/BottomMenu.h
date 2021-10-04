@@ -14,6 +14,7 @@ protected:
   virtual void click(QPoint pos) override;
 
   virtual QRect show_minimap_butt() const;
+  virtual QRect next_move_butt() const;
 };
 
 #endif // BOTTOMMENU_H

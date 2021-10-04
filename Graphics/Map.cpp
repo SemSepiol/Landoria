@@ -1,17 +1,6 @@
 #include "Map.h"
 #include <iostream>
 
-CubicCoordinates::CubicCoordinates(int a, int b)
-{
-  x = a;
-  y = static_cast<int>(round(b*sqrt(3)/2)) + a/2;
-  z = static_cast<int>(round(b*sqrt(3)/2)) + a/2;
-}
-
-CubicCoordinates::CubicCoordinates(int _x, int _y, int _z)
-  :x{_x}, y{_y}, z{_z}
-{}
-
 Map::Map(IGraphicsControllerForMap* game)
   :IMap{}, graphics_controller{game}
 {

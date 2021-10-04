@@ -51,5 +51,6 @@
         <file>Graphics/image/menu/Map.png</file>
         <file>Graphics/image/menu/NextMotion.png</file>
         <file>Graphics/image/landscapes/Hills.png</file>
+        <file>Graphics/image/menu/Build.png</file>
     </qresource>
 </RCC>

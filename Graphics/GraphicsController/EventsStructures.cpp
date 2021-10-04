@@ -14,3 +14,9 @@ Event* SlipEvent::copy() const
 {
   return new SlipEvent{};
 }
+
+Event* DemolishEvent::copy() const
+{
+  return new DemolishEvent{};
+}
+

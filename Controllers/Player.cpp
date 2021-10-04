@@ -23,7 +23,7 @@ void Player::click_unit(class Unit* unit)
 
 void Player::set_initial_units(size_t initial_cell_x, size_t initial_cell_y)
 {
-  add_unit(Units::Citizen, initial_cell_x, initial_cell_y);
+  add_unit(Units::Worker, initial_cell_x, initial_cell_y);
 }
 
 PlayerUnit* Player::get_my_unit(class Unit* unit)
@@ -50,6 +50,8 @@ void Player::menu_event(class Unit* unit, Event* event)
 
     if(unit->what_unit_I() == Units::Citizen)
       event_for_citizen(my_unit, event);
+    else if(unit->what_unit_I() == Units::Worker)
+      event_for_worker(my_unit, event);
     else
       set_event_to_unit(my_unit, event);
   }
@@ -70,9 +72,20 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
   {
     BuildEvent* build_event = static_cast<BuildEvent*>(event);
     if(build_event->building == Buildings::Town)
-    {
-      game_controller->graphics_controller()->build(Buildings::Town, my_unit->cell_x, my_unit->cell_y);
-    }
+      game_controller->graphics_controller()->build(Buildings::Town,
+                                                    my_unit->cell_x, my_unit->cell_y);
+  }
+  else
+    set_event_to_unit(my_unit, event);
+}
+
+void Player::event_for_worker(PlayerUnit* my_unit, Event* event)
+{
+  if(event->event == Events::Build)
+  {
+    BuildEvent* build_event = static_cast<BuildEvent*>(event);
+    game_controller->graphics_controller()->build(build_event->building,
+                                                  my_unit->cell_x, my_unit->cell_y);
   }
   else
     set_event_to_unit(my_unit, event);

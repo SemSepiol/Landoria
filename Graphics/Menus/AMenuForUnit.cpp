@@ -1,13 +1,14 @@
 #include "AMenuForUnit.h"
 #include <iostream>
 
-AMenuForUnit::AMenuForUnit(QWidget* win, IGraphicsControllerMenuForUnit* _graphics_controller,
+AMenuForUnit::AMenuForUnit(QWidget* _win, IGraphicsControllerMenuForUnit* _graphics_controller,
                            class Unit* _unit, Cell* _cell)
-  :QWidget(win), graphics_controller{_graphics_controller}, unit{_unit}, cell{_cell}
+  :QWidget(_win), graphics_controller{_graphics_controller}, unit{_unit}, cell{_cell}, win{_win}
 {}
 
 void AMenuForUnit::set_geometry(QPoint pos, int _side_square)
 {
+  pos_menu = pos;
   side_square = _side_square;
   QWidget::setGeometry(pos.x(), pos.y(), side_square, side_square * int(buttons.size()));
 }
@@ -44,23 +45,48 @@ int AMenuForUnit::count_button() const
 
 void AMenuForUnit::draw()
 {
-  QPainter qp(this);
-  QPen pen{Qt::white, 2, Qt::SolidLine};
-  qp.setPen(pen);
   QList<QRectF> list;
   for(size_t i{0}; i < buttons.size(); ++i)
   {
     list.append(rect_butt(i));
-    QRectF source{0., 0., 188., 188.};
-    qp.drawPixmap(rect_butt(i), FactoryPixmap().create_pixmap_for_butt_menu(buttons[i]->copy()), source);
+    draw_butt(i);
   }
+  QPainter qp(this);
+  QPen pen{Qt::white, 2, Qt::SolidLine};
+  qp.setPen(pen);
   qp.drawRects(list);
 }
 
 void AMenuForUnit::click_butt(size_t num_butt)
 {
-  graphics_controller->menu_unit_event(unit, buttons[num_butt]->copy());
+  if(buttons[num_butt].event->event == Events::Move)
+  {
+    graphics_controller->menu_unit_event(unit, buttons[num_butt].event->copy());
+    has_move_event = !has_move_event;
+    return;
+  }
+
+  if(has_move_event)
+  {
+    has_move_event = false;
+    graphics_controller->menu_unit_event(unit, new MoveEvent{0,0});
+  }
+
+  if (buttons[num_butt].is_enable)
+    graphics_controller->menu_unit_event(unit, buttons[num_butt].event->copy());
 }
+
+void AMenuForUnit::draw_butt(size_t num_butt)
+{
+  QPainter qp(this);
+  QRectF source = FactoryPixmap().size_picture_content();
+  QPixmap pixmap = FactoryPixmap().create_pixmap_for_butt_menu(buttons[num_butt].event->copy());
+
+  qp.drawPixmap(rect_butt(num_butt), pixmap, source);
+  if(!buttons[num_butt].is_enable)
+    qp.fillRect(rect_butt(num_butt), QBrush(QColor(0, 0, 0, 100)));
+}
+
 
 bool AMenuForUnit::point_in_rect(QRectF rect, QPoint point)
 {
