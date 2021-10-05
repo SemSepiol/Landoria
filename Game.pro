@@ -49,6 +49,7 @@ HEADERS += \
     Graphics/Menus/BottomMenu.h \
     Graphics/Menus/CitizenMenu.h \
     Graphics/Menus/UpperMenu.h \
+    Graphics/Menus/WarriorMenu.h \
     Graphics/Menus/WorkerMenu.h \
     Graphics/Minimap.h \
     Graphics/Resources/Aluminum.h \
@@ -93,6 +94,7 @@ SOURCES += \
     Graphics/Menus/BottomMenu.cpp \
     Graphics/Menus/CitizenMenu.cpp \
     Graphics/Menus/UpperMenu.cpp \
+    Graphics/Menus/WarriorMenu.cpp \
     Graphics/Menus/WorkerMenu.cpp \
     Graphics/Minimap.cpp \
     Graphics/Resources/Res.cpp \

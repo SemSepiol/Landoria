@@ -18,6 +18,7 @@ public:
 
 private:
   void draw_circle(QPoint pos);
+  void draw_big_circle(QPoint pos);
   QWidget* win;
   Map* map;
   Position start_way;

@@ -9,6 +9,6 @@ AMenuForUnit* FactoryMenusUnit::create_menu(QWidget* win, IGraphicsControllerMen
   case Units::Citizen:
     return new CitizenMenu{win, graphics_controller, unit, cell};
   default:
-    throw std::runtime_error("create_menu: there is no menu for this unit");
+    return new WarriorMenu{win, graphics_controller, unit, cell};
   }
 }

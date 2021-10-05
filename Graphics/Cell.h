@@ -72,6 +72,7 @@ public:
   void add_unit(IContent* unit);
 
   void del_content(IContent* content);
+  void del_building();
   IContent* pop_content(IContent* content);
 
   MainLandscapes get_landscape() const;
@@ -94,6 +95,9 @@ public:
   virtual ~ControlContents() {}
 private:
   Res* _get_resource() const;
+  class Building* _get_building() const;
+  std::vector<class Unit*> _get_units() const;
+
   Cell* cell;
 };
 

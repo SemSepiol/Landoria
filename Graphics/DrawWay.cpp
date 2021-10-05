@@ -17,10 +17,11 @@ void DrawWay::draw()
   {
     OneMove onemove = way.get_move_in_way(i);
     std::vector<Position> minimove = onemove.minimove;
-    for(size_t j{0}; j < minimove.size()-1; ++j)
+    for(size_t j{1}; j < minimove.size()-1; ++j)
       draw_circle(map->point_of_cell_in_win(minimove[j].x, minimove[j].y));
+    draw_big_circle(map->point_of_cell_in_win(
+                      minimove[minimove.size()-1].x, minimove[minimove.size()-1].y));
   }
-  draw_circle(map->point_of_cell_in_win(end_way.x, end_way.y));
 }
 
 void DrawWay::draw_circle(QPoint pos)
@@ -32,4 +33,15 @@ void DrawWay::draw_circle(QPoint pos)
   qp.setBrush(brush);
   int rad = map->calculations()->circle_radius();
   qp.drawEllipse(pos, rad, rad);
+}
+
+void DrawWay::draw_big_circle(QPoint pos)
+{
+  QPainter qp(win);
+  QPen pen(Qt::blue, 2, Qt::SolidLine);
+  qp.setPen(pen);
+  QBrush brush(Qt::blue);
+  qp.setBrush(brush);
+  int rad = map->calculations()->circle_radius();
+  qp.drawEllipse(pos, int(rad*1.5), int(rad*1.5));
 }

@@ -45,7 +45,12 @@ void GraphicsController::build(Buildings building, size_t position_x, size_t pos
 {
   ControlContents controlcontents{map->cell_by_indexes(position_x, position_y)};
   if(controlcontents.has_building())
-    throw std::runtime_error("build: There is already a building in this cell");
+  {
+    if(building == Buildings::Town && controlcontents.get_building() != Buildings::Town)
+      controlcontents.del_building();
+    else
+      throw std::runtime_error("build: There is already a building in this cell");
+  }
   controlcontents.add_building(building);
   game_window->update();
 }
@@ -65,6 +70,8 @@ void GraphicsController::stop_check_move_unit(QPoint mouse_pos)
   Cell* cell = pair.first;
   if(cell)
     unit_moved_to_cell(cell);
+  else
+    stop_check_move_unit();
 }
 
 void GraphicsController::move_mouse(QPoint new_pos)

@@ -9,6 +9,7 @@
 #include "../Menus/AMenuForUnit.h"
 #include "../Menus/WorkerMenu.h"
 #include "../Menus/CitizenMenu.h"
+#include "../Menus/WarriorMenu.h"
 
 
 class FactoryMenusUnit : public IObject
