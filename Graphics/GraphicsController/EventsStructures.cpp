@@ -2,7 +2,7 @@
 
 Event* MoveEvent::copy() const
 {
-  return new MoveEvent{cell_move_x, cell_move_y};
+  return new MoveEvent{cell_move};
 }
 
 Event* BuildEvent::copy() const

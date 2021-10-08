@@ -12,17 +12,17 @@
 class Game : public IGameForGraphic, public IGameForPlayer
 {
 public:
-  Game(QApplication* app, int count_cell_x, int count_cell_y, size_t count_players);
+  Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players);
   void start();
 
-  virtual int count_cell_x() const override;
-  virtual int count_cell_y() const override;
+  virtual size_t count_cell_x() const override;
+  virtual size_t count_cell_y() const override;
   virtual int width_win() const override;
   virtual int height_win() const override;
   virtual void exit() override {}
   virtual IPlayer* current_player() const override;
 
-  virtual IGraphicsControllerForPlayer* graphics_controller() const override;
+  virtual IPlayerGraphicsController* graphics_controller() const override;
 private:
   void do_players(size_t count_player);
 
@@ -30,8 +30,8 @@ private:
   std::vector<std::unique_ptr<Player>> players;
   Player* _current_player;
 
-  int _count_cell_x;
-  int _count_cell_y;
+  size_t _count_cell_x;
+  size_t _count_cell_y;
   int _width_win;
   int _height_win;
 };

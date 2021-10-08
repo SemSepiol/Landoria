@@ -8,7 +8,7 @@
 class WarriorMenu : public AMenuForUnit
 {
 public:
-  WarriorMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+  WarriorMenu(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
               class Unit* unit, Cell* cell);
 private:
   void set_buttons();

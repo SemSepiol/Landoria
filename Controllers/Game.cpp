@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game(QApplication* app, int count_cell_x, int count_cell_y, size_t count_players)
+Game::Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players)
   :_graphics_controller {new GraphicsController(this)}
 {
   _count_cell_x = count_cell_x;
@@ -24,12 +24,12 @@ void Game::start()
   _graphics_controller->start();
 }
 
-int Game::count_cell_x() const
+size_t Game::count_cell_x() const
 {
   return _count_cell_x;
 }
 
-int Game::count_cell_y() const
+size_t Game::count_cell_y() const
 {
   return _count_cell_y;
 }
@@ -49,7 +49,7 @@ IPlayer* Game::current_player() const
   return _current_player;
 }
 
-IGraphicsControllerForPlayer* Game::graphics_controller() const
+IPlayerGraphicsController* Game::graphics_controller() const
 {
   return _graphics_controller.get();
 }
@@ -59,6 +59,6 @@ void Game::do_players(size_t count_players)
   for(size_t i{0}; i < count_players; ++i)
   {
     players.push_back(std::unique_ptr<Player>{new Player(this)});
-    players[i]->set_initial_units(_count_cell_x/2, _count_cell_y/2);
+    players[i]->set_initial_units({_count_cell_x/2, _count_cell_y/2});
   }
 }

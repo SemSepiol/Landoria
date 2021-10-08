@@ -1,12 +1,12 @@
 #include "WorkerMenu.h"
 #include <iostream>
 
-WorkerMenu::WorkerMenu(QWidget* _win, IGraphicsControllerMenuForUnit* _graphics_controller,
+WorkerMenu::WorkerMenu(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
                        class Unit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
 {
   buttons.push_back(new BuildEvent{Buildings::Farm});
-  buttons.push_back(new MoveEvent{0,0});
+  buttons.push_back(new MoveEvent{{0,0}});
   buttons.push_back(new SlipEvent{});
 }
 
@@ -40,7 +40,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   if(has_move_event)
   {
     has_move_event = false;
-    graphics_controller->menu_unit_event(unit, new MoveEvent{0,0});
+    graphics_controller->menu_unit_event(unit, new MoveEvent{{0,0}});
   }
 
   if(has_menu)
@@ -58,7 +58,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   has_menu = true;
 }
 
-MenuBuild::MenuBuild(QWidget* _win, IGraphicsControllerMenuForUnit* _graphics_controller,
+MenuBuild::MenuBuild(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
                      class Unit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
 {

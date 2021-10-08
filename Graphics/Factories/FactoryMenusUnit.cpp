@@ -1,6 +1,6 @@
 #include "FactoryMenusUnit.h"
 
-AMenuForUnit* FactoryMenusUnit::create_menu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller, class Unit* unit, Cell* cell)
+AMenuForUnit* FactoryMenusUnit::create_menu(QWidget* win, IUnitMenuGraphicsController* graphics_controller, class Unit* unit, Cell* cell)
 {
   switch (unit->what_unit_I())
   {

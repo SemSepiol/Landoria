@@ -15,8 +15,8 @@
 #include "../Menus/UpperMenu.h"
 #include "../Menus/BottomMenu.h"
 
-class AGraphicsController : public IGraphicsControllerForWindow, public IGraphicsControllerForMap,
-    public IGraphicsControllerForMenuInWindow, public IGraphicsControllerForMiniMap
+class AGraphicsController : public IWindowGraphicsController, public IMapGraphicsController,
+    public IMenuInWindowGraphicsController, public IMiniMapGraphicsController, public ITownMenuGraphicsController
 {
 public:
   AGraphicsController(IGameForGraphic* game_controller);
@@ -26,15 +26,12 @@ public:
 
   virtual void create_elements();
 
-  virtual int count_cell_x() const override;
-  virtual int count_cell_y() const override;
+  virtual size_t count_cell_x() const override;
+  virtual size_t count_cell_y() const override;
 
-  virtual int width_win() const override;
-  virtual int height_win() const override;
-  virtual int width_win_map() const override;
-  virtual int height_win_map() const override;
-  virtual int width_map() const override;
-  virtual int height_map() const override;
+  virtual Size size_win() const override;
+  virtual Size size_win_map() const override;
+  virtual Size size_map() const override;
   virtual QPoint win_map_center() const override;
   virtual QPoint map_center() const override;
 
@@ -57,18 +54,12 @@ protected:
 
   void do_size_map();
 
-  int _height_win;
-  int _width_win;
-  int _height_uppermenu;
-  int _width_uppermenu;
-  int _height_bottommenu;
-  int _width_bottommenu;
-  int _height_win_map;
-  int _width_win_map;
-  int _height_map;
-  int _width_map;
-  int num_cell_x;
-  int num_cell_y;
+  Size _size_win;
+  Size _size_uppermenu;
+  Size _size_bottommenu;
+  Size _size_win_map;
+  Size _size_map;
+  Position num_cell;
   QPoint _map_center;
   QPoint _win_map_center;
   QPoint _uppermenu_top_left = {0,0};

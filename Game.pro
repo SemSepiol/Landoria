@@ -44,6 +44,8 @@ HEADERS += \
     Graphics/IDrawObject.h \
     Graphics/IMap.h \
     Graphics/Map.h \
+    Graphics/MenuTown.h \
+    Graphics/MenuTown/MenuTown.h \
     Graphics/Menus/AMenuForUnit.h \
     Graphics/Menus/AMenuInWindow.h \
     Graphics/Menus/BottomMenu.h \
@@ -75,6 +77,7 @@ SOURCES += \
     Controllers/Game.cpp \
     Controllers/Player.cpp \
     Graphics/Buildings/Building.cpp \
+    Graphics/Buildings/Town.cpp \
     Graphics/Cell.cpp \
     Graphics/DrawWay.cpp \
     Graphics/Factories/FactoryBuild.cpp \
@@ -89,6 +92,7 @@ SOURCES += \
     Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/Map.cpp \
+    Graphics/MenuTown/MenuTown.cpp \
     Graphics/Menus/AMenuForUnit.cpp \
     Graphics/Menus/AMenuInWindow.cpp \
     Graphics/Menus/BottomMenu.cpp \

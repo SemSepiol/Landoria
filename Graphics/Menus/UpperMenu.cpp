@@ -1,14 +1,20 @@
 #include "UpperMenu.h"
 #include <iostream>
 
-UpperMenu::UpperMenu(IGraphicsControllerForMenuInWindow* _graphic_controller)
+UpperMenu::UpperMenu(IMenuInWindowGraphicsController* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
 {}
 
 void UpperMenu::mouseMoveEvent(QMouseEvent *event)
 {
-  if(event->pos().y() < 5)
-    graphics_controller->move_map({0, 50});
+  if(enable_move_map)
+    if(event->pos().y() < 5)
+      graphics_controller->move_map({0, 50});
+}
+
+void UpperMenu::set_enable_move_map(bool _enable_move_map)
+{
+  enable_move_map = _enable_move_map;
 }
 
 void UpperMenu::draw()

@@ -8,8 +8,8 @@
 class IGameForGraphic : public IObject
 {
 public:
-  virtual int count_cell_x() const = 0;
-  virtual int count_cell_y() const = 0;
+  virtual size_t count_cell_x() const = 0;
+  virtual size_t count_cell_y() const = 0;
   virtual int width_win() const = 0;
   virtual int height_win() const = 0;
   virtual void exit() = 0;
@@ -20,7 +20,7 @@ public:
 class IGameForPlayer : public IObject
 {
 public:
-  virtual IGraphicsControllerForPlayer* graphics_controller() const = 0;
+  virtual IPlayerGraphicsController* graphics_controller() const = 0;
 
 };
 

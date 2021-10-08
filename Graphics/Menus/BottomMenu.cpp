@@ -1,6 +1,6 @@
 #include "BottomMenu.h"
 
-BottomMenu::BottomMenu(IGraphicsControllerForMenuInWindow* _graphic_controller)
+BottomMenu::BottomMenu(IMenuInWindowGraphicsController* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
 {}
 

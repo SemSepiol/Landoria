@@ -12,7 +12,7 @@ class GameWindow : public QWidget
 {
   const QPoint _p_win = QPoint{0,0};
 public:
-  GameWindow(IGraphicsControllerForWindow* game);
+  GameWindow(IWindowGraphicsController* game);
 
   void show();
   virtual void paintEvent(QPaintEvent* event) override;
@@ -23,7 +23,7 @@ public:
 private:
   void control_mouse_at_edge(QPoint event_pos);
 
-  IGraphicsControllerForWindow* graphics_controller;
+  IWindowGraphicsController* graphics_controller;
 
   QPoint pos_mouse{-1, -1};
   QPoint pos_mouse_clicked{-1, -1};

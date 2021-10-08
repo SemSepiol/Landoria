@@ -8,7 +8,7 @@
 class CitizenMenu : public AMenuForUnit
 {
 public:
-  CitizenMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+  CitizenMenu(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
               class Unit* unit, Cell* cell);
 private:
   void set_buttons();

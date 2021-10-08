@@ -32,37 +32,33 @@ void AGraphicsController::create_elements()
 
 QPoint AGraphicsController::map_center_in_win_map()
 {
-  return {_map_center.x(), _map_center.y()-_height_uppermenu};
+  return {_map_center.x(), _map_center.y()-_size_uppermenu.height};
 }
 
 void AGraphicsController::create_uppermenu()
 {
-  _height_uppermenu = _height_win/30;
-  _width_uppermenu = _width_win;
-  upper_menu->set_geometry({0,0}, _width_uppermenu, _height_uppermenu);
+  _size_uppermenu = {_size_win.width, _size_win.height/30};
+  upper_menu->set_geometry({0,0}, _size_uppermenu);
 }
 
 void AGraphicsController::create_bottommenu()
 {
-
-  _height_bottommenu = _height_win/30;
-  _width_bottommenu = _width_win;
-  QPoint pos{_width_win - _width_uppermenu, _height_win - _height_uppermenu};
-  bottom_menu->set_geometry(pos, _width_uppermenu, _height_uppermenu);
+  _size_bottommenu = {_size_win.width, _size_win.height/30};
+  QPoint pos{_size_win.width - _size_uppermenu.width, _size_win.height - _size_uppermenu.height};
+  bottom_menu->set_geometry(pos, _size_uppermenu);
 }
 
 void AGraphicsController::create_map()
 {
-  num_cell_x = game_controller->count_cell_x();
-  num_cell_y = game_controller->count_cell_y();
+  num_cell = {game_controller->count_cell_x(), game_controller->count_cell_y()};
   calc->set_side(130);
-  _height_win_map = _height_win - _height_uppermenu - _height_bottommenu;
-  _width_win_map = _width_win;
+  _size_win_map = {_size_win.width, _size_win.height - _size_uppermenu.height - _size_bottommenu.height};
 
   do_size_map();
-  _win_map_center = {_width_win_map/2, _height_win_map/2 + _height_uppermenu};
+  _win_map_center = {_size_win_map.width/2, _size_win_map.height/2 + _size_uppermenu.height};
   _map_center = _win_map_center;
   map->do_cells();
+
 
   CreateMap creator_map{this};
   creator_map.create_map(map.get());
@@ -73,49 +69,32 @@ void AGraphicsController::create_map()
 
 void AGraphicsController::set_win_settings()
 {
-  _height_win = game_controller->height_win();
-  _width_win = game_controller->width_win();
-  //  std::cout << _height_win << " " << _width_win << std::endl;
+  _size_win = {game_controller->width_win(), game_controller->height_win()};
 }
 
-int AGraphicsController::count_cell_x() const
+size_t AGraphicsController::count_cell_x() const
 {
-  return num_cell_x;
+  return num_cell.x;
 }
 
-int AGraphicsController::count_cell_y() const
+size_t AGraphicsController::count_cell_y() const
 {
-  return num_cell_y;
+  return num_cell.y;
 }
 
-int AGraphicsController::width_win() const
+Size AGraphicsController::size_win() const
 {
-  return _width_win;
+  return _size_win;
 }
 
-int AGraphicsController::height_win() const
+Size AGraphicsController::size_win_map() const
 {
-  return _height_win;
+  return _size_win_map;
 }
 
-int AGraphicsController::width_win_map() const
+Size AGraphicsController::size_map() const
 {
-  return _width_win_map;
-}
-
-int AGraphicsController::height_win_map() const
-{
-  return _height_win_map;
-}
-
-int AGraphicsController::width_map() const
-{
-  return _width_map;
-}
-
-int AGraphicsController::height_map() const
-{
-  return _height_map;
+  return _size_map;
 }
 
 QPoint AGraphicsController::win_map_center() const
@@ -143,7 +122,7 @@ void AGraphicsController::move_map(QPoint move_point)
 
 void AGraphicsController::resize_map(double coefficient)
 {
-  if(6*calc->hexagon_side() * coefficient > _height_win)
+  if(6*calc->hexagon_side() * coefficient > _size_win.height)
     return;
 
   int old_side = calc->hexagon_side();
@@ -151,7 +130,7 @@ void AGraphicsController::resize_map(double coefficient)
   calc->set_side(calc->my_round(coefficient * calc->hexagon_side()));
   do_size_map();
 
-  if((_height_map < _height_win_map) || ( _width_map < _width_win_map))
+  if((_size_map.height < _size_win_map.height) || ( _size_map.width < _size_win_map.width))
   {
     calc->set_side(old_side);
     do_size_map();
@@ -164,12 +143,12 @@ void AGraphicsController::resize_map(double coefficient)
 
 int AGraphicsController::map_upper_edge() const
 {
-  return _height_uppermenu;
+  return _size_uppermenu.height;
 }
 
 int AGraphicsController::map_bottom_edge() const
 {
-  return _height_win - _height_bottommenu;
+  return _size_win.height - _size_bottommenu.height;
 }
 
 void AGraphicsController::exit()
@@ -180,19 +159,19 @@ void AGraphicsController::exit()
 
 void AGraphicsController::control_pos_map()
 {
-  if (_map_center.y() - _win_map_center.y() + _height_win_map/2 > _height_map/2)
-    _map_center.setY(_win_map_center.y() - _height_win_map/2 + _height_map/2);
-  else if (_win_map_center.y() - _map_center.y() + _height_win_map/2 > _height_map/2)
-    _map_center.setY(_win_map_center.y() + _height_win_map/2 - _height_map/2);
+  if (_map_center.y() - _win_map_center.y() + _size_win_map.height/2 > _size_map.height/2)
+    _map_center.setY(_win_map_center.y() - _size_win_map.height/2 + _size_map.height/2);
+  else if (_win_map_center.y() - _map_center.y() + _size_win_map.height/2 > _size_map.height/2)
+    _map_center.setY(_win_map_center.y() + _size_win_map.height/2 - _size_map.height/2);
 
-  if (_map_center.x() - _win_map_center.x() + _width_win_map/2 > _width_map/2)
-    _map_center.setX(_win_map_center.x() - _width_win_map/2 + _width_map/2);
-  else if (_win_map_center.x() - _map_center.x() + _width_win_map/2 > _width_map/2)
-    _map_center.setX(_win_map_center.x() + _width_win_map/2 - _width_map/2);
+  if (_map_center.x() - _win_map_center.x() + _size_win_map.width/2 > _size_map.width/2)
+    _map_center.setX(_win_map_center.x() - _size_win_map.width/2 + _size_map.width/2);
+  else if (_win_map_center.x() - _map_center.x() + _size_win_map.width/2 > _size_map.width/2)
+    _map_center.setX(_win_map_center.x() + _size_win_map.width/2 - _size_map.width/2);
 }
 
 void AGraphicsController::do_size_map()
 {
-  _height_map = calc->hexagon_side()*num_cell_y + calc->hexagon_side()*(num_cell_y+1)/2;
-  _width_map = calc->hexagon_height()*(num_cell_x*2+1);
+  _size_map.height = calc->hexagon_side()*int(num_cell.y) + calc->hexagon_side()*(int(num_cell.y)+1)/2;
+  _size_map.width = calc->hexagon_height()*(int(num_cell.x)*2+1);
 }

@@ -4,42 +4,57 @@
 
 #include "IPlayer.h"
 #include "../Graphics/Units/Unit.h"
+#include "../Graphics/Buildings/Town.h"
 #include "../Graphics/GraphicsController/EventsStructures.h"
 #include "IGame.h"
 #include "UnitsCharaterichtics.h"
+#include "FindUnitWay.h"
 
-struct PlayerUnit : public IObject
+struct PlayerUnit
 {
-  size_t cell_x;
-  size_t cell_y;
+  Position pos;
   class Unit* unit;
   std::unique_ptr<Event> event;
-  PlayerUnit(size_t _cell_x, size_t _cell_y, class Unit* _unit)
-    :cell_x{_cell_x}, cell_y{_cell_y}, unit{_unit} {}
+
+  PlayerUnit(class Unit* _unit, Position _pos)
+    :pos{_pos}, unit{_unit} {}
 };
 
-class Player : public IPlayer
+struct PlayerTown
+{
+  Position pos;
+  class Town* town;
+
+  PlayerTown(class Town* _town, Position _pos)
+    :pos{_pos}, town{_town} {}
+};
+
+class Player : public IPlayer, public IMenuTownPlayer
 {
 public:
     Player(IGameForPlayer* game_controller);
     virtual ~Player() override;
 
     virtual void click_unit(class Unit* unit) override;
-    virtual void set_initial_units(size_t initial_cell_x, size_t initial_cell_y) override;
+    virtual void click_town(class Town* town) override;
+    virtual void set_initial_units(Position initial_cell) override;
 
     virtual void menu_event(class Unit* unit, Event* event) override;
-
+    virtual IMenuTownPlayer* menutown_player() override { return this; }
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
+    PlayerTown* get_my_town(class Town* town);
     void set_event_to_unit(PlayerUnit* my_unit, Event* event);
     void event_for_citizen(PlayerUnit* my_unit, Event* event);
     void event_for_worker(PlayerUnit* my_unit, Event* event);
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
 
-    void add_unit(Units type_unit, size_t position_x, size_t position_y);
+    void add_town(class Town* town, Position pos);
+    void add_unit(Units type_unit, Position pos_cell);
     IGameForPlayer* game_controller;
 
     std::vector<PlayerUnit> my_units;
+    std::vector<PlayerTown> my_towns;
 };
 
 #endif // PLAYER_H

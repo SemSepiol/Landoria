@@ -1,7 +1,7 @@
 #include "Minimap.h"
 #include <iostream>
 
-Minimap::Minimap(QWidget* win, Map* _map, IGraphicsControllerForMiniMap* _graphics_controller)
+Minimap::Minimap(QWidget* win, Map* _map, IMiniMapGraphicsController* _graphics_controller)
   :QWidget(win), graphics_controller{_graphics_controller}, map{_map}, calc()
 {}
 
@@ -18,7 +18,7 @@ void Minimap::draw()
 {
   for(size_t i{0}; i < size_t(graphics_controller->count_cell_y()); ++i)
     for(size_t j{0}; j < size_t(graphics_controller->count_cell_x()); ++j)
-      draw_cell(pos_corner_map + point_of_cell(j,i), map->cell_by_indexes(j, i));
+      draw_cell(pos_corner_map + point_of_cell({j,i}), map->cell_by_indexes({j, i}));
 
   QPainter qp(this);
   QPen pen(Qt::black, 4, Qt::SolidLine);
@@ -48,14 +48,14 @@ void Minimap::mousePressEvent(QMouseEvent *event)
   graphics_controller->move_map(coeffx, coeffy);
 }
 
-QPoint Minimap::point_of_cell(size_t ind_x, size_t ind_y)
+QPoint Minimap::point_of_cell(Position pos)
 {
-  int y = int(ind_y+1)*calc.hexagon_side() + int(ind_y)*calc.hexagon_side()/2;
+  int y = int(pos.y+1)*calc.hexagon_side() + int(pos.y)*calc.hexagon_side()/2;
   QPoint cell_point{calc.hexagon_height(), y};
-  if (ind_y % 2 == 1)
+  if (pos.y % 2 == 1)
     cell_point += QPoint{calc.hexagon_height(), 0};
 
-  cell_point += QPoint{calc.hexagon_height()*2*int(ind_x), 0};
+  cell_point += QPoint{calc.hexagon_height()*2*int(pos.x), 0};
   return cell_point;
 }
 
@@ -105,8 +105,8 @@ QColor Minimap::color(Cell* cell)
 
 void Minimap::do_size()
 {
-  int num_cell_x = graphics_controller->count_cell_x();
-  int num_cell_y = graphics_controller->count_cell_y();
+  int num_cell_x = int(graphics_controller->count_cell_x());
+  int num_cell_y = int(graphics_controller->count_cell_y());
   height_minimap = calc.hexagon_side()*num_cell_y + calc.hexagon_side()*(num_cell_y+1)/2;
   width_minimap = calc.hexagon_height()*(num_cell_x*2+1);
 }

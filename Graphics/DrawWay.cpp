@@ -18,9 +18,8 @@ void DrawWay::draw()
     OneMove onemove = way.get_move_in_way(i);
     std::vector<Position> minimove = onemove.minimove;
     for(size_t j{1}; j < minimove.size()-1; ++j)
-      draw_circle(map->point_of_cell_in_win(minimove[j].x, minimove[j].y));
-    draw_big_circle(map->point_of_cell_in_win(
-                      minimove[minimove.size()-1].x, minimove[minimove.size()-1].y));
+      draw_circle(map->point_of_cell_in_win(minimove[j]));
+    draw_big_circle(map->point_of_cell_in_win(minimove[minimove.size()-1]));
   }
 }
 

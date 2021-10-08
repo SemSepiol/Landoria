@@ -24,17 +24,16 @@ protected:
 
 struct MoveEvent : Event
 {
-  size_t cell_move_x;
-  size_t cell_move_y;
+  Position cell_move;
   virtual Event* copy() const override;
-  MoveEvent(size_t _cell_move_x, size_t _cell_move_y)
-    : Event{Events::Move}, cell_move_x{_cell_move_x},
-      cell_move_y{_cell_move_y} {}
+  MoveEvent(Position _cell_move)
+    : Event{Events::Move}, cell_move{_cell_move} {}
 };
 
 struct BuildEvent : Event
 {
   Buildings building;
+  Position pos_cell;
   virtual Event* copy() const override;
   BuildEvent(Buildings _building)
     : Event{Events::Build}, building{_building} {}

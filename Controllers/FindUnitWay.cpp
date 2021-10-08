@@ -35,7 +35,7 @@ Way FindUnitWay::get_way(class Unit *unit, Map *map, Position start, Position en
     movement_points = unit->get_max_movement();
   while(go != end)
   {
-    std::vector<std::pair<size_t, size_t>> neighbors =  map->adjacent_cells(go.x, go.y);
+    std::vector<Position> neighbors =  map->adjacent_cells(go);
     Position min_distance{neighbors[0]};
     for(size_t i{1}; i < neighbors.size(); ++i)
     {

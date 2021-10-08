@@ -15,7 +15,7 @@ class Minimap : public QWidget
   const QPoint pos_corner_map{0,0};
 
 public:
-  Minimap(QWidget* win, Map* map, IGraphicsControllerForMiniMap* graphics_controller);
+  Minimap(QWidget* win, Map* map, IMiniMapGraphicsController* graphics_controller);
 
   void set_geometry(QPoint pos, int hexagon_side);
   void draw();
@@ -34,13 +34,13 @@ public:
   virtual void mouseReleaseEvent(QMouseEvent *event) override {Q_UNUSED(event)}
 
 private:
-  QPoint point_of_cell(size_t ind_x, size_t ind_y);
+  QPoint point_of_cell(Position pos);
   void draw_cell(QPoint bottomright, Cell* cell);
   QColor color(Cell* cell);
   void do_size();
 
   QRectF win_on_map{};
-  IGraphicsControllerForMiniMap* graphics_controller;
+  IMiniMapGraphicsController* graphics_controller;
   Map* map;
   Calculations calc;
   int width_minimap;

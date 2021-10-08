@@ -7,7 +7,7 @@
 class BottomMenu : public AMenuInWindow
 {
 public:
-  BottomMenu(IGraphicsControllerForMenuInWindow* graphic_controller);
+  BottomMenu(IMenuInWindowGraphicsController* graphic_controller);
   virtual void mouseMoveEvent(QMouseEvent *event) override;
 protected:
   virtual void draw() override;

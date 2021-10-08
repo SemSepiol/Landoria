@@ -1,7 +1,7 @@
 #include "AMenuForUnit.h"
 #include <iostream>
 
-AMenuForUnit::AMenuForUnit(QWidget* _win, IGraphicsControllerMenuForUnit* _graphics_controller,
+AMenuForUnit::AMenuForUnit(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
                            class Unit* _unit, Cell* _cell)
   :QWidget(_win), graphics_controller{_graphics_controller}, unit{_unit}, cell{_cell}, win{_win}
 {}
@@ -69,7 +69,7 @@ void AMenuForUnit::click_butt(size_t num_butt)
   if(has_move_event)
   {
     has_move_event = false;
-    graphics_controller->menu_unit_event(unit, new MoveEvent{0,0});
+    graphics_controller->menu_unit_event(unit, new MoveEvent{{0,0}});
   }
 
   if (buttons[num_butt].is_enable)

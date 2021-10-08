@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 #include <iostream>
 
-GameWindow::GameWindow(IGraphicsControllerForWindow* game)
+GameWindow::GameWindow(IWindowGraphicsController* game)
   : QWidget(), graphics_controller{game}
 {
   //  setWindowState(windowState() ^ Qt::WindowFullScreen);

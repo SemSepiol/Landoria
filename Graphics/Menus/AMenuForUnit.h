@@ -25,7 +25,7 @@ struct MyButton
 class AMenuForUnit : public QWidget
 {
 public:
-  AMenuForUnit(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+  AMenuForUnit(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
                class Unit* unit, Cell* cell);
   virtual void set_geometry(QPoint pos, int side_square);
   virtual void draw();
@@ -43,7 +43,7 @@ protected:
   int side_square;
   QPoint pos_menu;
   QPoint mouse_pos_clicked;
-  IGraphicsControllerMenuForUnit* graphics_controller;
+  IUnitMenuGraphicsController* graphics_controller;
   class Unit* unit;
   Cell* cell;
   std::vector<MyButton> buttons;

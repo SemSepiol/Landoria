@@ -8,8 +8,8 @@
 class AMenuInWindow : public QWidget
 {
 public:
-  AMenuInWindow(IGraphicsControllerForMenuInWindow* graphics_controller);
-  virtual void set_geometry(QPoint pos, int width, int height);
+  AMenuInWindow(IMenuInWindowGraphicsController* graphics_controller);
+  virtual void set_geometry(QPoint pos, Size size);
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
   virtual void mousePressEvent(QMouseEvent *event) override;
@@ -22,7 +22,7 @@ protected:
 
   int width_menu;
   int height_menu;
-  IGraphicsControllerForMenuInWindow* graphics_controller;
+  IMenuInWindowGraphicsController* graphics_controller;
 
   QPoint mouse_pos_clicked;
 };

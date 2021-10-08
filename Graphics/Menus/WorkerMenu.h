@@ -13,7 +13,7 @@ class MenuBuild;
 class WorkerMenu : public AMenuForUnit
 {
 public:
-  WorkerMenu(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+  WorkerMenu(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
              class Unit* unit, Cell* cell);
 
 protected:
@@ -27,7 +27,7 @@ protected:
 class MenuBuild : public AMenuForUnit
 {
 public:
-  MenuBuild(QWidget* win, IGraphicsControllerMenuForUnit* graphics_controller,
+  MenuBuild(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
             class Unit* unit, Cell* cell);
   virtual void set_geometry(QPoint pos, int side_square) override;
 protected:
