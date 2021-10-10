@@ -116,8 +116,19 @@ void Cell::draw_contents(QPoint point)
 
     if(contents[i].content->what_content_I() == Contents::Unit){
       if (count_drawn_unit < 4){
-        QPoint p = calc->point_circle_for_unit(count_drawn_unit);
-        contents[i].content->draw(point + p);
+        QPoint p = calc->point_circle_for_unit(count_drawn_unit) + point;
+
+        if(contents[i].highlight)
+        {
+          int rad = calculations()->circle_radius()+5;
+
+          QPainter qp(window());
+          QPen pen(Qt::blue, 10, Qt::SolidLine);
+          qp.setBrush(QBrush (Qt::blue));
+          qp.drawEllipse(p, rad, rad);
+        }
+
+        contents[i].content->draw(p);
       }
       count_drawn_unit++;
     }
@@ -281,6 +292,14 @@ void ControlContents::set_show_unit(bool show_unit, class Unit* unit)
     if(cell->contents[i].content->what_content_I() == Contents::Unit)
       if(cell->contents[i].content.get() == unit)
         cell->contents[i].show_content = show_unit;
+}
+
+void ControlContents::set_highlight_unit(IContent* unit, bool highlight)
+{
+  for(size_t i{0}; i < cell->contents.size(); ++i)
+    if(cell->contents[i].content->what_content_I() == Contents::Unit)
+      if(cell->contents[i].content.get() == unit)
+        cell->contents[i].highlight = highlight;
 }
 
 void ControlContents::set_count_of_res(int count)

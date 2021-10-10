@@ -33,7 +33,8 @@ public:
   virtual void del_unit(class Unit* unit, Position pos_cell) override;
   virtual void do_menu_unit(class Unit* unit, Position pos_cell) override;
   virtual void do_menu_town(class Town* town) override;
-
+  virtual void centering_by_cell(Position pos_cell) override;
+  virtual void highlight_unit(class Unit* unit, Position pos) override;
 
   virtual void draw_elements() override;
   virtual void move_map(QPoint move_point) override;
@@ -47,11 +48,12 @@ public:
 
   virtual void delete_townmenu() override;
   virtual IMenuTownPlayer* player() override;
+  virtual void show_minimap() override;
+  virtual void next_move() override;
 private:
   void create_minimap();
   void set_win_rect_minimap();
-
-  virtual void show_minimap() override;
+  void no_highlight_unit(class Unit* unit, Position pos);
 
   void start_check_move_unit(class Unit* unit);
   void stop_check_move_unit();

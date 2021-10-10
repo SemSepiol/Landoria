@@ -25,6 +25,7 @@ struct Content
 {
   std::unique_ptr<IContent> content;
   bool show_content = true;
+  bool highlight = false;
   Content(IContent* _content) : content{_content} {}
 };
 
@@ -88,6 +89,7 @@ public:
   void set_show_cell(bool show_cell);
   void set_show_res(bool show_res);
   void set_show_unit(bool show_unit, class Unit* unit);
+  void set_highlight_unit(IContent* unit, bool highlight);
 
   void set_count_of_res(int count);
   int get_count_of_res() const;

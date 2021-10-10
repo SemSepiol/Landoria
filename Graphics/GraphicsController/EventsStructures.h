@@ -7,6 +7,7 @@
 
 enum Events
 {
+  NoEvent,
   Move,
   Build,
   Slip,
@@ -20,6 +21,13 @@ struct Event
   virtual ~Event() {}
 protected:
   Event(Events _event) :event{_event} {}
+};
+
+struct NoEvent : Event
+{
+  virtual Event* copy() const override;
+  NoEvent()
+    : Event{Events::NoEvent} {}
 };
 
 struct MoveEvent : Event

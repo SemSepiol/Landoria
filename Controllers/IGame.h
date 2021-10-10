@@ -13,7 +13,7 @@ public:
   virtual int width_win() const = 0;
   virtual int height_win() const = 0;
   virtual void exit() = 0;
-
+  virtual void next_move() = 0;
   virtual IPlayer* current_player() const = 0;
 };
 

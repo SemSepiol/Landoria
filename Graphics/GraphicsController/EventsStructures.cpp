@@ -1,5 +1,10 @@
 #include "EventsStructures.h"
 
+Event* NoEvent::copy() const
+{
+  return new NoEvent{};
+}
+
 Event* MoveEvent::copy() const
 {
   return new MoveEvent{cell_move};

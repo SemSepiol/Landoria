@@ -17,7 +17,7 @@ struct PlayerUnit
   std::unique_ptr<Event> event;
 
   PlayerUnit(class Unit* _unit, Position _pos)
-    :pos{_pos}, unit{_unit} {}
+    :pos{_pos}, unit{_unit}, event{new struct NoEvent} {}
 };
 
 struct PlayerTown
@@ -41,6 +41,9 @@ public:
 
     virtual void menu_event(class Unit* unit, Event* event) override;
     virtual IMenuTownPlayer* menutown_player() override { return this; }
+
+    virtual void start_move();
+    virtual void end_move();
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     PlayerTown* get_my_town(class Town* town);
@@ -51,6 +54,8 @@ private:
 
     void add_town(class Town* town, Position pos);
     void add_unit(Units type_unit, Position pos_cell);
+    void unit_move(PlayerUnit* unit);
+
     IGameForPlayer* game_controller;
 
     std::vector<PlayerUnit> my_units;

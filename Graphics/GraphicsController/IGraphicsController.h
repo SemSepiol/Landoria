@@ -60,6 +60,7 @@ public:
   virtual void move_map(QPoint move_point) = 0;
   virtual void exit() = 0;
   virtual void show_minimap() = 0;
+  virtual void next_move() = 0;
 };
 
 class IPlayerGraphicsController : public IObject
@@ -75,7 +76,8 @@ public:
 
   virtual void do_menu_unit(class Unit* unit, Position pos_cell) = 0;
   virtual void do_menu_town(class Town* town) = 0;
-
+  virtual void centering_by_cell(Position pos_cell) = 0;
+  virtual void highlight_unit(class Unit* unit, Position pos) = 0;
 };
 
 class IMiniMapGraphicsController : public IObject

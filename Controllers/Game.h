@@ -20,11 +20,13 @@ public:
   virtual int width_win() const override;
   virtual int height_win() const override;
   virtual void exit() override {}
+  virtual void next_move() override;
   virtual IPlayer* current_player() const override;
 
   virtual IPlayerGraphicsController* graphics_controller() const override;
 private:
   void do_players(size_t count_player);
+  size_t num_curr_player();
 
   std::unique_ptr<GraphicsController> _graphics_controller;
   std::vector<std::unique_ptr<Player>> players;

@@ -40,6 +40,25 @@ void GraphicsController::do_menu_town(class Town* town)
   upper_menu->set_enable_move_map(false);
 }
 
+void GraphicsController::centering_by_cell(Position pos_cell)
+{
+  QPoint point = map->point_of_cell_in_win(pos_cell);
+  move_map(_win_map_center - point);
+}
+
+void GraphicsController::highlight_unit(class Unit* unit, Position pos_cell)
+{
+
+  ControlContents controlcontents{map->cell_by_indexes(pos_cell)};
+  controlcontents.set_highlight_unit(unit, true);
+}
+
+void GraphicsController::no_highlight_unit(class Unit* unit, Position pos_cell)
+{
+  ControlContents controlcontents{map->cell_by_indexes(pos_cell)};
+  controlcontents.set_highlight_unit(unit, false);
+}
+
 void GraphicsController::move_unit(class Unit* unit, Position old_position, Position new_position)
 {
   ControlContents controlcontents_old{map->cell_by_indexes({old_position})};
@@ -100,7 +119,6 @@ void GraphicsController::move_mouse(QPoint new_pos)
       drawway->set_end_way(end_way);
     game_window->update();
   }
-
 }
 
 void GraphicsController::click(QPoint pos)
@@ -128,8 +146,6 @@ void GraphicsController::click(QPoint pos)
         game_controller->current_player()->click_town(static_cast<class Town*>(building));
     }
   }
-
-
   game_window->update();
 }
 
@@ -152,7 +168,8 @@ void GraphicsController::del_unit(class Unit* unit, Position pos_cell)
 
 void GraphicsController::del_build(Position pos_cell)
 {
-
+  ControlContents controlcontents{map->cell_by_indexes(pos_cell)};
+  controlcontents.del_building();
 }
 
 void GraphicsController::draw_elements()
@@ -205,6 +222,7 @@ void GraphicsController::menu_unit_event(class Unit* unit, Event* event)
 
   game_controller->current_player()->menu_event(unit, event);
   del_menu_unit();
+//  no_highlight_unit(unit)
 }
 
 void GraphicsController::delete_townmenu()
@@ -252,6 +270,11 @@ void GraphicsController::show_minimap()
     minimap->show();
 }
 
+void GraphicsController::next_move()
+{
+  game_controller->next_move();
+}
+
 void GraphicsController::start_check_move_unit(class Unit* unit)
 {
   is_moving_unit = true;
@@ -268,6 +291,7 @@ void GraphicsController::stop_check_move_unit()
 void GraphicsController::del_menu_unit()
 {
   unit_menu.reset();
+  no_highlight_unit(tracking_unit, pos_tracking_unit);
   is_tracking_unit = false;
   tracking_unit = nullptr;
 }

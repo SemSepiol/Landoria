@@ -34,6 +34,8 @@ void BottomMenu::click(QPoint pos)
 {
   if (point_in_rect(show_minimap_butt(), pos))
     graphics_controller->show_minimap();
+  if (point_in_rect(next_move_butt(), pos))
+    graphics_controller->next_move();
 }
 
 QRect BottomMenu::show_minimap_butt() const

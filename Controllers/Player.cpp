@@ -16,9 +16,7 @@ void Player::click_unit(class Unit* unit)
 {
   PlayerUnit* my_unit = get_my_unit(unit);
   if (my_unit)
-  {
-    game_controller->graphics_controller()->do_menu_unit(unit, my_unit->pos);
-  }
+    unit_move(my_unit);
 }
 
 void Player::click_town(class Town* town)
@@ -77,8 +75,23 @@ void Player::menu_event(class Unit* unit, Event* event)
   }
   else
     throw std::runtime_error("set_event_to_unit: It's not my unit");
+}
+
+void Player::start_move()
+{
+  for(size_t i{0}; i < my_units.size(); ++i)
+    if(my_units[i].event->event == Events::NoEvent)
+    {
+      unit_move(&my_units[i]);
+      return;
+    }
+}
+
+void Player::end_move()
+{
 
 }
+
 
 void Player::set_event_to_unit(PlayerUnit* my_unit, Event* event)
 {
@@ -139,3 +152,9 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   my_units.push_back({unit, pos_cell});
 }
 
+void Player::unit_move(PlayerUnit* unit)
+{
+  game_controller->graphics_controller()->centering_by_cell(unit->pos);
+  game_controller->graphics_controller()->do_menu_unit(unit->unit, unit->pos);
+  game_controller->graphics_controller()->highlight_unit(unit->unit, unit->pos);
+}
