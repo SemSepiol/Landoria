@@ -62,6 +62,11 @@ Calculations* Map::calculations() const
   return graphics_controller->calculations();
 }
 
+ICell* Map::icell_by_indexes(Position pos) const
+{
+  return cell_by_indexes(pos);
+}
+
 Cell* Map::cell_by_indexes(Position pos) const
 {
   return cells[pos.y][pos.x].get();

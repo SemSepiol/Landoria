@@ -32,6 +32,7 @@ struct Content
 class Cell : public ICell
 {
 public:
+
   Cell(IMap* map);
 
   // point - центр клетки
@@ -45,6 +46,8 @@ public:
 private:
   void draw_landscape(QPoint point);
   void draw_contents(QPoint point);
+  void draw_fog_of_war(QPoint point);
+  void draw_highlight(QPoint point);
 
   IMap* map;
   std::vector<Content> contents;
@@ -54,7 +57,7 @@ private:
   MainLandscapes mainlandscape = MainLandscapes::Plain;
   OtherLandscapes otherlandscape= OtherLandscapes::Nothing;
 
-  bool show_cell = true;
+  ShowCell show_cell = Show;
 
   friend class ControlContents;
 };
@@ -63,7 +66,8 @@ private:
 class ControlContents : public IObject
 {
 public:
-  ControlContents(Cell* cell) : cell{cell}{}
+  ControlContents(Cell* _cell) : cell{_cell}{}
+  ControlContents(ICell* _cell) : cell{static_cast<Cell*>(_cell)}{}
 
   void set_main_landscape(MainLandscapes type_landscape);
   void set_other_landscape(OtherLandscapes type_landscape);
@@ -86,7 +90,8 @@ public:
   bool has_building() const;
   int count_units() const;
 
-  void set_show_cell(bool show_cell);
+  void set_show_cell(ICell::ShowCell show_cell);
+  ICell::ShowCell get_show_cell() const;
   void set_show_res(bool show_res);
   void set_show_unit(bool show_unit, class Unit* unit);
   void set_highlight_unit(IContent* unit, bool highlight);

@@ -21,12 +21,22 @@ class UnitsCharaterichtics : public IObject
     {Units::Swordsman, 2}
   };
 
+  std::map<Units, int> unit_vision{
+    {Units::Citizen, 2},
+    {Units::Bowman, 2},
+    {Units::Worker, 2},
+    {Units::Swordsman, 2}
+  };
+
 public:
   int get_unit_max_health(Units type_unit) const
   { return unit_max_health.at(type_unit); }
 
   int get_unit_max_movement(Units type_unit) const
   { return unit_max_movement.at(type_unit); }
+
+  int get_unit_vision(Units type_unit) const
+  { return unit_vision.at(type_unit); }
 };
 
 

@@ -5,7 +5,7 @@
 
 #include "../IObject.h"
 #include "../Graphics/Units/Unit.h"
-#include "../Graphics/Map.h"
+#include "../Graphics/IMap.h"
 
 struct OneMove
 {
@@ -44,8 +44,8 @@ public:
 class FindUnitWay : public IObject
 {
 public:
-  Way get_way(class Unit* unit, Map* map, Position start, Position end);
-  OneMove get_first_move(class Unit* unit, Map* map, Position start, Position end);
+  Way get_way(class Unit* unit, IMapForFind* map, Position start, Position end);
+  OneMove get_first_move(class Unit* unit, IMapForFind* map, Position start, Position end);
 };
 
 #endif // FINDUNITWAY_H

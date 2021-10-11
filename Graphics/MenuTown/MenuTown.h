@@ -4,14 +4,14 @@
 #include <QMouseEvent>
 #include <QWidget>
 
-#include "../../Controllers/IPlayer.h"
+#include "../../Controllers/Player/IPlayer.h"
 #include "../GraphicsController/IGraphicsController.h"
-#include "../Buildings/Town.h"
+#include "../../Controllers/Player/PlayerTown.h"
 
 class MenuTown : public QWidget
 {
 public:
-  MenuTown(ITownMenuGraphicsController* graphics_controller, class Town* town);\
+  MenuTown(ITownMenuGraphicsController* graphics_controller, PlayerTown* town);\
   void set_geometry(QPoint pos, Size size);
 private:
   virtual void paintEvent(QPaintEvent* event) override;
@@ -20,13 +20,12 @@ private:
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
   void draw();
-  IMenuTownPlayer* player();
   void click(QPoint pos);
   QRectF rect_butt_exit();
   bool point_in_rect(QRectF rect, QPoint point);
 
   ITownMenuGraphicsController* graphics_controller;
-  class Town* town;
+  PlayerTown* town;
   QPoint mouse_pos_clicked;
 };
 

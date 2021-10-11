@@ -8,11 +8,14 @@ RESOURCES += \
 
 HEADERS += \
     Controllers/Enums.h \
+    Controllers/FindUnitVision.h \
     Controllers/FindUnitWay.h \
     Controllers/Game.h \
     Controllers/IGame.h \
-    Controllers/IPlayer.h \
-    Controllers/Player.h \
+    Controllers/Player/IPlayer.h \
+    Controllers/Player/Player.h \
+    Controllers/Player/PlayerMap.h \
+    Controllers/Player/PlayerTown.h \
     Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -75,10 +78,14 @@ HEADERS += \
 SOURCES += \
     Controllers/FindUnitWay.cpp \
     Controllers/Game.cpp \
-    Controllers/Player.cpp \
+    Controllers/FindUnitVision.cpp \
+    Controllers/Player/Player.cpp \
+    Controllers/Player/PlayerMap.cpp \
+    Controllers/Player/PlayerTown.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
     Graphics/Cell.cpp \
+    Graphics/ControlContents.cpp \
     Graphics/DrawWay.cpp \
     Graphics/Factories/FactoryBuild.cpp \
     Graphics/Factories/FactoryMenusUnit.cpp \

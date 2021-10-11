@@ -3,7 +3,7 @@
 
 #include "../IObject.h"
 #include "../Graphics/GraphicsController/IGraphicsController.h"
-#include "../Controllers/IPlayer.h"
+#include "Player/IPlayer.h"
 
 class IGameForGraphic : public IObject
 {
@@ -21,7 +21,8 @@ class IGameForPlayer : public IObject
 {
 public:
   virtual IPlayerGraphicsController* graphics_controller() const = 0;
-
+  virtual size_t count_cell_x() const = 0;
+  virtual size_t count_cell_y() const = 0;
 };
 
 #endif // IGAME_H

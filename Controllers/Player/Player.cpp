@@ -2,7 +2,8 @@
 #include <iostream>
 
 Player::Player(IGameForPlayer* _game_controller)
-  :game_controller{_game_controller}
+  :game_controller{_game_controller},
+    player_map{new PlayerMap({_game_controller->count_cell_x(), _game_controller->count_cell_y()})}
 {}
 
 Player::~Player()
@@ -24,7 +25,7 @@ void Player::click_town(class Town* town)
   PlayerTown* my_town = get_my_town(town);
   if (my_town)
   {
-    game_controller->graphics_controller()->do_menu_town(town);
+    game_controller->graphics_controller()->do_menu_town(my_town);
   }
 }
 
@@ -34,6 +35,7 @@ void Player::set_initial_units(Position initial_cell)
   add_unit(Units::Citizen, initial_cell);
   add_unit(Units::Bowman, initial_cell);
   add_unit(Units::Swordsman, initial_cell);
+  set_units_vision(true);
 }
 
 PlayerUnit* Player::get_my_unit(class Unit* unit)
@@ -47,8 +49,8 @@ PlayerUnit* Player::get_my_unit(class Unit* unit)
 PlayerTown* Player::get_my_town(class Town* town)
 {
   for(size_t i{0}; i < my_towns.size(); ++i)
-    if(my_towns[i].town == town)
-      return &my_towns[i];
+    if(my_towns[i]->town() == town)
+      return my_towns[i].get();
   return nullptr;
 }
 
@@ -92,6 +94,10 @@ void Player::end_move()
 
 }
 
+void Player::draw_my_map()
+{
+  game_controller->graphics_controller()->draw_playermap(player_map.get());
+}
 
 void Player::set_event_to_unit(PlayerUnit* my_unit, Event* event)
 {
@@ -130,15 +136,34 @@ void Player::event_for_worker(PlayerUnit* my_unit, Event* event)
 
 void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
 {
+  set_units_vision(false);
   game_controller->graphics_controller()->move_unit(
         my_unit->unit, my_unit->pos, event->cell_move);
   my_unit->pos = event->cell_move;
-  my_unit->event.reset();
+  my_unit->event.reset(new struct NoEvent());
+  set_units_vision(true);
+  draw_my_map();
+}
+
+void Player::set_units_vision(bool vision)
+{
+  for(PlayerUnit unit : my_units)
+  {
+    IMapForFind* map = game_controller->graphics_controller()->map();
+    std::vector<Position> unit_vision = FindUnitVision().unit_vision(unit.unit, unit.pos, map);
+    for(Position pos : unit_vision)
+    {
+      if(vision)
+        player_map->set_show_cell(pos);
+      else
+        player_map->set_notvisible_cell(pos);
+    }
+  }
 }
 
 void Player::add_town(class Town* town, Position pos)
 {
-  my_towns.push_back(PlayerTown{town, pos});
+  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, pos}});
 }
 
 void Player::add_unit(Units type_unit, Position pos_cell)
@@ -146,10 +171,17 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   UnitsCharaterichtics unitcharaterichtics;
   int max_health = unitcharaterichtics.get_unit_max_health(type_unit);
   int max_movement = unitcharaterichtics.get_unit_max_movement(type_unit);
-  class Unit* unit = game_controller->graphics_controller()->add_unit(
-        type_unit, pos_cell, max_health, max_movement);
+  int vision = unitcharaterichtics.get_unit_vision(type_unit);
+  class Unit* unit = game_controller->graphics_controller()->add_unit(type_unit, pos_cell);
 
-  my_units.push_back({unit, pos_cell});
+  unit->set_max_health(max_health);
+  unit->set_health(max_health);
+  unit->set_max_movement(max_movement);
+  unit->set_movement(max_movement);
+  unit->set_vision(vision);
+
+  PlayerUnit my_unit{unit, pos_cell};
+  my_units.push_back(my_unit);
 }
 
 void Player::unit_move(PlayerUnit* unit)

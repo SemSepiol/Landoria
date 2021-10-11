@@ -11,6 +11,12 @@
 class ICell : public IDrawObject
 {
 public:
+  enum ShowCell{
+    FogOfWar,
+    Show,
+    NotVisible
+  };
+
   virtual void draw(QPoint point) = 0;
   virtual QWidget* window() const = 0;
   virtual Calculations* calculations() const = 0;

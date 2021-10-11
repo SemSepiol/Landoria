@@ -22,6 +22,7 @@ Game::Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t c
 void Game::start()
 {
   _graphics_controller->start();
+  _current_player->draw_my_map();
   _current_player->start_move();
 }
 

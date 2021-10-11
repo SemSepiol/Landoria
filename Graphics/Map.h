@@ -10,7 +10,7 @@
 #include "GraphicsController/Calculations.h"
 
 
-class Map : public IMap
+class Map : public IMap, public IMapForFind
 {
 
 public:
@@ -25,9 +25,10 @@ public:
 
   virtual ~Map() override {}
 
+  virtual ICell* icell_by_indexes(Position pos) const override;
   Cell* cell_by_indexes(Position pos) const;
   Position indexes_by_cell(Cell* cell) const;
-  std::vector<Position> adjacent_cells(Position pos) const;
+  virtual std::vector<Position> adjacent_cells(Position pos) const override;
   std::pair<Cell*, IContent*> click(QPoint pos);
   QPoint point_of_cell_in_win(Position pos);
 

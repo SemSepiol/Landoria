@@ -7,7 +7,7 @@
 
 #include "IGame.h"
 #include "../Graphics/GraphicsController/GraphicsController.h"
-#include "Player.h"
+#include "Player/Player.h"
 
 class Game : public IGameForGraphic, public IGameForPlayer
 {

@@ -9,6 +9,7 @@ void CreateMap::create_map(Map* map)
 //      controlcontents.set_main_landscape(MainLandscapes::Mountain);
       controlcontents.set_main_landscape(MainLandscapes(rand() % 8));
 //      controlcontents.set_other_landscape(OtherLandscapes(rand() % 6));
+      controlcontents.set_show_cell(ICell::NotVisible);
     }
 }
 

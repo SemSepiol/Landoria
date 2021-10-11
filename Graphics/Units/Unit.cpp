@@ -67,3 +67,13 @@ int Unit::get_max_movement() const
   return max_movement;
 }
 
+void Unit::set_vision(int _vision)
+{
+    vision = _vision;
+}
+
+int Unit::get_vision() const
+{
+  return vision;
+}
+

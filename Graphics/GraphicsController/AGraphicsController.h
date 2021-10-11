@@ -69,7 +69,7 @@ protected:
   std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<UpperMenu> upper_menu;
   std::unique_ptr<BottomMenu> bottom_menu;
-  std::unique_ptr<Map> map;
+  std::unique_ptr<Map> _map;
   std::unique_ptr<Calculations> calc;
 };
 

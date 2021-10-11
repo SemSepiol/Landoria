@@ -3,12 +3,14 @@
 #include <vector>
 
 #include "IPlayer.h"
-#include "../Graphics/Units/Unit.h"
-#include "../Graphics/Buildings/Town.h"
-#include "../Graphics/GraphicsController/EventsStructures.h"
-#include "IGame.h"
-#include "UnitsCharaterichtics.h"
-#include "FindUnitWay.h"
+#include "../../Graphics/Units/Unit.h"
+#include "../../Graphics/GraphicsController/EventsStructures.h"
+#include "../IGame.h"
+#include "../UnitsCharaterichtics.h"
+#include "../FindUnitVision.h"
+#include "../FindUnitWay.h"
+#include "PlayerTown.h"
+#include "PlayerMap.h"
 
 struct PlayerUnit
 {
@@ -18,18 +20,12 @@ struct PlayerUnit
 
   PlayerUnit(class Unit* _unit, Position _pos)
     :pos{_pos}, unit{_unit}, event{new struct NoEvent} {}
+
+  PlayerUnit(const PlayerUnit& playerunit)
+    :pos{playerunit.pos}, unit{playerunit.unit}, event{playerunit.event->copy()} {}
 };
 
-struct PlayerTown
-{
-  Position pos;
-  class Town* town;
-
-  PlayerTown(class Town* _town, Position _pos)
-    :pos{_pos}, town{_town} {}
-};
-
-class Player : public IPlayer, public IMenuTownPlayer
+class Player : public IPlayer
 {
 public:
     Player(IGameForPlayer* game_controller);
@@ -40,10 +36,10 @@ public:
     virtual void set_initial_units(Position initial_cell) override;
 
     virtual void menu_event(class Unit* unit, Event* event) override;
-    virtual IMenuTownPlayer* menutown_player() override { return this; }
 
     virtual void start_move();
     virtual void end_move();
+    virtual void draw_my_map();
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     PlayerTown* get_my_town(class Town* town);
@@ -51,6 +47,7 @@ private:
     void event_for_citizen(PlayerUnit* my_unit, Event* event);
     void event_for_worker(PlayerUnit* my_unit, Event* event);
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
+    void set_units_vision(bool vision);
 
     void add_town(class Town* town, Position pos);
     void add_unit(Units type_unit, Position pos_cell);
@@ -59,7 +56,8 @@ private:
     IGameForPlayer* game_controller;
 
     std::vector<PlayerUnit> my_units;
-    std::vector<PlayerTown> my_towns;
+    std::vector<std::unique_ptr<PlayerTown>> my_towns;
+    std::unique_ptr<PlayerMap> player_map;
 };
 
 #endif // PLAYER_H

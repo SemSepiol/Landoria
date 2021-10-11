@@ -4,7 +4,7 @@
 
 AGraphicsController::AGraphicsController(class IGameForGraphic* _game_controller)
   :game_controller{_game_controller}, game_window{new GameWindow(this)}, upper_menu{new class UpperMenu(this)},
-    bottom_menu{new class BottomMenu(this)}, map{new Map(this)}, calc{new Calculations{}}
+    bottom_menu{new class BottomMenu(this)}, _map{new Map(this)}, calc{new Calculations{}}
 {}
 
 void AGraphicsController::start()
@@ -57,12 +57,12 @@ void AGraphicsController::create_map()
   do_size_map();
   _win_map_center = {_size_win_map.width/2, _size_win_map.height/2 + _size_uppermenu.height};
   _map_center = _win_map_center;
-  map->do_cells();
+  _map->do_cells();
 
 
   CreateMap creator_map{this};
-  creator_map.create_map(map.get());
-  creator_map.add_resource(map.get());
+  creator_map.create_map(_map.get());
+  creator_map.add_resource(_map.get());
 
   //  game_window->update();
 }
@@ -109,7 +109,7 @@ QPoint AGraphicsController::map_center() const
 
 void AGraphicsController::draw_elements()
 {
-  map->draw(_map_center);
+  _map->draw(_map_center);
 }
 
 void AGraphicsController::move_map(QPoint move_point)

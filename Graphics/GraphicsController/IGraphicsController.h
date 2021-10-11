@@ -9,7 +9,9 @@
 #include "Calculations.h"
 #include "../../Controllers/Enums.h"
 #include "../Units/Unit.h"
-#include "../../Controllers/IPlayer.h"
+#include "../../Controllers/Player/PlayerTown.h"
+#include "../../Controllers/Player/PlayerMap.h"
+#include "../IMap.h"
 
 struct Size
 {
@@ -66,8 +68,7 @@ public:
 class IPlayerGraphicsController : public IObject
 {
 public:
-  virtual class Unit* add_unit(Units unit, Position pos_cell,
-                               int max_health, int max_movement) = 0;
+  virtual class Unit* add_unit(Units unit, Position pos_cell) = 0;
 
   virtual void move_unit(class Unit* unit, Position old_position, Position new_position) = 0;
   virtual class Building* build(Buildings building, Position pos_cell) = 0;
@@ -75,9 +76,11 @@ public:
   virtual void del_unit(class Unit* unit, Position pos_cell) = 0;
 
   virtual void do_menu_unit(class Unit* unit, Position pos_cell) = 0;
-  virtual void do_menu_town(class Town* town) = 0;
+  virtual void do_menu_town(PlayerTown* town) = 0;
   virtual void centering_by_cell(Position pos_cell) = 0;
   virtual void highlight_unit(class Unit* unit, Position pos) = 0;
+  virtual void draw_playermap(PlayerMap* playermap) = 0;
+  virtual IMapForFind* map() const = 0;
 };
 
 class IMiniMapGraphicsController : public IObject
@@ -86,8 +89,10 @@ public:
   virtual size_t count_cell_x() const = 0;
   virtual size_t count_cell_y() const = 0;
 
-  // coeffx = new_map_center.x / width_map
-  // coeffy = new_map_center.y / height_map
+  /*
+   *  coeffx = new_map_center.x / width_map
+   * coeffy = new_map_center.y / height_map
+  */
   virtual void move_map(double coeffx, double coeffy) = 0;
 };
 
@@ -101,7 +106,6 @@ class ITownMenuGraphicsController : public IObject
 {
 public:
   virtual QWidget* window() const = 0;
-  virtual IMenuTownPlayer* player() = 0;
   virtual void delete_townmenu() = 0;
 };
 

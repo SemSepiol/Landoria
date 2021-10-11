@@ -21,9 +21,12 @@ void Minimap::draw()
       draw_cell(pos_corner_map + point_of_cell({j,i}), map->cell_by_indexes({j, i}));
 
   QPainter qp(this);
-  QPen pen(Qt::black, 4, Qt::SolidLine);
-  qp.setPen(pen);
+  qp.setPen(QPen{Qt::black, 4, Qt::SolidLine});
   qp.drawRect(win_on_map);
+
+  qp.setPen(QPen{Qt::white, 4, Qt::SolidLine});
+  QRect win{QPoint{0,0}, QPoint{width(), height()}};
+  qp.drawRect(win);
 }
 
 void Minimap::set_win_rect(double coeffx, double coeffy, double coeff_width, double coeff_height)
@@ -80,6 +83,9 @@ void Minimap::draw_cell(QPoint pos, Cell* cell)
 QColor Minimap::color(Cell* cell)
 {
   ControlContents controlcontents{cell};
+  if(controlcontents.get_show_cell() == ICell::FogOfWar)
+    return QColor(Qt::black);
+
   switch (controlcontents.get_landscape())
   {
   case MainLandscapes::Ocean:

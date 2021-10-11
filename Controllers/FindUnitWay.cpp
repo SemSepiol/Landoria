@@ -24,7 +24,7 @@ void Way::add_move(OneMove move)
   way.push_back(move);
 }
 
-Way FindUnitWay::get_way(class Unit *unit, Map *map, Position start, Position end)
+Way FindUnitWay::get_way(class Unit *unit, IMapForFind *map, Position start, Position end)
 {
   Position go{start};
   Way way;
@@ -61,7 +61,7 @@ Way FindUnitWay::get_way(class Unit *unit, Map *map, Position start, Position en
   return way;
 }
 
-OneMove FindUnitWay::get_first_move(class Unit* unit, Map* map, Position start, Position end)
+OneMove FindUnitWay::get_first_move(class Unit* unit, IMapForFind* map, Position start, Position end)
 {
   return get_way(unit, map, start, end).get_move_in_way(0);
 }

@@ -3,7 +3,7 @@
 #include <QWidget>
 
 #include "../../IObject.h"
-#include "../../Controllers/IPlayer.h"
+#include "../../Controllers/Player/IPlayer.h"
 #include "../Units/Unit.h"
 
 #include "../Menus/AMenuForUnit.h"

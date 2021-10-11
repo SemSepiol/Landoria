@@ -29,12 +29,15 @@ public:
   int get_movement() const;
   void set_max_movement(int max_movement);
   int get_max_movement() const;
+  void set_vision(int vision);
+  int get_vision() const;
 private:
   ICell* cell;
   int max_health;
   int health;
   int max_movement;
   int movement;
+  int vision;
 };
 
 #endif // UNIT_H

@@ -7,8 +7,11 @@ Cell::Cell(IMap* map)
 
 void Cell::draw(QPoint point)
 {
-  if(!show_cell)
+  if(show_cell == ShowCell::FogOfWar)
+  {
+    draw_fog_of_war(point);
     return;
+  }
 
   Calculations* calc = calculations();
 
@@ -20,14 +23,19 @@ void Cell::draw(QPoint point)
   QPoint p6 = point - calc->point_300();
 
   QWidget* win = window();
-  QPainter qp(win);
 
-  QPen pen(Qt::black, 2, Qt::SolidLine);
+  draw_landscape(point);
+  QPainter qp(win);
+  QPen pen(Qt::black, calc->hexagon_height()/10, Qt::SolidLine);
+  if(show_cell == ShowCell::NotVisible)
+  {
+    qp.setBrush(QBrush(QColor(0, 0, 0, 200)));
+  }
+
   qp.setPen(pen);
   QPointF points[6] {p1, p2, p3, p4, p5, p6};
   qp.drawPolygon(points, 6);
 
-  draw_landscape(point);
   draw_contents(point);
 
 }
@@ -111,237 +119,42 @@ void Cell::draw_contents(QPoint point)
   int count_drawn_unit = 0;
   for(size_t i{0}; i < contents.size(); ++i)
   {
+    Contents type_content = contents[i].content->what_content_I();
+    if(type_content != Contents::Resource && show_cell == ShowCell::NotVisible)
+      continue;
+
     if(!contents[i].show_content)
       continue;
 
-    if(contents[i].content->what_content_I() == Contents::Unit){
-      if (count_drawn_unit < 4){
-        QPoint p = calc->point_circle_for_unit(count_drawn_unit) + point;
-
-        if(contents[i].highlight)
-        {
-          int rad = calculations()->circle_radius()+5;
-
-          QPainter qp(window());
-          QPen pen(Qt::blue, 10, Qt::SolidLine);
-          qp.setBrush(QBrush (Qt::blue));
-          qp.drawEllipse(p, rad, rad);
-        }
-
-        contents[i].content->draw(p);
-      }
+    if(type_content == Contents::Unit){
+      QPoint p = calc->point_circle_for_unit(count_drawn_unit) + point;
+      if(contents[i].highlight)
+        draw_highlight(p);
+      contents[i].content->draw(p);
       count_drawn_unit++;
     }
-    else if (contents[i].content->what_content_I() == Contents::Resource){
+    else if (type_content == Contents::Resource){
       QPoint p = calc->point_circle_for_res();
       contents[i].content->draw(point + p);
     }
-    else if (contents[i].content->what_content_I() == Contents::Building) {
+    else if (type_content == Contents::Building) {
       QPoint p = calc->point_circle_for_build();
       contents[i].content->draw(point + p);
     }
   }
 }
 
-void ControlContents::set_main_landscape(MainLandscapes type_landscape)
+void Cell::draw_fog_of_war(QPoint point)
 {
-  //  if (cell->is_there_main_landscape)
-  //    throw std::runtime_error("set_main_landscape: There is already a landscape in the cell");
 
-  cell->is_there_main_landscape = true;
-  cell->mainlandscape = type_landscape;
 }
 
-void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
+void Cell::draw_highlight(QPoint point)
 {
-  //  if (cell->is_there_other_landscape)
-  //    throw std::runtime_error("set_other_landscape: There is already other landscape in the cell");
+  int rad = calculations()->circle_radius()+5;
 
-  cell->is_there_other_landscape = true;
-  cell->otherlandscape = type_landscape;
-}
-
-IContent* ControlContents::add_resource(Resources type_resource, int count_of_res)
-{
-  if (has_resource())
-    throw std::runtime_error("add_resource: There is already a resource in the cell");
-  cell->contents.push_back({FactoryRes().create_res(type_resource, cell, count_of_res)});
-  return cell->contents[cell->contents.size()-1].content.get();
-}
-
-IContent* ControlContents::add_building(Buildings type_building)
-{
-  if (has_building())
-    throw std::runtime_error("add_building: There is already a building in the cell");
-  cell->contents.push_back({FactoryBuild().create_building(type_building, cell)});
-  return cell->contents[cell->contents.size()-1].content.get();
-}
-
-IContent* ControlContents::add_unit(Units type_unit)
-{
-  if(count_units() == 4)
-    throw std::runtime_error("add_unit: there are already 4 units in the cell");
-  cell->contents.push_back({FactoryUnits().create_unit(type_unit, cell)});
-  return cell->contents[cell->contents.size()-1].content.get();
-}
-
-void ControlContents::add_unit(IContent* unit)
-{
-  if (unit->what_content_I() != Contents::Unit)
-    throw std::runtime_error("add_unit: It isn't unit");
-  if(count_units() == 4)
-    throw std::runtime_error("add_unit: there are already 4 units in the cell");
-  cell->contents.push_back({unit});
-}
-
-
-void ControlContents::del_content(IContent* content)
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content.get() == content){
-      cell->contents.erase(cell->contents.begin() + i);
-    }
-}
-
-void ControlContents::del_building()
-{
-  del_content(_get_building());
-}
-
-IContent* ControlContents::pop_content(IContent* content)
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-  {
-    if(cell->contents[i].content.get() == content){
-      IContent* temp{nullptr};
-      temp = cell->contents[i].content.release();
-      cell->contents.erase(cell->contents.begin() + i);
-      return temp;
-    }
-  }
-  throw std::runtime_error("pop_content: hasn't this constent");
-}
-
-MainLandscapes ControlContents::get_landscape() const
-{
-  if(!cell->is_there_main_landscape)
-    throw std::runtime_error("landscape is not set");
-  return cell->mainlandscape;
-}
-
-Resources ControlContents::get_resource() const
-{
-  Res* resource = _get_resource();
-  if(resource)
-    return resource->what_resource_I();
-  throw std::runtime_error("Hasn't got resource");
-}
-
-Buildings ControlContents::get_building() const
-{
-  class Building* building = _get_building();
-  if(building)
-    return building->what_building_I();
-  throw std::runtime_error("Hasn't got building");
-}
-
-std::vector<Units> ControlContents::get_units() const
-{
-  std::vector<class Unit*> units = _get_units();
-  std::vector<Units> types_units;
-  for(auto unit : units)
-    types_units.push_back(unit->what_unit_I());
-  return types_units;
-}
-
-bool ControlContents::has_landscape() const
-{
-  return cell->is_there_main_landscape;
-}
-
-bool ControlContents::has_resource() const
-{
-  return _get_resource();
-}
-
-bool ControlContents::has_building() const
-{
-  return _get_building();
-}
-
-int ControlContents::count_units() const
-{
-  return int(_get_units().size());
-}
-
-void ControlContents::set_show_cell(bool _show_cell)
-{
-  cell->show_cell = _show_cell;
-}
-
-void ControlContents::set_show_res(bool show_res)
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Resource)
-      cell->contents[i].show_content = show_res;
-}
-
-void ControlContents::set_show_unit(bool show_unit, class Unit* unit)
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Unit)
-      if(cell->contents[i].content.get() == unit)
-        cell->contents[i].show_content = show_unit;
-}
-
-void ControlContents::set_highlight_unit(IContent* unit, bool highlight)
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Unit)
-      if(cell->contents[i].content.get() == unit)
-        cell->contents[i].highlight = highlight;
-}
-
-void ControlContents::set_count_of_res(int count)
-{
-  _get_resource()->set_count_of_res(count);
-}
-
-int ControlContents::get_count_of_res() const
-{
-  return _get_resource()->count_of_res();
-}
-
-Res* ControlContents::_get_resource() const
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Resource)
-    {
-      Res* res = static_cast<Res*>(cell->contents[i].content.get());
-      return res;
-    }
-  return nullptr;
-}
-
-class Building* ControlContents::_get_building() const
-{
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-  if(cell->contents[i].content->what_content_I() == Contents::Building)
-  {
-    class Building* building = static_cast<class Building*>(cell->contents[i].content.get());
-    return building;
-  }
-  return nullptr;
-}
-
-std::vector<class Unit*> ControlContents::_get_units() const
-{
-  std::vector<class Unit*> units;
-  for(size_t i{0}; i < cell->contents.size(); ++i)
-    if(cell->contents[i].content->what_content_I() == Contents::Unit)
-    {
-      class Unit* unit = static_cast<class Unit*>(cell->contents[i].content.get());
-      units.push_back(unit);
-    }
-  return units;
+  QPainter qp(window());
+  QPen pen(Qt::blue, 10, Qt::SolidLine);
+  qp.setBrush(QBrush (Qt::blue));
+  qp.drawEllipse(point, rad, rad);
 }

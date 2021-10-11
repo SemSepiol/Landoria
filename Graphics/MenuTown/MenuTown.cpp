@@ -1,6 +1,6 @@
 #include "MenuTown.h"
 
-MenuTown::MenuTown(ITownMenuGraphicsController* _graphics_controller, class Town* _town)
+MenuTown::MenuTown(ITownMenuGraphicsController* _graphics_controller, PlayerTown* _town)
   :QWidget{_graphics_controller->window()}, graphics_controller{_graphics_controller}, town{_town}
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
@@ -40,11 +40,6 @@ void MenuTown::draw()
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_exit();
   QRectF source = FactoryPixmap().size_picture_content();
   qp.drawPixmap(rect_butt_exit(), pixmap, source);
-}
-
-IMenuTownPlayer* MenuTown::player()
-{
-  return graphics_controller->player();
 }
 
 QRectF MenuTown::rect_butt_exit()
