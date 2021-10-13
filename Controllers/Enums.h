@@ -1,6 +1,11 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+struct CountInEnums
+{
+  int resources() { return 10; }
+};
+
 enum Contents
 {
   Resource,

@@ -11,6 +11,7 @@
 #include "../FindUnitWay.h"
 #include "PlayerTown.h"
 #include "PlayerMap.h"
+#include "PlayerRes.h"
 
 struct PlayerUnit
 {
@@ -37,6 +38,7 @@ public:
 
     virtual void menu_event(class Unit* unit, Event* event) override;
 
+    virtual bool is_finish();
     virtual void start_move();
     virtual void end_move();
     virtual void draw_my_map();
@@ -48,6 +50,7 @@ private:
     void event_for_worker(PlayerUnit* my_unit, Event* event);
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
     void set_units_vision(bool vision);
+    void set_movement_to_max_unit();
 
     void add_town(class Town* town, Position pos);
     void add_unit(Units type_unit, Position pos_cell);
@@ -55,9 +58,12 @@ private:
 
     IGameForPlayer* game_controller;
 
+    int gold_per_turn = 1000;
+
     std::vector<PlayerUnit> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;
     std::unique_ptr<PlayerMap> player_map;
+    std::unique_ptr<PlayerRes> player_res;
 };
 
 #endif // PLAYER_H

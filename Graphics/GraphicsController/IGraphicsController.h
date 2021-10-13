@@ -13,16 +13,6 @@
 #include "../../Controllers/Player/PlayerMap.h"
 #include "../IMap.h"
 
-struct Size
-{
-  int width;
-  int height;
-  Size(int _width, int _height)
-    :width{_width}, height{_height} {}
-  Size()
-    :width{0}, height{0} {}
-};
-
 class IWindowGraphicsController : public IObject
 {
 public:
@@ -80,7 +70,7 @@ public:
   virtual void centering_by_cell(Position pos_cell) = 0;
   virtual void highlight_unit(class Unit* unit, Position pos) = 0;
   virtual void draw_playermap(PlayerMap* playermap) = 0;
-  virtual IMapForFind* map() const = 0;
+  virtual IMapForFind* mapforfind() const = 0;
 };
 
 class IMiniMapGraphicsController : public IObject

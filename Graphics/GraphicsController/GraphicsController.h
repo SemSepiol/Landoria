@@ -12,6 +12,7 @@
 #include "../../Controllers/FindUnitWay.h"
 #include "../DrawWay.h"
 #include "../MenuTown/MenuTown.h"
+#include "../InformationWidgets/UnitInformation.h"
 
 class GraphicsController : public AGraphicsController, public IPlayerGraphicsController,
     public IUnitMenuGraphicsController
@@ -35,7 +36,7 @@ public:
   virtual void centering_by_cell(Position pos_cell) override;
   virtual void highlight_unit(class Unit* unit, Position pos) override;
   virtual void draw_playermap(PlayerMap* playermap) override;
-  virtual Map* map() const override;
+  virtual Map* mapforfind() const override;
 
   virtual void draw_elements() override;
   virtual void move_map(QPoint move_point) override;
@@ -70,6 +71,7 @@ private:
   Cell* click_cell = nullptr;
   std::unique_ptr<DrawWay> drawway{nullptr};
   std::unique_ptr<AMenuForUnit> unit_menu{nullptr};
+  std::unique_ptr<UnitInformation> unit_information{nullptr};
   std::unique_ptr<MenuTown> town_menu{nullptr};
   std::unique_ptr<Minimap> minimap;
 };

@@ -11,7 +11,7 @@ struct OneMove
 {
   Position start;
   Position end;
-  int spent_movement_points;
+  int spent_movement_points = 0;
 
   /*
    * массив который хранит подперемещения в одном перемещении
@@ -26,7 +26,8 @@ struct OneMove
       minimove{_minimove}
   {}
   OneMove(Position _start)
-    :start{_start} {minimove.push_back(start);}
+    :start{_start}, end{_start}
+  { minimove.push_back(start); }
 
   void add_move(Position pos);
 };

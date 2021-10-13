@@ -9,7 +9,7 @@ void Unit::draw(QPoint point)
   qp.setBrush(QBrush (Qt::yellow));
   qp.drawEllipse(point, rad, rad);
 
-  QPixmap pixmap = FactoryPixmap().create_pixmap_for_unit(what_unit_I());
+  QPixmap pixmap = FactoryPixmap().create_pixmap_for_unit_on_map(what_unit_I());
   QRectF source = FactoryPixmap().size_picture_content();
   int adjustment = 0;
   int a = static_cast<int>(round(rad/sqrt(2)));

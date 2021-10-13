@@ -10,14 +10,6 @@
         <file>Graphics/image/resources/Silver.png</file>
         <file>Graphics/image/resources/Stone.png</file>
         <file>Graphics/image/resources/Uranium.png</file>
-        <file>Graphics/image/units/Bowman.png</file>
-        <file>Graphics/image/units/Citizen.png</file>
-        <file>Graphics/image/units/pngegg (1).png</file>
-        <file>Graphics/image/units/pngegg (3).png</file>
-        <file>Graphics/image/units/pngegg (4).png</file>
-        <file>Graphics/image/units/pngegg (5).png</file>
-        <file>Graphics/image/units/Swordsman.png</file>
-        <file>Graphics/image/units/Worker.png</file>
         <file>Graphics/image/building/Academy.png</file>
         <file>Graphics/image/building/Camp.png</file>
         <file>Graphics/image/building/Farm.png</file>
@@ -52,5 +44,17 @@
         <file>Graphics/image/menu/NextMotion.png</file>
         <file>Graphics/image/landscapes/Hills.png</file>
         <file>Graphics/image/menu/Build.png</file>
+        <file>Graphics/image/units_on_map/Bowman.png</file>
+        <file>Graphics/image/units_on_map/Citizen.png</file>
+        <file>Graphics/image/units_on_map/pngegg (1).png</file>
+        <file>Graphics/image/units_on_map/pngegg (3).png</file>
+        <file>Graphics/image/units_on_map/pngegg (4).png</file>
+        <file>Graphics/image/units_on_map/pngegg (5).png</file>
+        <file>Graphics/image/units_on_map/Swordsman.png</file>
+        <file>Graphics/image/units_on_map/Worker.png</file>
+        <file>Graphics/image/units/Bowman.png</file>
+        <file>Graphics/image/units/Citizen.png</file>
+        <file>Graphics/image/units/Swordsman.png</file>
+        <file>Graphics/image/units/Worker.png</file>
     </qresource>
 </RCC>

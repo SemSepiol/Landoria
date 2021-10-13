@@ -15,6 +15,7 @@ HEADERS += \
     Controllers/Player/IPlayer.h \
     Controllers/Player/Player.h \
     Controllers/Player/PlayerMap.h \
+    Controllers/Player/PlayerRes.h \
     Controllers/Player/PlayerTown.h \
     Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
@@ -68,6 +69,7 @@ HEADERS += \
     Graphics/Resources/Silver.h \
     Graphics/Resources/Stone.h \
     Graphics/Resources/Uranium.h \
+    Graphics/InformationWidgets/UnitInformation.h \
     Graphics/Units/Bowman.h \
     Graphics/Units/Citizen.h \
     Graphics/Units/Swordsman.h \
@@ -81,6 +83,7 @@ SOURCES += \
     Controllers/FindUnitVision.cpp \
     Controllers/Player/Player.cpp \
     Controllers/Player/PlayerMap.cpp \
+    Controllers/Player/PlayerRes.cpp \
     Controllers/Player/PlayerTown.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
@@ -98,6 +101,7 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
+    Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
     Graphics/MenuTown/MenuTown.cpp \
     Graphics/Menus/AMenuForUnit.cpp \

@@ -31,6 +31,23 @@ QPixmap FactoryPixmap::create_pixmap_for_res(Resources type_resource) const
   }
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_unit_on_map(Units type_unit) const
+{
+  switch (type_unit)
+  {
+  case Units::Worker:
+    return QPixmap{image_path + units_on_map_dir + "Worker.png/"};
+  case Units::Citizen:
+    return QPixmap{image_path + units_on_map_dir + "Citizen.png/"};
+  case Units::Bowman:
+    return QPixmap{image_path + units_on_map_dir + "Bowman.png/"};
+  case Units::Swordsman:
+    return QPixmap{image_path + units_on_map_dir + "Swordsman.png/"};
+  default:
+    throw std::runtime_error("There are no images for this unit");
+  }
+}
+
 QPixmap FactoryPixmap::create_pixmap_for_unit(Units type_unit) const
 {
   switch (type_unit)
@@ -177,6 +194,11 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_build() const
 QRectF FactoryPixmap::size_picture_content() const
 {
   return {0., 0., 188., 188.};
+}
+
+QRectF FactoryPixmap::size_picture_unit() const
+{
+  return {0., 0., 256., 256.};
 }
 
 QRectF FactoryPixmap::size_picture_landscape() const

@@ -4,7 +4,6 @@
 #include "windows.h"
 
 
-
 GraphicsController::GraphicsController(IGameForGraphic* _game_controller)
   : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), _map.get(), this}}
 {}
@@ -24,10 +23,18 @@ void GraphicsController::do_menu_unit(class Unit* unit, Position pos_cell)
 
   Cell* cell = _map->cell_by_indexes(pos_cell);
   unit_menu.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit, cell));
-  unit_menu->set_geometry({0, _size_win.height - side_square_unit_menu * unit_menu->count_button() - _size_bottommenu.height},
-                     side_square_unit_menu);
+  unit_menu->set_geometry(
+        {0, _size_win.height - side_square_unit_menu * (unit_menu->count_button()+1) - _size_bottommenu.height},
+        side_square_unit_menu);
+
   unit_menu->hide();
   unit_menu->show();
+
+  unit_information.reset(new UnitInformation(game_window.get(), unit));
+  unit_information->set_geometry({0, _size_win.height - _size_bottommenu.height - side_square_unit_menu},
+                                 side_square_unit_menu);
+  unit_information->hide();
+  unit_information->show();
 }
 
 void GraphicsController::do_menu_town(PlayerTown* town)
@@ -63,7 +70,7 @@ void GraphicsController::draw_playermap(PlayerMap* playermap)
     }
 }
 
-Map* GraphicsController::map() const
+Map* GraphicsController::mapforfind() const
 {
   return _map.get();
 }
@@ -297,6 +304,7 @@ void GraphicsController::stop_check_move_unit()
 void GraphicsController::del_menu_unit()
 {
   unit_menu.reset();
+  unit_information.reset();
   no_highlight_unit(tracking_unit, pos_tracking_unit);
   is_tracking_unit = false;
   tracking_unit = nullptr;

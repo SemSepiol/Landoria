@@ -48,6 +48,12 @@ int Game::height_win() const
 
 void Game::next_move()
 {
+  if(!_current_player->is_finish())
+  {
+    _current_player->start_move();
+    return;
+  }
+  std::cout << "new move" << std::endl;
   _current_player->end_move();
   size_t num_player = num_curr_player();
   if(++num_player == players.size())

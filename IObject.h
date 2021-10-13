@@ -22,6 +22,16 @@ struct Position
   { return x != other.x or y != other.y; }
 };
 
+struct Size
+{
+  int width;
+  int height;
+  Size(int _width, int _height)
+    :width{_width}, height{_height} {}
+  Size()
+    :width{0}, height{0} {}
+};
+
 class IObject
 {
 public:
