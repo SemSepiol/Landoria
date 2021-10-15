@@ -2,9 +2,16 @@
 #include <iostream>
 
 WorkerMenu::WorkerMenu(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
-                       class Unit* _unit, Cell* _cell)
+                       PlayerUnit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
 {
+  set_buttons();
+}
+
+void WorkerMenu::set_buttons()
+{
+  AMenuForUnit::set_buttons();
+  num_butt_build = buttons.size();
   buttons.push_back(new BuildEvent{Buildings::Farm});
   buttons.push_back(new MoveEvent{{0,0}});
   buttons.push_back(new SlipEvent{});
@@ -12,7 +19,7 @@ WorkerMenu::WorkerMenu(QWidget* _win, IUnitMenuGraphicsController* _graphics_con
 
 void WorkerMenu::draw_butt(size_t num_butt)
 {
-  if(num_butt != 0)
+  if(num_butt != num_butt_build)
   {
     AMenuForUnit::draw_butt(num_butt);
     return;
@@ -29,7 +36,7 @@ void WorkerMenu::draw_butt(size_t num_butt)
 
 void WorkerMenu::click_butt(size_t num_butt)
 {
-  if(num_butt != 0)
+  if(num_butt != num_butt_build)
   {
     AMenuForUnit::click_butt(num_butt);
     has_menu = false;
@@ -40,7 +47,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   if(has_move_event)
   {
     has_move_event = false;
-    graphics_controller->menu_unit_event(unit, new MoveEvent{{0,0}});
+    graphics_controller->menu_unit_event(unit->unit, new MoveEvent{{0,0}});
   }
 
   if(has_menu)
@@ -51,7 +58,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   }
 
   menu.reset(new MenuBuild{win, graphics_controller, unit, cell});
-  menu->set_geometry(pos_menu + rect_butt(0).topRight().toPoint(), side_square);
+  menu->set_geometry(pos_menu + rect_butt(num_butt_build).topRight().toPoint(), side_square);
   menu->hide();
   menu->show();
   win->update();
@@ -59,8 +66,13 @@ void WorkerMenu::click_butt(size_t num_butt)
 }
 
 MenuBuild::MenuBuild(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
-                     class Unit* _unit, Cell* _cell)
+                     PlayerUnit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
+{
+ set_buttons();
+}
+
+void MenuBuild::set_buttons()
 {
   buttons.push_back(new BuildEvent{Buildings::Farm});
   buttons.push_back(new BuildEvent{Buildings::Fort});

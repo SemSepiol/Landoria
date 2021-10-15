@@ -238,6 +238,6 @@ void Player::add_unit(Units type_unit, Position pos_cell)
 void Player::unit_move(PlayerUnit* unit)
 {
   game_controller->graphics_controller()->centering_by_cell(unit->pos);
-  game_controller->graphics_controller()->do_menu_unit(unit->unit, unit->pos);
+  game_controller->graphics_controller()->do_menu_unit(unit);
   game_controller->graphics_controller()->highlight_unit(unit->unit, unit->pos);
 }

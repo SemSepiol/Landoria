@@ -9,9 +9,9 @@ class WarriorMenu : public AMenuForUnit
 {
 public:
   WarriorMenu(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
-              class Unit* unit, Cell* cell);
+              PlayerUnit* unit, Cell* cell);
 private:
-  void set_buttons();
+  void set_buttons() override;
   void set_is_enable(MyButton& my_butt);
 };
 

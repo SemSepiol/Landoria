@@ -17,6 +17,7 @@ HEADERS += \
     Controllers/Player/PlayerMap.h \
     Controllers/Player/PlayerRes.h \
     Controllers/Player/PlayerTown.h \
+    Controllers/Player/PlayerUnit.h \
     Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -49,6 +50,8 @@ HEADERS += \
     Graphics/IMap.h \
     Graphics/Map.h \
     Graphics/MenuTown.h \
+    Graphics/MenuTown/IMenuTown.h \
+    Graphics/MenuTown/MenuBuildTown.h \
     Graphics/MenuTown/MenuTown.h \
     Graphics/Menus/AMenuForUnit.h \
     Graphics/Menus/AMenuInWindow.h \
@@ -103,6 +106,7 @@ SOURCES += \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
+    Graphics/MenuTown/MenuBuildTown.cpp \
     Graphics/MenuTown/MenuTown.cpp \
     Graphics/Menus/AMenuForUnit.cpp \
     Graphics/Menus/AMenuInWindow.cpp \

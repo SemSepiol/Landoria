@@ -164,6 +164,11 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
     delete event;
     return QPixmap{image_path + menu_dir + "Slip.png/"};
   }
+  case Events::NoEvent:
+  {
+    delete event;
+    return QPixmap{image_path + menu_dir + "Cancel.png"};
+  }
   default:
   {
     throw std::runtime_error("create_pixmap_for_butt_menu(): There are no images for this event");

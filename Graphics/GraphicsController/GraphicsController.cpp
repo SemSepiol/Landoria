@@ -15,13 +15,13 @@ void GraphicsController::create_elements()
   create_minimap();
 }
 
-void GraphicsController::do_menu_unit(class Unit* unit, Position pos_cell)
+void GraphicsController::do_menu_unit(PlayerUnit* unit)
 {
   is_tracking_unit = true;
-  tracking_unit = unit;
-  pos_tracking_unit = pos_cell;
+  tracking_unit = unit->unit;
+  pos_tracking_unit = unit->pos;
 
-  Cell* cell = _map->cell_by_indexes(pos_cell);
+  Cell* cell = _map->cell_by_indexes(unit->pos);
   unit_menu.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit, cell));
   unit_menu->set_geometry(
         {0, _size_win.height - side_square_unit_menu * (unit_menu->count_button()+1) - _size_bottommenu.height},
@@ -30,7 +30,7 @@ void GraphicsController::do_menu_unit(class Unit* unit, Position pos_cell)
   unit_menu->hide();
   unit_menu->show();
 
-  unit_information.reset(new UnitInformation(game_window.get(), unit));
+  unit_information.reset(new UnitInformation(game_window.get(), unit->unit));
   unit_information->set_geometry({0, _size_win.height - _size_bottommenu.height - side_square_unit_menu},
                                  side_square_unit_menu);
   unit_information->hide();
@@ -42,8 +42,7 @@ void GraphicsController::do_menu_town(PlayerTown* town)
   town_menu.reset(new MenuTown{this, town});
   town_menu->set_geometry({0, _size_uppermenu.height},
                           {_size_win.width, _size_win.height-_size_uppermenu.height});
-  town_menu->hide();
-  town_menu->show();
+  town_menu->start();
   upper_menu->set_enable_move_map(false);
 }
 

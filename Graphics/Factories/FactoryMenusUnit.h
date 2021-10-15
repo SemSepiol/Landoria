@@ -16,7 +16,7 @@ class FactoryMenusUnit : public IObject
 {
 public:
   AMenuForUnit* create_menu(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
-                            class Unit* unit, Cell* cell);
+                            PlayerUnit* unit, Cell* cell);
 };
 
 #endif // FACTORYMENUSUNIT_H

@@ -11,7 +11,9 @@
 #include "../Units/Unit.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "../../Controllers/Player/PlayerMap.h"
+#include "../../Controllers/Player/PlayerUnit.h"
 #include "../IMap.h"
+
 
 class IWindowGraphicsController : public IObject
 {
@@ -65,7 +67,7 @@ public:
   virtual void del_build(Position pos_cell) = 0;
   virtual void del_unit(class Unit* unit, Position pos_cell) = 0;
 
-  virtual void do_menu_unit(class Unit* unit, Position pos_cell) = 0;
+  virtual void do_menu_unit(PlayerUnit* unit) = 0;
   virtual void do_menu_town(PlayerTown* town) = 0;
   virtual void centering_by_cell(Position pos_cell) = 0;
   virtual void highlight_unit(class Unit* unit, Position pos) = 0;

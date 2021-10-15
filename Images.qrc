@@ -56,5 +56,6 @@
         <file>Graphics/image/units/Citizen.png</file>
         <file>Graphics/image/units/Swordsman.png</file>
         <file>Graphics/image/units/Worker.png</file>
+        <file>Graphics/image/menu/Cancel.png</file>
     </qresource>
 </RCC>

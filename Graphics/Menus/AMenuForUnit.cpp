@@ -2,7 +2,7 @@
 #include <iostream>
 
 AMenuForUnit::AMenuForUnit(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
-                           class Unit* _unit, Cell* _cell)
+                           PlayerUnit* _unit, Cell* _cell)
   :QWidget(_win), graphics_controller{_graphics_controller}, unit{_unit}, cell{_cell}, win{_win}
 {}
 
@@ -61,7 +61,7 @@ void AMenuForUnit::click_butt(size_t num_butt)
 {
   if(buttons[num_butt].event->event == Events::Move)
   {
-    graphics_controller->menu_unit_event(unit, buttons[num_butt].event->copy());
+    graphics_controller->menu_unit_event(unit->unit, buttons[num_butt].event->copy());
     has_move_event = !has_move_event;
     return;
   }
@@ -69,11 +69,11 @@ void AMenuForUnit::click_butt(size_t num_butt)
   if(has_move_event)
   {
     has_move_event = false;
-    graphics_controller->menu_unit_event(unit, new MoveEvent{{0,0}});
+    graphics_controller->menu_unit_event(unit->unit, new MoveEvent{{0,0}});
   }
 
   if (buttons[num_butt].is_enable)
-    graphics_controller->menu_unit_event(unit, buttons[num_butt].event->copy());
+    graphics_controller->menu_unit_event(unit->unit, buttons[num_butt].event->copy());
 }
 
 void AMenuForUnit::draw_butt(size_t num_butt)
@@ -99,4 +99,10 @@ bool AMenuForUnit::point_in_rect(QRectF rect, QPoint point)
 QRectF AMenuForUnit::rect_butt(size_t i)
 {
   return QRectF{0., int(i)*side_square*1., side_square*1., side_square*1.};
+}
+
+void AMenuForUnit::set_buttons()
+{
+  if(unit->event->event == Events::Move)
+    buttons.push_back(new struct NoEvent());
 }

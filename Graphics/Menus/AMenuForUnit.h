@@ -8,7 +8,7 @@
 #include <QPainter>
 
 #include "../Units/Unit.h"
-//#include "../../Controllers/IPlayer.h"
+#include "../../Controllers/Player/IPlayer.h"
 #include "../GraphicsController/EventsStructures.h"
 #include "../GraphicsController/IGraphicsController.h"
 #include "../Factories/FactoryPixmap.h"
@@ -26,7 +26,7 @@ class AMenuForUnit : public QWidget
 {
 public:
   AMenuForUnit(QWidget* win, IUnitMenuGraphicsController* graphics_controller,
-               class Unit* unit, Cell* cell);
+               PlayerUnit* unit, Cell* cell);
   virtual void set_geometry(QPoint pos, int side_square);
   virtual void draw();
 
@@ -39,12 +39,13 @@ protected:
   virtual void click_butt(size_t num_butt);
   virtual void draw_butt(size_t num_butt);
   virtual QRectF rect_butt(size_t i);
+  virtual void set_buttons();
 
   int side_square;
   QPoint pos_menu;
   QPoint mouse_pos_clicked;
   IUnitMenuGraphicsController* graphics_controller;
-  class Unit* unit;
+  PlayerUnit* unit;
   Cell* cell;
   std::vector<MyButton> buttons;
   QWidget* win;

@@ -31,7 +31,7 @@ public:
   virtual class Building* build(Buildings building, Position pos_cell) override;
   virtual void del_build(Position pos_cell) override;
   virtual void del_unit(class Unit* unit, Position pos_cell) override;
-  virtual void do_menu_unit(class Unit* unit, Position pos_cell) override;
+  virtual void do_menu_unit(PlayerUnit* unit) override;
   virtual void do_menu_town(PlayerTown* town) override;
   virtual void centering_by_cell(Position pos_cell) override;
   virtual void highlight_unit(class Unit* unit, Position pos) override;
@@ -42,8 +42,10 @@ public:
   virtual void move_map(QPoint move_point) override;
   virtual void resize_map(double coefficient) override;
 
-  /* coeffx = new_map_center.x / width_map
-     coeffy = new_map_center.y / height_map */
+  /*
+   * coeffx = new_map_center.x / width_map
+   * coeffy = new_map_center.y / height_map
+  */
   virtual void move_map(double coeffx, double coeffy) override;
 
   virtual void menu_unit_event(class Unit* unit, Event* event) override;

@@ -2,12 +2,13 @@
 #include <iostream>
 
 CitizenMenu::CitizenMenu(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,
-                         class Unit* _unit, Cell* _cell)
+                         PlayerUnit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
 { set_buttons(); }
 
 void CitizenMenu::set_buttons()
 {
+  AMenuForUnit::set_buttons();
   buttons.push_back(new BuildEvent{Buildings::Town});
   set_is_enable(buttons[0]);
   buttons.push_back(new MoveEvent{{0,0}});

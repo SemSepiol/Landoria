@@ -1,32 +1,23 @@
 #ifndef MENUTOWN_H
 #define MENUTOWN_H
 
-#include <QMouseEvent>
-#include <QWidget>
+#include <memory>
 
+#include "IMenuTown.h"
 #include "../../Controllers/Player/IPlayer.h"
 #include "../GraphicsController/IGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
+#include "MenuBuildTown.h"
 
-class MenuTown : public QWidget
+class MenuTown : public IMenuTown
 {
 public:
-  MenuTown(ITownMenuGraphicsController* graphics_controller, PlayerTown* town);\
+  MenuTown(ITownMenuGraphicsController* graphics_controller, PlayerTown* town);
   void set_geometry(QPoint pos, Size size);
+  void start();
+
 private:
-  virtual void paintEvent(QPaintEvent* event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
-  virtual void mousePressEvent(QMouseEvent *event) override;
-  virtual void mouseReleaseEvent(QMouseEvent *event) override;
-
-  void draw();
-  void click(QPoint pos);
-  QRectF rect_butt_exit();
-  bool point_in_rect(QRectF rect, QPoint point);
-
-  ITownMenuGraphicsController* graphics_controller;
-  PlayerTown* town;
-  QPoint mouse_pos_clicked;
+  std::unique_ptr<MenuBuildTown> menu_build_town;
 };
 
 #endif // MENUTOWN_H
