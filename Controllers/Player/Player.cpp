@@ -32,10 +32,11 @@ void Player::click_town(class Town* town)
 
 void Player::set_initial_units(Position initial_cell)
 {
-  add_unit(Units::Worker, initial_cell);
+//  add_unit(Units::Worker, initial_cell);
+//  add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
-  add_unit(Units::Bowman, initial_cell);
-  add_unit(Units::Swordsman, initial_cell);
+//  add_unit(Units::Bowman, initial_cell);
+//  add_unit(Units::Swordsman, initial_cell);
   set_units_vision(true);
 }
 
@@ -57,7 +58,7 @@ PlayerTown* Player::get_my_town(class Town* town)
 
 void Player::menu_event(class Unit* unit, Event* event)
 {
-//  std::cout << "menu_event_ok" << std::endl;
+  //  std::cout << "menu_event_ok" << std::endl;
 
   PlayerUnit* my_unit = get_my_unit(unit);
   if(my_unit)
@@ -82,13 +83,9 @@ void Player::menu_event(class Unit* unit, Event* event)
 
 bool Player::is_finish()
 {
+  do_events_unit();
   for(size_t i{0}; i < my_units.size(); ++i)
   {
-    if(my_units[i].event->event == Events::Move)
-    {
-      MoveEvent* move_event = static_cast<MoveEvent*>(my_units[i].event->copy());
-      move_unit_event(&my_units[i], move_event);
-    }
     if(my_units[i].event->event != Events::NoEvent)
       continue;
     if(my_units[i].unit->get_movement() == 0)
@@ -147,7 +144,24 @@ void Player::event_for_worker(PlayerUnit* my_unit, Event* event)
   if(event->event == Events::Build)
   {
     BuildEvent* build_event = static_cast<BuildEvent*>(event);
-    game_controller->graphics_controller()->build(build_event->building, my_unit->pos);
+    my_unit->event.reset(event);
+
+    class Building* building = game_controller->graphics_controller()->build(build_event->building, my_unit->pos);
+
+    int end_phase = BuildingCharaterichtics().get_building_count_phase(building->what_building_I());
+    building->set_end_build_phase(end_phase);
+
+    if(my_unit->unit->get_movement() != 0)
+    {
+      class Worker* worker = static_cast<class Worker*>(my_unit->unit);
+      building->set_build_phase(worker->get_build_speed());
+    }
+
+    unit_build.push_back({my_unit, building});
+    my_unit->unit->set_movement(0);
+
+    if(building->get_end_build_phase() == building->get_build_phase())
+      my_unit->event.reset(new struct NoEvent());
   }
   else
     set_event_to_unit(my_unit, event);
@@ -212,6 +226,38 @@ void Player::set_movement_to_max_unit()
     my_units[i].unit->set_movement(my_units[i].unit->get_max_movement());
 }
 
+void Player::do_events_unit()
+{
+  for(size_t i{0}; i < my_units.size(); ++i)
+  {
+    if(my_units[i].event->event == Events::Move)
+    {
+      MoveEvent* move_event = static_cast<MoveEvent*>(my_units[i].event->copy());
+      move_unit_event(&my_units[i], move_event);
+    }
+  }
+
+  for(size_t i{0}; i < unit_build.size(); ++i)
+  {
+    PlayerUnit* unit = unit_build[i].unit;
+    if(unit->unit->get_movement() == 0)
+      continue;
+
+    class Worker* worker = static_cast<class Worker*>(unit->unit);
+    class Building* building = unit_build[i].building;
+    int phase = building->get_build_phase();
+    building->set_build_phase(phase + worker->get_build_speed());
+
+    if(building->get_build_phase() == building->get_end_build_phase())
+    {
+      unit_build.erase(unit_build.begin() + i);
+      i--;
+      unit->event.reset(new struct NoEvent());
+    }
+    unit->unit->set_movement(0);
+  }
+}
+
 void Player::add_town(class Town* town, Position pos)
 {
   my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, pos}});
@@ -233,6 +279,12 @@ void Player::add_unit(Units type_unit, Position pos_cell)
 
   PlayerUnit my_unit{unit, pos_cell};
   my_units.push_back(my_unit);
+
+  if(type_unit == Units::Worker)
+  {
+    class Worker* worker = static_cast<class Worker*>(unit);
+    worker->set_build_speed(UnitsCharaterichtics().get_worker_build_speed());
+  }
 }
 
 void Player::unit_move(PlayerUnit* unit)

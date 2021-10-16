@@ -38,7 +38,7 @@ public:
   virtual void draw_elements() override;
   virtual void move_map(QPoint move_point) override;
   virtual void move_map(double coeffx, double coeffy) override = 0;
-  virtual void resize_map(double coefficient) override;
+  virtual void resize_map(double coefficient, QPoint pos_mouse) override;
   virtual int map_upper_edge() const override;
   virtual int map_bottom_edge() const override;
   virtual void exit() override;

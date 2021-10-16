@@ -70,7 +70,7 @@ void GameWindow::wheelEvent(QWheelEvent* event)
 {
   int angle_delta = event->angleDelta().y();
   double coefficient = 1. + angle_delta*1./1000;
-  graphics_controller->resize_map(coefficient);
+  graphics_controller->resize_map(coefficient, event->position().toPoint());
 }
 
 void GameWindow::control_mouse_at_edge(QPoint event_pos)

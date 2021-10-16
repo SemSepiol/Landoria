@@ -60,6 +60,7 @@ void Game::next_move()
     num_player = 0;
   _current_player = players[num_player].get();
   _current_player->start_move();
+  _graphics_controller->window()->update();
 }
 
 IPlayer* Game::current_player() const

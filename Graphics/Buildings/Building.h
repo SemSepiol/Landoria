@@ -17,10 +17,18 @@ public:
   virtual Contents what_content_I() const override {return Contents::Building;}
   virtual Buildings what_building_I() const = 0;
 
+  void set_build_phase(int phase);
+  void set_end_build_phase(int end_phase);
+  int get_build_phase() const;
+  int get_end_build_phase() const;
 protected:
   Building(ICell* cell) : cell{cell}{}
 private:
+  void draw_build_phase(QPoint point);
+
   ICell* cell;
+  int phase = 0;
+  int end_phase = 0;
 };
 
 #endif // BUILDING_H

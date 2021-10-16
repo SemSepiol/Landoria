@@ -204,9 +204,9 @@ void GraphicsController::move_map(QPoint move_point)
   set_win_rect_minimap();
 }
 
-void GraphicsController::resize_map(double coefficient)
+void GraphicsController::resize_map(double coefficient, QPoint pos_mouse)
 {
-  AGraphicsController::resize_map(coefficient);
+  AGraphicsController::resize_map(coefficient, pos_mouse);
   set_win_rect_minimap();
   game_window->update();
 }

@@ -7,6 +7,7 @@ RESOURCES += \
     Images.qrc
 
 HEADERS += \
+    Controllers/BuildingCharaterichtics.h \
     Controllers/Enums.h \
     Controllers/FindUnitVision.h \
     Controllers/FindUnitWay.h \
@@ -14,6 +15,7 @@ HEADERS += \
     Controllers/IGame.h \
     Controllers/Player/IPlayer.h \
     Controllers/Player/Player.h \
+    Controllers/Player/PlayerBuild.h \
     Controllers/Player/PlayerMap.h \
     Controllers/Player/PlayerRes.h \
     Controllers/Player/PlayerTown.h \

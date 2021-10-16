@@ -40,7 +40,7 @@ public:
 
   virtual void draw_elements() override;
   virtual void move_map(QPoint move_point) override;
-  virtual void resize_map(double coefficient) override;
+  virtual void resize_map(double coefficient, QPoint pos_mouse) override;
 
   /*
    * coeffx = new_map_center.x / width_map

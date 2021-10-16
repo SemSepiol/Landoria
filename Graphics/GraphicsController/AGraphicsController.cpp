@@ -120,20 +120,31 @@ void AGraphicsController::move_map(QPoint move_point)
   game_window->update();
 }
 
-void AGraphicsController::resize_map(double coefficient)
+void AGraphicsController::resize_map(double coeff, QPoint pos_mouse)
 {
-  if(6*calc->hexagon_side() * coefficient > _size_win.height)
+  if(6*calc->hexagon_side() * coeff > _size_win.height)
     return;
 
   int old_side = calc->hexagon_side();
+  QPoint old_map_center = _map_center;
+  int old_hexagon_height = calc->hexagon_height();
 
-  calc->set_side(calc->my_round(coefficient * calc->hexagon_side()));
+  calc->set_side(calc->my_round(coeff * calc->hexagon_side()));
   do_size_map();
+
+  QPoint point1 = pos_mouse - _map_center;
+  QPoint point2 = {(pos_mouse.x() - _map_center.x()) * old_hexagon_height / calc->hexagon_height(),
+                   int((pos_mouse.y() - _map_center.y())/coeff)};
+  std::cout << "=====" << std::endl;
+  std::cout << point1.x() << " " << point1.y() << std::endl;
+  std::cout << point2.x() << " " << point2.y() << std::endl;
+  _map_center += (point2 - point1);
 
   if((_size_map.height < _size_win_map.height) || ( _size_map.width < _size_win_map.width))
   {
     calc->set_side(old_side);
     do_size_map();
+    _map_center = old_map_center;
   }
   else
     control_pos_map();

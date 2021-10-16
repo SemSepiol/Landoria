@@ -4,15 +4,19 @@
 
 #include "IPlayer.h"
 #include "../../Graphics/Units/Unit.h"
+#include "../../Graphics/Units/Worker.h"
+#include "../../Graphics/Buildings/Building.h"
 #include "../../Graphics/GraphicsController/EventsStructures.h"
 #include "../IGame.h"
 #include "../UnitsCharaterichtics.h"
+#include "../BuildingCharaterichtics.h"
 #include "../FindUnitVision.h"
 #include "../FindUnitWay.h"
 #include "PlayerTown.h"
 #include "PlayerMap.h"
 #include "PlayerRes.h"
 #include "PlayerUnit.h"
+#include "PlayerBuild.h"
 
 class Player : public IPlayer
 {
@@ -39,6 +43,7 @@ private:
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
     void set_units_vision(bool vision);
     void set_movement_to_max_unit();
+    void do_events_unit();
 
     void add_town(class Town* town, Position pos);
     void add_unit(Units type_unit, Position pos_cell);
@@ -50,6 +55,7 @@ private:
 
     std::vector<PlayerUnit> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;
+    std::vector<PlayerBuild> unit_build;
     std::unique_ptr<PlayerMap> player_map;
     std::unique_ptr<PlayerRes> player_res;
 };

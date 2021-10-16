@@ -37,6 +37,9 @@ public:
 
   int get_unit_vision(Units type_unit) const
   { return unit_vision.at(type_unit); }
+
+  int get_worker_build_speed()
+  { return 10; }
 };
 
 
