@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "IPlayer.h"
+#include "IMenuTownPlayer.h"
 #include "../../Graphics/Units/Unit.h"
 #include "../../Graphics/Units/Worker.h"
 #include "../../Graphics/Buildings/Building.h"
@@ -18,7 +19,7 @@
 #include "PlayerUnit.h"
 #include "PlayerBuild.h"
 
-class Player : public IPlayer
+class Player : public IPlayer, public IMenuTownPlayer
 {
 public:
     Player(IGameForPlayer* game_controller);
@@ -36,6 +37,7 @@ public:
     virtual void draw_my_map();
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
+    size_t get_ind_my_unit(PlayerUnit* unit);
     PlayerTown* get_my_town(class Town* town);
     void set_event_to_unit(PlayerUnit* my_unit, Event* event);
     void event_for_citizen(PlayerUnit* my_unit, Event* event);
@@ -45,15 +47,16 @@ private:
     void set_movement_to_max_unit();
     void do_events_unit();
 
-    void add_town(class Town* town, Position pos);
+    void build_town(PlayerUnit* my_unit);
     void add_unit(Units type_unit, Position pos_cell);
+    void del_unit(PlayerUnit* unit);
     void unit_move(PlayerUnit* unit);
 
     IGameForPlayer* game_controller;
 
     int gold_per_turn = 1000;
 
-    std::vector<PlayerUnit> my_units;
+    std::vector<std::unique_ptr<PlayerUnit>> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;
     std::vector<PlayerBuild> unit_build;
     std::unique_ptr<PlayerMap> player_map;

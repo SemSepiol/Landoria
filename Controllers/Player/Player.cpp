@@ -10,8 +10,7 @@ Player::Player(IGameForPlayer* _game_controller)
 Player::~Player()
 {
   for(size_t i{0}; i < my_units.size(); ++i)
-    game_controller->graphics_controller()->del_unit(
-          my_units[i].unit, my_units[i].pos);
+    del_unit(my_units[i].get());
 }
 
 void Player::click_unit(class Unit* unit)
@@ -26,7 +25,7 @@ void Player::click_town(class Town* town)
   PlayerTown* my_town = get_my_town(town);
   if (my_town)
   {
-    game_controller->graphics_controller()->do_menu_town(my_town);
+    game_controller->graphics_controller()->do_menu_town(this, my_town);
   }
 }
 
@@ -35,6 +34,8 @@ void Player::set_initial_units(Position initial_cell)
 //  add_unit(Units::Worker, initial_cell);
 //  add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
+//  build_town(&my_units[0]);
+//  click_town(my_towns[0]->town());
 //  add_unit(Units::Bowman, initial_cell);
 //  add_unit(Units::Swordsman, initial_cell);
   set_units_vision(true);
@@ -43,9 +44,17 @@ void Player::set_initial_units(Position initial_cell)
 PlayerUnit* Player::get_my_unit(class Unit* unit)
 {
   for(size_t i{0}; i < my_units.size(); ++i)
-    if(my_units[i].unit == unit)
-      return &my_units[i];
+    if(my_units[i]->unit == unit)
+      return my_units[i].get();
   return nullptr;
+}
+
+size_t Player::get_ind_my_unit(PlayerUnit* unit)
+{
+  for(size_t i{0}; i < my_units.size(); ++i)
+    if(my_units[i].get() == unit)
+      return i;
+  return my_units.size();
 }
 
 PlayerTown* Player::get_my_town(class Town* town)
@@ -86,9 +95,9 @@ bool Player::is_finish()
   do_events_unit();
   for(size_t i{0}; i < my_units.size(); ++i)
   {
-    if(my_units[i].event->event != Events::NoEvent)
+    if(my_units[i]->event->event != Events::NoEvent)
       continue;
-    if(my_units[i].unit->get_movement() == 0)
+    if(my_units[i]->unit->get_movement() == 0)
       continue;
     return false;
   }
@@ -97,10 +106,14 @@ bool Player::is_finish()
 
 void Player::start_move()
 {
+//  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
+//  build_town(my_units[0].get());
+//  click_town(my_towns[0].get()->town());
+
   for(size_t i{0}; i < my_units.size(); ++i)
-    if(my_units[i].event->event == Events::NoEvent and my_units[i].unit->get_movement() != 0)
+    if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)
     {
-      unit_move(&my_units[i]);
+      unit_move(my_units[i].get());
       return;
     }
 }
@@ -126,14 +139,11 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
   if(event->event == Events::Build)
   {
     BuildEvent* build_event = static_cast<BuildEvent*>(event);
+    if(build_event->building != Buildings::Town)
+      std::runtime_error("Citizen can build only town");
 
-    if(build_event->building == Buildings::Town)
-    {
-      class Building* building = game_controller->
-          graphics_controller()->build(Buildings::Town, my_unit->pos);
-      class Town* town = static_cast<class Town*>(building);
-      add_town(town, {build_event->pos_cell});
-    }
+    build_town(my_unit);
+    std::cout << my_units.size() << std::endl;
   }
   else
     set_event_to_unit(my_unit, event);
@@ -206,10 +216,12 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
 
 void Player::set_units_vision(bool vision)
 {
-  for(PlayerUnit unit : my_units)
+  for(size_t i{0}; i < my_units.size(); ++i)
   {
     IMapForFind* map = game_controller->graphics_controller()->mapforfind();
-    std::vector<Position> unit_vision = FindUnitVision().unit_vision(unit.unit, unit.pos, map);
+    std::vector<Position> unit_vision =
+        FindUnitVision().unit_vision(my_units[i]->unit, my_units[i]->pos, map);
+
     for(Position pos : unit_vision)
     {
       if(vision)
@@ -223,17 +235,17 @@ void Player::set_units_vision(bool vision)
 void Player::set_movement_to_max_unit()
 {
   for(size_t i{0}; i < my_units.size(); ++i)
-    my_units[i].unit->set_movement(my_units[i].unit->get_max_movement());
+    my_units[i]->unit->set_movement(my_units[i]->unit->get_max_movement());
 }
 
 void Player::do_events_unit()
 {
   for(size_t i{0}; i < my_units.size(); ++i)
   {
-    if(my_units[i].event->event == Events::Move)
+    if(my_units[i]->event->event == Events::Move)
     {
-      MoveEvent* move_event = static_cast<MoveEvent*>(my_units[i].event->copy());
-      move_unit_event(&my_units[i], move_event);
+      MoveEvent* move_event = static_cast<MoveEvent*>(my_units[i]->event->copy());
+      move_unit_event(my_units[i].get(), move_event);
     }
   }
 
@@ -258,9 +270,13 @@ void Player::do_events_unit()
   }
 }
 
-void Player::add_town(class Town* town, Position pos)
+void Player::build_town(PlayerUnit* my_unit)
 {
-  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, pos}});
+  class Building* building = game_controller->
+      graphics_controller()->build(Buildings::Town, my_unit->pos);
+  class Town* town = static_cast<class Town*>(building);
+  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, my_unit->pos}});
+  del_unit(my_unit);
 }
 
 void Player::add_unit(Units type_unit, Position pos_cell)
@@ -277,14 +293,19 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   unit->set_movement(max_movement);
   unit->set_vision(vision);
 
-  PlayerUnit my_unit{unit, pos_cell};
-  my_units.push_back(my_unit);
+  my_units.push_back(std::unique_ptr<PlayerUnit>{new PlayerUnit(unit, pos_cell)});
 
   if(type_unit == Units::Worker)
   {
     class Worker* worker = static_cast<class Worker*>(unit);
     worker->set_build_speed(UnitsCharaterichtics().get_worker_build_speed());
   }
+}
+
+void Player::del_unit(PlayerUnit* unit)
+{
+  game_controller->graphics_controller()->del_unit(unit->unit, unit->pos);
+  my_units.erase(my_units.begin() + get_ind_my_unit(unit));
 }
 
 void Player::unit_move(PlayerUnit* unit)

@@ -14,5 +14,4 @@ public:
   virtual void menu_event(class Unit* unit, Event* event) = 0;
 };
 
-
 #endif // IPLAYER_H

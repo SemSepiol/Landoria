@@ -13,13 +13,16 @@ HEADERS += \
     Controllers/FindUnitWay.h \
     Controllers/Game.h \
     Controllers/IGame.h \
+    Controllers/Player/IMenuTownPlayer.h \
     Controllers/Player/IPlayer.h \
     Controllers/Player/Player.h \
     Controllers/Player/PlayerBuild.h \
     Controllers/Player/PlayerMap.h \
     Controllers/Player/PlayerRes.h \
+    Controllers/Player/PlayerScience.h \
     Controllers/Player/PlayerTown.h \
     Controllers/Player/PlayerUnit.h \
+    Controllers/TownBuildings.h \
     Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -55,6 +58,7 @@ HEADERS += \
     Graphics/MenuTown/IMenuTown.h \
     Graphics/MenuTown/MenuBuildTown.h \
     Graphics/MenuTown/MenuTown.h \
+    Graphics/MenuTown/MenuTypeWorkTown.h \
     Graphics/Menus/AMenuForUnit.h \
     Graphics/Menus/AMenuInWindow.h \
     Graphics/Menus/BottomMenu.h \
@@ -89,6 +93,7 @@ SOURCES += \
     Controllers/Player/Player.cpp \
     Controllers/Player/PlayerMap.cpp \
     Controllers/Player/PlayerRes.cpp \
+    Controllers/Player/PlayerScience.cpp \
     Controllers/Player/PlayerTown.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
@@ -110,6 +115,7 @@ SOURCES += \
     Graphics/Map.cpp \
     Graphics/MenuTown/MenuBuildTown.cpp \
     Graphics/MenuTown/MenuTown.cpp \
+    Graphics/MenuTown/MenuTypeWorkTown.cpp \
     Graphics/Menus/AMenuForUnit.cpp \
     Graphics/Menus/AMenuInWindow.cpp \
     Graphics/Menus/BottomMenu.cpp \

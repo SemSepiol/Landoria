@@ -1,19 +1,28 @@
-#ifndef MENUBUILDTOWN_H
-#define MENUBUILDTOWN_H
+#ifndef MENUTYPEWORKTOWN_H
+#define MENUTYPEWORKTOWN_H
 
 #include <QMouseEvent>
 #include <QWidget>
+#include <vector>
 
 #include "../../Controllers/Player/IMenuTownPlayer.h"
 #include "../GraphicsController/IGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "IMenuTown.h"
 
-class MenuBuildTown : public QWidget
+class MenuTypeWorkTown : public QWidget
 {
+  enum TypesWork{
+    Build,
+    AlreadyBuilt,
+    Close
+  };
+
 public:
-  MenuBuildTown(IMenuTown* menu_town);
+  MenuTypeWorkTown(IMenuTown* menu_town);
   void set_geometry(QPoint pos, Size size);
+
+  size_t count_button() const;
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
@@ -22,10 +31,15 @@ private:
 
   void draw();
   void click(QPoint pos);
+  QRectF rect_butt(int ind);
   bool point_in_rect(QRectF rect, QPoint point);
+  int height_butt();
+  void click_on_butt(size_t ind);
+  QString str_text_butt(size_t ind);
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;
+  std::vector<TypesWork> buttuns;
 };
 
-#endif // MENUBUILDTOWN_H
+#endif // MENUTYPEWORKTOWN_H

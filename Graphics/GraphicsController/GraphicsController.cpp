@@ -37,9 +37,9 @@ void GraphicsController::do_menu_unit(PlayerUnit* unit)
   unit_information->show();
 }
 
-void GraphicsController::do_menu_town(PlayerTown* town)
+void GraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown* town)
 {
-  town_menu.reset(new MenuTown{this, town});
+  town_menu.reset(new MenuTown{player, this, town});
   town_menu->set_geometry({0, _size_uppermenu.height},
                           {_size_win.width, _size_win.height-_size_uppermenu.height});
   town_menu->start();

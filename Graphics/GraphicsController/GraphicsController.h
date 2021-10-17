@@ -13,6 +13,7 @@
 #include "../DrawWay.h"
 #include "../MenuTown/MenuTown.h"
 #include "../InformationWidgets/UnitInformation.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
 
 class GraphicsController : public AGraphicsController, public IPlayerGraphicsController,
     public IUnitMenuGraphicsController
@@ -32,7 +33,7 @@ public:
   virtual void del_build(Position pos_cell) override;
   virtual void del_unit(class Unit* unit, Position pos_cell) override;
   virtual void do_menu_unit(PlayerUnit* unit) override;
-  virtual void do_menu_town(PlayerTown* town) override;
+  virtual void do_menu_town(IMenuTownPlayer* player, PlayerTown* town) override;
   virtual void centering_by_cell(Position pos_cell) override;
   virtual void highlight_unit(class Unit* unit, Position pos) override;
   virtual void draw_playermap(PlayerMap* playermap) override;

@@ -13,6 +13,7 @@
 #include "../../Controllers/Player/PlayerMap.h"
 #include "../../Controllers/Player/PlayerUnit.h"
 #include "../IMap.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
 
 
 class IWindowGraphicsController : public IObject
@@ -68,7 +69,7 @@ public:
   virtual void del_unit(class Unit* unit, Position pos_cell) = 0;
 
   virtual void do_menu_unit(PlayerUnit* unit) = 0;
-  virtual void do_menu_town(PlayerTown* town) = 0;
+  virtual void do_menu_town(IMenuTownPlayer* player, PlayerTown* town) = 0;
   virtual void centering_by_cell(Position pos_cell) = 0;
   virtual void highlight_unit(class Unit* unit, Position pos) = 0;
   virtual void draw_playermap(PlayerMap* playermap) = 0;
