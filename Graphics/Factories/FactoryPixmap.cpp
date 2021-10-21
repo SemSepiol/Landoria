@@ -170,9 +170,7 @@ QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
     return QPixmap{image_path + menu_dir + "Cancel.png"};
   }
   default:
-  {
     throw std::runtime_error("create_pixmap_for_butt_menu(): There are no images for this event");
-  }
   }
 }
 
@@ -194,6 +192,55 @@ QPixmap FactoryPixmap::create_pixmap_for_nextmotion() const
 QPixmap FactoryPixmap::create_pixmap_for_butt_build() const
 {
   return QPixmap{image_path + menu_dir + "Build.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_town_building(TownBuildings type_building) const
+{
+  switch (type_building)
+  {
+  case TownBuildings::Aqueduct:
+    return QPixmap{image_path + town_building_dir + "Aqueduct.png/"};
+  case TownBuildings::Market:
+    return QPixmap{image_path + town_building_dir + "Market.png/"};
+  case TownBuildings::PublicSchool:
+    return QPixmap{image_path + town_building_dir + "PublicSchool.png/"};
+  case TownBuildings::University:
+    return QPixmap{image_path + town_building_dir + "University.png/"};
+  case TownBuildings::Bank:
+    return QPixmap{image_path + town_building_dir + "Bank.png/"};
+  case TownBuildings::Medical_Lab:
+    return QPixmap{image_path + town_building_dir + "Medical_Lab.png/"};
+  case TownBuildings::ResearchLab:
+    return QPixmap{image_path + town_building_dir + "ResearchLab.png/"};
+  case TownBuildings::Walls:
+    return QPixmap{image_path + town_building_dir + "Walls.png/"};
+  case TownBuildings::Factory:
+    return QPixmap{image_path + town_building_dir + "Factory.png/"};
+  case TownBuildings::Monument:
+    return QPixmap{image_path + town_building_dir + "Monument.png/"};
+  case TownBuildings::Shrine:
+    return QPixmap{image_path + town_building_dir + "Shrine.png/"};
+  case TownBuildings::Windmill:
+    return QPixmap{image_path + town_building_dir + "Windmill.png/"};
+  case TownBuildings::Hospital:
+    return QPixmap{image_path + town_building_dir + "Hospital.png/"};
+  case TownBuildings::Museum:
+    return QPixmap{image_path + town_building_dir + "Museum.png/"};
+  case TownBuildings::Workshop:
+    return QPixmap{image_path + town_building_dir + "Workshop.png/"};
+  case TownBuildings::Stadium:
+    return QPixmap{image_path + town_building_dir + "Stadium.png/"};
+  case TownBuildings::Library:
+    return QPixmap{image_path + town_building_dir + "Library.png/"};
+  case TownBuildings::OperaHouse:
+    return QPixmap{image_path + town_building_dir + "OperaHouse.png/"};
+  case TownBuildings::StockExchange:
+    return QPixmap{image_path + town_building_dir + "StockExchange.png/"};
+  case TownBuildings::Zoo:
+    return QPixmap{image_path + town_building_dir + "Zoo.png/"};
+  default:
+    throw std::runtime_error("create_pixmap_for_town_building(): There are no images for this town building");
+  }
 }
 
 QRectF FactoryPixmap::size_picture_content() const

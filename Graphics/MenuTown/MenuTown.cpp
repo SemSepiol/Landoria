@@ -38,6 +38,11 @@ PlayerTown* MenuTown::town() const
   return _town;
 }
 
+IMenuTownPlayer* MenuTown::player() const
+{
+  return _player;
+}
+
 void MenuTown::delete_townmenu()
 {
   _graphics_controller->delete_townmenu();

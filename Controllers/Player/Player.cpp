@@ -4,7 +4,7 @@
 Player::Player(IGameForPlayer* _game_controller)
   :game_controller{_game_controller},
     player_map{new PlayerMap({_game_controller->count_cell_x(), _game_controller->count_cell_y()})},
-    player_res{new PlayerRes()}
+    player_res{new PlayerRes()}, _player_science{new PlayerScience()}
 {}
 
 Player::~Player()
@@ -106,9 +106,9 @@ bool Player::is_finish()
 
 void Player::start_move()
 {
-//  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
-//  build_town(my_units[0].get());
-//  click_town(my_towns[0].get()->town());
+  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
+  build_town(my_units[0].get());
+  click_town(my_towns[0].get()->town());
 
   for(size_t i{0}; i < my_units.size(); ++i)
     if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)
@@ -126,6 +126,11 @@ void Player::end_move()
 void Player::draw_my_map()
 {
   game_controller->graphics_controller()->draw_playermap(player_map.get());
+}
+
+PlayerScience* Player::player_science() const
+{
+  return _player_science.get();
 }
 
 void Player::set_event_to_unit(PlayerUnit* my_unit, Event* event)

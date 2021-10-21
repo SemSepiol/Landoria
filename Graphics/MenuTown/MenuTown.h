@@ -20,6 +20,7 @@ public:
   virtual ITownMenuGraphicsController* graphics_controller() const override;
   virtual QWidget* window() const override;
   virtual PlayerTown* town() const override;
+  virtual IMenuTownPlayer* player() const override;
   virtual void delete_townmenu() override;
   virtual void open_menu_build() override;
   virtual void open_menu_alreadybuild() override;

@@ -19,9 +19,9 @@ size_t PlayerTown::count_town_buildings() const
   return buildings.size();
 }
 
-TownBuildings PlayerTown::get_town_building(size_t ind) const
+const std::vector<TownBuildings>& PlayerTown::get_town_buildings() const
 {
-  return buildings.at(ind);
+  return buildings;
 }
 
 void PlayerTown::add_town_building(TownBuildings town_building)

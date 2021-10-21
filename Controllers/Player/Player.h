@@ -35,6 +35,8 @@ public:
     virtual void start_move();
     virtual void end_move();
     virtual void draw_my_map();
+
+    virtual PlayerScience* player_science() const override;
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     size_t get_ind_my_unit(PlayerUnit* unit);
@@ -56,11 +58,13 @@ private:
 
     int gold_per_turn = 1000;
 
+
     std::vector<std::unique_ptr<PlayerUnit>> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;
     std::vector<PlayerBuild> unit_build;
     std::unique_ptr<PlayerMap> player_map;
     std::unique_ptr<PlayerRes> player_res;
+    std::unique_ptr<PlayerScience> _player_science;
 };
 
 #endif // PLAYER_H

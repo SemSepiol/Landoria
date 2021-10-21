@@ -7,6 +7,7 @@
 #include "../../IObject.h"
 #include "../../Controllers/Enums.h"
 #include "../GraphicsController/EventsStructures.h"
+#include "../../Controllers/TownBuildings.h"
 
 class FactoryPixmap : IObject
 {
@@ -22,6 +23,7 @@ public:
   QPixmap create_pixmap_for_minimap() const;
   QPixmap create_pixmap_for_nextmotion() const;
   QPixmap create_pixmap_for_butt_build() const;
+  QPixmap create_pixmap_for_town_building(TownBuildings type_building) const;
 
   QRectF size_picture_content() const;
   QRectF size_picture_unit() const;
@@ -34,6 +36,7 @@ private:
   const QString buildings_dir {"building/"};
   const QString landscapes_dir {"landscapes/"};
   const QString menu_dir {"menu/"};
+  const QString town_building_dir{"town_building/"};
 };
 
 #endif // FACTORYPIXMAP_H

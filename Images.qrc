@@ -57,5 +57,25 @@
         <file>Graphics/image/units/Swordsman.png</file>
         <file>Graphics/image/units/Worker.png</file>
         <file>Graphics/image/menu/Cancel.png</file>
+        <file>Graphics/image/town_building/Aqueduct.png</file>
+        <file>Graphics/image/town_building/Bank.png</file>
+        <file>Graphics/image/town_building/Factory.png</file>
+        <file>Graphics/image/town_building/Hospital.png</file>
+        <file>Graphics/image/town_building/Library.png</file>
+        <file>Graphics/image/town_building/Market.png</file>
+        <file>Graphics/image/town_building/Medical_Lab.png</file>
+        <file>Graphics/image/town_building/Monument.png</file>
+        <file>Graphics/image/town_building/Museum.png</file>
+        <file>Graphics/image/town_building/OperaHouse.png</file>
+        <file>Graphics/image/town_building/PublicSchool.png</file>
+        <file>Graphics/image/town_building/ResearchLab.png</file>
+        <file>Graphics/image/town_building/Shrine.png</file>
+        <file>Graphics/image/town_building/Stadium.png</file>
+        <file>Graphics/image/town_building/StockExchange.png</file>
+        <file>Graphics/image/town_building/University.png</file>
+        <file>Graphics/image/town_building/Walls.png</file>
+        <file>Graphics/image/town_building/Windmill.png</file>
+        <file>Graphics/image/town_building/Workshop.png</file>
+        <file>Graphics/image/town_building/Zoo.png</file>
     </qresource>
 </RCC>
