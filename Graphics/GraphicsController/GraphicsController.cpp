@@ -44,6 +44,7 @@ void GraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown* town)
                           {_size_win.width, _size_win.height-_size_uppermenu.height});
   town_menu->start();
   upper_menu->set_enable_move_map(false);
+  bottom_menu->hide();
 }
 
 void GraphicsController::centering_by_cell(Position pos_cell)
@@ -246,6 +247,7 @@ void GraphicsController::delete_townmenu()
 {
   town_menu.reset();
   upper_menu->set_enable_move_map(true);
+  bottom_menu->show();
 }
 
 void GraphicsController::create_minimap()

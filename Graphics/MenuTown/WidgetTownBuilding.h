@@ -1,21 +1,28 @@
-#ifndef MENUBUILDTOWN_H
-#define MENUBUILDTOWN_H
+#ifndef WIDGETTOWNBUILDING_H
+#define WIDGETTOWNBUILDING_H
 
+#include <sstream>
 #include <QMouseEvent>
 #include <QWidget>
 
 #include "../../Controllers/Player/IMenuTownPlayer.h"
 #include "../GraphicsController/IGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
+#include "../../Controllers/TownBuildNeeds.h"
 #include "../Factories/FactoryPixmap.h"
+#include "../Factories/FactoryString.h"
 #include "IMenuTown.h"
-#include "WidgetTownBuilding.h"
-#include "WidgetTownUnit.h"
 
-class MenuBuildTown : public QWidget
+class WidgetTownBuilding : public QWidget
 {
 public:
-  MenuBuildTown(IMenuTown* menu_town);
+  enum Type{
+    Build,
+    InQueue,
+    AlreadyBuild
+  };
+
+  WidgetTownBuilding(IMenuTown* menu_town, TownBuildings type_building, Type type_widget);
   void set_geometry(QPoint pos, Size size);
 private:
   virtual void paintEvent(QPaintEvent* event) override;
@@ -24,19 +31,11 @@ private:
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
   void draw();
-  void set_geometry_unit();
-  void set_geometry_building();
-  void click(QPoint pos);
-  bool point_in_rect(QRectF rect, QPoint point);
-  QRect rect_build(size_t i);
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;
-  int height_rect_build;
-  QPoint pos_menu;
-
-  std::vector<std::unique_ptr<WidgetTownBuilding>> widget_town_building;
-  std::vector<std::unique_ptr<WidgetTownUnit>> widget_town_units;
+  TownBuildings type_building;
+  Type type_widget;
 };
 
-#endif // MENUBUILDTOWN_H
+#endif // WIDGETTOWNBUILDING_H

@@ -22,6 +22,7 @@ HEADERS += \
     Controllers/Player/PlayerScience.h \
     Controllers/Player/PlayerTown.h \
     Controllers/Player/PlayerUnit.h \
+    Controllers/TownBuildNeeds.h \
     Controllers/TownBuildings.h \
     Controllers/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
@@ -41,6 +42,7 @@ HEADERS += \
     Graphics/Factories/FactoryMenusUnit.h \
     Graphics/Factories/FactoryPixmap.h \
     Graphics/Factories/FactoryRes.h \
+    Graphics/Factories/FactoryString.h \
     Graphics/Factories/FactoryUnits.h \
     Graphics/GameWindow.h \
     Graphics/GraphicsController/AGraphicsController.h \
@@ -57,8 +59,11 @@ HEADERS += \
     Graphics/MenuTown.h \
     Graphics/MenuTown/IMenuTown.h \
     Graphics/MenuTown/MenuBuildTown.h \
+    Graphics/MenuTown/MenuQueueTown.h \
     Graphics/MenuTown/MenuTown.h \
     Graphics/MenuTown/MenuTypeWorkTown.h \
+    Graphics/MenuTown/WidgetTownBuilding.h \
+    Graphics/MenuTown/WidgetTownUnit.h \
     Graphics/Menus/AMenuForUnit.h \
     Graphics/Menus/AMenuInWindow.h \
     Graphics/Menus/BottomMenu.h \
@@ -95,6 +100,7 @@ SOURCES += \
     Controllers/Player/PlayerRes.cpp \
     Controllers/Player/PlayerScience.cpp \
     Controllers/Player/PlayerTown.cpp \
+    Controllers/TownBuildNeeds.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
     Graphics/Cell.cpp \
@@ -104,6 +110,7 @@ SOURCES += \
     Graphics/Factories/FactoryMenusUnit.cpp \
     Graphics/Factories/FactoryPixmap.cpp \
     Graphics/Factories/FactoryRes.cpp \
+    Graphics/Factories/FactoryString.cpp \
     Graphics/Factories/FactoryUnits.cpp \
     Graphics/GameWindow.cpp \
     Graphics/GraphicsController/AGraphicsController.cpp \
@@ -114,8 +121,11 @@ SOURCES += \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
     Graphics/MenuTown/MenuBuildTown.cpp \
+    Graphics/MenuTown/MenuQueueTown.cpp \
     Graphics/MenuTown/MenuTown.cpp \
     Graphics/MenuTown/MenuTypeWorkTown.cpp \
+    Graphics/MenuTown/WidgetTownBuilding.cpp \
+    Graphics/MenuTown/WidgetTownUnit.cpp \
     Graphics/Menus/AMenuForUnit.cpp \
     Graphics/Menus/AMenuInWindow.cpp \
     Graphics/Menus/BottomMenu.cpp \

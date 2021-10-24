@@ -1,6 +1,7 @@
-#ifndef MENUBUILDTOWN_H
-#define MENUBUILDTOWN_H
+#ifndef MENUQUEUETOWN_H
+#define MENUQUEUETOWN_H
 
+#include <string>
 #include <QMouseEvent>
 #include <QWidget>
 
@@ -12,11 +13,30 @@
 #include "WidgetTownBuilding.h"
 #include "WidgetTownUnit.h"
 
-class MenuBuildTown : public QWidget
+class MenuQueueTown : public QWidget
 {
+  struct WidgetTownBuild{
+    enum TypeBuild{
+      Building,
+      Unit
+    };
+    std::unique_ptr<WidgetTownBuilding> wid_town_building;
+    std::unique_ptr<WidgetTownUnit> wid_town_unit;
+    TypeBuild type_build;
+
+    WidgetTownBuild(WidgetTownBuilding* _wid_town_building)
+      :wid_town_building{_wid_town_building}, type_build{Building}
+    {}
+
+    WidgetTownBuild(WidgetTownUnit* _wid_town_unit)
+      :wid_town_unit{_wid_town_unit}, type_build{Unit}
+    {}
+  };
+
 public:
-  MenuBuildTown(IMenuTown* menu_town);
+  MenuQueueTown(IMenuTown* menu_town);
   void set_geometry(QPoint pos, Size size);
+  void update_queue();
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
@@ -24,19 +44,16 @@ private:
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
   void draw();
-  void set_geometry_unit();
-  void set_geometry_building();
+  void draw_number();
   void click(QPoint pos);
   bool point_in_rect(QRectF rect, QPoint point);
-  QRect rect_build(size_t i);
+  void set_geometry_wid(size_t ind);
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;
   int height_rect_build;
   QPoint pos_menu;
-
-  std::vector<std::unique_ptr<WidgetTownBuilding>> widget_town_building;
-  std::vector<std::unique_ptr<WidgetTownUnit>> widget_town_units;
+  std::vector<WidgetTownBuild> widgets_town_build;
+  Size numder_rect;
 };
-
-#endif // MENUBUILDTOWN_H
+#endif // MENUQUEUETOWN_H

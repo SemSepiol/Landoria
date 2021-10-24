@@ -106,9 +106,9 @@ bool Player::is_finish()
 
 void Player::start_move()
 {
-  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
-  build_town(my_units[0].get());
-  click_town(my_towns[0].get()->town());
+//  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
+//  build_town(my_units[0].get());
+//  click_town(my_towns[0].get()->town());
 
   for(size_t i{0}; i < my_units.size(); ++i)
     if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)

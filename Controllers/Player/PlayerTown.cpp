@@ -28,3 +28,40 @@ void PlayerTown::add_town_building(TownBuildings town_building)
 {
   buildings.push_back(town_building);
 }
+
+void PlayerTown::add_queue_build(Units type_unit)
+{
+  build_queue.push_back({type_unit});
+}
+
+void PlayerTown::add_queue_build(TownBuildings type_building)
+{
+  build_queue.push_back({type_building});
+}
+
+void PlayerTown::set_build(Units type_unit)
+{
+  build_queue.clear();
+  build_queue.push_back(type_unit);
+}
+
+void PlayerTown::set_build(TownBuildings type_building)
+{
+  build_queue.clear();
+  build_queue.push_back(type_building);
+}
+
+const std::vector<BuildInTown>& PlayerTown::get_build_queue() const
+{
+  return build_queue;
+}
+
+int PlayerTown::get_production() const
+{
+  return production;
+}
+
+int PlayerTown::get_surplus_production() const
+{
+  return surplus_production;
+}
