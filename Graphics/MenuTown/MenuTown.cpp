@@ -80,6 +80,7 @@ void MenuTown::set_build(Units type_unit)
   else if(type_work == EditProject)
     _town->set_build(type_unit);
   menu_queue_town->update_queue();
+  menu_build_town->update();
 }
 
 void MenuTown::set_build(TownBuildings type_building)
@@ -89,6 +90,44 @@ void MenuTown::set_build(TownBuildings type_building)
   else if(type_work == EditProject)
     _town->set_build(type_building);
   menu_queue_town->update_queue();
+  menu_build_town->update();
+}
+
+void MenuTown::del_build_from_queue(AWidgetTown* wid)
+{
+  _town->del_build(num_from_queue(wid));
+  menu_queue_town->update_queue();
+  menu_build_town->update();
+}
+
+size_t MenuTown::num_from_queue(AWidgetTown* wid) const
+{
+  return menu_queue_town->num_widget(wid);
+}
+
+size_t MenuTown::count_from_queue() const
+{
+  return menu_queue_town->count_widgets();
+}
+
+void MenuTown::move_up_build(AWidgetTown* wid)
+{
+  _town->move_up_build(num_from_queue(wid));
+  menu_queue_town->update_queue();
+  menu_build_town->update();
+}
+
+void MenuTown::move_down_build(AWidgetTown* wid)
+{
+  _town->move_down_build(num_from_queue(wid));
+  menu_queue_town->update_queue();
+  menu_build_town->update();
+}
+
+void MenuTown::wheel_scroll(int angle_delta)
+{
+  if(menu_build_town)
+    menu_build_town->wheel_scroll(angle_delta);
 }
 
 void MenuTown::set_type_work(TypeWork _type_work)

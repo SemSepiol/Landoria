@@ -37,6 +37,9 @@ public:
   MenuQueueTown(IMenuTown* menu_town);
   void set_geometry(QPoint pos, Size size);
   void update_queue();
+
+  size_t num_widget(AWidgetTown* wid_building) const;
+  size_t count_widgets() const;
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}

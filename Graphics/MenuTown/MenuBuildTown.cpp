@@ -1,4 +1,5 @@
 #include "MenuBuildTown.h"
+#include <iostream>
 
 MenuBuildTown::MenuBuildTown(IMenuTown* _menu_town)
   :QWidget{_menu_town->window()}, menu_town{_menu_town}
@@ -11,13 +12,33 @@ void MenuBuildTown::set_geometry(QPoint pos, Size size)
   QWidget::setGeometry(pos.x(), pos.y(), size.width, size.height);
   height_rect_build = size.height/20;
   pos_menu = pos;
-  set_geometry_unit();
-  set_geometry_building();
+  width_scroll = width()/50;
+  do_units();
+  do_buildings();
+  set_geometry_units();
+  set_geometry_buildings();
+}
+
+void MenuBuildTown::wheel_scroll(int angle_delta)
+{
+  scroll_indent += angle_delta;
+
+  int count_wid = int(widget_town_buildings.size() + widget_town_units.size());
+  if(scroll_indent + height_rect_build * count_wid < height())
+    scroll_indent = height() - height_rect_build * count_wid;
+  if(scroll_indent > 0)
+    scroll_indent = 0;
+
+
+  set_geometry_units();
+  set_geometry_buildings();
+  update();
 }
 
 void MenuBuildTown::paintEvent(QPaintEvent* event)
 {
   draw();
+  draw_scroll();
 }
 
 void MenuBuildTown::mousePressEvent(QMouseEvent *event)
@@ -33,6 +54,12 @@ void MenuBuildTown::mouseReleaseEvent(QMouseEvent *event)
   click(event->pos());
 }
 
+void MenuBuildTown::wheelEvent(QWheelEvent* event)
+{
+  int angle_delta = event->angleDelta().y();
+  wheel_scroll(angle_delta);
+}
+
 void MenuBuildTown::draw()
 {
   QPainter qp(this);
@@ -40,37 +67,80 @@ void MenuBuildTown::draw()
   qp.fillRect(rect, QBrush(QColor(0, 0, 0, 200)));
 }
 
-void MenuBuildTown::set_geometry_unit()
+void MenuBuildTown::draw_scroll()
+{
+  QPainter qp(this);
+  int height_begin = 0;
+  int height_end = height();
+  int count_wid = int(widget_town_buildings.size() + widget_town_units.size());
+  if(height_rect_build * count_wid > height())
+  {
+    height_begin = -scroll_indent*height()/(height_rect_build * count_wid);
+    height_end = height_begin + height()*height()/(height_rect_build * count_wid);
+  }
+
+  QRect rect{width() - width_scroll, height_begin, width_scroll, height_end - height_begin};
+  qp.fillRect(rect, QBrush(Qt::blue));
+}
+
+void MenuBuildTown::do_units()
 {
   PlayerScience* player_science = menu_town->player()->player_science();
-  QPoint pos = pos_menu;
   auto open_units = player_science->get_best_open_units();
+
   for(size_t i{0}; i < open_units.size(); ++i)
-  {
     widget_town_units.push_back(
           std::unique_ptr<WidgetTownUnit>{new WidgetTownUnit(menu_town,  open_units[i], WidgetTownUnit::Build)});
 
-    (widget_town_units.end() - 1)->get()->set_geometry(pos, {width(), height_rect_build});
-
-    pos += QPoint{0, height_rect_build};
-  }
 }
 
-void MenuBuildTown::set_geometry_building()
+void MenuBuildTown::do_buildings()
 {
   PlayerScience* player_science = menu_town->player()->player_science();
-  QPoint pos = pos_menu + QPoint{0, int(player_science->count_best_open_units())*height_rect_build};
   auto open_buildings = player_science->get_open_town_buildings();
   auto already_build = menu_town->town()->get_town_buildings();
+
   for(size_t i{0}; i < open_buildings.size(); ++i)
   {
     if(std::find(already_build.begin(), already_build.end(), open_buildings[i]) != already_build.end())
       continue;
 
-    widget_town_building.push_back(
+    widget_town_buildings.push_back(
           std::unique_ptr<WidgetTownBuilding>{new WidgetTownBuilding(menu_town,  open_buildings[i], WidgetTownBuilding::Build)});
+  }
+}
 
-    (widget_town_building.end() - 1)->get()->set_geometry(pos, {width(), height_rect_build});
+void MenuBuildTown::set_geometry_units()
+{
+  QPoint pos = pos_menu;
+
+  for(size_t i{0}; i < widget_town_units.size(); ++i)
+  {
+    if(pos.y() >= height() || pos.y()+scroll_indent <= 0)
+      widget_town_units[i]->hide();
+    else
+    {
+      widget_town_units[i]->set_geometry(pos + QPoint{0, scroll_indent}, {width() - width_scroll, height_rect_build});
+      widget_town_units[i]->show();
+    }
+    pos += QPoint{0, height_rect_build};
+  }
+}
+
+void MenuBuildTown::set_geometry_buildings()
+{
+
+  QPoint pos = pos_menu + QPoint{0, int(widget_town_units.size())*height_rect_build};
+
+  for(size_t i{0}; i < widget_town_buildings.size(); ++i)
+  {
+    if(pos.y()+scroll_indent >= height() || pos.y()+scroll_indent <= 0)
+      widget_town_buildings[i]->hide();
+    else
+    {
+      widget_town_buildings[i]->set_geometry(pos + QPoint{0, scroll_indent}, {width() - width_scroll, height_rect_build});
+      widget_town_buildings[i]->show();
+    }
     pos += QPoint{0, height_rect_build};
   }
 }

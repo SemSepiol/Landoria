@@ -77,5 +77,8 @@
         <file>Graphics/image/town_building/Windmill.png</file>
         <file>Graphics/image/town_building/Workshop.png</file>
         <file>Graphics/image/town_building/Zoo.png</file>
+        <file>Graphics/image/menu/DelInQueue.png</file>
+        <file>Graphics/image/menu/ArrowDown.png</file>
+        <file>Graphics/image/menu/ArrowUp.png</file>
     </qresource>
 </RCC>

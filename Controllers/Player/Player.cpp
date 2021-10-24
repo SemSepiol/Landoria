@@ -106,9 +106,8 @@ bool Player::is_finish()
 
 void Player::start_move()
 {
-//  game_controller->graphics_controller()->centering_by_cell(my_units[0].get()->pos);
-//  build_town(my_units[0].get());
-//  click_town(my_towns[0].get()->town());
+  build_town(my_units[0].get());
+  click_town(my_towns[0].get()->town());
 
   for(size_t i{0}; i < my_units.size(); ++i)
     if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)
@@ -277,6 +276,7 @@ void Player::do_events_unit()
 
 void Player::build_town(PlayerUnit* my_unit)
 {
+  game_controller->graphics_controller()->centering_by_cell(my_unit->pos);
   class Building* building = game_controller->
       graphics_controller()->build(Buildings::Town, my_unit->pos);
   class Town* town = static_cast<class Town*>(building);

@@ -63,6 +63,7 @@ protected:
   QPoint _map_center;
   QPoint _win_map_center;
   QPoint _uppermenu_top_left = {0,0};
+  bool enabled_map = true;
 
   IGameForGraphic* game_controller;
 

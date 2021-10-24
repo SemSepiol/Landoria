@@ -28,6 +28,12 @@ public:
 
   virtual void set_build(Units type_unit) override;
   virtual void set_build(TownBuildings type_building) override;
+  virtual void del_build_from_queue(AWidgetTown* wid_build) override;
+  virtual size_t num_from_queue(AWidgetTown* wid) const override;
+  virtual size_t count_from_queue() const override;
+  virtual void move_up_build(AWidgetTown* wid) override;
+  virtual void move_down_build(AWidgetTown* wid) override;
+  virtual void wheel_scroll(int angle_delta) override;
 
   void set_type_work(TypeWork _type_work) override;
 private:

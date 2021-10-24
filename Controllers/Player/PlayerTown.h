@@ -6,6 +6,7 @@
 #include "../../IObject.h"
 #include "../../Graphics/Buildings/Town.h"
 #include "../TownBuildings.h"
+#include "../TownBuildNeeds.h"
 
 struct BuildInTown
 {
@@ -29,6 +30,8 @@ struct BuildInTown
 
 class PlayerTown : public IObject
 {
+  const size_t _max_build_in_queue = 6;
+
 public:
   PlayerTown(class Town* town, Position position_town);
 
@@ -43,6 +46,13 @@ public:
   void add_queue_build(TownBuildings type_building);
   void set_build(Units type_unit);
   void set_build(TownBuildings type_building);
+  void del_build(size_t i);
+  void move_up_build(size_t i);
+  void move_down_build(size_t i);
+  size_t max_build_in_queue();
+
+  int get_build_need_production(TownBuildings type_building);
+  int get_build_need_production(Units type_unit);
 
   const std::vector<BuildInTown>& get_build_queue() const;
   int get_production() const;

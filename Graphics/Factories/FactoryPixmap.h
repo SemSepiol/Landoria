@@ -20,6 +20,9 @@ public:
   QPixmap create_pixmap_for_other_landscape(OtherLandscapes type_landscape) const;
   QPixmap create_pixmap_for_butt_menu(Event* event) const;
   QPixmap create_pixmap_for_exit() const;
+  QPixmap create_pixmap_for_del_in_queue() const;
+  QPixmap create_pixmap_for_up_in_queue() const;
+  QPixmap create_pixmap_for_down_in_queue() const;
   QPixmap create_pixmap_for_minimap() const;
   QPixmap create_pixmap_for_nextmotion() const;
   QPixmap create_pixmap_for_butt_build() const;

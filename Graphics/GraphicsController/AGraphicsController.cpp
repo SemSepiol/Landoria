@@ -115,6 +115,8 @@ void AGraphicsController::draw_elements()
 void AGraphicsController::move_map(QPoint move_point)
 {
   //  QPoint new_map_center = map_center + move_point;
+  if(!enabled_map)
+    return;
   _map_center += move_point;
   control_pos_map();
   game_window->update();

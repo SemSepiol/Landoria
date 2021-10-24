@@ -1,9 +1,9 @@
 #include "WidgetTownUnit.h"
 #include <iostream>
 
-WidgetTownUnit::WidgetTownUnit(IMenuTown* _menu_town, Units _type_unit, Type _type_widget)
-  :QWidget{_menu_town->window()}, menu_town{_menu_town},
-    type_unit{_type_unit}, type_widget{_type_widget}
+WidgetTownUnit::WidgetTownUnit(IMenuTown* _menu_town, Units _type_unit, TypeWork _type_widget)
+  :AWidgetTown{_menu_town->window(), _type_widget}, menu_town{_menu_town},
+    type_unit{_type_unit}
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
 }
@@ -15,9 +15,20 @@ void WidgetTownUnit::set_geometry(QPoint pos, Size size)
   this->show();
 }
 
+size_t WidgetTownUnit::num_from_queue()
+{
+  return menu_town->num_from_queue(this);
+}
+
+size_t WidgetTownUnit::count_from_queue()
+{
+  return menu_town->count_from_queue();
+}
+
 void WidgetTownUnit::paintEvent(QPaintEvent* event)
 {
   draw();
+  draw_butt();
 }
 
 void WidgetTownUnit::mousePressEvent(QMouseEvent *event)
@@ -30,7 +41,25 @@ void WidgetTownUnit::mouseReleaseEvent(QMouseEvent *event)
   QPoint mouse_move = event->pos() - mouse_pos_clicked;
   if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
-  menu_town->set_build(type_unit);
+
+  if(type_widget == Build
+     && menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
+    menu_town->set_build(type_unit);
+  if(type_widget == InQueue)
+  {
+    if(point_in_rect(rect_butt_del(), event->pos()))
+      menu_town->del_build_from_queue(this);
+    else if(point_in_rect(rect_butt_up(), event->pos()))
+      menu_town->move_up_build(this);
+    else if(point_in_rect(rect_butt_down(), event->pos()))
+      menu_town->move_down_build(this);
+  }
+}
+
+void WidgetTownUnit::wheelEvent(QWheelEvent *event)
+{
+  if(type_widget == TypeWork::Build)
+    menu_town->wheel_scroll(event->angleDelta().y());
 }
 
 void WidgetTownUnit::draw()
@@ -44,15 +73,21 @@ void WidgetTownUnit::draw()
   QRectF rect = QRect{QPoint{0,0}, QPoint{height(), height()}};
   qp.drawPixmap(rect, pixmap, source);
 
-  std::cout << height() << std::endl;
   QString name_build = FactoryString().unit_string(type_unit);
   QRectF rect2{QPoint{height(), 0}, QPoint{width(), height()/2}};
   qp.drawText(rect2, Qt::AlignVCenter, name_build);
 
   QRectF rect3{QPoint{height(), height()/2}, QPoint{width(), height()}};
   std::stringstream ss;
-  int build_moves = TownBuildNeeds().get_build_need_production(type_unit) /
+  int build_moves = menu_town->town()->get_build_need_production(type_unit) /
       menu_town->town()->get_production();
   ss << build_moves << " Ход";
   qp.drawText(rect3, Qt::AlignVCenter, QString::fromStdString(ss.str()));
+
+  if(type_widget == Build &&
+     menu_town->count_from_queue() == menu_town->town()->max_build_in_queue())
+  {
+    QRect rect{0, 0, width(), height()};
+    qp.fillRect(rect, QBrush(QColor(0, 0, 0, 100)));
+  }
 }

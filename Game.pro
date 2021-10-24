@@ -57,6 +57,7 @@ HEADERS += \
     Graphics/IMap.h \
     Graphics/Map.h \
     Graphics/MenuTown.h \
+    Graphics/MenuTown/AWidgetTown.h \
     Graphics/MenuTown/IMenuTown.h \
     Graphics/MenuTown/MenuBuildTown.h \
     Graphics/MenuTown/MenuQueueTown.h \
@@ -120,6 +121,7 @@ SOURCES += \
     Graphics/GraphicsController/GraphicsController.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
+    Graphics/MenuTown/AWidgetTown.cpp \
     Graphics/MenuTown/MenuBuildTown.cpp \
     Graphics/MenuTown/MenuQueueTown.cpp \
     Graphics/MenuTown/MenuTown.cpp \

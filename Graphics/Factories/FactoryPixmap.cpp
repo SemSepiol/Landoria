@@ -179,6 +179,21 @@ QPixmap FactoryPixmap::create_pixmap_for_exit() const
   return QPixmap{image_path + menu_dir + "Exit.png"};
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_del_in_queue() const
+{
+  return QPixmap{image_path + menu_dir + "DelInQueue.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_up_in_queue() const
+{
+  return QPixmap{image_path + menu_dir + "ArrowUp.png"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_down_in_queue() const
+{
+  return QPixmap{image_path + menu_dir + "ArrowDown.png"};
+}
+
 QPixmap FactoryPixmap::create_pixmap_for_minimap() const
 {
   return QPixmap{image_path + menu_dir + "Map.png"};

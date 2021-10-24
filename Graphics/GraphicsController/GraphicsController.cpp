@@ -44,7 +44,10 @@ void GraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown* town)
                           {_size_win.width, _size_win.height-_size_uppermenu.height});
   town_menu->start();
   upper_menu->set_enable_move_map(false);
+
   bottom_menu->hide();
+  minimap->hide();
+  enabled_map = false;
 }
 
 void GraphicsController::centering_by_cell(Position pos_cell)
@@ -145,6 +148,9 @@ void GraphicsController::move_mouse(QPoint new_pos)
 
 void GraphicsController::click(QPoint pos)
 {
+  if(!enabled_map)
+    return;
+
   auto pair = _map->click(pos - _map_center);
   Cell* cell = pair.first;
   IContent* content = pair.second;
@@ -201,12 +207,18 @@ void GraphicsController::draw_elements()
 
 void GraphicsController::move_map(QPoint move_point)
 {
+  if(!enabled_map)
+    return;
+
   AGraphicsController::move_map(move_point);
   set_win_rect_minimap();
 }
 
 void GraphicsController::resize_map(double coefficient, QPoint pos_mouse)
 {
+  if(!enabled_map)
+    return;
+
   AGraphicsController::resize_map(coefficient, pos_mouse);
   set_win_rect_minimap();
   game_window->update();
@@ -214,6 +226,9 @@ void GraphicsController::resize_map(double coefficient, QPoint pos_mouse)
 
 void GraphicsController::move_map(double coeffx, double coeffy)
 {
+  if(!enabled_map)
+    return;
+
    _map_center.setX(int(_size_map.width * coeffx));
    _map_center.setY(int(_size_map.height * coeffy));
    control_pos_map();
@@ -248,6 +263,8 @@ void GraphicsController::delete_townmenu()
   town_menu.reset();
   upper_menu->set_enable_move_map(true);
   bottom_menu->show();
+
+  enabled_map = true;
 }
 
 void GraphicsController::create_minimap()

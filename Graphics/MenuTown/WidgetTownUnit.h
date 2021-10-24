@@ -7,34 +7,35 @@
 #include "../../Controllers/Player/IMenuTownPlayer.h"
 #include "../GraphicsController/IGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
-#include "../../Controllers/TownBuildNeeds.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../Factories/FactoryString.h"
 #include "IMenuTown.h"
+#include "AWidgetTown.h"
 
-class WidgetTownUnit : public QWidget
+class WidgetTownUnit : public AWidgetTown
 {
 public:
-  enum Type{
-    Build,
-    InQueue,
-    AlreadyBuild
-  };
-
-  WidgetTownUnit(IMenuTown* menu_town, Units type_unit, Type type_widget);
+  WidgetTownUnit(IMenuTown* menu_town, Units type_unit, TypeWork type_widget);
   void set_geometry(QPoint pos, Size size);
+
+  virtual TypeWidget who_i() const override{ return ForUnit; }
+
+protected:
+  virtual size_t num_from_queue() override;
+  virtual size_t count_from_queue() override;
+
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
+  virtual void wheelEvent(QWheelEvent *event) override;
 
   void draw();
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;
   Units type_unit;
-  Type type_widget;
 };
 
 #endif // WIDGETTOWNUNIT_H

@@ -61,10 +61,6 @@ void MenuQueueTown::update_queue()
 {
   widgets_town_build.clear();
   auto queue = menu_town->town()->get_build_queue();
-  if(queue.size() == 0)
-  {
-    return;
-  }
 
   for(size_t i{0}; i < queue.size(); ++i)
   {
@@ -75,6 +71,29 @@ void MenuQueueTown::update_queue()
     set_geometry_wid(i);
   }
   update();
+}
+
+size_t MenuQueueTown::num_widget(AWidgetTown* wid_build) const
+{
+  for(size_t i{0}; i < widgets_town_build.size(); ++i)
+  {
+    if(wid_build->who_i() == AWidgetTown::ForBuilding)
+    {
+      if(widgets_town_build[i].wid_town_building.get() == wid_build)
+        return i;
+    }
+    else if(wid_build->who_i() == AWidgetTown::ForUnit)
+    {
+      if(widgets_town_build[i].wid_town_unit.get() == wid_build)
+        return i;
+    }
+  }
+  throw std::runtime_error("num_widget(): I haven't got this widget");
+}
+
+size_t MenuQueueTown::count_widgets() const
+{
+  return widgets_town_build.size();
 }
 
 bool MenuQueueTown::point_in_rect(QRectF rect, QPoint point)
@@ -89,7 +108,7 @@ void MenuQueueTown::set_geometry_wid(size_t i)
 {
   QPoint pos = pos_menu + QPoint{numder_rect.width, height_rect_build*int(i)};
   if(widgets_town_build[i].type_build == WidgetTownBuild::Unit)
-    widgets_town_build[i].wid_town_unit->set_geometry(pos, {width(), height_rect_build});
+    widgets_town_build[i].wid_town_unit->set_geometry(pos, {width() - numder_rect.width, height_rect_build});
   else if(widgets_town_build[i].type_build == WidgetTownBuild::Building)
-    widgets_town_build[i].wid_town_building->set_geometry(pos, {width(), height_rect_build});
+    widgets_town_build[i].wid_town_building->set_geometry(pos, {width() - numder_rect.width, height_rect_build});
 }
