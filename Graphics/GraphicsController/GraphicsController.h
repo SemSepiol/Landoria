@@ -54,6 +54,9 @@ public:
   virtual void delete_townmenu() override;
   virtual void show_minimap() override;
   virtual void next_move() override;
+
+  virtual void do_inform_widget(QString text) override;
+  virtual void del_inform_widget() override;
 private:
   void create_minimap();
   void set_win_rect_minimap();

@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameWindow::GameWindow(IWindowGraphicsController* game)
-  : QWidget(), graphics_controller{game}
+  : QWidget(), graphics_controller{game}, inform_widget{new InformWidget{this}}
 {
   //  setWindowState(windowState() ^ Qt::WindowFullScreen);
   setStyleSheet("background-color:black;");
@@ -26,6 +26,7 @@ void GameWindow::paintEvent(QPaintEvent* event)
 
 void GameWindow::mouseMoveEvent(QMouseEvent* event)
 {
+  inform_widget->hide();
   control_mouse_at_edge(event->pos());
   graphics_controller->move_mouse(event->pos());
   if(mouse_is_clicked and mouse_button_cliked == Qt::LeftButton){
@@ -71,6 +72,26 @@ void GameWindow::wheelEvent(QWheelEvent* event)
   int angle_delta = event->angleDelta().y();
   double coefficient = 1. + angle_delta*1./1000;
   graphics_controller->resize_map(coefficient, event->position().toPoint());
+}
+
+void GameWindow::do_inform_widget(QString text)
+{
+  std::cout << "++" << std::endl;
+  std::string str = text.toStdString();
+  int count_str =  std::count(str.begin(), str.end(), '\n') + 1;
+  QPoint globalCursorPos = QCursor::pos();
+//  inform_widget->move(globalCursorPos - QPoint{width()/20, 0} - inform_widget->pos());
+//  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, count_str*height()/70});
+  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, inform_widget->height()});
+  inform_widget->set_text(text);
+  inform_widget->show();
+//  inform_widget->update();
+  inform_widget->raise();
+}
+
+void GameWindow::del_inform_widget()
+{
+  inform_widget->hide();
 }
 
 void GameWindow::control_mouse_at_edge(QPoint event_pos)

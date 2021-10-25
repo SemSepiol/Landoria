@@ -12,10 +12,10 @@ class UpperMenu : public AMenuInWindow
 {
 public:
   UpperMenu(IMenuInWindowGraphicsController* graphic_controller);
-  virtual void mouseMoveEvent(QMouseEvent *event) override;
 
   void set_enable_move_map(bool enable_move_map);
 protected:
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void draw() override;
   virtual void click(QPoint pos) override;
   QRect exit_butt() const;

@@ -130,6 +130,16 @@ void MenuTown::wheel_scroll(int angle_delta)
     menu_build_town->wheel_scroll(angle_delta);
 }
 
+void MenuTown::do_inform_widget(QString text)
+{
+  graphics_controller()->do_inform_widget(text);
+}
+
+void MenuTown::del_inform_widget()
+{
+  graphics_controller()->del_inform_widget();
+}
+
 void MenuTown::set_type_work(TypeWork _type_work)
 {
   type_work = _type_work;

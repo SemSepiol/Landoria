@@ -3,10 +3,13 @@
 
 UpperMenu::UpperMenu(IMenuInWindowGraphicsController* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
-{}
+{
+  QWidget::setMouseTracking(true);
+}
 
 void UpperMenu::mouseMoveEvent(QMouseEvent *event)
 {
+  graphics_controller->del_inform_widget();
   if(enable_move_map)
     if(event->pos().y() < 5)
       graphics_controller->move_map({0, 50});

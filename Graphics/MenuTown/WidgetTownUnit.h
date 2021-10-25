@@ -26,12 +26,13 @@ protected:
 
 private:
   virtual void paintEvent(QPaintEvent* event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
 
   void draw();
+  QString text();
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;

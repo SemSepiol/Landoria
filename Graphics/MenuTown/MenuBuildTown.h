@@ -11,6 +11,7 @@
 #include "IMenuTown.h"
 #include "WidgetTownBuilding.h"
 #include "WidgetTownUnit.h"
+#include "InformWidget.h"
 
 class MenuBuildTown : public QWidget
 {
@@ -21,7 +22,7 @@ public:
   void wheel_scroll(int angle_delta);
 private:
   virtual void paintEvent(QPaintEvent* event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;

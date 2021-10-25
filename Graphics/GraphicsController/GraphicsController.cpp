@@ -306,6 +306,16 @@ void GraphicsController::next_move()
   game_controller->next_move();
 }
 
+void GraphicsController::do_inform_widget(QString text)
+{
+  game_window->do_inform_widget(text);
+}
+
+void GraphicsController::del_inform_widget()
+{
+  game_window->del_inform_widget();
+}
+
 void GraphicsController::start_check_move_unit(class Unit* unit)
 {
   is_moving_unit = true;

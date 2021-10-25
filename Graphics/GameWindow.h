@@ -1,12 +1,16 @@
 #ifndef GAME_WINDOW_H
 #define GAME_WINDOW_H
 #include <memory>
+#include <string>
+#include <algorithm>
+#include <iterator>
 
 #include <QWidget>
 #include <QPoint>
 #include <QResizeEvent>
 #include <QPalette>
 #include "GraphicsController/IGraphicsController.h"
+#include "MenuTown/InformWidget.h"
 
 class GameWindow : public QWidget
 {
@@ -20,6 +24,9 @@ public:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
+
+  void do_inform_widget(QString text);
+  void del_inform_widget();
 private:
   void control_mouse_at_edge(QPoint event_pos);
 
@@ -29,6 +36,8 @@ private:
   QPoint pos_mouse_clicked{-1, -1};
   bool mouse_is_clicked = false;
   Qt::MouseButton mouse_button_cliked = Qt::NoButton;
+
+  std::unique_ptr<InformWidget> inform_widget;
 };
 
 #endif // GAME_WINDOW_H

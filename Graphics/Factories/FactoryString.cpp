@@ -69,28 +69,33 @@ QString FactoryString::building_in_town_string(TownBuildings type_building) cons
   case TownBuildings::Monument:
     return QString("Карьер");
   case TownBuildings::Shrine:
-    return QString("Торговый пост");
+    return QString("Cвятилище");
   case TownBuildings::Windmill:
-    return QString("Торговый пост");
+    return QString("Ветряная мельница");
   case TownBuildings::Hospital:
-    return QString("Торговый пост");
+    return QString("Больница");
   case TownBuildings::Stadium:
-    return QString("Торговый пост");
+    return QString("Стадион");
   case TownBuildings::Workshop:
-    return QString("Торговый пост");
+    return QString("Мастерская");
   case TownBuildings::Library:
-    return QString("Торговый пост");
+    return QString("Библиотека");
   case TownBuildings::OperaHouse:
-    return QString("Торговый пост");
+    return QString("Опера");
   case TownBuildings::StockExchange:
-    return QString("Торговый пост");
+    return QString("Биржа");
   case TownBuildings::Zoo:
-    return QString("Торговый пост");
+    return QString("Зоопарк");
   case TownBuildings::Factory:
-    return QString("Торговый пост");
+    return QString("Фабрика");
   case TownBuildings::Museum:
-    return QString("Торговый пост");
+    return QString("Музей");
   default:
     throw std::runtime_error("build_in_town_string(): Haven't strind for this building");
   }
+}
+
+QString FactoryString::resource_string(Resources type_res)
+{
+  return res_string.at(type_res);
 }

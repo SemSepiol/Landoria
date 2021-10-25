@@ -56,6 +56,9 @@ public:
   virtual void exit() = 0;
   virtual void show_minimap() = 0;
   virtual void next_move() = 0;
+
+  virtual void do_inform_widget(QString text) = 0;
+  virtual void del_inform_widget() = 0;
 };
 
 class IPlayerGraphicsController : public IObject
@@ -100,6 +103,8 @@ class ITownMenuGraphicsController : public IObject
 public:
   virtual QWidget* window() const = 0;
   virtual void delete_townmenu() = 0;
+  virtual void do_inform_widget(QString text) = 0;
+  virtual void del_inform_widget() = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

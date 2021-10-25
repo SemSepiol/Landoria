@@ -42,7 +42,7 @@ public:
   size_t count_widgets() const;
 private:
   virtual void paintEvent(QPaintEvent* event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
 

@@ -10,6 +10,7 @@
 #include "MenuBuildTown.h"
 #include "MenuTypeWorkTown.h"
 #include "MenuQueueTown.h"
+#include "InformWidget.h"
 
 class MenuTown : public IMenuTown
 {
@@ -34,6 +35,8 @@ public:
   virtual void move_up_build(AWidgetTown* wid) override;
   virtual void move_down_build(AWidgetTown* wid) override;
   virtual void wheel_scroll(int angle_delta) override;
+  virtual void do_inform_widget(QString text) override;
+  virtual void del_inform_widget() override;
 
   void set_type_work(TypeWork _type_work) override;
 private:
@@ -52,6 +55,7 @@ private:
   std::unique_ptr<MenuBuildTown> menu_build_town;
   std::unique_ptr<MenuTypeWorkTown> menu_type_work_town;
   std::unique_ptr<MenuQueueTown> menu_queue_town;
+  std::unique_ptr<InformWidget> inform_widget;
 
   QPoint pos;
   Size size;

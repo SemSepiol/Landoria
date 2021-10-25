@@ -6,6 +6,7 @@ WidgetTownUnit::WidgetTownUnit(IMenuTown* _menu_town, Units _type_unit, TypeWork
     type_unit{_type_unit}
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
+  QWidget::setMouseTracking(true);
 }
 
 void WidgetTownUnit::set_geometry(QPoint pos, Size size)
@@ -29,6 +30,15 @@ void WidgetTownUnit::paintEvent(QPaintEvent* event)
 {
   draw();
   draw_butt();
+}
+
+void WidgetTownUnit::mouseMoveEvent(QMouseEvent *event)
+{
+  if(event->pos().x() > 0 && event->pos().y() > 0 &&
+     event->pos().x() < width() && event->pos().y() < height())
+    menu_town->do_inform_widget(text());
+  else
+    menu_town->del_inform_widget();
 }
 
 void WidgetTownUnit::mousePressEvent(QMouseEvent *event)
@@ -90,4 +100,15 @@ void WidgetTownUnit::draw()
     QRect rect{0, 0, width(), height()};
     qp.fillRect(rect, QBrush(QColor(0, 0, 0, 100)));
   }
+}
+
+QString WidgetTownUnit::text()
+{
+  auto res = TownBuildNeeds().get_build_need_res(type_unit);
+  std::stringstream ss;
+  ss << FactoryString().unit_string(type_unit).toStdString() << "\n";
+  for(size_t i{0}; i < res.size(); ++i)
+    ss << FactoryString().resource_string(res[i].first).toStdString()
+       << ": " << res[i].second << "\n";
+  return QString::fromStdString(ss.str());
 }

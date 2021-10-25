@@ -5,6 +5,7 @@ MenuQueueTown::MenuQueueTown(IMenuTown* _menu_town)
   :QWidget{_menu_town->window()}, menu_town{_menu_town}
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
+  QWidget::setMouseTracking(true);
 }
 
 void MenuQueueTown::set_geometry(QPoint pos, Size size)
@@ -21,6 +22,11 @@ void MenuQueueTown::paintEvent(QPaintEvent* event)
 {
   draw();
   draw_number();
+}
+
+void MenuQueueTown::mouseMoveEvent(QMouseEvent *event)
+{
+  menu_town->del_inform_widget();
 }
 
 void MenuQueueTown::mousePressEvent(QMouseEvent *event)

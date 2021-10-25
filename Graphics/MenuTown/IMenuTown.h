@@ -36,6 +36,9 @@ public:
   virtual void move_down_build(AWidgetTown* wid) = 0;
   virtual void wheel_scroll(int angle_delta) = 0;
 
+  virtual void do_inform_widget(QString text) = 0;
+  virtual void del_inform_widget() = 0;
+
   virtual void set_type_work(TypeWork _type_work) = 0;
 };
 
