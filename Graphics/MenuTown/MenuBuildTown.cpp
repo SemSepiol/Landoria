@@ -20,6 +20,15 @@ void MenuBuildTown::set_geometry(QPoint pos, Size size)
   set_geometry_buildings();
 }
 
+void MenuBuildTown::update_inform()
+{
+  do_units();
+  do_buildings();
+  set_geometry_units();
+  set_geometry_buildings();
+  update();
+}
+
 void MenuBuildTown::wheel_scroll(int angle_delta)
 {
   scroll_indent += angle_delta;
@@ -38,12 +47,14 @@ void MenuBuildTown::wheel_scroll(int angle_delta)
 
 void MenuBuildTown::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
   draw_scroll();
 }
 
 void MenuBuildTown::mouseMoveEvent(QMouseEvent *event)
 {
+  Q_UNUSED(event)
   menu_town->del_inform_widget();
 }
 
@@ -91,6 +102,7 @@ void MenuBuildTown::draw_scroll()
 
 void MenuBuildTown::do_units()
 {
+  widget_town_units.clear();
   PlayerScience* player_science = menu_town->player()->player_science();
   auto open_units = player_science->get_best_open_units();
 
@@ -102,13 +114,17 @@ void MenuBuildTown::do_units()
 
 void MenuBuildTown::do_buildings()
 {
+  widget_town_buildings.clear();
   PlayerScience* player_science = menu_town->player()->player_science();
   auto open_buildings = player_science->get_open_town_buildings();
-  auto already_build = menu_town->town()->get_town_buildings();
-
+  auto already_build = menu_town->town()->get_building_already_build();
+  auto queue_building = menu_town->town()->get_queue_buildings();
   for(size_t i{0}; i < open_buildings.size(); ++i)
   {
     if(std::find(already_build.begin(), already_build.end(), open_buildings[i]) != already_build.end())
+      continue;
+
+    if(std::find(queue_building.begin(), queue_building.end(), open_buildings[i]) != queue_building.end())
       continue;
 
     widget_town_buildings.push_back(

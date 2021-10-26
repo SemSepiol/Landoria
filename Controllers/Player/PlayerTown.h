@@ -18,14 +18,22 @@ struct BuildInTown
   TypeBuild type_build;
   TownBuildings building;
   Units unit;
+  int need_production;
 
   BuildInTown(Units type_unit)
     :type_build{TypeBuild::Unit}, unit{type_unit}
-  {}
+  {
+    need_production = TownBuildNeeds().get_build_need_production(type_unit);
+  }
 
   BuildInTown(TownBuildings type_building)
     :type_build{TypeBuild::Building}, building{type_building}
-  {}
+  {
+    need_production = TownBuildNeeds().get_build_need_production(type_building);
+  }
+
+  //возвращает остаток
+  int build(int town_production);
 };
 
 class PlayerTown : public IObject
@@ -37,9 +45,12 @@ public:
 
   Position position_town() const;
   class Town* town() const;
+  void move_build();
+  void new_move();
 
   size_t count_town_buildings() const;
-  const std::vector<TownBuildings>& get_town_buildings() const;
+  std::vector<TownBuildings> get_building_already_build() const;
+  std::vector<TownBuildings> get_queue_buildings() const;
   void add_town_building(TownBuildings town_building);
 
   void add_queue_build(Units type_unit);
@@ -54,17 +65,18 @@ public:
   int get_build_need_production(TownBuildings type_building);
   int get_build_need_production(Units type_unit);
 
-  const std::vector<BuildInTown>& get_build_queue() const;
+  const std::vector<BuildInTown*>& get_build_queue() const;
   int get_production() const;
-  int get_surplus_production() const;
+  int get_remains_production() const;
 private:  
   std::unique_ptr<class Town> _town;
   Position _pos;
   int production = 10;
-  int surplus_production = 0;
+  int remains_production = 0;
+  bool build_in_this_move = false;
 
-  std::vector<TownBuildings> buildings;
-  std::vector<BuildInTown> build_queue;
+  std::vector<std::unique_ptr<BuildInTown>> build_in_town;
+  std::vector<BuildInTown*> build_queue;
 };
 
 #endif // PLAYERTOWN_H

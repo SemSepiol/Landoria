@@ -10,7 +10,7 @@
 
 class FactoryString : IObject
 {
-  std::map<Resources, QString> res_string{
+  std::map<Resources, QString> res_str{
     {Iron, "Железо"},
     {Gold, "Золото"},
     {Stone, "Камень"},
@@ -21,6 +21,29 @@ class FactoryString : IObject
     {Coal, "Уголь"},
     {Fish, "Рыба"},
     {Silver, "Серебро"},
+  };
+
+  std::map<TownBuildings, QString> building_in_town_str{
+    {TownBuildings::Aqueduct, "Акведук"},
+    {TownBuildings::Market, "Рынок"},
+    {TownBuildings::PublicSchool, "Школа"},
+    {TownBuildings::University, "Университет"},
+    {TownBuildings::Bank, "Банк"},
+    {TownBuildings::MedicalLab, "Медицинская лаборатория"},
+    {TownBuildings::ResearchLab, "Лаборатория"},
+    {TownBuildings::Walls, "Стены"},
+    {TownBuildings::Monument, "Монумент"},
+    {TownBuildings::Shrine, "Cвятилище"},
+    {TownBuildings::Windmill, "Ветряная мельница"},
+    {TownBuildings::Hospital, "Больница"},
+    {TownBuildings::Stadium, "Стадион"},
+    {TownBuildings::Workshop, "Мастерская"},
+    {TownBuildings::Library, "Библиотека"},
+    {TownBuildings::OperaHouse, "Опера"},
+    {TownBuildings::StockExchange, "Биржа"},
+    {TownBuildings::Zoo, "Зоопарк"},
+    {TownBuildings::Factory, "Фабрика"},
+    {TownBuildings::Museum, "Музей"}
   };
 
 public:

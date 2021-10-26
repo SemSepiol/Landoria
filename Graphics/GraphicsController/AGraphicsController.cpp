@@ -137,9 +137,6 @@ void AGraphicsController::resize_map(double coeff, QPoint pos_mouse)
   QPoint point1 = pos_mouse - _map_center;
   QPoint point2 = {(pos_mouse.x() - _map_center.x()) * old_hexagon_height / calc->hexagon_height(),
                    int((pos_mouse.y() - _map_center.y())/coeff)};
-  std::cout << "=====" << std::endl;
-  std::cout << point1.x() << " " << point1.y() << std::endl;
-  std::cout << point2.x() << " " << point2.y() << std::endl;
   _map_center += (point2 - point1);
 
   if((_size_map.height < _size_win_map.height) || ( _size_map.width < _size_win_map.width))

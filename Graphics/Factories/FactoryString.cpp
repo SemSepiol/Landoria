@@ -48,54 +48,10 @@ QString FactoryString::build_string(Buildings type_building) const
 
 QString FactoryString::building_in_town_string(TownBuildings type_building) const
 {
-  switch (type_building)
-  {
-  case TownBuildings::Aqueduct:
-    return QString("Акведук");
-  case TownBuildings::Market:
-    return QString("Город");
-  case TownBuildings::PublicSchool:
-    return QString("Рыбацкая лодка");
-  case TownBuildings::University:
-    return QString("Форт");
-  case TownBuildings::Bank:
-    return QString("Лесопилка");
-  case TownBuildings::Medical_Lab:
-    return QString("Рудник");
-  case TownBuildings::ResearchLab:
-    return QString("Нефтяная скважина");
-  case TownBuildings::Walls:
-    return QString("Стены");
-  case TownBuildings::Monument:
-    return QString("Карьер");
-  case TownBuildings::Shrine:
-    return QString("Cвятилище");
-  case TownBuildings::Windmill:
-    return QString("Ветряная мельница");
-  case TownBuildings::Hospital:
-    return QString("Больница");
-  case TownBuildings::Stadium:
-    return QString("Стадион");
-  case TownBuildings::Workshop:
-    return QString("Мастерская");
-  case TownBuildings::Library:
-    return QString("Библиотека");
-  case TownBuildings::OperaHouse:
-    return QString("Опера");
-  case TownBuildings::StockExchange:
-    return QString("Биржа");
-  case TownBuildings::Zoo:
-    return QString("Зоопарк");
-  case TownBuildings::Factory:
-    return QString("Фабрика");
-  case TownBuildings::Museum:
-    return QString("Музей");
-  default:
-    throw std::runtime_error("build_in_town_string(): Haven't strind for this building");
-  }
+  return building_in_town_str.at(type_building);
 }
 
 QString FactoryString::resource_string(Resources type_res)
 {
-  return res_string.at(type_res);
+  return res_str.at(type_res);
 }

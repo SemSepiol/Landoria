@@ -8,7 +8,7 @@ enum class TownBuildings
   PublicSchool,
   University,
   Bank,
-  Medical_Lab,
+  MedicalLab,
   ResearchLab,
   Walls,
   Factory,

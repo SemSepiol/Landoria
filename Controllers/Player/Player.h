@@ -47,7 +47,10 @@ private:
     void move_unit_event(PlayerUnit* my_unit, MoveEvent* event);
     void set_units_vision(bool vision);
     void set_movement_to_max_unit();
+    void set_new_move_to_towns();
+
     void do_events_unit();
+    void do_build_towns();
 
     void build_town(PlayerUnit* my_unit);
     void add_unit(Units type_unit, Position pos_cell);

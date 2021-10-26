@@ -1,4 +1,19 @@
 #include "PlayerTown.h"
+#include <iostream>
+
+int BuildInTown::build(int town_production)
+{
+  if(need_production > town_production)
+  {
+    need_production -= town_production;
+    return 0;
+  }
+  else{
+    int remains = town_production - need_production;
+    need_production = 0;
+    return remains;
+  }
+}
 
 PlayerTown::PlayerTown(class Town* town, Position pos)
   :_town{town}, _pos{pos}
@@ -14,41 +29,92 @@ class Town* PlayerTown::town() const
   return _town.get();
 }
 
+void PlayerTown::move_build()
+{
+  if(build_queue.size() == 0)
+    return;
+
+  if(build_in_this_move)
+    remains_production = build_queue[0]->build(remains_production);
+  else
+    remains_production = build_queue[0]->build(get_production() + remains_production);
+
+  build_in_this_move = true;
+
+  if(build_queue[0]->need_production == 0)
+  {
+    build_queue.erase(build_queue.begin());
+    move_build();
+  }
+}
+
+void PlayerTown::new_move()
+{
+  build_in_this_move = false;
+}
+
 size_t PlayerTown::count_town_buildings() const
 {
-  return buildings.size();
+  return build_in_town.size();
 }
 
-const std::vector<TownBuildings>& PlayerTown::get_town_buildings() const
+std::vector<TownBuildings> PlayerTown::get_building_already_build() const
 {
-  return buildings;
+  std::vector<TownBuildings> building_in_town;
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i]->type_build == BuildInTown::Building)
+      if(build_in_town[i]->need_production == 0)
+        building_in_town.push_back(build_in_town[i]->building);
+  return building_in_town;
 }
 
-void PlayerTown::add_town_building(TownBuildings town_building)
+std::vector<TownBuildings> PlayerTown::get_queue_buildings() const
 {
-  buildings.push_back(town_building);
+  std::vector<TownBuildings> building_queue;
+  for(auto build : build_queue)
+    if(build->type_build == BuildInTown::Building)
+      building_queue.push_back(build->building);
+  return building_queue;
 }
 
 void PlayerTown::add_queue_build(Units type_unit)
 {
-  build_queue.push_back({type_unit});
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i]->type_build == BuildInTown::Unit)
+      if(build_in_town[i]->unit == type_unit)
+      {
+        build_queue.push_back(build_in_town[i].get());
+        return;
+      }
+
+  build_in_town.push_back(std::unique_ptr<BuildInTown>{new BuildInTown(type_unit)});
+  build_queue.push_back(build_in_town[build_in_town.size() - 1].get());
 }
 
 void PlayerTown::add_queue_build(TownBuildings type_building)
 {
-  build_queue.push_back({type_building});
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i]->type_build == BuildInTown::Building)
+      if(build_in_town[i]->building == type_building)
+      {
+        build_queue.push_back(build_in_town[i].get());
+        return;
+      }
+
+  build_in_town.push_back(std::unique_ptr<BuildInTown>{new BuildInTown(type_building)});
+  build_queue.push_back(build_in_town[build_in_town.size() - 1].get());
 }
 
 void PlayerTown::set_build(Units type_unit)
 {
   build_queue.clear();
-  build_queue.push_back(type_unit);
+  add_queue_build(type_unit);
 }
 
 void PlayerTown::set_build(TownBuildings type_building)
 {
   build_queue.clear();
-  build_queue.push_back(type_building);
+  add_queue_build(type_building);
 }
 
 void PlayerTown::del_build(size_t i)
@@ -77,15 +143,23 @@ size_t PlayerTown::max_build_in_queue()
 
 int PlayerTown::get_build_need_production(TownBuildings type_building)
 {
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i]->type_build == BuildInTown::Building)
+      if(build_in_town[i]->building == type_building)
+        return build_in_town[i]->need_production;
   return TownBuildNeeds().get_build_need_production(type_building);
 }
 
 int PlayerTown::get_build_need_production(Units type_unit)
 {
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i]->type_build == BuildInTown::Unit)
+      if(build_in_town[i]->unit == type_unit)
+        return build_in_town[i]->need_production;
   return TownBuildNeeds().get_build_need_production(type_unit);
 }
 
-const std::vector<BuildInTown>& PlayerTown::get_build_queue() const
+const std::vector<BuildInTown*>& PlayerTown::get_build_queue() const
 {
   return build_queue;
 }
@@ -95,7 +169,7 @@ int PlayerTown::get_production() const
   return production;
 }
 
-int PlayerTown::get_surplus_production() const
+int PlayerTown::get_remains_production() const
 {
-  return surplus_production;
+  return remains_production;
 }

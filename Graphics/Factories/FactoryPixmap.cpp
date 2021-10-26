@@ -223,7 +223,7 @@ QPixmap FactoryPixmap::create_pixmap_for_town_building(TownBuildings type_buildi
     return QPixmap{image_path + town_building_dir + "University.png/"};
   case TownBuildings::Bank:
     return QPixmap{image_path + town_building_dir + "Bank.png/"};
-  case TownBuildings::Medical_Lab:
+  case TownBuildings::MedicalLab:
     return QPixmap{image_path + town_building_dir + "Medical_Lab.png/"};
   case TownBuildings::ResearchLab:
     return QPixmap{image_path + town_building_dir + "ResearchLab.png/"};

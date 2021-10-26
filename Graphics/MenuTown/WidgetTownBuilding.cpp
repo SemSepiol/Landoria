@@ -27,6 +27,7 @@ size_t WidgetTownBuilding::count_from_queue()
 
 void WidgetTownBuilding::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
   draw_butt();
 }
@@ -86,13 +87,15 @@ void WidgetTownBuilding::draw()
   QRectF rect2{QPoint{height(), 0}, QPoint{width(), height()/2}};
   qp.drawText(rect2, Qt::AlignLeft | Qt::AlignVCenter, name_build);
 
-  QRectF rect3{QPoint{height(), height()/2}, QPoint{width(), height()}};
-  std::stringstream ss;
-  int build_moves =  menu_town->town()->get_build_need_production(type_building) /
-      menu_town->town()->get_production();
-  ss << build_moves << " Ход";
-  qp.drawText(rect3, Qt::AlignLeft | Qt::AlignVCenter, QString::fromStdString(ss.str()));
-
+  if(type_widget != AlreadyBuild)
+  {
+    QRectF rect3{QPoint{height(), height()/2}, QPoint{width(), height()}};
+    std::stringstream ss;
+    int build_moves =  menu_town->town()->get_build_need_production(type_building) /
+        menu_town->town()->get_production();
+    ss << build_moves << " Ход";
+    qp.drawText(rect3, Qt::AlignLeft | Qt::AlignVCenter, QString::fromStdString(ss.str()));
+  }
 
   if(type_widget == Build &&
      menu_town->count_from_queue() == menu_town->town()->max_build_in_queue())

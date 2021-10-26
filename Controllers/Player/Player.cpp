@@ -25,6 +25,7 @@ void Player::click_town(class Town* town)
   PlayerTown* my_town = get_my_town(town);
   if (my_town)
   {
+    game_controller->graphics_controller()->centering_by_cell(my_town->position_town());
     game_controller->graphics_controller()->do_menu_town(this, my_town);
   }
 }
@@ -92,7 +93,9 @@ void Player::menu_event(class Unit* unit, Event* event)
 
 bool Player::is_finish()
 {
+
   do_events_unit();
+  do_build_towns();
   for(size_t i{0}; i < my_units.size(); ++i)
   {
     if(my_units[i]->event->event != Events::NoEvent)
@@ -101,18 +104,27 @@ bool Player::is_finish()
       continue;
     return false;
   }
+
+  for(size_t i{0}; i < my_towns.size(); ++i)
+    if(my_towns[i]->get_build_queue().size() == 0)
+      return false;
+
+
   return true;
 }
 
 void Player::start_move()
 {
-//  build_town(my_units[0].get());
-//  click_town(my_towns[0].get()->town());
-
   for(size_t i{0}; i < my_units.size(); ++i)
     if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)
     {
       unit_move(my_units[i].get());
+      return;
+    }
+  for(size_t i{0}; i < my_towns.size(); ++i)
+    if(my_towns[i]->get_build_queue().size() == 0)
+    {
+      click_town(my_towns[i].get()->town());
       return;
     }
 }
@@ -120,6 +132,7 @@ void Player::start_move()
 void Player::end_move()
 {
   set_movement_to_max_unit();
+  set_new_move_to_towns();
 }
 
 void Player::draw_my_map()
@@ -147,7 +160,6 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
       std::runtime_error("Citizen can build only town");
 
     build_town(my_unit);
-    std::cout << my_units.size() << std::endl;
   }
   else
     set_event_to_unit(my_unit, event);
@@ -242,6 +254,12 @@ void Player::set_movement_to_max_unit()
     my_units[i]->unit->set_movement(my_units[i]->unit->get_max_movement());
 }
 
+void Player::set_new_move_to_towns()
+{
+  for(size_t i{0}; i < my_towns.size(); ++i)
+    my_towns[i]->new_move();
+}
+
 void Player::do_events_unit()
 {
   for(size_t i{0}; i < my_units.size(); ++i)
@@ -272,6 +290,12 @@ void Player::do_events_unit()
     }
     unit->unit->set_movement(0);
   }
+}
+
+void Player::do_build_towns()
+{
+  for(size_t i{0}; i < my_towns.size(); ++i)
+    my_towns[i]->move_build();
 }
 
 void Player::build_town(PlayerUnit* my_unit)

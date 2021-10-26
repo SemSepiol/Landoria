@@ -1,5 +1,5 @@
-#ifndef MENUBUILDTOWN_H
-#define MENUBUILDTOWN_H
+#ifndef MENUALREADYBUILDTOWN_H
+#define MENUALREADYBUILDTOWN_H
 
 #include <QMouseEvent>
 #include <QWidget>
@@ -8,20 +8,22 @@
 #include "../GraphicsController/IGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "../Factories/FactoryPixmap.h"
+
 #include "IMenuTown.h"
 #include "WidgetTownBuilding.h"
 #include "WidgetTownUnit.h"
 #include "InformWidget.h"
 
-class MenuBuildTown : public QWidget
+class MenuAlreadyBuildTown : public QWidget
 {
 public:
-  MenuBuildTown(IMenuTown* menu_town);
+  MenuAlreadyBuildTown(IMenuTown* menu_town);
   void set_geometry(QPoint pos, Size size);
 
   void update_inform();
 
   void wheel_scroll(int angle_delta);
+
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override;
@@ -32,12 +34,9 @@ private:
   void draw();
   void draw_scroll();
 
-  void do_units();
   void do_buildings();
-  void set_geometry_units();
   void set_geometry_buildings();
 
-  void click(QPoint pos);
   bool point_in_rect(QRectF rect, QPoint point);
   QRect rect_build(size_t i);
 
@@ -49,7 +48,6 @@ private:
   int width_scroll;
 
   std::vector<std::unique_ptr<WidgetTownBuilding>> widget_town_buildings;
-  std::vector<std::unique_ptr<WidgetTownUnit>> widget_town_units;
 };
 
-#endif // MENUBUILDTOWN_H
+#endif // MENUALREADYBUILDTOWN_H

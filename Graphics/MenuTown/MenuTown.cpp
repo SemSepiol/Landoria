@@ -54,23 +54,27 @@ void MenuTown::delete_townmenu()
 
 void MenuTown::open_menu_build()
 {
+  close_menu_alreadybuild();
+
   if(menu_build_town.get())
     return;
   menu_build_town.reset(new MenuBuildTown{this});
   set_geometry_menu_build();
   menu_build_town->hide();
   menu_build_town->show();
-
-  menu_queue_town.reset(new MenuQueueTown{this});
-  set_geometry_menu_queue();
-  menu_queue_town->hide();
-  menu_queue_town->show();
 }
 
 void MenuTown::open_menu_alreadybuild()
 {
   close_menu_build();
-  close_menu_queue();
+
+  if(menu_already_build_town.get())
+    return;
+
+  menu_already_build_town.reset(new MenuAlreadyBuildTown{this});
+  set_geometry_menu_alreadybuild();
+  menu_already_build_town->hide();
+  menu_already_build_town->show();
 }
 
 void MenuTown::set_build(Units type_unit)
@@ -80,7 +84,8 @@ void MenuTown::set_build(Units type_unit)
   else if(type_work == EditProject)
     _town->set_build(type_unit);
   menu_queue_town->update_queue();
-  menu_build_town->update();
+  menu_build_town->update_inform();
+  del_inform_widget();
 }
 
 void MenuTown::set_build(TownBuildings type_building)
@@ -90,14 +95,16 @@ void MenuTown::set_build(TownBuildings type_building)
   else if(type_work == EditProject)
     _town->set_build(type_building);
   menu_queue_town->update_queue();
-  menu_build_town->update();
+  menu_build_town->update_inform();
+  del_inform_widget();
 }
 
 void MenuTown::del_build_from_queue(AWidgetTown* wid)
 {
   _town->del_build(num_from_queue(wid));
   menu_queue_town->update_queue();
-  menu_build_town->update();
+  menu_build_town->update_inform();
+  del_inform_widget();
 }
 
 size_t MenuTown::num_from_queue(AWidgetTown* wid) const
@@ -114,14 +121,16 @@ void MenuTown::move_up_build(AWidgetTown* wid)
 {
   _town->move_up_build(num_from_queue(wid));
   menu_queue_town->update_queue();
-  menu_build_town->update();
+  menu_build_town->update_inform();
+  del_inform_widget();
 }
 
 void MenuTown::move_down_build(AWidgetTown* wid)
 {
   _town->move_down_build(num_from_queue(wid));
   menu_queue_town->update_queue();
-  menu_build_town->update();
+  menu_build_town->update_inform();
+  del_inform_widget();
 }
 
 void MenuTown::wheel_scroll(int angle_delta)
@@ -152,7 +161,7 @@ void MenuTown::close_menu_build()
 
 void MenuTown::close_menu_alreadybuild()
 {
-  menu_type_work_town.reset();
+  menu_already_build_town.reset();
 }
 
 void MenuTown::close_menu_queue()
@@ -165,6 +174,13 @@ void MenuTown::set_geometry_menu_build()
   if(!menu_build_town.get())
     return;
   menu_build_town->set_geometry(pos + QPoint{size.width*4/5, 0}, {size.width/5, size.height*3/4});
+}
+
+void MenuTown::set_geometry_menu_alreadybuild()
+{
+  if(!menu_already_build_town.get())
+    return;
+  menu_already_build_town->set_geometry(pos + QPoint{size.width*4/5, 0}, {size.width/5, size.height*3/4});
 }
 
 void MenuTown::set_geometry_menu_selectwork()

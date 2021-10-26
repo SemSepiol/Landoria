@@ -76,7 +76,6 @@ void GameWindow::wheelEvent(QWheelEvent* event)
 
 void GameWindow::do_inform_widget(QString text)
 {
-  std::cout << "++" << std::endl;
   std::string str = text.toStdString();
   int count_str =  std::count(str.begin(), str.end(), '\n') + 1;
   QPoint globalCursorPos = QCursor::pos();

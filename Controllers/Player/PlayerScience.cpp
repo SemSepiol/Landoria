@@ -8,7 +8,7 @@ PlayerScience::PlayerScience()
   building.push_back(TownBuildings::PublicSchool);
   building.push_back(TownBuildings::University);
   building.push_back(TownBuildings::Bank);
-  building.push_back(TownBuildings::Medical_Lab);
+  building.push_back(TownBuildings::MedicalLab);
   building.push_back(TownBuildings::ResearchLab);
   building.push_back(TownBuildings::Factory);
   building.push_back(TownBuildings::Monument);

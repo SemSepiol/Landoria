@@ -51,6 +51,7 @@ void Game::next_move()
   if(!_current_player->is_finish())
   {
     _current_player->start_move();
+
     return;
   }
   std::cout << "new move" << std::endl;

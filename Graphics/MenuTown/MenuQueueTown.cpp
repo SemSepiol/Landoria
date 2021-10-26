@@ -20,12 +20,14 @@ void MenuQueueTown::set_geometry(QPoint pos, Size size)
 
 void MenuQueueTown::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
   draw_number();
 }
 
 void MenuQueueTown::mouseMoveEvent(QMouseEvent *event)
 {
+  Q_UNUSED(event)
   menu_town->del_inform_widget();
 }
 
@@ -70,10 +72,10 @@ void MenuQueueTown::update_queue()
 
   for(size_t i{0}; i < queue.size(); ++i)
   {
-    if(queue[i].type_build == BuildInTown::Unit)
-      widgets_town_build.push_back({new WidgetTownUnit(menu_town, queue[i].unit, WidgetTownUnit::InQueue)});
-    else if(queue[i].type_build == BuildInTown::Building)
-      widgets_town_build.push_back({new WidgetTownBuilding(menu_town, queue[i].building, WidgetTownBuilding::InQueue)});
+    if(queue[i]->type_build == BuildInTown::Unit)
+      widgets_town_build.push_back({new WidgetTownUnit(menu_town, queue[i]->unit, WidgetTownUnit::InQueue)});
+    else if(queue[i]->type_build == BuildInTown::Building)
+      widgets_town_build.push_back({new WidgetTownBuilding(menu_town, queue[i]->building, WidgetTownBuilding::InQueue)});
     set_geometry_wid(i);
   }
   update();

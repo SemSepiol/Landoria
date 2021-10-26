@@ -28,6 +28,7 @@ size_t WidgetTownUnit::count_from_queue()
 
 void WidgetTownUnit::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
   draw_butt();
 }

@@ -60,6 +60,7 @@ HEADERS += \
     Graphics/MenuTown/AWidgetTown.h \
     Graphics/MenuTown/IMenuTown.h \
     Graphics/MenuTown/InformWidget.h \
+    Graphics/MenuTown/MenuAlreadyBuildTown.h \
     Graphics/MenuTown/MenuBuildTown.h \
     Graphics/MenuTown/MenuQueueTown.h \
     Graphics/MenuTown/MenuTown.h \
@@ -124,6 +125,7 @@ SOURCES += \
     Graphics/Map.cpp \
     Graphics/MenuTown/AWidgetTown.cpp \
     Graphics/MenuTown/InformWidget.cpp \
+    Graphics/MenuTown/MenuAlreadyBuildTown.cpp \
     Graphics/MenuTown/MenuBuildTown.cpp \
     Graphics/MenuTown/MenuQueueTown.cpp \
     Graphics/MenuTown/MenuTown.cpp \

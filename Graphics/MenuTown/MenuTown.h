@@ -10,6 +10,7 @@
 #include "MenuBuildTown.h"
 #include "MenuTypeWorkTown.h"
 #include "MenuQueueTown.h"
+#include "MenuAlreadyBuildTown.h"
 #include "InformWidget.h"
 
 class MenuTown : public IMenuTown
@@ -45,6 +46,7 @@ private:
   void close_menu_queue();
 
   void set_geometry_menu_build();
+  void set_geometry_menu_alreadybuild();
   void set_geometry_menu_selectwork();
   void set_geometry_menu_queue();
 
@@ -55,6 +57,7 @@ private:
   std::unique_ptr<MenuBuildTown> menu_build_town;
   std::unique_ptr<MenuTypeWorkTown> menu_type_work_town;
   std::unique_ptr<MenuQueueTown> menu_queue_town;
+  std::unique_ptr<MenuAlreadyBuildTown> menu_already_build_town;
   std::unique_ptr<InformWidget> inform_widget;
 
   QPoint pos;
