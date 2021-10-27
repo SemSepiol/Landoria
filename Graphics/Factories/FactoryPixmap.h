@@ -27,6 +27,8 @@ public:
   QPixmap create_pixmap_for_nextmotion() const;
   QPixmap create_pixmap_for_butt_build() const;
   QPixmap create_pixmap_for_town_building(TownBuildings type_building) const;
+  QPixmap create_pixmap_for_fog_of_war() const;
+
 
   QRectF size_picture_content() const;
   QRectF size_picture_unit() const;

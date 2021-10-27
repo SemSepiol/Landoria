@@ -80,5 +80,6 @@
         <file>Graphics/image/menu/DelInQueue.png</file>
         <file>Graphics/image/menu/ArrowDown.png</file>
         <file>Graphics/image/menu/ArrowUp.png</file>
+        <file>Graphics/image/landscapes/FogOfWar.png</file>
     </qresource>
 </RCC>

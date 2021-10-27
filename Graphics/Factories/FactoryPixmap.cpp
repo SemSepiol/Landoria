@@ -258,6 +258,12 @@ QPixmap FactoryPixmap::create_pixmap_for_town_building(TownBuildings type_buildi
   }
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_fog_of_war() const
+{
+  return QPixmap{image_path + landscapes_dir + "FogOfWar.png/"};
+}
+
+
 QRectF FactoryPixmap::size_picture_content() const
 {
   return {0., 0., 188., 188.};

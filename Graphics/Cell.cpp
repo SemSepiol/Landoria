@@ -7,15 +7,15 @@ Cell::Cell(IMap* map)
 
 void Cell::draw(QPoint point)
 {
-//  std::cout << int(country) << std::endl;
+  //  std::cout << int(country) << std::endl;
   if(show_cell == ShowCell::FogOfWar)
   {
     draw_fog_of_war(point);
-    return;
   }
-
-  draw_landscape(point);
-  draw_contents(point);
+  else{
+    draw_landscape(point);
+    draw_contents(point);
+  }
   draw_cell(point);
 }
 
@@ -149,7 +149,19 @@ void Cell::draw_contents(QPoint point)
 
 void Cell::draw_fog_of_war(QPoint point)
 {
+  Calculations* calc = calculations();
+  QWidget* win = window();
+  QPainter qp(win);
 
+
+  QPixmap pixmap = FactoryPixmap().create_pixmap_for_fog_of_war();
+  QRectF source = FactoryPixmap().size_picture_landscape();
+  QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
+        calc->hexagon_side()*2., calc->hexagon_side()*2.};
+  qp.drawPixmap(target, pixmap, source);
+
+  QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
+  qp.drawPixmap(target, pixmap2, source);
 }
 
 void Cell::draw_highlight(QPoint point)
@@ -164,8 +176,8 @@ void Cell::draw_highlight(QPoint point)
 
 void Cell::draw_borders(QPoint point)
 {
-//  if(country == Countries::Nothing)
-//    return;
+  //  if(country == Countries::Nothing)
+  //    return;
 
   Calculations* calc = calculations();
   int width_border = calc->hexagon_height()/20;
@@ -184,10 +196,10 @@ void Cell::draw_borders(QPoint point)
   std::vector<QPoint> ends;
   Position my_pos = map->indexes_by_cell(this);
   auto neighbors = map->adjacent_cells(my_pos);
-//  std::cout << "---" << my_pos.x << " " << my_pos.y << std::endl;
+  //  std::cout << "---" << my_pos.x << " " << my_pos.y << std::endl;
   for(auto pos_cell : neighbors)
   {
-//    std::cout << pos_cell.x << " " << pos_cell.y << " " << int(cell_country(pos_cell)) << std::endl;
+    //    std::cout << pos_cell.x << " " << pos_cell.y << " " << int(cell_country(pos_cell)) << std::endl;
     if(cell_country(pos_cell) == country)
       continue;
 
