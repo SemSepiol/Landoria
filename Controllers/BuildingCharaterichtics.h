@@ -8,15 +8,15 @@
 class BuildingCharaterichtics : public IObject
 {
   std::map<Buildings, int> count_phase{
-    {Farm, 30},
-    {FishingBoat, 30},
-    {Fort, 30},
-    {LumberMill, 30},
-    {Mine, 30},
-    {OilWell, 30},
-    {Pasture, 30},
-    {Quarry, 30},
-    {TradingPost, 30}
+    {Buildings::Farm, 30},
+    {Buildings::FishingBoat, 30},
+    {Buildings::Fort, 30},
+    {Buildings::LumberMill, 30},
+    {Buildings::Mine, 30},
+    {Buildings::OilWell, 30},
+    {Buildings::Pasture, 30},
+    {Buildings::Quarry, 30},
+    {Buildings::TradingPost, 30}
   };
 
 public:

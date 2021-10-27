@@ -6,14 +6,14 @@ struct CountInEnums
   int resources() { return 10; }
 };
 
-enum Contents
+enum class Contents
 {
   Resource,
   Unit,
   Building
 };
 
-enum Units
+enum class Units
 {
   Worker,
   Citizen,
@@ -21,7 +21,7 @@ enum Units
   Swordsman
 };
 
-enum MainLandscapes
+enum class MainLandscapes
 {
   Ocean,
   Coast,
@@ -33,7 +33,7 @@ enum MainLandscapes
   Ice
 };
 
-enum OtherLandscapes
+enum class OtherLandscapes
 {
   Nothing,
   Forest,
@@ -43,7 +43,7 @@ enum OtherLandscapes
   JunglesAndHills
 };
 
-enum Resources
+enum class Resources
 {
   Iron,
   Gold,
@@ -57,7 +57,7 @@ enum Resources
   Silver
 };
 
-enum Buildings
+enum class Buildings
 {
   Town,
   Farm,
@@ -69,6 +69,12 @@ enum Buildings
   Pasture,
   Quarry,
   TradingPost
+};
+
+enum class Countries
+{
+  Nothing,
+  Russia
 };
 
 #endif // ENUMS_H

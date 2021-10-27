@@ -1,8 +1,8 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(IGameForPlayer* _game_controller)
-  :game_controller{_game_controller},
+Player::Player(IGameForPlayer* _game_controller, Countries _country)
+  :game_controller{_game_controller}, country{_country},
     player_map{new PlayerMap({_game_controller->count_cell_x(), _game_controller->count_cell_y()})},
     player_res{new PlayerRes()}, _player_science{new PlayerScience()}
 {}
@@ -37,7 +37,7 @@ void Player::set_initial_units(Position initial_cell)
   add_unit(Units::Citizen, initial_cell);
 //  build_town(&my_units[0]);
 //  click_town(my_towns[0]->town());
-//  add_unit(Units::Bowman, initial_cell);
+  add_unit(Units::Bowman, initial_cell);
 //  add_unit(Units::Swordsman, initial_cell);
   set_units_vision(true);
 }
@@ -213,6 +213,7 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
           my_unit->unit, my_unit->pos, move_cell);
     my_unit->pos = move_cell;
 
+    capture_cell(my_unit->pos);
     set_units_vision(true);
   }
 
@@ -300,12 +301,21 @@ void Player::do_build_towns()
 
 void Player::build_town(PlayerUnit* my_unit)
 {
-  game_controller->graphics_controller()->centering_by_cell(my_unit->pos);
+  Position pos = my_unit->pos;
+  game_controller->graphics_controller()->centering_by_cell(pos);
   class Building* building = game_controller->
-      graphics_controller()->build(Buildings::Town, my_unit->pos);
+      graphics_controller()->build(Buildings::Town, pos);
   class Town* town = static_cast<class Town*>(building);
-  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, my_unit->pos}});
+  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, pos}});
   del_unit(my_unit);
+
+  auto map = game_controller->graphics_controller()->mapforfind();
+  map->set_cell_country(pos, country);
+
+  auto adjacent = map->adjacent_cells(pos);
+  for(auto cell_pos : adjacent)
+    if(map->get_cell_country(cell_pos) == Countries::Nothing)
+      map->set_cell_country(cell_pos, country);
 }
 
 void Player::add_unit(Units type_unit, Position pos_cell)
@@ -321,6 +331,7 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   unit->set_max_movement(max_movement);
   unit->set_movement(max_movement);
   unit->set_vision(vision);
+  unit->set_country(country);
 
   my_units.push_back(std::unique_ptr<PlayerUnit>{new PlayerUnit(unit, pos_cell)});
 
@@ -329,6 +340,8 @@ void Player::add_unit(Units type_unit, Position pos_cell)
     class Worker* worker = static_cast<class Worker*>(unit);
     worker->set_build_speed(UnitsCharaterichtics().get_worker_build_speed());
   }
+
+  capture_cell(pos_cell);
 }
 
 void Player::del_unit(PlayerUnit* unit)
@@ -342,4 +355,10 @@ void Player::unit_move(PlayerUnit* unit)
   game_controller->graphics_controller()->centering_by_cell(unit->pos);
   game_controller->graphics_controller()->do_menu_unit(unit);
   game_controller->graphics_controller()->highlight_unit(unit->unit, unit->pos);
+}
+
+void Player::capture_cell(Position pos)
+{
+  auto map = game_controller->graphics_controller()->mapforfind();
+  map->set_cell_country(pos, country);
 }

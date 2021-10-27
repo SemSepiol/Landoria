@@ -11,16 +11,16 @@
 class FactoryString : IObject
 {
   std::map<Resources, QString> res_str{
-    {Iron, "Железо"},
-    {Gold, "Золото"},
-    {Stone, "Камень"},
-    {Aluminum, "Алюминий"},
-    {Horses, "Лошади"},
-    {Oil, "Нефть"},
-    {Uranium, "Уран"},
-    {Coal, "Уголь"},
-    {Fish, "Рыба"},
-    {Silver, "Серебро"},
+    {Resources::Iron, "Железо"},
+    {Resources::Gold, "Золото"},
+    {Resources::Stone, "Камень"},
+    {Resources::Aluminum, "Алюминий"},
+    {Resources::Horses, "Лошади"},
+    {Resources::Oil, "Нефть"},
+    {Resources::Uranium, "Уран"},
+    {Resources::Coal, "Уголь"},
+    {Resources::Fish, "Рыба"},
+    {Resources::Silver, "Серебро"},
   };
 
   std::map<TownBuildings, QString> building_in_town_str{

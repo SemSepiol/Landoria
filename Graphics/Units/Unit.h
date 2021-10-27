@@ -6,6 +6,7 @@
 #include "../IContent.h"
 #include "../../Controllers/Enums.h"
 #include "../Factories/FactoryPixmap.h"
+#include "../Factories/FactoryColor.h"
 #include "../ICell.h"
 
 class Unit : public IContent
@@ -31,6 +32,8 @@ public:
   int get_max_movement() const;
   void set_vision(int vision);
   int get_vision() const;
+
+  void set_country(Countries country);
 private:
   ICell* cell;
   int max_health;
@@ -38,6 +41,7 @@ private:
   int max_movement;
   int movement;
   int vision;
+  Countries country;
 };
 
 #endif // UNIT_H

@@ -78,7 +78,7 @@ void Game::do_players(size_t count_players)
 {
   for(size_t i{0}; i < count_players; ++i)
   {
-    players.push_back(std::unique_ptr<Player>{new Player(this)});
+    players.push_back(std::unique_ptr<Player>{new Player(this, Countries::Russia)});
     players[i]->set_initial_units({10, 10});
   }
 }

@@ -16,6 +16,7 @@
 #include "Factories/FactoryUnits.h"
 #include "Factories/FactoryRes.h"
 #include "Factories/FactoryPixmap.h"
+#include "Factories/FactoryColor.h"
 
 #include "Resources/Res.h"
 #include "Units/Unit.h"
@@ -32,11 +33,11 @@ struct Content
 class Cell : public ICell
 {
 public:
-
   Cell(IMap* map);
 
   // point - центр клетки
   virtual void draw(QPoint point) override;
+  void draw_borders(QPoint point);
   virtual QWidget* window() const override;
   virtual Calculations* calculations() const override;
 
@@ -44,10 +45,12 @@ public:
   IContent* click(QPoint pos);
 
 private:
+  void draw_cell(QPoint point);
   void draw_landscape(QPoint point);
   void draw_contents(QPoint point);
   void draw_fog_of_war(QPoint point);
   void draw_highlight(QPoint point);
+  Countries cell_country(Position pos_cell);
 
   IMap* map;
   std::vector<Content> contents;
@@ -56,6 +59,7 @@ private:
   bool is_there_other_landscape = false;
   MainLandscapes mainlandscape = MainLandscapes::Plain;
   OtherLandscapes otherlandscape= OtherLandscapes::Nothing;
+  Countries country = Countries::Nothing;
 
   ShowCell show_cell = Show;
 
@@ -98,6 +102,9 @@ public:
 
   void set_count_of_res(int count);
   int get_count_of_res() const;
+
+  void set_country(Countries country);
+  Countries get_country() const;
 
   virtual ~ControlContents() {}
 private:

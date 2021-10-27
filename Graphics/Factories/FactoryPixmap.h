@@ -9,7 +9,7 @@
 #include "../GraphicsController/EventsStructures.h"
 #include "../../Controllers/TownBuildings.h"
 
-class FactoryPixmap : IObject
+class FactoryPixmap : public IObject
 {
 public:
   QPixmap create_pixmap_for_res(Resources type_resource) const;

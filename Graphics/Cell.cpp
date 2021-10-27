@@ -7,37 +7,16 @@ Cell::Cell(IMap* map)
 
 void Cell::draw(QPoint point)
 {
+//  std::cout << int(country) << std::endl;
   if(show_cell == ShowCell::FogOfWar)
   {
     draw_fog_of_war(point);
     return;
   }
 
-  Calculations* calc = calculations();
-
-  QPoint p1 = point - calc->point_0();
-  QPoint p2 = point - calc->point_60();
-  QPoint p3 = point - calc->point_120();
-  QPoint p4 = point - calc->point_180();
-  QPoint p5 = point - calc->point_240();
-  QPoint p6 = point - calc->point_300();
-
-  QWidget* win = window();
-
   draw_landscape(point);
-  QPainter qp(win);
-  QPen pen(Qt::black, calc->hexagon_height()/10, Qt::SolidLine);
-  if(show_cell == ShowCell::NotVisible)
-  {
-    qp.setBrush(QBrush(QColor(0, 0, 0, 200)));
-  }
-
-  qp.setPen(pen);
-  QPointF points[6] {p1, p2, p3, p4, p5, p6};
-  qp.drawPolygon(points, 6);
-
   draw_contents(point);
-
+  draw_cell(point);
 }
 
 QWidget* Cell::window() const
@@ -92,6 +71,30 @@ IContent* Cell::click(QPoint pos)
   }
 
   throw std::runtime_error("Can't find content");
+}
+
+void Cell::draw_cell(QPoint point)
+{
+  Calculations* calc = calculations();
+
+  QPoint p1 = point - calc->point_0();
+  QPoint p2 = point - calc->point_60();
+  QPoint p3 = point - calc->point_120();
+  QPoint p4 = point - calc->point_180();
+  QPoint p5 = point - calc->point_240();
+  QPoint p6 = point - calc->point_300();
+
+  QWidget* win = window();
+  QPainter qp(win);
+  QPen pen(Qt::black, calc->hexagon_height()/10, Qt::SolidLine);
+  if(show_cell == ShowCell::NotVisible)
+  {
+    qp.setBrush(QBrush(QColor(0, 0, 0, 200)));
+  }
+
+  qp.setPen(pen);
+  QPointF points[6] {p1, p2, p3, p4, p5, p6};
+  qp.drawPolygon(points, 6);
 }
 
 void Cell::draw_landscape(QPoint point)
@@ -158,3 +161,128 @@ void Cell::draw_highlight(QPoint point)
   qp.setBrush(QBrush (Qt::blue));
   qp.drawEllipse(point, rad, rad);
 }
+
+void Cell::draw_borders(QPoint point)
+{
+//  if(country == Countries::Nothing)
+//    return;
+
+  Calculations* calc = calculations();
+  int width_border = calc->hexagon_height()/20;
+  QPainter qp(window());
+  QPen pen(FactoryColor().country_color(country), width_border, Qt::SolidLine);
+  qp.setPen(pen);
+
+  QPoint p1 = point + calc->point_0()   + QPoint{0, width_border/2};
+  QPoint p2 = point + calc->point_60()  + QPoint{width_border/2, width_border/2};
+  QPoint p3 = point + calc->point_120() + QPoint{width_border/2, -width_border/2};
+  QPoint p4 = point + calc->point_180() + QPoint{0, -width_border/2};
+  QPoint p5 = point + calc->point_240() + QPoint{-width_border/2, -width_border/2};
+  QPoint p6 = point + calc->point_300() + QPoint{-width_border/2, width_border/2};
+
+  std::vector<QLine> lines;
+  std::vector<QPoint> ends;
+  Position my_pos = map->indexes_by_cell(this);
+  auto neighbors = map->adjacent_cells(my_pos);
+//  std::cout << "---" << my_pos.x << " " << my_pos.y << std::endl;
+  for(auto pos_cell : neighbors)
+  {
+//    std::cout << pos_cell.x << " " << pos_cell.y << " " << int(cell_country(pos_cell)) << std::endl;
+    if(cell_country(pos_cell) == country)
+      continue;
+
+    if(pos_cell.y == my_pos.y)
+    {
+      if(pos_cell.x < my_pos.x)
+      {
+        lines.push_back({p2, p3});
+        ends.push_back(p2);
+        ends.push_back(p3);
+      }
+      else if (pos_cell.x > my_pos.x)
+      {
+        lines.push_back({p5, p6});
+        ends.push_back(p5);
+        ends.push_back(p6);
+      }
+    }
+    else if(my_pos.y % 2 == 0)
+    {
+      if(pos_cell.y < my_pos.y)
+      {
+        if(pos_cell.x < my_pos.x)
+        {
+          lines.push_back({p1, p2});
+          ends.push_back(p1);
+          ends.push_back(p2);
+        }
+        else if (pos_cell.x == my_pos.x)
+        {
+          lines.push_back({p6, p1});
+          ends.push_back(p6);
+          ends.push_back(p1);
+        }
+      }
+      else
+      {
+        if(pos_cell.x < my_pos.x)
+        {
+          lines.push_back({p3, p4});
+          ends.push_back(p3);
+          ends.push_back(p4);
+        }
+        else if (pos_cell.x == my_pos.x)
+        {
+          lines.push_back({p4, p5});
+          ends.push_back(p4);
+          ends.push_back(p5);
+        }
+      }
+    }
+    else if(my_pos.y % 2 == 1)
+    {
+      if(pos_cell.y < my_pos.y)
+      {
+        if(pos_cell.x == my_pos.x)
+        {
+          lines.push_back({p1, p2});
+          ends.push_back(p1);
+          ends.push_back(p2);
+        }
+        else if (pos_cell.x > my_pos.x)
+        {
+          lines.push_back({p6, p1});
+          ends.push_back(p6);
+          ends.push_back(p1);
+        }
+      }
+      else
+      {
+        if(pos_cell.x == my_pos.x)
+        {
+          lines.push_back({p3, p4});
+          ends.push_back(p3);
+          ends.push_back(p4);
+        }
+        else if (pos_cell.x > my_pos.x)
+        {
+          lines.push_back({p4, p5});
+          ends.push_back(p4);
+          ends.push_back(p5);
+        }
+      }
+    }
+  }
+
+  for(auto line : lines)
+    qp.drawLine(line);
+}
+
+Countries Cell::cell_country(Position pos_cell)
+{
+  ControlContents cc{map->icell_by_indexes(pos_cell)};
+  return cc.get_country();
+}
+
+
+

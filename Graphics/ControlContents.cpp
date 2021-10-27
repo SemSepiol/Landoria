@@ -174,6 +174,16 @@ int ControlContents::get_count_of_res() const
   return _get_resource()->count_of_res();
 }
 
+void ControlContents::set_country(Countries country)
+{
+  cell->country = country;
+}
+
+Countries ControlContents::get_country() const
+{
+  return cell->country;
+}
+
 Res* ControlContents::_get_resource() const
 {
   for(size_t i{0}; i < cell->contents.size(); ++i)

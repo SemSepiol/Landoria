@@ -39,6 +39,7 @@ HEADERS += \
     Graphics/Cell.h \
     Graphics/DrawWay.h \
     Graphics/Factories/FactoryBuild.h \
+    Graphics/Factories/FactoryColor.h \
     Graphics/Factories/FactoryMenusUnit.h \
     Graphics/Factories/FactoryPixmap.h \
     Graphics/Factories/FactoryRes.h \
@@ -110,6 +111,7 @@ SOURCES += \
     Graphics/ControlContents.cpp \
     Graphics/DrawWay.cpp \
     Graphics/Factories/FactoryBuild.cpp \
+    Graphics/Factories/FactoryColor.cpp \
     Graphics/Factories/FactoryMenusUnit.cpp \
     Graphics/Factories/FactoryPixmap.cpp \
     Graphics/Factories/FactoryRes.cpp \

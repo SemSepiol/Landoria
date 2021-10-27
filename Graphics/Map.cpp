@@ -21,6 +21,8 @@ void Map::do_cells()
 
 void Map::draw(QPoint point)
 {
+//  std::cout << "start" << std::endl;
+
   Calculations* calc = calculations();
   Size size_win_map = graphics_controller->size_win_map();
   int height_win_map = size_win_map.height;
@@ -49,6 +51,21 @@ void Map::draw(QPoint point)
       if (cell_point.y() - calc->hexagon_side() > corner_of_map_win.y() + height_win_map)
         continue;
       cells[i][j]->draw(cell_point);
+    }
+
+  for(size_t i{0}; i < cells.size(); ++i)
+    for(size_t j{0}; j < cells[i].size(); ++j)
+    {
+      QPoint cell_point = point_of_cell({j, i}) + corner_of_map;
+      if (cell_point.x() + calc->hexagon_height() < corner_of_map_win.x())
+        continue;
+      if (cell_point.x() - calc->hexagon_height() > corner_of_map_win.x() + width_win_map)
+        continue;
+      if (cell_point.y() + calc->hexagon_side() < corner_of_map_win.y())
+        continue;
+      if (cell_point.y() - calc->hexagon_side() > corner_of_map_win.y() + height_win_map)
+        continue;
+      cells[i][j]->draw_borders(cell_point);
     }
 }
 
@@ -79,6 +96,11 @@ Position Map::indexes_by_cell(Cell* cell) const
       if(cells[j][i].get() == cell)
         return {i,j};
   throw std::runtime_error("indexes_by_cell: Hasn't this got this cell");
+}
+
+Position Map::indexes_by_cell(ICell* cell) const
+{
+  return indexes_by_cell(static_cast<Cell*>(cell));
 }
 
 std::vector<Position> Map::adjacent_cells(Position pos) const
@@ -118,6 +140,18 @@ std::vector<Position> Map::adjacent_cells(Position pos) const
   }
 
   return res;
+}
+
+void Map::set_cell_country(Position pos_cell, Countries coutry)
+{
+  ControlContents cc{cell_by_indexes(pos_cell)};
+  cc.set_country(coutry);
+}
+
+Countries Map::get_cell_country(Position pos_cell)
+{
+  ControlContents cc{cell_by_indexes(pos_cell)};
+  return cc.get_country();
 }
 
 std::pair<Cell*, IContent*> Map::click(QPoint pos)

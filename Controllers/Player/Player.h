@@ -22,7 +22,7 @@
 class Player : public IPlayer, public IMenuTownPlayer
 {
 public:
-    Player(IGameForPlayer* game_controller);
+    Player(IGameForPlayer* game_controller, Countries country);
     virtual ~Player() override;
 
     virtual void click_unit(class Unit* unit) override;
@@ -56,11 +56,12 @@ private:
     void add_unit(Units type_unit, Position pos_cell);
     void del_unit(PlayerUnit* unit);
     void unit_move(PlayerUnit* unit);
+    void capture_cell(Position pos);
 
     IGameForPlayer* game_controller;
+    Countries country;
 
     int gold_per_turn = 1000;
-
 
     std::vector<std::unique_ptr<PlayerUnit>> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;

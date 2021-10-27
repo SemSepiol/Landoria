@@ -6,7 +6,7 @@ void Unit::draw(QPoint point)
 
   QPainter qp(window());
   QPen pen(Qt::black, 2, Qt::SolidLine);
-  qp.setBrush(QBrush (Qt::yellow));
+  qp.setBrush(QBrush(FactoryColor().country_color(country)));
   qp.drawEllipse(point, rad, rad);
 
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_unit_on_map(what_unit_I());
@@ -39,7 +39,7 @@ int Unit::get_health() const
 
 void Unit::set_max_health(int _max_health)
 {
-    max_health = _max_health;
+  max_health = _max_health;
 }
 
 int Unit::get_max_health() const
@@ -59,7 +59,7 @@ int Unit::get_movement() const
 
 void Unit::set_max_movement(int _max_movement)
 {
-    max_movement = _max_movement;
+  max_movement = _max_movement;
 }
 
 int Unit::get_max_movement() const
@@ -69,11 +69,16 @@ int Unit::get_max_movement() const
 
 void Unit::set_vision(int _vision)
 {
-    vision = _vision;
+  vision = _vision;
 }
 
 int Unit::get_vision() const
 {
   return vision;
+}
+
+void Unit::set_country(Countries _country)
+{
+  country = _country;
 }
 
