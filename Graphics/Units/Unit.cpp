@@ -82,3 +82,8 @@ void Unit::set_country(Countries _country)
   country = _country;
 }
 
+Countries Unit::get_country() const
+{
+  return country;
+}
+

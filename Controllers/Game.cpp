@@ -23,7 +23,7 @@ void Game::start()
 {
   _graphics_controller->start();
   _current_player->draw_my_map();
-  _current_player->start_move();
+  do_start_inform();
 }
 
 size_t Game::count_cell_x() const
@@ -54,13 +54,12 @@ void Game::next_move()
 
     return;
   }
-  std::cout << "new move" << std::endl;
   _current_player->end_move();
   size_t num_player = num_curr_player();
   if(++num_player == players.size())
     num_player = 0;
   _current_player = players[num_player].get();
-  _current_player->start_move();
+  do_start_inform();
   _graphics_controller->window()->update();
 }
 
@@ -69,9 +68,26 @@ IPlayer* Game::current_player() const
   return _current_player;
 }
 
+IGameForWidget* Game::igame_for_widget()
+{
+  return this;
+}
+
 IPlayerGraphicsController* Game::graphics_controller() const
 {
   return _graphics_controller.get();
+}
+
+void Game::start_move()
+{
+  std::cout << "new move" << std::endl;
+  _graphics_controller->del_start_inform();
+  _current_player->start_move();
+}
+
+QWidget* Game::window() const
+{
+  return _graphics_controller->window();
 }
 
 void Game::do_players(size_t count_players)
@@ -89,4 +105,9 @@ size_t Game::num_curr_player()
     if(players[i].get() == _current_player)
       return i;
   throw std::runtime_error("Cann't find current player");
+}
+
+void Game::do_start_inform()
+{
+  _graphics_controller->do_start_inform("Все хорошо.\n Следующий ход.\n");
 }

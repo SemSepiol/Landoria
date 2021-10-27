@@ -20,6 +20,7 @@ protected:
   void set_buttons() override;
   virtual void draw_butt(size_t num_butt) override;
   virtual void click_butt(size_t num_butt) override;
+  void set_is_enable();
 
   bool has_menu = false;
   std::unique_ptr<MenuBuild> menu;

@@ -15,6 +15,7 @@ void WorkerMenu::set_buttons()
   buttons.push_back(new BuildEvent{Buildings::Farm});
   buttons.push_back(new MoveEvent{{0,0}});
   buttons.push_back(new SlipEvent{});
+  set_is_enable();
 }
 
 void WorkerMenu::draw_butt(size_t num_butt)
@@ -43,6 +44,8 @@ void WorkerMenu::click_butt(size_t num_butt)
     menu.reset();
     return;
   }
+  if(!buttons[num_butt].is_enable)
+    return;
 
   if(has_move_event)
   {
@@ -63,6 +66,15 @@ void WorkerMenu::click_butt(size_t num_butt)
   menu->show();
   win->update();
   has_menu = true;
+}
+
+void WorkerMenu::set_is_enable()
+{
+  ControlContents controlcontents(cell);
+  if(controlcontents.has_building())
+    buttons[num_butt_build].is_enable = false;
+  if(controlcontents.get_country() != unit->unit->get_country())
+    buttons[num_butt_build].is_enable = false;
 }
 
 MenuBuild::MenuBuild(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,

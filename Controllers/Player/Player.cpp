@@ -37,7 +37,7 @@ void Player::set_initial_units(Position initial_cell)
   add_unit(Units::Citizen, initial_cell);
 //  build_town(&my_units[0]);
 //  click_town(my_towns[0]->town());
-  add_unit(Units::Bowman, initial_cell);
+//  add_unit(Units::Bowman, initial_cell);
 //  add_unit(Units::Swordsman, initial_cell);
   set_units_vision(true);
 }
@@ -213,7 +213,8 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
           my_unit->unit, my_unit->pos, move_cell);
     my_unit->pos = move_cell;
 
-    capture_cell(my_unit->pos);
+    if(is_military_unit(my_unit->unit->what_unit_I()))
+      capture_cell(my_unit->pos);
     set_units_vision(true);
   }
 
@@ -306,7 +307,7 @@ void Player::build_town(PlayerUnit* my_unit)
   class Building* building = game_controller->
       graphics_controller()->build(Buildings::Town, pos);
   class Town* town = static_cast<class Town*>(building);
-  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, pos}});
+  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, this, pos}});
   del_unit(my_unit);
 
   auto map = game_controller->graphics_controller()->mapforfind();
@@ -361,4 +362,11 @@ void Player::capture_cell(Position pos)
 {
   auto map = game_controller->graphics_controller()->mapforfind();
   map->set_cell_country(pos, country);
+}
+
+bool Player::is_military_unit(Units type_unit)
+{
+  if(type_unit == Units::Worker || type_unit == Units::Citizen)
+    return false;
+  return true;
 }

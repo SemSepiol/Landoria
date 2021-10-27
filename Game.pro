@@ -15,6 +15,7 @@ HEADERS += \
     Controllers/IGame.h \
     Controllers/Player/IMenuTownPlayer.h \
     Controllers/Player/IPlayer.h \
+    Controllers/Player/ITownPlayer.h \
     Controllers/Player/Player.h \
     Controllers/Player/PlayerBuild.h \
     Controllers/Player/PlayerMap.h \
@@ -56,6 +57,7 @@ HEADERS += \
     Graphics/IContent.h \
     Graphics/IDrawObject.h \
     Graphics/IMap.h \
+    Graphics/InformationWidgets/StartMoveInform.h \
     Graphics/Map.h \
     Graphics/MenuTown.h \
     Graphics/MenuTown/AWidgetTown.h \
@@ -123,6 +125,7 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
+    Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
     Graphics/MenuTown/AWidgetTown.cpp \

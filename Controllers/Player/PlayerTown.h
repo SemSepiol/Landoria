@@ -7,6 +7,7 @@
 #include "../../Graphics/Buildings/Town.h"
 #include "../TownBuildings.h"
 #include "../TownBuildNeeds.h"
+#include "ITownPlayer.h"
 
 struct BuildInTown
 {
@@ -41,7 +42,7 @@ class PlayerTown : public IObject
   const size_t _max_build_in_queue = 6;
 
 public:
-  PlayerTown(class Town* town, Position position_town);
+  PlayerTown(class Town* town, ITownPlayer* player, Position position_town);
 
   Position position_town() const;
   class Town* town() const;
@@ -69,7 +70,10 @@ public:
   int get_production() const;
   int get_remains_production() const;
 private:  
-  std::unique_ptr<class Town> _town;
+  void del_build(BuildInTown* build);
+
+  class Town* _town;
+  ITownPlayer* player;
   Position _pos;
   int production = 10;
   int remains_production = 0;

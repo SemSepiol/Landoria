@@ -34,6 +34,7 @@ public:
   int get_vision() const;
 
   void set_country(Countries country);
+  Countries get_country() const;
 private:
   ICell* cell;
   int max_health;

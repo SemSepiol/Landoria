@@ -18,8 +18,9 @@
 #include "PlayerRes.h"
 #include "PlayerUnit.h"
 #include "PlayerBuild.h"
+#include "ITownPlayer.h"
 
-class Player : public IPlayer, public IMenuTownPlayer
+class Player : public IPlayer, public IMenuTownPlayer, public ITownPlayer
 {
 public:
     Player(IGameForPlayer* game_controller, Countries country);
@@ -37,6 +38,7 @@ public:
     virtual void draw_my_map();
 
     virtual PlayerScience* player_science() const override;
+    virtual void add_unit(Units type_unit, Position pos_cell) override;
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     size_t get_ind_my_unit(PlayerUnit* unit);
@@ -53,10 +55,11 @@ private:
     void do_build_towns();
 
     void build_town(PlayerUnit* my_unit);
-    void add_unit(Units type_unit, Position pos_cell);
     void del_unit(PlayerUnit* unit);
     void unit_move(PlayerUnit* unit);
     void capture_cell(Position pos);
+
+    bool is_military_unit(Units type_unit);
 
     IGameForPlayer* game_controller;
     Countries country;

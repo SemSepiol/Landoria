@@ -15,8 +15,8 @@ int BuildInTown::build(int town_production)
   }
 }
 
-PlayerTown::PlayerTown(class Town* town, Position pos)
-  :_town{town}, _pos{pos}
+PlayerTown::PlayerTown(class Town* town, ITownPlayer* _player, Position pos)
+  :_town{town}, player{_player}, _pos{pos}
 {}
 
 Position PlayerTown::position_town() const
@@ -26,7 +26,7 @@ Position PlayerTown::position_town() const
 
 class Town* PlayerTown::town() const
 {
-  return _town.get();
+  return _town;
 }
 
 void PlayerTown::move_build()
@@ -43,6 +43,9 @@ void PlayerTown::move_build()
 
   if(build_queue[0]->need_production == 0)
   {
+    if(build_queue[0]->type_build == BuildInTown::Unit)
+      player->add_unit(build_queue[0]->unit, _pos);
+    del_build(build_queue[0]);
     build_queue.erase(build_queue.begin());
     move_build();
   }
@@ -172,4 +175,11 @@ int PlayerTown::get_production() const
 int PlayerTown::get_remains_production() const
 {
   return remains_production;
+}
+
+void PlayerTown::del_build(BuildInTown* build)
+{
+  for(size_t i{0}; i < build_in_town.size(); ++i)
+    if(build_in_town[i].get() == build)
+      build_in_town.erase(build_in_town.begin() + i);
 }

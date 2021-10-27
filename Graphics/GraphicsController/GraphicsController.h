@@ -14,12 +14,17 @@
 #include "../MenuTown/MenuTown.h"
 #include "../InformationWidgets/UnitInformation.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../InformationWidgets/StartMoveInform.h"
 
 class GraphicsController : public AGraphicsController, public IPlayerGraphicsController,
     public IUnitMenuGraphicsController
 {
 public:
   GraphicsController(IGameForGraphic* game_controller);
+
+  void do_start_inform(QString string);
+  void del_start_inform();
+
   virtual void create_elements() override;
 
   virtual void start_check_move_unit() override;
@@ -80,6 +85,7 @@ private:
   std::unique_ptr<UnitInformation> unit_information{nullptr};
   std::unique_ptr<MenuTown> town_menu{nullptr};
   std::unique_ptr<Minimap> minimap;
+  std::unique_ptr<StartMoveInform> start_move_inform;
 };
 
 #endif // GRAPHICSCONTROLLER_H

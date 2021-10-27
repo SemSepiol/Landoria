@@ -5,6 +5,13 @@
 #include "../Graphics/GraphicsController/IGraphicsController.h"
 #include "Player/IPlayer.h"
 
+class IGameForWidget : public IObject
+{
+public:
+  virtual void start_move() = 0;
+  virtual QWidget* window() const = 0;
+};
+
 class IGameForGraphic : public IObject
 {
 public:
@@ -15,6 +22,7 @@ public:
   virtual void exit() = 0;
   virtual void next_move() = 0;
   virtual IPlayer* current_player() const = 0;
+  virtual IGameForWidget* igame_for_widget() = 0;
 };
 
 class IGameForPlayer : public IObject

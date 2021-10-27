@@ -8,6 +8,24 @@ GraphicsController::GraphicsController(IGameForGraphic* _game_controller)
   : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), _map.get(), this}}
 {}
 
+void GraphicsController::do_start_inform(QString string)
+{
+  start_move_inform.reset(new StartMoveInform(game_controller->igame_for_widget(), string,
+                                              QPoint{_size_win.width/2, _size_win.height/2}));
+  Size size{_size_win.width/3, _size_win.height/3};
+  start_move_inform->set_geometry(QPoint{_size_win.width/2 - size.width/2, _size_win.height/2 - size.height/2}, size);
+  start_move_inform->hide();
+  start_move_inform->show();
+  start_move_inform->raise();
+  enabled_map = false;
+}
+
+void GraphicsController::del_start_inform()
+{
+  start_move_inform.reset();
+  enabled_map = true;
+}
+
 void GraphicsController::create_elements()
 {
   AGraphicsController::create_elements();
