@@ -21,6 +21,8 @@ public:
   void set_end_build_phase(int end_phase);
   int get_build_phase() const;
   int get_end_build_phase() const;
+
+  bool is_built() const;
 protected:
   Building(ICell* cell) : cell{cell}{}
 private:

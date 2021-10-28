@@ -94,11 +94,11 @@ Resources ControlContents::get_resource() const
   throw std::runtime_error("Hasn't got resource");
 }
 
-Buildings ControlContents::get_building() const
+Building* ControlContents::get_building() const
 {
   class Building* building = _get_building();
   if(building)
-    return building->what_building_I();
+    return building;
   throw std::runtime_error("Hasn't got building");
 }
 
@@ -171,7 +171,7 @@ void ControlContents::set_count_of_res(int count)
 
 int ControlContents::get_count_of_res() const
 {
-  return _get_resource()->count_of_res();
+  return _get_resource()->get_count_of_res();
 }
 
 void ControlContents::set_country(Countries country)

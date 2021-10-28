@@ -54,6 +54,11 @@ int Building::get_end_build_phase() const
   return end_phase;
 }
 
+bool Building::is_built() const
+{
+  return end_phase == phase;
+}
+
 void Building::draw_build_phase(QPoint point)
 {
   int rad = calculations()->circle_radius();

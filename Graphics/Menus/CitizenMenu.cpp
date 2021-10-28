@@ -21,7 +21,7 @@ void CitizenMenu::set_is_enable(MyButton& my_butt)
   {
     ControlContents controlcontents(cell);
     if(controlcontents.has_building())
-      if(controlcontents.get_building() == Buildings::Town)
+      if(controlcontents.get_building()->what_building_I() == Buildings::Town)
         my_butt.is_enable = false;
   }
 }

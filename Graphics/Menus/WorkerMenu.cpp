@@ -72,7 +72,11 @@ void WorkerMenu::set_is_enable()
 {
   ControlContents controlcontents(cell);
   if(controlcontents.has_building())
-    buttons[num_butt_build].is_enable = false;
+  {
+    Building* building = controlcontents.get_building();
+    if(building->is_built())
+      buttons[num_butt_build].is_enable = false;
+  }
   if(controlcontents.get_country() != unit->unit->get_country())
     buttons[num_butt_build].is_enable = false;
 }
@@ -112,7 +116,14 @@ void MenuBuild::set_is_enable()
 {
   ControlContents controlcontents(cell);
   if(controlcontents.has_building())
+  {
+    Building* building = controlcontents.get_building();
     for(size_t i{0}; i < buttons.size(); ++i)
-      buttons[i].is_enable = false;
+    {
+      BuildEvent* build_event = static_cast<BuildEvent*>(buttons[i].event.get());
+      if(building->is_built() || building->what_building_I() != build_event->building)
+        buttons[i].is_enable = false;
+    }
+  }
 }
 

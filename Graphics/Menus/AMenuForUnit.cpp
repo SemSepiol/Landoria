@@ -103,6 +103,6 @@ QRectF AMenuForUnit::rect_butt(size_t i)
 
 void AMenuForUnit::set_buttons()
 {
-  if(unit->event->event == Events::Move)
+  if(unit->event->event != Events::NoEvent)
     buttons.push_back(new struct NoEvent());
 }

@@ -59,6 +59,11 @@ private:
     void unit_move(PlayerUnit* unit);
     void capture_cell(Position pos);
 
+    void add_build(PlayerUnit* unit, Buildings type_building);
+    void stop_build(PlayerUnit* unit);
+    void add_res(Position pos);
+    void del_res(Position pos);
+
     bool is_military_unit(Units type_unit);
 
     IGameForPlayer* game_controller;

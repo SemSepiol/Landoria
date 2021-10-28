@@ -53,6 +53,7 @@ HEADERS += \
     Graphics/GraphicsController/EventsStructures.h \
     Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IGraphicsController.h \
+    Graphics/GraphicsController/PlayerGraphicsController.h \
     Graphics/ICell.h \
     Graphics/IContent.h \
     Graphics/IDrawObject.h \

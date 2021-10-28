@@ -32,13 +32,13 @@ void Player::click_town(class Town* town)
 
 void Player::set_initial_units(Position initial_cell)
 {
-//  add_unit(Units::Worker, initial_cell);
-//  add_unit(Units::Worker, initial_cell);
+  //  add_unit(Units::Worker, initial_cell);
+  //  add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
-//  build_town(&my_units[0]);
-//  click_town(my_towns[0]->town());
-//  add_unit(Units::Bowman, initial_cell);
-//  add_unit(Units::Swordsman, initial_cell);
+  //  build_town(&my_units[0]);
+  //  click_town(my_towns[0]->town());
+  //  add_unit(Units::Bowman, initial_cell);
+  //  add_unit(Units::Swordsman, initial_cell);
   set_units_vision(true);
 }
 
@@ -171,30 +171,20 @@ void Player::event_for_worker(PlayerUnit* my_unit, Event* event)
   {
     BuildEvent* build_event = static_cast<BuildEvent*>(event);
     my_unit->event.reset(event);
-
-    class Building* building = game_controller->graphics_controller()->build(build_event->building, my_unit->pos);
-
-    int end_phase = BuildingCharaterichtics().get_building_count_phase(building->what_building_I());
-    building->set_end_build_phase(end_phase);
-
-    if(my_unit->unit->get_movement() != 0)
-    {
-      class Worker* worker = static_cast<class Worker*>(my_unit->unit);
-      building->set_build_phase(worker->get_build_speed());
-    }
-
-    unit_build.push_back({my_unit, building});
+    add_build(my_unit, build_event->building);
     my_unit->unit->set_movement(0);
-
-    if(building->get_end_build_phase() == building->get_build_phase())
-      my_unit->event.reset(new struct NoEvent());
   }
   else
+  {
+    stop_build(my_unit);
     set_event_to_unit(my_unit, event);
+  }
 }
 
 void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
 {
+  if(my_unit->unit->what_unit_I() == Units::Worker)
+    stop_build(my_unit);
 
   IMapForFind* map = game_controller->graphics_controller()->mapforfind();
   OneMove move = FindUnitWay().get_first_move(my_unit->unit, map, my_unit->pos, event->cell_move);
@@ -276,6 +266,9 @@ void Player::do_events_unit()
   for(size_t i{0}; i < unit_build.size(); ++i)
   {
     PlayerUnit* unit = unit_build[i].unit;
+    if(!unit)
+      continue;
+
     if(unit->unit->get_movement() == 0)
       continue;
 
@@ -286,6 +279,7 @@ void Player::do_events_unit()
 
     if(building->get_build_phase() == building->get_end_build_phase())
     {
+      add_res(unit_build[i].pos);
       unit_build.erase(unit_build.begin() + i);
       i--;
       unit->event.reset(new struct NoEvent());
@@ -362,6 +356,63 @@ void Player::capture_cell(Position pos)
 {
   auto map = game_controller->graphics_controller()->mapforfind();
   map->set_cell_country(pos, country);
+}
+
+void Player::add_build(PlayerUnit* unit, Buildings type_building)
+{
+  for(size_t i{0}; i < unit_build.size(); ++i)
+    if(unit_build[i].pos == unit->pos)
+    {
+      if(unit_build[i].building->what_building_I() == type_building)
+      {
+        unit_build[i].unit = unit;
+        if(unit->unit->get_movement() != 0)
+        {
+          class Worker* worker = static_cast<class Worker*>(unit->unit);
+          unit_build[i].building->set_build_phase(unit_build[i].building->get_build_phase() + worker->get_build_speed());
+        }
+      }
+      return;
+    }
+
+  class Building* building = game_controller->graphics_controller()->build(type_building, unit->pos);
+
+  int end_phase = BuildingCharaterichtics().get_building_count_phase(building->what_building_I());
+  building->set_end_build_phase(end_phase);
+
+  if(unit->unit->get_movement() != 0)
+  {
+    class Worker* worker = static_cast<class Worker*>(unit->unit);
+    building->set_build_phase(worker->get_build_speed());
+  }
+  unit_build.push_back({unit, building, unit->pos});
+  if(building->get_end_build_phase() == building->get_build_phase())
+  {
+    unit->event.reset(new struct NoEvent());
+    add_res(unit->pos);
+  }
+}
+
+void Player::stop_build(PlayerUnit* unit)
+{
+  for(size_t i{0}; i < unit_build.size(); ++i)
+    if(unit_build[i].unit == unit)
+    {
+      std::cout << "1243" << std::endl;
+      unit_build[i].unit = nullptr;
+      std::cout << unit_build[i].unit << std::endl;
+      return;
+    }
+}
+
+void Player::add_res(Position pos)
+{
+  std::cout << "add res" << std::endl;
+}
+
+void Player::del_res(Position pos)
+{
+
 }
 
 bool Player::is_military_unit(Units type_unit)

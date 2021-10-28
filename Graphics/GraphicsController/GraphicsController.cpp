@@ -117,7 +117,7 @@ class Building* GraphicsController::build(Buildings type_building, Position pos_
   ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
   if(controlcontents.has_building())
   {
-    if(type_building == Buildings::Town && controlcontents.get_building() != Buildings::Town)
+    if(type_building == Buildings::Town && controlcontents.get_building()->what_building_I() != Buildings::Town)
       controlcontents.del_building();
     else
       throw std::runtime_error("build: There is already a building in this cell");

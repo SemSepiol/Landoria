@@ -8,9 +8,10 @@ struct PlayerBuild
 {
   PlayerUnit* unit;
   class Building* building;
+  Position pos;
 
-  PlayerBuild(PlayerUnit* _unit, class Building* _building)
-    :unit{_unit}, building{_building}
+  PlayerBuild(PlayerUnit* _unit, class Building* _building, Position _pos)
+    :unit{_unit}, building{_building}, pos{_pos}
   {}
 };
 

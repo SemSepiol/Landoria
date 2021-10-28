@@ -86,7 +86,7 @@ public:
 
   MainLandscapes get_landscape() const;
   Resources get_resource() const;
-  Buildings get_building() const;
+  Building* get_building() const;
   std::vector<Units> get_units() const;
 
   bool has_landscape() const;

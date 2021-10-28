@@ -33,7 +33,7 @@ void StartMoveInform::mouseReleaseEvent(QMouseEvent *event)
 
 void StartMoveInform::keyPressEvent(QKeyEvent *event)
 {
-  if(event->key() == Qt::Key_Enter-1)
+  if(event->key() == Qt::Key_Enter-1 || event->key() == Qt::Key_Enter)
     game_controller->start_move();
 }
 
