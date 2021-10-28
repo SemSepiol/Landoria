@@ -4,6 +4,18 @@ BottomMenu::BottomMenu(IMenuInWindowGraphicsController* _graphic_controller)
   : AMenuInWindow(_graphic_controller)
 {}
 
+void BottomMenu::update_infofm(Cell* _cell)
+{
+  cell = _cell;
+  update();
+}
+
+void BottomMenu::del_inform()
+{
+  cell = nullptr;
+  update();
+}
+
 void BottomMenu::mouseMoveEvent(QMouseEvent *event)
 {
   if(event->pos().y() > height_menu - 5)
@@ -12,6 +24,7 @@ void BottomMenu::mouseMoveEvent(QMouseEvent *event)
 
 void BottomMenu::draw()
 {
+  draw_text();
   QPainter qp(this);
 
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_minimap();
@@ -28,14 +41,50 @@ void BottomMenu::draw()
   qp.drawLine(p1, p2);
 }
 
-
-
 void BottomMenu::click(QPoint pos)
 {
   if (point_in_rect(show_minimap_butt(), pos))
     graphics_controller->show_minimap();
   if (point_in_rect(next_move_butt(), pos))
     graphics_controller->next_move();
+}
+
+void BottomMenu::draw_text()
+{
+  if(!cell)
+    return;
+  ControlContents cc{cell};
+  std::stringstream ss;
+  FactoryString Fstr = FactoryString();
+
+  ss << "Ландшавт: " << Fstr.landscape_string(cc.get_main_landscape());
+  OtherLandscapes otherland = cc.get_other_landscape();
+  if(otherland != OtherLandscapes::Nothing)
+    ss << ", " << Fstr.landscape_string(otherland);
+
+  if(cc.get_country() != Countries::Nothing)
+    ss << " | Страна: " << Fstr.country_string(cc.get_country());
+
+  if(cc.has_resource())
+    ss << " | Ресурс: " << Fstr.resource_string(cc.get_resource()) << " " << cc.get_count_of_res();
+
+  if(cc.has_building())
+    ss << " | Строение: " << Fstr.build_string(cc.get_building()->what_building_I());
+
+  auto units = cc.get_units();
+  if(units.size())
+  {
+    ss << " | Юниты: " << Fstr.unit_string(units[0]);
+    for(size_t i{1}; i < units.size(); ++i)
+      ss << ", " << Fstr.unit_string(units[i]);
+    ss << " - Страна " << Fstr.country_string(cc.get_country_units());
+  }
+
+  QPainter qp(this);
+  QPen pen{Qt::white, 2, Qt::SolidLine};
+  qp.setPen(pen);
+  QRect rect{0, 0, show_minimap_butt().topLeft().x(), height()};
+  qp.drawText(rect, Qt::AlignVCenter, QString::fromStdString(ss.str()));
 }
 
 QRect BottomMenu::show_minimap_butt() const

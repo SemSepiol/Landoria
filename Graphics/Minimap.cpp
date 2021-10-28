@@ -86,7 +86,7 @@ QColor Minimap::color(Cell* cell)
   if(controlcontents.get_show_cell() == ICell::FogOfWar)
     return QColor(Qt::black);
 
-  switch (controlcontents.get_landscape())
+  switch (controlcontents.get_main_landscape())
   {
   case MainLandscapes::Ocean:
     return QColor(Qt::darkBlue);

@@ -6,7 +6,7 @@ UnitInformation::UnitInformation(QWidget* win, class Unit* _unit)
 
 void UnitInformation::set_geometry(QPoint pos, int height)
 {
-  QWidget::setGeometry(pos.x(), pos.y(), height*2, height);
+  QWidget::setGeometry(pos.x(), pos.y(), height*3, height);
   this->hide();
   this->show();
 }
@@ -30,13 +30,13 @@ void UnitInformation::draw()
   qp.drawPixmap(QRect{0, 0, height(), height()}, pixmap_unit, source);
 
 
-  QRect rect_movement{QPoint{width()/2 + width()/10, height()/4}, QPoint{width() - width()/10, height()/2}};
+  QRect rect_movement{QPoint{width()/3 + width()/10, 0}, QPoint{width() - width()/10, height()/2}};
   std::stringstream ss1;
   ss1 << "Movement: " << unit->get_movement() << "/" << unit->get_max_movement();
-  qp.drawText(rect_movement, QString::fromStdString(ss1.str()));
+  qp.drawText(rect_movement, Qt::AlignVCenter, QString::fromStdString(ss1.str()));
 
-  QRect rect_health{QPoint{width()/2 + width()/10, height()*3/4}, QPoint{width() - width()/10, height()}};
+  QRect rect_health{QPoint{width()/3 + width()/10, height()/2}, QPoint{width() - width()/10, height()}};
   std::stringstream ss2;
   ss2 << "Health: " << unit->get_health() << "/" << unit->get_max_health();
-  qp.drawText(rect_health, QString::fromStdString(ss2.str()));
+  qp.drawText(rect_health, Qt::AlignVCenter, QString::fromStdString(ss2.str()));
 }

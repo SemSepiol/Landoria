@@ -83,7 +83,7 @@ void WidgetTownBuilding::draw()
   QRectF rect = QRect{QPoint{0,0}, QPoint{height(), height()}};
   qp.drawPixmap(rect, pixmap, source);
 
-  QString name_build = FactoryString().building_in_town_string(type_building);
+  QString name_build = QString::fromStdString(FactoryString().building_in_town_string(type_building));
   QRectF rect2{QPoint{height(), 0}, QPoint{width(), height()/2}};
   qp.drawText(rect2, Qt::AlignLeft | Qt::AlignVCenter, name_build);
 
@@ -109,9 +109,9 @@ QString WidgetTownBuilding::text()
 {
   auto res = TownBuildNeeds().get_build_need_res(type_building);
   std::stringstream ss;
-  ss << FactoryString().building_in_town_string(type_building).toStdString() << "\n";
+  ss << FactoryString().building_in_town_string(type_building) << "\n";
   for(size_t i{0}; i < res.size(); ++i)
-    ss << FactoryString().resource_string(res[i].first).toStdString()
+    ss << FactoryString().resource_string(res[i].first)
        << ": " << res[i].second << "\n";
   return QString::fromStdString(ss.str());
 }

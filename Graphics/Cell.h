@@ -84,12 +84,15 @@ public:
   void del_building();
   IContent* pop_content(IContent* content);
 
-  MainLandscapes get_landscape() const;
+  MainLandscapes get_main_landscape() const;
+  OtherLandscapes get_other_landscape() const;
   Resources get_resource() const;
   Building* get_building() const;
   std::vector<Units> get_units() const;
+  Countries get_country_units() const;
 
-  bool has_landscape() const;
+  bool has_main_landscape() const;
+  bool has_other_landscape() const;
   bool has_resource() const;
   bool has_building() const;
   int count_units() const;

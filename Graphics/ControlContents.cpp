@@ -79,11 +79,16 @@ IContent* ControlContents::pop_content(IContent* content)
   throw std::runtime_error("pop_content: hasn't this constent");
 }
 
-MainLandscapes ControlContents::get_landscape() const
+MainLandscapes ControlContents::get_main_landscape() const
 {
   if(!cell->is_there_main_landscape)
     throw std::runtime_error("landscape is not set");
   return cell->mainlandscape;
+}
+
+OtherLandscapes ControlContents::get_other_landscape() const
+{
+  return cell->otherlandscape;
 }
 
 Resources ControlContents::get_resource() const
@@ -111,7 +116,15 @@ std::vector<Units> ControlContents::get_units() const
   return types_units;
 }
 
-bool ControlContents::has_landscape() const
+Countries ControlContents::get_country_units() const
+{
+  std::vector<class Unit*> units = _get_units();
+  if(!units.size())
+    throw std::runtime_error("Hasn't got units");
+  return units[0]->get_country();
+}
+
+bool ControlContents::has_main_landscape() const
 {
   return cell->is_there_main_landscape;
 }

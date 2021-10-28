@@ -10,7 +10,7 @@
 
 class FactoryString : IObject
 {
-  std::map<Resources, QString> res_str{
+  std::map<Resources, std::string> res_str{
     {Resources::Iron, "Железо"},
     {Resources::Gold, "Золото"},
     {Resources::Stone, "Камень"},
@@ -23,7 +23,7 @@ class FactoryString : IObject
     {Resources::Silver, "Серебро"},
   };
 
-  std::map<TownBuildings, QString> building_in_town_str{
+  std::map<TownBuildings, std::string> building_in_town_str{
     {TownBuildings::Aqueduct, "Акведук"},
     {TownBuildings::Market, "Рынок"},
     {TownBuildings::PublicSchool, "Школа"},
@@ -46,11 +46,39 @@ class FactoryString : IObject
     {TownBuildings::Museum, "Музей"}
   };
 
+  std::map<MainLandscapes, std::string> main_landscape_str{
+    {MainLandscapes::Ocean, "Океан"},
+    {MainLandscapes::Coast, "Побережье"},
+    {MainLandscapes::Plain, "Равнина"},
+    {MainLandscapes::Mountain, "Горы"},
+    {MainLandscapes::Tundra, "Тундра"},
+    {MainLandscapes::Desert, "Пустыня"},
+    {MainLandscapes::Snow, "Снег"},
+    {MainLandscapes::Ice, "Лед"}
+  };
+
+  std::map<OtherLandscapes, std::string> other_landscape_str{
+    {OtherLandscapes::Nothing, ""},
+    {OtherLandscapes::Forest, "Лес"},
+    {OtherLandscapes::Jungles, "Джунгли"},
+    {OtherLandscapes::Hills, "Холмы"},
+    {OtherLandscapes::ForestAndHills, "Холмы, Лес"},
+    {OtherLandscapes::JunglesAndHills, "Холмы, Джунгли"}
+  };
+
+  std::map<Countries, std::string> country_str{
+    {Countries::Nothing, ""},
+    {Countries::Russia, "Россия"}
+  };
+
 public:
-  QString unit_string(Units type_unit) const;
-  QString build_string(Buildings type_building) const;
-  QString building_in_town_string(TownBuildings type_building) const;
-  QString resource_string(Resources type_res);
+  std::string unit_string(Units type_unit) const;
+  std::string build_string(Buildings type_building) const;
+  std::string building_in_town_string(TownBuildings type_building) const;
+  std::string resource_string(Resources type_res);
+  std::string landscape_string(MainLandscapes landscape);
+  std::string landscape_string(OtherLandscapes landscape);
+  std::string country_string(Countries country);
 };
 
 #endif // FACTORYSTRING_H

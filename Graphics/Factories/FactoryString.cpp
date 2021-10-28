@@ -1,57 +1,72 @@
 #include "FactoryString.h"
 
-QString FactoryString::unit_string(Units type_unit) const
+std::string FactoryString::unit_string(Units type_unit) const
 {
   switch (type_unit)
   {
   case Units::Worker:
-    return QString("Рабочии");
+    return "Рабочии";
   case Units::Citizen:
-    return QString("Поселенецы");
+    return "Поселенецы";
   case Units::Bowman:
-    return QString("Лучники");
+    return "Лучники";
   case Units::Swordsman:
-    return QString("Мечники");
+    return "Мечники";
   default:
     throw std::runtime_error("unit_string(): Haven't strind for this unit");
   }
 }
 
-QString FactoryString::build_string(Buildings type_building) const
+std::string FactoryString::build_string(Buildings type_building) const
 {
   switch (type_building)
   {
   case Buildings::Farm:
-    return QString("Ферма");
+    return "Ферма";
   case Buildings::Town:
-    return QString("Город");
+    return "Город";
   case Buildings::FishingBoat:
-    return QString("Рыбацкая лодка");
+    return "Рыбацкая лодка";
   case Buildings::Fort:
-    return QString("Форт");
+    return "Форт";
   case Buildings::LumberMill:
-    return QString("Лесопилка");
+    return "Лесопилка";
   case Buildings::Mine:
-    return QString("Рудник");
+    return "Рудник";
   case Buildings::OilWell:
-    return QString("Нефтяная скважина");
+    return "Нефтяная скважина";
   case Buildings::Pasture:
-    return QString("Пастбище");
+    return "Пастбище";
   case Buildings::Quarry:
-    return QString("Карьер");
+    return "Карьер";
   case Buildings::TradingPost:
-    return QString("Торговый пост");
+    return "Торговый пост";
   default:
     throw std::runtime_error("build_string(): Haven't strind for this building");
   }
 }
 
-QString FactoryString::building_in_town_string(TownBuildings type_building) const
+std::string FactoryString::building_in_town_string(TownBuildings type_building) const
 {
   return building_in_town_str.at(type_building);
 }
 
-QString FactoryString::resource_string(Resources type_res)
+std::string FactoryString::resource_string(Resources type_res)
 {
   return res_str.at(type_res);
+}
+
+std::string FactoryString::landscape_string(MainLandscapes landscape)
+{
+  return main_landscape_str.at(landscape);
+}
+
+std::string FactoryString::landscape_string(OtherLandscapes landscape)
+{
+  return other_landscape_str.at(landscape);
+}
+
+std::string FactoryString::country_string(Countries country)
+{
+  return country_str.at(country);
 }

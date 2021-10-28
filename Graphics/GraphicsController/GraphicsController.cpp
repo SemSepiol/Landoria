@@ -68,14 +68,17 @@ void GraphicsController::stop_check_move_unit(QPoint mouse_pos)
 
 void GraphicsController::move_mouse(QPoint new_pos)
 {
+  if(!enabled_map)
+    return;
+
+  auto pair = _map->click(new_pos - _map_center);
+  Cell* cell = pair.first;
+  if(!cell)
+    return;
+  bottom_menu->update_infofm(cell);
+
   if(is_moving_unit)
   {
-    auto pair = _map->click(new_pos - _map_center);
-    Cell* cell = pair.first;
-    if(!cell)
-    {
-      return;
-    }
     Position end_way = _map->indexes_by_cell(pair.first);
     if(drawway)
       drawway->set_end_way(end_way);
@@ -117,10 +120,8 @@ void GraphicsController::click(QPoint pos)
 void GraphicsController::draw_elements()
 {
   AGraphicsController::draw_elements();
-  if(drawway.get()){
-//    std::cout << "draw way" << std::endl;
+  if(drawway.get())
     drawway->draw();
-  }
 }
 
 void GraphicsController::move_map(QPoint move_point)

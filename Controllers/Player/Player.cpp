@@ -32,7 +32,7 @@ void Player::click_town(class Town* town)
 
 void Player::set_initial_units(Position initial_cell)
 {
-    add_unit(Units::Worker, initial_cell);
+  //  add_unit(Units::Worker, initial_cell);
   //  add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
   //  build_town(&my_units[0]);
@@ -312,6 +312,7 @@ void Player::build_town(PlayerUnit* my_unit)
   for(auto cell_pos : adjacent)
     if(map->get_cell_country(cell_pos) == Countries::Nothing)
       map->set_cell_country(cell_pos, country);
+  add_unit(Units::Worker, pos);
   game_controller->graphics_controller()->update_res_inform(this);
 }
 
