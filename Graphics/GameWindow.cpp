@@ -7,6 +7,7 @@ GameWindow::GameWindow(IWindowGraphicsController* game)
   //  setWindowState(windowState() ^ Qt::WindowFullScreen);
   setStyleSheet("background-color:black;");
   QWidget::setMouseTracking(true);
+  setFocusPolicy(Qt::TabFocus);
 }
 
 void GameWindow::show()
@@ -77,7 +78,6 @@ void GameWindow::wheelEvent(QWheelEvent* event)
 void GameWindow::do_inform_widget(QString text)
 {
   std::string str = text.toStdString();
-  int count_str =  std::count(str.begin(), str.end(), '\n') + 1;
   QPoint globalCursorPos = QCursor::pos();
 //  inform_widget->move(globalCursorPos - QPoint{width()/20, 0} - inform_widget->pos());
 //  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, count_str*height()/70});
@@ -86,6 +86,12 @@ void GameWindow::do_inform_widget(QString text)
   inform_widget->show();
 //  inform_widget->update();
   inform_widget->raise();
+}
+
+void GameWindow::keyPressEvent(QKeyEvent *event)
+{
+  if(event->key() == Qt::Key_Enter-1 || event->key() == Qt::Key_Enter)
+    graphics_controller->press_enter();
 }
 
 void GameWindow::del_inform_widget()

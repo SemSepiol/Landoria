@@ -13,9 +13,10 @@ void WorkerMenu::set_buttons()
   AMenuForUnit::set_buttons();
   num_butt_build = buttons.size();
   buttons.push_back(new BuildEvent{Buildings::Farm});
+  set_is_enable(buttons[num_butt_build]);
   buttons.push_back(new MoveEvent{{0,0}});
   buttons.push_back(new SlipEvent{});
-  set_is_enable();
+  set_is_enable(buttons[num_butt_build+2]);
 }
 
 void WorkerMenu::draw_butt(size_t num_butt)
@@ -68,17 +69,31 @@ void WorkerMenu::click_butt(size_t num_butt)
   has_menu = true;
 }
 
-void WorkerMenu::set_is_enable()
+void WorkerMenu::set_is_enable(MyButton& my_butt)
 {
-  ControlContents controlcontents(cell);
-  if(controlcontents.has_building())
+  if(my_butt.event->event == Events::Build)
   {
-    Building* building = controlcontents.get_building();
-    if(building->is_built())
-      buttons[num_butt_build].is_enable = false;
+    ControlContents controlcontents(cell);
+    if(controlcontents.has_building())
+    {
+      Building* building = controlcontents.get_building();
+      if(building->is_built())
+        my_butt.is_enable = false;
+    }
+    if(controlcontents.get_country() != unit->unit->get_country())
+      my_butt.is_enable = false;
   }
-  if(controlcontents.get_country() != unit->unit->get_country())
-    buttons[num_butt_build].is_enable = false;
+
+  if(my_butt.event->event == Events::Slip)
+  {
+    ControlContents controlcontents(cell);
+    int count = 0;
+    for(auto type_unit : controlcontents.get_units())
+      if(type_unit == Units::Worker || type_unit == Units::Citizen)
+        count++;
+    if(count > 1)
+      my_butt.is_enable = false;
+  }
 }
 
 MenuBuild::MenuBuild(QWidget* _win, IUnitMenuGraphicsController* _graphics_controller,

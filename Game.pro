@@ -53,6 +53,8 @@ HEADERS += \
     Graphics/GraphicsController/EventsStructures.h \
     Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IGraphicsController.h \
+    Graphics/GraphicsController/IGraphicsControllerFor.h \
+    Graphics/GraphicsController/IPlayerGraphicsController.h \
     Graphics/GraphicsController/PlayerGraphicsController.h \
     Graphics/ICell.h \
     Graphics/IContent.h \
@@ -126,6 +128,7 @@ SOURCES += \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
+    Graphics/GraphicsController/PlayerGraphicsController.cpp \
     Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \

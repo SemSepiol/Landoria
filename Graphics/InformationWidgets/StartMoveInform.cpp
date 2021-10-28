@@ -3,9 +3,7 @@
 
 StartMoveInform::StartMoveInform(IGameForWidget* game, QString _string, QPoint _point)
   :QWidget{game->window()}, game_controller{game}, string{_string}, point{_point}
-{
-  setFocusPolicy(Qt::TabFocus);
-}
+{}
 
 void StartMoveInform::set_geometry(QPoint pos, Size size)
 {
@@ -14,6 +12,7 @@ void StartMoveInform::set_geometry(QPoint pos, Size size)
 
 void StartMoveInform::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
 }
 
@@ -28,12 +27,6 @@ void StartMoveInform::mouseReleaseEvent(QMouseEvent *event)
   if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
   if(point_in_rect(rect_butt(), event->pos()))
-    game_controller->start_move();
-}
-
-void StartMoveInform::keyPressEvent(QKeyEvent *event)
-{
-  if(event->key() == Qt::Key_Enter-1 || event->key() == Qt::Key_Enter)
     game_controller->start_move();
 }
 

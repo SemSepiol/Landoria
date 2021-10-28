@@ -1,110 +1,66 @@
 #ifndef IGRAPHICSCONTROLLER_H
 #define IGRAPHICSCONTROLLER_H
 
-#include <QWidget>
-#include <QPoint>
-#include <QSize>
-
-#include "../../IObject.h"
-#include "Calculations.h"
-#include "../../Controllers/Enums.h"
-#include "../Units/Unit.h"
-#include "../../Controllers/Player/PlayerTown.h"
-#include "../../Controllers/Player/PlayerMap.h"
-#include "../../Controllers/Player/PlayerUnit.h"
-#include "../IMap.h"
+#include "../Map.h"
+#include "../Minimap.h"
+#include "../GameWindow.h"
+#include "../DrawWay.h"
+#include "../MenuTown/MenuTown.h"
+#include "../InformationWidgets/UnitInformation.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../InformationWidgets/StartMoveInform.h"
+#include "../Menus/AMenuForUnit.h"
+#include "../Menus/UpperMenu.h"
+#include "../Menus/BottomMenu.h"
 
-
-class IWindowGraphicsController : public IObject
+class IGraphicsController : public IObject
 {
 public:
-  virtual Size size_win() const = 0;
+  virtual Size& get_size_win() = 0;
+  virtual Size& get_size_uppermenu() = 0;
+  virtual Size& get_size_bottommenu() = 0;
+  virtual Size& get_size_win_map() = 0;
+  virtual Size& get_size_map() = 0;
+  virtual Position& get_num_cell() = 0;
+  virtual QPoint& get_map_center() = 0;
+  virtual QPoint& get_win_map_center() = 0;
+  virtual bool& get_enabled_map() = 0;
 
-  virtual void draw_elements() = 0;
+  virtual IGameForGraphic* get_game_controller() = 0;
+
+  virtual GameWindow* get_game_window() = 0;
+  virtual UpperMenu* get_upper_menu() = 0;
+  virtual BottomMenu* get_bottom_menu() = 0;
+  virtual Map* get_map() = 0;
+  virtual Calculations* get_calc() = 0;
+
+  virtual bool& get_is_tracking_unit() = 0;
+  virtual bool& get_is_moving_unit() = 0;
+  virtual class Unit*& get_tracking_unit() = 0;
+  virtual Position& get_pos_tracking_unit() = 0;
+
+  virtual int& get_side_square_unit_menu() = 0;
+  virtual int& get_hexagon_side_minimap() = 0;
+
+  virtual DrawWay* get_drawway() = 0;
+
+  virtual AMenuForUnit* get_unit_menu() = 0;
+  virtual void set_unit_menu(AMenuForUnit*) = 0;
+
+  virtual UnitInformation* get_unit_information() = 0;
+  virtual void set_unit_information(UnitInformation*) = 0;
+
+  virtual MenuTown* get_town_menu() = 0;
+  virtual void set_town_menu(MenuTown*) = 0;
+
+  virtual Minimap* get_minimap() = 0;
+  virtual StartMoveInform* get_start_move_inform() = 0;
+
+  virtual IUnitMenuGraphicsController* get_iunit_menu_gc() = 0;
+  virtual ITownMenuGraphicsController* get_itown_menu_gc() = 0;
+  virtual IPlayerGraphicsController* get_iplayer_gc() = 0;
+
   virtual void move_map(QPoint move_point) = 0;
-  virtual void resize_map(double coefficient, QPoint pos_mouse) = 0;
-  virtual void click(QPoint pos) = 0;
-  virtual void start_check_move_unit() = 0;
-  virtual void stop_check_move_unit(QPoint mouse_pos) = 0;
-  virtual void move_mouse(QPoint new_pos) = 0;
-
-  virtual int map_upper_edge() const = 0;
-  virtual int map_bottom_edge() const = 0;
-};
-
-class IMapGraphicsController : public IObject
-{
-public:
-  virtual QWidget* window() const = 0;
-  virtual Calculations* calculations() const = 0;
-
-  virtual size_t count_cell_x() const = 0;
-  virtual size_t count_cell_y() const = 0;
-
-  virtual Size size_map() const = 0;
-  virtual Size size_win_map() const  = 0;
-  virtual QPoint win_map_center() const = 0;
-  virtual QPoint map_center() const = 0;
-};
-
-class IMenuInWindowGraphicsController : public IObject
-{
-public:
-  virtual QWidget* window() const = 0;
-  virtual void move_map(QPoint move_point) = 0;
-  virtual void exit() = 0;
-  virtual void show_minimap() = 0;
-  virtual void next_move() = 0;
-
-  virtual void do_inform_widget(QString text) = 0;
-  virtual void del_inform_widget() = 0;
-};
-
-class IPlayerGraphicsController : public IObject
-{
-public:
-  virtual class Unit* add_unit(Units unit, Position pos_cell) = 0;
-
-  virtual void move_unit(class Unit* unit, Position old_position, Position new_position) = 0;
-  virtual class Building* build(Buildings building, Position pos_cell) = 0;
-  virtual void del_build(Position pos_cell) = 0;
-  virtual void del_unit(class Unit* unit, Position pos_cell) = 0;
-
-  virtual void do_menu_unit(PlayerUnit* unit) = 0;
-  virtual void do_menu_town(IMenuTownPlayer* player, PlayerTown* town) = 0;
-  virtual void centering_by_cell(Position pos_cell) = 0;
-  virtual void highlight_unit(class Unit* unit, Position pos) = 0;
-  virtual void draw_playermap(PlayerMap* playermap) = 0;
-  virtual IMapForFind* mapforfind() const = 0;
-};
-
-class IMiniMapGraphicsController : public IObject
-{
-public:
-  virtual size_t count_cell_x() const = 0;
-  virtual size_t count_cell_y() const = 0;
-
-  /*
-   *  coeffx = new_map_center.x / width_map
-   * coeffy = new_map_center.y / height_map
-  */
-  virtual void move_map(double coeffx, double coeffy) = 0;
-};
-
-class IUnitMenuGraphicsController : public IObject
-{
-public:
-  virtual void menu_unit_event(class Unit* unit, Event* event) = 0;
-};
-
-class ITownMenuGraphicsController : public IObject
-{
-public:
-  virtual QWidget* window() const = 0;
-  virtual void delete_townmenu() = 0;
-  virtual void do_inform_widget(QString text) = 0;
-  virtual void del_inform_widget() = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

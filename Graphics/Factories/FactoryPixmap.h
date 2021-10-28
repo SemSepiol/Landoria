@@ -28,11 +28,16 @@ public:
   QPixmap create_pixmap_for_butt_build() const;
   QPixmap create_pixmap_for_town_building(TownBuildings type_building) const;
   QPixmap create_pixmap_for_fog_of_war() const;
+  QPixmap create_pixmap_for_gold() const;
+  QPixmap create_pixmap_for_science() const;
 
 
   QRectF size_picture_content() const;
   QRectF size_picture_unit() const;
   QRectF size_picture_landscape() const;
+
+  /// для золота и науки
+  QRectF size_picture_gold() const;
 private:
   const QString image_path {":/Graphics/image/"};
   const QString resources_dir {"resources/"};

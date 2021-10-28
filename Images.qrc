@@ -81,5 +81,7 @@
         <file>Graphics/image/menu/ArrowDown.png</file>
         <file>Graphics/image/menu/ArrowUp.png</file>
         <file>Graphics/image/landscapes/FogOfWar.png</file>
+        <file>Graphics/image/menu/Gold.png</file>
+        <file>Graphics/image/menu/Science.png</file>
     </qresource>
 </RCC>

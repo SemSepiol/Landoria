@@ -1,7 +1,7 @@
 #ifndef BOTTOMMENU_H
 #define BOTTOMMENU_H
 
-#include "../GraphicsController/IGraphicsController.h"
+#include "../GraphicsController/IGraphicsControllerFor.h"
 #include "AMenuInWindow.h"
 
 class BottomMenu : public AMenuInWindow

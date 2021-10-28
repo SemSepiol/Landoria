@@ -23,6 +23,7 @@ void Game::start()
 {
   _graphics_controller->start();
   _current_player->draw_my_map();
+  _graphics_controller->get_iplayer_gc()->update_res_inform(_current_player);
   do_start_inform();
 }
 
@@ -75,7 +76,7 @@ IGameForWidget* Game::igame_for_widget()
 
 IPlayerGraphicsController* Game::graphics_controller() const
 {
-  return _graphics_controller.get();
+  return _graphics_controller->get_iplayer_gc();
 }
 
 void Game::start_move()

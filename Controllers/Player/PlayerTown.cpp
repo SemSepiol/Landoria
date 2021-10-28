@@ -17,7 +17,10 @@ int BuildInTown::build(int town_production)
 
 PlayerTown::PlayerTown(class Town* town, ITownPlayer* _player, Position pos)
   :_town{town}, player{_player}, _pos{pos}
-{}
+{
+  gold_per_turn = 1;
+  science_per_turn = 1;
+}
 
 Position PlayerTown::position_town() const
 {
@@ -56,6 +59,16 @@ void PlayerTown::new_move()
   build_in_this_move = false;
 }
 
+int PlayerTown::get_gold_per_turn() const
+{
+  return gold_per_turn;
+}
+
+int PlayerTown::get_science_per_turn() const
+{
+  return science_per_turn;
+}
+
 size_t PlayerTown::count_town_buildings() const
 {
   return build_in_town.size();
@@ -82,14 +95,6 @@ std::vector<TownBuildings> PlayerTown::get_queue_buildings() const
 
 void PlayerTown::add_queue_build(Units type_unit)
 {
-  for(size_t i{0}; i < build_in_town.size(); ++i)
-    if(build_in_town[i]->type_build == BuildInTown::Unit)
-      if(build_in_town[i]->unit == type_unit)
-      {
-        build_queue.push_back(build_in_town[i].get());
-        return;
-      }
-
   build_in_town.push_back(std::unique_ptr<BuildInTown>{new BuildInTown(type_unit)});
   build_queue.push_back(build_in_town[build_in_town.size() - 1].get());
 }

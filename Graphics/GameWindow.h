@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QResizeEvent>
 #include <QPalette>
-#include "GraphicsController/IGraphicsController.h"
+#include "GraphicsController/IGraphicsControllerFor.h"
 #include "MenuTown/InformWidget.h"
 
 class GameWindow : public QWidget
@@ -24,6 +24,7 @@ public:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
+  virtual void keyPressEvent(QKeyEvent *event) override;
 
   void do_inform_widget(QString text);
   void del_inform_widget();

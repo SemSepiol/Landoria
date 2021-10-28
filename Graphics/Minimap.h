@@ -6,7 +6,7 @@
 
 #include "Map.h"
 #include "Cell.h"
-#include "./GraphicsController/IGraphicsController.h"
+#include "./GraphicsController/IGraphicsControllerFor.h"
 #include "GraphicsController/Calculations.h"
 #include "../Controllers/Enums.h"
 

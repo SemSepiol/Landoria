@@ -18,7 +18,6 @@ private:
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
-  virtual void keyPressEvent(QKeyEvent *event) override;
 
   void draw();
   QRect rect_butt() const;

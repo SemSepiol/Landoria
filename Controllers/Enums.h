@@ -45,15 +45,15 @@ enum class OtherLandscapes
 
 enum class Resources
 {
-  Iron,
-  Gold,
-  Stone,
-  Aluminum,
   Horses,
+  Iron,
+  Stone,
+  Coal,
+  Aluminum,
   Oil,
   Uranium,
-  Coal,
   Fish,
+  Gold,
   Silver
 };
 

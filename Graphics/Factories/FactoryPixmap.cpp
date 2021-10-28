@@ -263,6 +263,15 @@ QPixmap FactoryPixmap::create_pixmap_for_fog_of_war() const
   return QPixmap{image_path + landscapes_dir + "FogOfWar.png/"};
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_gold() const
+{
+  return QPixmap{image_path + menu_dir + "Gold.png/"};
+}
+
+QPixmap FactoryPixmap::create_pixmap_for_science() const
+{
+  return QPixmap{image_path + menu_dir + "Science.png/"};
+}
 
 QRectF FactoryPixmap::size_picture_content() const
 {
@@ -277,5 +286,10 @@ QRectF FactoryPixmap::size_picture_unit() const
 QRectF FactoryPixmap::size_picture_landscape() const
 {
   return {0., 0., 500., 500.};
+}
+
+QRectF FactoryPixmap::size_picture_gold() const
+{
+  return {0., 0., 20., 20.};
 }
 

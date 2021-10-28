@@ -166,12 +166,19 @@ void ControlContents::set_highlight_unit(IContent* unit, bool highlight)
 
 void ControlContents::set_count_of_res(int count)
 {
-  _get_resource()->set_count_of_res(count);
+  Res* res = _get_resource();
+  if(res)
+    res->set_count_of_res(count);
+  else
+    throw std::runtime_error("set_count_of_res(): hasn't resource in this cell");
 }
 
 int ControlContents::get_count_of_res() const
 {
-  return _get_resource()->get_count_of_res();
+  Res* res = _get_resource();
+  if(res)
+    return res->get_count_of_res();
+  return 0;
 }
 
 void ControlContents::set_country(Countries country)

@@ -49,6 +49,9 @@ public:
   void move_build();
   void new_move();
 
+  int get_gold_per_turn() const;
+  int get_science_per_turn() const;
+
   size_t count_town_buildings() const;
   std::vector<TownBuildings> get_building_already_build() const;
   std::vector<TownBuildings> get_queue_buildings() const;
@@ -78,6 +81,9 @@ private:
   int production = 10;
   int remains_production = 0;
   bool build_in_this_move = false;
+
+  int gold_per_turn;
+  int science_per_turn;
 
   std::vector<std::unique_ptr<BuildInTown>> build_in_town;
   std::vector<BuildInTown*> build_queue;

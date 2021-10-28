@@ -38,7 +38,7 @@ QPoint AGraphicsController::map_center_in_win_map()
 void AGraphicsController::create_uppermenu()
 {
   _size_uppermenu = {_size_win.width, _size_win.height/30};
-  upper_menu->set_geometry({0,0}, _size_uppermenu);
+  upper_menu->set_geometry(_uppermenu_top_left, _size_uppermenu);
 }
 
 void AGraphicsController::create_bottommenu()
@@ -165,6 +165,81 @@ void AGraphicsController::exit()
 {
   game_window->hide();
   game_controller->exit();
+}
+
+Size& AGraphicsController::get_size_win()
+{
+  return _size_win;
+}
+
+Size& AGraphicsController::get_size_uppermenu()
+{
+  return _size_uppermenu;
+}
+
+Size& AGraphicsController::get_size_bottommenu()
+{
+  return _size_bottommenu;
+}
+
+Size& AGraphicsController::get_size_win_map()
+{
+  return _size_win_map;
+}
+
+Size& AGraphicsController::get_size_map()
+{
+  return _size_map;
+}
+
+Position& AGraphicsController::get_num_cell()
+{
+  return num_cell;
+}
+
+QPoint& AGraphicsController::get_map_center()
+{
+  return _map_center;
+}
+
+QPoint& AGraphicsController::get_win_map_center()
+{
+  return _win_map_center;
+}
+
+bool& AGraphicsController::get_enabled_map()
+{
+  return enabled_map;
+}
+
+IGameForGraphic* AGraphicsController::get_game_controller()
+{
+  return game_controller;
+}
+
+GameWindow* AGraphicsController::get_game_window()
+{
+  return game_window.get();
+}
+
+UpperMenu* AGraphicsController::get_upper_menu()
+{
+  return upper_menu.get();
+}
+
+BottomMenu* AGraphicsController::get_bottom_menu()
+{
+  return bottom_menu.get();
+}
+
+Map* AGraphicsController::get_map()
+{
+  return _map.get();
+}
+
+Calculations* AGraphicsController::get_calc()
+{
+  return calc.get();
 }
 
 void AGraphicsController::control_pos_map()

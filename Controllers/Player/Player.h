@@ -39,6 +39,11 @@ public:
 
     virtual PlayerScience* player_science() const override;
     virtual void add_unit(Units type_unit, Position pos_cell) override;
+
+    virtual int get_gold_per_turn() const override;
+    virtual int get_science_per_turn() const override;
+    virtual PlayerRes* get_player_res() const override;
+
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     size_t get_ind_my_unit(PlayerUnit* unit);
@@ -68,8 +73,6 @@ private:
 
     IGameForPlayer* game_controller;
     Countries country;
-
-    int gold_per_turn = 1000;
 
     std::vector<std::unique_ptr<PlayerUnit>> my_units;
     std::vector<std::unique_ptr<PlayerTown>> my_towns;

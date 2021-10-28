@@ -5,7 +5,8 @@
 
 
 GraphicsController::GraphicsController(IGameForGraphic* _game_controller)
-  : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), _map.get(), this}}
+  : AGraphicsController{_game_controller}, minimap{new Minimap{game_window.get(), _map.get(), this}},
+    player_gc{new PlayerGraphicsController(this)}
 {}
 
 void GraphicsController::do_start_inform(QString string)
@@ -26,6 +27,12 @@ void GraphicsController::del_start_inform()
   enabled_map = true;
 }
 
+void GraphicsController::press_enter()
+{
+  if(start_move_inform)
+    game_controller->start_move();
+}
+
 void GraphicsController::create_elements()
 {
   AGraphicsController::create_elements();
@@ -33,99 +40,11 @@ void GraphicsController::create_elements()
   create_minimap();
 }
 
-void GraphicsController::do_menu_unit(PlayerUnit* unit)
-{
-  is_tracking_unit = true;
-  tracking_unit = unit->unit;
-  pos_tracking_unit = unit->pos;
-
-  Cell* cell = _map->cell_by_indexes(unit->pos);
-  unit_menu.reset(FactoryMenusUnit().create_menu(game_window.get(), this, unit, cell));
-  unit_menu->set_geometry(
-        {0, _size_win.height - side_square_unit_menu * (unit_menu->count_button()+1) - _size_bottommenu.height},
-        side_square_unit_menu);
-
-  unit_menu->hide();
-  unit_menu->show();
-
-  unit_information.reset(new UnitInformation(game_window.get(), unit->unit));
-  unit_information->set_geometry({0, _size_win.height - _size_bottommenu.height - side_square_unit_menu},
-                                 side_square_unit_menu);
-  unit_information->hide();
-  unit_information->show();
-}
-
-void GraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown* town)
-{
-  town_menu.reset(new MenuTown{player, this, town});
-  town_menu->set_geometry({0, _size_uppermenu.height},
-                          {_size_win.width, _size_win.height-_size_uppermenu.height});
-  town_menu->start();
-  upper_menu->set_enable_move_map(false);
-
-  bottom_menu->hide();
-  minimap->hide();
-  enabled_map = false;
-}
-
-void GraphicsController::centering_by_cell(Position pos_cell)
-{
-  QPoint point = _map->point_of_cell_in_win(pos_cell);
-  move_map(_win_map_center - point);
-}
-
-void GraphicsController::highlight_unit(class Unit* unit, Position pos_cell)
-{
-
-  ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
-  controlcontents.set_highlight_unit(unit, true);
-}
-
-void GraphicsController::draw_playermap(PlayerMap* playermap)
-{
-  for(size_t i{0}; i < num_cell.x; ++i)
-    for(size_t j{0}; j < num_cell.y; ++j)
-    {
-      ControlContents controcontents{_map->cell_by_indexes({i,j})};
-      controcontents.set_show_cell(playermap->get_show_cell({i,j}));
-    }
-}
-
-Map* GraphicsController::mapforfind() const
-{
-  return _map.get();
-}
 
 void GraphicsController::no_highlight_unit(class Unit* unit, Position pos_cell)
 {
   ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
   controlcontents.set_highlight_unit(unit, false);
-}
-
-void GraphicsController::move_unit(class Unit* unit, Position old_position, Position new_position)
-{
-  ControlContents controlcontents_old{_map->cell_by_indexes({old_position})};
-  ControlContents controlcontents_new{_map->cell_by_indexes({new_position})};
-
-  controlcontents_old.pop_content(unit);
-  controlcontents_new.add_unit(unit);
-  game_window->update();
-}
-
-class Building* GraphicsController::build(Buildings type_building, Position pos_cell)
-{
-  ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
-  if(controlcontents.has_building())
-  {
-    if(type_building == Buildings::Town && controlcontents.get_building()->what_building_I() != Buildings::Town)
-      controlcontents.del_building();
-    else
-      throw std::runtime_error("build: There is already a building in this cell");
-  }
-  IContent* content = controlcontents.add_building(type_building);
-  class Building* building = static_cast<class Building*>(content);
-  game_window->update();
-  return building;
 }
 
 void GraphicsController::start_check_move_unit()
@@ -193,25 +112,6 @@ void GraphicsController::click(QPoint pos)
     }
   }
   game_window->update();
-}
-
-class Unit* GraphicsController::add_unit(Units type_unit, Position pos_cell)
-{
-  ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
-  class Unit* unit = static_cast<class Unit*>(controlcontents.add_unit(type_unit));
-  return unit;
-}
-
-void GraphicsController::del_unit(class Unit* unit, Position pos_cell)
-{
-  ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
-  controlcontents.del_content(unit);
-}
-
-void GraphicsController::del_build(Position pos_cell)
-{
-  ControlContents controlcontents{_map->cell_by_indexes(pos_cell)};
-  controlcontents.del_building();
 }
 
 void GraphicsController::draw_elements()
@@ -332,6 +232,96 @@ void GraphicsController::do_inform_widget(QString text)
 void GraphicsController::del_inform_widget()
 {
   game_window->del_inform_widget();
+}
+
+bool& GraphicsController::get_is_tracking_unit()
+{
+  return is_tracking_unit;
+}
+
+bool& GraphicsController::get_is_moving_unit()
+{
+  return is_moving_unit;
+}
+
+class Unit*& GraphicsController::get_tracking_unit()
+{
+  return tracking_unit;
+}
+
+Position& GraphicsController::get_pos_tracking_unit()
+{
+  return pos_tracking_unit;
+}
+
+int& GraphicsController::get_side_square_unit_menu()
+{
+  return side_square_unit_menu;
+}
+
+int& GraphicsController::get_hexagon_side_minimap()
+{
+  return hexagon_side_minimap;
+}
+
+DrawWay* GraphicsController::get_drawway()
+{
+  return drawway.get();
+}
+
+AMenuForUnit* GraphicsController::get_unit_menu()
+{
+  return unit_menu.get();
+}
+
+void GraphicsController::set_unit_menu(AMenuForUnit* _unit_menu)
+{
+  unit_menu.reset(_unit_menu);
+}
+
+UnitInformation* GraphicsController::get_unit_information()
+{
+  return unit_information.get();
+}
+
+void GraphicsController::set_unit_information(UnitInformation* _unit_information)
+{
+  unit_information.reset(_unit_information);
+}
+
+MenuTown* GraphicsController::get_town_menu()
+{
+  return town_menu.get();
+}
+
+void GraphicsController::set_town_menu(MenuTown* _town_menu)
+{
+  town_menu.reset(_town_menu);
+}
+
+Minimap* GraphicsController::get_minimap()
+{
+  return minimap.get();
+}
+
+StartMoveInform* GraphicsController::get_start_move_inform()
+{
+  return start_move_inform.get();
+}
+
+IUnitMenuGraphicsController* GraphicsController::get_iunit_menu_gc()
+{
+  return this;
+}
+
+ITownMenuGraphicsController* GraphicsController::get_itown_menu_gc()
+{
+  return this;
+}
+
+IPlayerGraphicsController* GraphicsController::get_iplayer_gc()
+{
+  return player_gc.get();
 }
 
 void GraphicsController::start_check_move_unit(class Unit* unit)

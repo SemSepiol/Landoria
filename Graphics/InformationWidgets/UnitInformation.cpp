@@ -7,6 +7,8 @@ UnitInformation::UnitInformation(QWidget* win, class Unit* _unit)
 void UnitInformation::set_geometry(QPoint pos, int height)
 {
   QWidget::setGeometry(pos.x(), pos.y(), height*2, height);
+  this->hide();
+  this->show();
 }
 
 

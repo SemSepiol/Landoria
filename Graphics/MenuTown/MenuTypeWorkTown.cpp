@@ -21,6 +21,7 @@ size_t MenuTypeWorkTown::count_button() const
 
 void MenuTypeWorkTown::paintEvent(QPaintEvent* event)
 {
+  Q_UNUSED(event)
   draw();
 }
 

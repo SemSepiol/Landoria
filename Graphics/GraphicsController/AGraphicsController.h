@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QPoint>
 
+#include "IGraphicsControllerFor.h"
 #include "IGraphicsController.h"
 #include "Calculations.h"
 #include "../GameWindow.h"
@@ -15,7 +16,7 @@
 #include "../Menus/UpperMenu.h"
 #include "../Menus/BottomMenu.h"
 
-class AGraphicsController : public IWindowGraphicsController, public IMapGraphicsController,
+class AGraphicsController : public IGraphicsController, public IWindowGraphicsController, public IMapGraphicsController,
     public IMenuInWindowGraphicsController, public IMiniMapGraphicsController, public ITownMenuGraphicsController
 {
 public:
@@ -42,6 +43,24 @@ public:
   virtual int map_upper_edge() const override;
   virtual int map_bottom_edge() const override;
   virtual void exit() override;
+
+  virtual Size& get_size_win() override;
+  virtual Size& get_size_uppermenu() override;
+  virtual Size& get_size_bottommenu() override;
+  virtual Size& get_size_win_map() override;
+  virtual Size& get_size_map() override;
+  virtual Position& get_num_cell() override;
+  virtual QPoint& get_map_center() override;
+  virtual QPoint& get_win_map_center() override;
+  virtual bool& get_enabled_map() override;
+
+  virtual IGameForGraphic* get_game_controller() override;
+
+  virtual GameWindow* get_game_window() override;
+  virtual UpperMenu* get_upper_menu() override;
+  virtual BottomMenu* get_bottom_menu() override;
+  virtual Map* get_map() override;
+  virtual Calculations* get_calc() override;
 
 protected:
   // Возвращает центр кары относительно центра окна карты

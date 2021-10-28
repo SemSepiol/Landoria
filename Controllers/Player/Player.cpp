@@ -32,7 +32,7 @@ void Player::click_town(class Town* town)
 
 void Player::set_initial_units(Position initial_cell)
 {
-  //  add_unit(Units::Worker, initial_cell);
+    add_unit(Units::Worker, initial_cell);
   //  add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
   //  build_town(&my_units[0]);
@@ -115,6 +115,7 @@ bool Player::is_finish()
 
 void Player::start_move()
 {
+  game_controller->graphics_controller()->update_res_inform(this);
   for(size_t i{0}; i < my_units.size(); ++i)
     if(my_units[i]->event->event == Events::NoEvent and my_units[i]->unit->get_movement() != 0)
     {
@@ -311,6 +312,7 @@ void Player::build_town(PlayerUnit* my_unit)
   for(auto cell_pos : adjacent)
     if(map->get_cell_country(cell_pos) == Countries::Nothing)
       map->set_cell_country(cell_pos, country);
+  game_controller->graphics_controller()->update_res_inform(this);
 }
 
 void Player::add_unit(Units type_unit, Position pos_cell)
@@ -337,6 +339,27 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   }
 
   capture_cell(pos_cell);
+}
+
+int Player::get_gold_per_turn() const
+{
+  int count = 0;
+  for(auto& town : my_towns)
+    count += town->get_gold_per_turn();
+  return count;
+}
+
+int Player::get_science_per_turn() const
+{
+  int count = 0;
+  for(auto& town : my_towns)
+    count += town->get_science_per_turn();
+  return count;
+}
+
+PlayerRes* Player::get_player_res() const
+{
+  return player_res.get();
 }
 
 void Player::del_unit(PlayerUnit* unit)
@@ -407,12 +430,84 @@ void Player::stop_build(PlayerUnit* unit)
 
 void Player::add_res(Position pos)
 {
-  std::cout << "add res" << std::endl;
+  IPlayerGraphicsController* gc = game_controller->graphics_controller();
+  int count_res = gc->count_cell_resource(pos);
+  if(count_res && gc->has_cell_building(pos))
+  {
+    Resources res = gc->cell_resource(pos);
+    Buildings building = gc->cell_building(pos);
+
+    if(building == Buildings::Town)
+    {
+      player_res->add_resource(res, count_res);
+      return;
+    }
+
+    if(res == Resources::Aluminum || res == Resources::Gold ||
+       res == Resources::Iron || res == Resources::Silver ||
+       res == Resources::Uranium || res == Resources::Coal)
+      if(building != Buildings::Mine)
+        return;
+
+    if(res == Resources::Stone)
+      if(building != Buildings::Quarry)
+        return;
+
+    if(res == Resources::Horses)
+      if(building != Buildings::Pasture)
+        return;
+
+    if(res == Resources::Oil)
+      if(building != Buildings::OilWell)
+        return;
+
+    if(res == Resources::Fish)
+      return;
+
+    player_res->add_resource(res, count_res);
+  }
+  game_controller->graphics_controller()->update_res_inform(this);
 }
 
 void Player::del_res(Position pos)
 {
+  IPlayerGraphicsController* gc = game_controller->graphics_controller();
+  int count_res = gc->count_cell_resource(pos);
+  if(count_res && gc->has_cell_building(pos))
+  {
+    Resources res = gc->cell_resource(pos);
+    Buildings building = gc->cell_building(pos);
 
+    if(building == Buildings::Town)
+    {
+      player_res->del_resource(res, count_res);
+      return;
+    }
+
+    if(res == Resources::Aluminum || res == Resources::Gold ||
+       res == Resources::Iron || res == Resources::Silver ||
+       res == Resources::Uranium || res == Resources::Coal)
+      if(building != Buildings::Mine)
+        return;
+
+    if(res == Resources::Stone)
+      if(building != Buildings::Quarry)
+        return;
+
+    if(res == Resources::Horses)
+      if(building != Buildings::Pasture)
+        return;
+
+    if(res == Resources::Oil)
+      if(building != Buildings::OilWell)
+        return;
+
+    if(res == Resources::Fish)
+      return;
+
+    player_res->del_resource(res, count_res);
+  }
+  game_controller->graphics_controller()->update_res_inform(this);
 }
 
 bool Player::is_military_unit(Units type_unit)

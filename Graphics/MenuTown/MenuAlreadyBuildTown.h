@@ -5,7 +5,7 @@
 #include <QWidget>
 
 #include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IGraphicsController.h"
+#include "../GraphicsController/IGraphicsControllerFor.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "../Factories/FactoryPixmap.h"
 

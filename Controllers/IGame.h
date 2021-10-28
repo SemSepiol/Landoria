@@ -2,7 +2,8 @@
 #define IGAME_H
 
 #include "../IObject.h"
-#include "../Graphics/GraphicsController/IGraphicsController.h"
+#include "../Graphics/GraphicsController/IGraphicsControllerFor.h"
+#include "../Graphics/GraphicsController/IPlayerGraphicsController.h"
 #include "Player/IPlayer.h"
 
 class IGameForWidget : public IObject
@@ -23,6 +24,7 @@ public:
   virtual void next_move() = 0;
   virtual IPlayer* current_player() const = 0;
   virtual IGameForWidget* igame_for_widget() = 0;
+  virtual void start_move() = 0;
 };
 
 class IGameForPlayer : public IObject
