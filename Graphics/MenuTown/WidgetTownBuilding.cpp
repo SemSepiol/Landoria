@@ -64,6 +64,9 @@ void WidgetTownBuilding::mouseReleaseEvent(QMouseEvent *event)
     else if(point_in_rect(rect_butt_down(), event->pos()))
       menu_town->move_down_build(this);
   }
+  if(type_widget == AlreadyBuild)
+    if(point_in_rect(rect_butt_del(), event->pos()))
+      menu_town->set_build(type_building);
 }
 
 void WidgetTownBuilding::wheelEvent(QWheelEvent *event)
@@ -74,20 +77,47 @@ void WidgetTownBuilding::wheelEvent(QWheelEvent *event)
 
 void WidgetTownBuilding::draw()
 {
+  draw_widget();
+  draw_level();
+}
+
+void WidgetTownBuilding::draw_butt()
+{
+  AWidgetTown::draw_butt();
+
+  if(type_widget == AlreadyBuild)
+  {
+    int level = menu_town->town()->get_level_build(type_building);
+    int max_level = menu_town->player()->player_science()->max_level_building(type_building);
+    if(level == max_level)
+      return;
+
+    QPainter qp(this);
+
+    QPixmap pixmap = FactoryPixmap().create_pixmap_for_upgrade();
+    QRectF source = FactoryPixmap().size_picture_content();
+    qp.drawPixmap(rect_butt_del(), pixmap, source);
+  }
+}
+
+void WidgetTownBuilding::draw_widget()
+{
   QPainter qp(this);
   qp.setPen(QPen{Qt::white, 3});
   qp.drawRect(QRect{QPoint{0,0}, QPoint{width(), height()}});
 
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_town_building(type_building);
   QRectF source = FactoryPixmap().size_picture_content();
-  QRectF rect = QRect{QPoint{0,0}, QPoint{height(), height()}};
+  QRectF rect = rect_pic();
   qp.drawPixmap(rect, pixmap, source);
 
   QString name_build = QString::fromStdString(FactoryString().building_in_town_string(type_building));
   QRectF rect2{QPoint{height(), 0}, QPoint{width(), height()/2}};
   qp.drawText(rect2, Qt::AlignLeft | Qt::AlignVCenter, name_build);
 
-  if(type_widget != AlreadyBuild)
+  int level = menu_town->town()->get_level_build(type_building);
+  int max_level = menu_town->player()->player_science()->max_level_building(type_building);
+  if(type_widget != AlreadyBuild || level != max_level)
   {
     QRectF rect3{QPoint{height(), height()/2}, QPoint{width(), height()}};
     std::stringstream ss;
@@ -105,9 +135,29 @@ void WidgetTownBuilding::draw()
   }
 }
 
+void WidgetTownBuilding::draw_level()
+{
+  int level = menu_town->town()->get_level_build(type_building);
+  if(!level)
+    return;
+
+  QPainter qp(this);
+  qp.setPen(QPen{Qt::white, 1});
+  qp.setBrush(QBrush(Qt::black));
+  int rad = rect_pic().width()/8;
+  QPoint point = rect_pic().topRight()-QPoint(rad, -rad);
+  qp.drawEllipse(point, rad, rad);
+
+  std::stringstream ss;
+  ss << level;
+  qp.drawText(QRect{point.x() - rad, point.y() - rad, rad*2, rad*2}, Qt::AlignCenter,
+              QString::fromStdString(ss.str()));
+}
+
 QString WidgetTownBuilding::text()
 {
-  auto res = TownBuildNeeds().get_build_need_res(type_building);
+  int level = menu_town->town()->get_level_build(type_building);
+  auto res = TownBuildNeeds().get_build_need_res(type_building, level);
   std::stringstream ss;
   ss << FactoryString().building_in_town_string(type_building) << "\n";
   for(size_t i{0}; i < res.size(); ++i)

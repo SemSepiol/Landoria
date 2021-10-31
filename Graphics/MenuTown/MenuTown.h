@@ -39,7 +39,8 @@ public:
   virtual void do_inform_widget(QString text) override;
   virtual void del_inform_widget() override;
 
-  void set_type_work(TypeWork _type_work) override;
+  virtual void set_type_work(TypeWork _type_work) override;
+  virtual TypeWork get_type_work() const override;
 private:
   void close_menu_build();
   void close_menu_alreadybuild();
@@ -63,7 +64,7 @@ private:
   QPoint pos;
   Size size;
 
-  TypeWork type_work = TypeWork::AddQueue;
+  TypeWork type_work = TypeWork::EditProject;
 };
 
 #endif // MENUTOWN_H

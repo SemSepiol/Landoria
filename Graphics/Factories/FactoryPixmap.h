@@ -30,7 +30,7 @@ public:
   QPixmap create_pixmap_for_fog_of_war() const;
   QPixmap create_pixmap_for_gold() const;
   QPixmap create_pixmap_for_science() const;
-
+  QPixmap create_pixmap_for_upgrade() const;
 
   QRectF size_picture_content() const;
   QRectF size_picture_unit() const;

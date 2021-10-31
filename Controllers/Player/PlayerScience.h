@@ -20,6 +20,8 @@ public:
   size_t count_best_open_units() const;
   const std::vector<Units>& get_best_open_units() const;
 
+  int max_level_building(TownBuildings building) const;
+
 private:
   std::vector<TownBuildings> building;
   std::vector<Units> units;

@@ -62,3 +62,8 @@ QRect AWidgetTown::rect_butt_down()
   return QRect{QPoint{width() - 2*side_butt - height()/10, height()/4},
     QPoint{width() - side_butt - height()/10, height()/4 + side_butt}};
 }
+
+QRect AWidgetTown::rect_pic()
+{
+  return QRect{QPoint{0,0}, QPoint{height(), height()}};
+}

@@ -40,6 +40,7 @@ public:
   virtual void del_inform_widget() = 0;
 
   virtual void set_type_work(TypeWork _type_work) = 0;
+  virtual TypeWork get_type_work() const = 0;
 };
 
 #endif // IMENUTOWN_H

@@ -18,6 +18,7 @@ struct BuildInTown
 
   TypeBuild type_build;
   TownBuildings building;
+  int level = 0;
   Units unit;
   int need_production;
 
@@ -30,11 +31,13 @@ struct BuildInTown
   BuildInTown(TownBuildings type_building)
     :type_build{TypeBuild::Building}, building{type_building}
   {
-    need_production = TownBuildNeeds().get_build_need_production(type_building);
+    need_production = TownBuildNeeds().get_build_need_production(type_building, 1);
   }
 
   //возвращает остаток
   int build(int town_production);
+
+  void build_next_level();
 };
 
 class PlayerTown : public IObject
@@ -68,6 +71,8 @@ public:
 
   int get_build_need_production(TownBuildings type_building);
   int get_build_need_production(Units type_unit);
+
+  int get_level_build(TownBuildings type_building);
 
   const std::vector<BuildInTown*>& get_build_queue() const;
   int get_production() const;

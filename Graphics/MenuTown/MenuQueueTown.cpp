@@ -11,9 +11,18 @@ MenuQueueTown::MenuQueueTown(IMenuTown* _menu_town)
 void MenuQueueTown::set_geometry(QPoint pos, Size size)
 {
   QWidget::setGeometry(pos.x(), pos.y(), size.width, size.height);
-  height_rect_build = size.height/6;
+  height_butt_queue = size.width/20;
+  height_text_queue = size.width/20;
+
+  height_rect_build = size.height - height_butt_queue - height_text_queue;
+  if(menu_town->get_type_work() == IMenuTown::AddQueue)
+    height_rect_build /= menu_town->town()->max_build_in_queue();
+
   pos_menu = pos;
-  numder_rect = {size.width/10, height_rect_build};
+
+  numder_rect = {0,0};
+  if(menu_town->get_type_work() == IMenuTown::AddQueue)
+    numder_rect = {size.width/10, height_rect_build};
 
   update_queue();
 }
@@ -23,6 +32,7 @@ void MenuQueueTown::paintEvent(QPaintEvent* event)
   Q_UNUSED(event)
   draw();
   draw_number();
+  draw_butt_queue();
 }
 
 void MenuQueueTown::mouseMoveEvent(QMouseEvent *event)
@@ -41,6 +51,14 @@ void MenuQueueTown::mouseReleaseEvent(QMouseEvent *event)
   QPoint mouse_move = event->pos() - mouse_pos_clicked;
   if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
+
+  if(point_in_rect(rect_butt_queue(), event->pos()))
+  {
+    if(menu_town->get_type_work() == IMenuTown::AddQueue)
+      menu_town->set_type_work(IMenuTown::EditProject);
+    else
+      menu_town->set_type_work(IMenuTown::AddQueue);
+  }
 }
 
 void MenuQueueTown::draw()
@@ -65,12 +83,32 @@ void MenuQueueTown::draw_number()
   }
 }
 
+void MenuQueueTown::draw_butt_queue()
+{
+  QPainter qp(this);
+  qp.setPen(QPen{Qt::white, 2});
+
+  qp.drawRect(rect_butt_queue());
+  if(menu_town->get_type_work() == IMenuTown::AddQueue)
+    qp.fillRect(rect_butt_queue(), Qt::white);
+
+  qp.drawText(rect_text_butt_queue(), Qt::AlignVCenter | Qt::AlignRight, "Показать очередь");
+}
+
 void MenuQueueTown::update_queue()
 {
   widgets_town_build.clear();
   auto queue = menu_town->town()->get_build_queue();
 
-  for(size_t i{0}; i < queue.size(); ++i)
+  if(queue.size() == 0)
+  {
+    update();
+    return;
+  }
+  size_t a = 1;
+  if(menu_town->get_type_work() == IMenuTown::AddQueue)
+    a = queue.size();
+  for(size_t i{0}; i < a; ++i)
   {
     if(queue[i]->type_build == BuildInTown::Unit)
       widgets_town_build.push_back({new WidgetTownUnit(menu_town, queue[i]->unit, WidgetTownUnit::InQueue)});
@@ -104,7 +142,7 @@ size_t MenuQueueTown::count_widgets() const
   return widgets_town_build.size();
 }
 
-bool MenuQueueTown::point_in_rect(QRectF rect, QPoint point)
+bool MenuQueueTown::point_in_rect(QRect rect, QPoint point)
 {
   if (point.x() >= rect.topLeft().x() && point.x() < rect.bottomRight().x())
     if (point.y() >= rect.topLeft().y() && point.y() <= rect.bottomRight().y())
@@ -119,4 +157,16 @@ void MenuQueueTown::set_geometry_wid(size_t i)
     widgets_town_build[i].wid_town_unit->set_geometry(pos, {width() - numder_rect.width, height_rect_build});
   else if(widgets_town_build[i].type_build == WidgetTownBuild::Building)
     widgets_town_build[i].wid_town_building->set_geometry(pos, {width() - numder_rect.width, height_rect_build});
+}
+
+QRect MenuQueueTown::rect_butt_queue() const
+{
+  return QRect{width() - height_butt_queue*9/10 , height() - height_butt_queue*9/10,
+        height_butt_queue*8/10, height_butt_queue*8/10};
+}
+
+QRect MenuQueueTown::rect_text_butt_queue() const
+{
+  return QRect{QPoint{0, rect_butt_queue().topLeft().y()},
+    rect_butt_queue().bottomLeft() - QPoint{height_butt_queue/5,0}};
 }

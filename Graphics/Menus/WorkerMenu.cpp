@@ -42,7 +42,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   {
     AMenuForUnit::click_butt(num_butt);
     has_menu = false;
-    menu.reset();
+//    menu.reset();
     return;
   }
   if(!buttons[num_butt].is_enable)

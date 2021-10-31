@@ -48,13 +48,18 @@ private:
 
   void draw();
   void draw_number();
+  void draw_butt_queue();
   void click(QPoint pos);
-  bool point_in_rect(QRectF rect, QPoint point);
+  bool point_in_rect(QRect rect, QPoint point);
   void set_geometry_wid(size_t ind);
+  QRect rect_butt_queue() const;
+  QRect rect_text_butt_queue() const;
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;
   int height_rect_build;
+  int height_butt_queue;
+  int height_text_queue;
   QPoint pos_menu;
   std::vector<WidgetTownBuild> widgets_town_build;
   Size numder_rect;

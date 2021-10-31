@@ -59,3 +59,8 @@ const std::vector<Units>& PlayerScience::get_best_open_units() const
 {
   return best_units;
 }
+
+int PlayerScience::max_level_building(TownBuildings building) const
+{
+  return 2;
+}

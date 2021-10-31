@@ -29,6 +29,7 @@ protected:
   QRect rect_butt_del();
   QRect rect_butt_up();
   QRect rect_butt_down();
+  QRect rect_pic();
   bool point_in_rect(QRectF rect, QPoint point) const;
 
   virtual size_t num_from_queue() = 0;

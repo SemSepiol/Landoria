@@ -273,6 +273,11 @@ QPixmap FactoryPixmap::create_pixmap_for_science() const
   return QPixmap{image_path + menu_dir + "Science.png/"};
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_upgrade() const
+{
+  return QPixmap{image_path + menu_dir + "Upgrade.png/"};
+}
+
 QRectF FactoryPixmap::size_picture_content() const
 {
   return {0., 0., 188., 188.};

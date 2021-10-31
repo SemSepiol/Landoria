@@ -33,6 +33,9 @@ private:
   virtual void wheelEvent(QWheelEvent *event) override;
 
   void draw();
+  virtual void draw_butt() override;
+  void draw_widget();
+  void draw_level();
   QString text();
 
   IMenuTown* menu_town;

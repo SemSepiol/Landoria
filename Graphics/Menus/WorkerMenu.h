@@ -23,7 +23,7 @@ protected:
   void set_is_enable(MyButton& my_butt);
 
   bool has_menu = false;
-  std::unique_ptr<MenuBuild> menu;
+  std::unique_ptr<MenuBuild> menu{nullptr};
   size_t num_butt_build;
 };
 

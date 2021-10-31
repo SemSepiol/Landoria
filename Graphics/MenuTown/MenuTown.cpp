@@ -6,7 +6,10 @@ MenuTown::MenuTown(IMenuTownPlayer* player, ITownMenuGraphicsController* graphic
   : _player{player}, _graphics_controller{graphics_controller}, _town{town},
     menu_build_town{new MenuBuildTown(this)}, menu_type_work_town{new MenuTypeWorkTown{this}},
     menu_queue_town{new MenuQueueTown(this)}
-{}
+{
+  if(town->get_build_queue().size() > 1)
+    type_work = AddQueue;
+}
 
 void MenuTown::set_geometry(QPoint _pos, Size _size)
 {
@@ -95,7 +98,12 @@ void MenuTown::set_build(TownBuildings type_building)
   else if(type_work == EditProject)
     _town->set_build(type_building);
   menu_queue_town->update_queue();
-  menu_build_town->update_inform();
+
+  if(menu_build_town)
+    menu_build_town->update_inform();
+  if(menu_already_build_town)
+    menu_already_build_town->update_inform();
+
   del_inform_widget();
 }
 
@@ -151,7 +159,16 @@ void MenuTown::del_inform_widget()
 
 void MenuTown::set_type_work(TypeWork _type_work)
 {
+  if(_type_work == type_work)
+    return;
   type_work = _type_work;
+  set_geometry_menu_queue();
+  menu_build_town->update_inform();
+}
+
+IMenuTown::TypeWork MenuTown::get_type_work() const
+{
+  return type_work;
 }
 
 void MenuTown::close_menu_build()
@@ -202,8 +219,13 @@ void MenuTown::set_geometry_menu_queue()
   if(!menu_queue_town)
     return;
 
-  Size size_menu_queue{size.width/5, size.height/4-1};
-  QPoint pos_menu_queue{pos + QPoint{size.width*4/5, size.height*3/4+1}};
+  Size size_menu_queue{size.width/5, size.height/10+1};
+  QPoint pos_menu_queue{pos + QPoint{size.width*4/5, size.height*9/10}};
 
+  if(type_work == AddQueue)
+  {
+    size_menu_queue = {size.width/5, size.height/4-1};
+    pos_menu_queue = {pos + QPoint{size.width*4/5, size.height*3/4+1}};
+  }
   menu_queue_town->set_geometry(pos_menu_queue, size_menu_queue);
 }
