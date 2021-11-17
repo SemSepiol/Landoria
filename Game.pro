@@ -13,6 +13,7 @@ HEADERS += \
     Controllers/FindUnitWay.h \
     Controllers/Game.h \
     Controllers/IGame.h \
+    Controllers/Player/BuildInTown.h \
     Controllers/Player/IMenuTownPlayer.h \
     Controllers/Player/IPlayer.h \
     Controllers/Player/ITownPlayer.h \
@@ -23,6 +24,7 @@ HEADERS += \
     Controllers/Player/PlayerScience.h \
     Controllers/Player/PlayerTown.h \
     Controllers/Player/PlayerUnit.h \
+    Controllers/Science.h \
     Controllers/TownBuildNeeds.h \
     Controllers/TownBuildings.h \
     Controllers/UnitsCharaterichtics.h \
@@ -104,6 +106,7 @@ SOURCES += \
     Controllers/FindUnitWay.cpp \
     Controllers/Game.cpp \
     Controllers/FindUnitVision.cpp \
+    Controllers/Player/BuildInTown.cpp \
     Controllers/Player/Player.cpp \
     Controllers/Player/PlayerMap.cpp \
     Controllers/Player/PlayerRes.cpp \
