@@ -61,6 +61,17 @@ void CreateMap::create_map(Map* map)
             ControlContents controlcontents{map->cell_by_indexes({game_control->count_cell_x() - 2, j})};
             controlcontents.set_main_landscape(MainLandscapes(5));
        }
+       for(size_t j{0}; j < game_control->count_cell_x(); ++j)
+       {
+            ControlContents controlcontents{map->cell_by_indexes({j, 0})};
+            controlcontents.set_main_landscape(MainLandscapes(4));
+       }
+       for(size_t j{0}; j < game_control->count_cell_x(); ++j)
+       {
+            ControlContents controlcontents{map->cell_by_indexes({j, game_control->count_cell_y() - 1})};
+            controlcontents.set_main_landscape(MainLandscapes(4));
+       }
+
   }
   for(size_t i{0}; i < game_control->count_cell_x(); ++i)
     for(size_t j{0}; j < 2; ++j)
@@ -144,7 +155,7 @@ for(int i{0}; i < game_control->count_cell_x(); ++i)
 
      ControlContents controlcontents{map->cell_by_indexes({size_t(i), size_t(j)})};
      if(!controlcontents.has_main_landscape())
-       controlcontents.set_main_landscape(MainLandscapes(rand() % 5));
+       controlcontents.set_main_landscape(MainLandscapes(rand() % 4));
    }
 }
 
