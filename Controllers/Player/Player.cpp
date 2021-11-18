@@ -25,9 +25,20 @@ void Player::click_town(class Town* town)
   PlayerTown* my_town = get_my_town(town);
   if (my_town)
   {
+    set_vision(false);
+    set_town_vision(my_town, true);
+    draw_my_map();
+
     game_controller->graphics_controller()->centering_by_cell(my_town->position_town());
     game_controller->graphics_controller()->do_menu_town(this, my_town);
+
   }
+}
+
+void Player::del_menu_town()
+{
+  set_vision(true);
+  draw_my_map();
 }
 
 void Player::set_initial_units(Position initial_cell)
@@ -39,7 +50,7 @@ void Player::set_initial_units(Position initial_cell)
   //  click_town(my_towns[0]->town());
   //  add_unit(Units::Bowman, initial_cell);
   //  add_unit(Units::Swordsman, initial_cell);
-  set_units_vision(true);
+  set_vision(true);
 }
 
 PlayerUnit* Player::get_my_unit(class Unit* unit)
@@ -159,8 +170,10 @@ void Player::event_for_citizen(PlayerUnit* my_unit, Event* event)
     BuildEvent* build_event = static_cast<BuildEvent*>(event);
     if(build_event->building != Buildings::Town)
       std::runtime_error("Citizen can build only town");
-
+    set_vision(false);
     build_town(my_unit);
+    set_vision(true);
+    draw_my_map();
   }
   else
     set_event_to_unit(my_unit, event);
@@ -197,7 +210,7 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
       break;
     my_unit->unit->set_movement(unit_movement - 1);
 
-    set_units_vision(false);
+    set_vision(false);
 
     Position move_cell = move.minimove[i];
     game_controller->graphics_controller()->move_unit(
@@ -206,7 +219,7 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
 
     if(is_military_unit(my_unit->unit->what_unit_I()))
       capture_cell(my_unit->pos);
-    set_units_vision(true);
+    set_vision(true);
   }
 
 
@@ -223,22 +236,34 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
   draw_my_map();
 }
 
-void Player::set_units_vision(bool vision)
+void Player::set_vision(bool vision)
 {
   for(size_t i{0}; i < my_units.size(); ++i)
   {
     IMapForFind* map = game_controller->graphics_controller()->mapforfind();
     std::vector<Position> unit_vision =
-        FindUnitVision().unit_vision(my_units[i]->unit, my_units[i]->pos, map);
+        FindVision().unit_vision(my_units[i]->unit, my_units[i]->pos, map);
 
     for(Position pos : unit_vision)
-    {
       if(vision)
         player_map->set_show_cell(pos);
       else
         player_map->set_notvisible_cell(pos);
-    }
   }
+
+  for(auto& town : my_towns)
+    set_town_vision(town.get(), vision);
+}
+
+void Player::set_town_vision(PlayerTown* town, bool vision)
+{
+  IMapForFind* map = game_controller->graphics_controller()->mapforfind();
+  std::vector<Position> town_vision = FindVision().town_vision(town, map);
+  for(Position pos : town_vision)
+    if(vision)
+      player_map->set_show_cell(pos);
+    else
+      player_map->set_notvisible_cell(pos);
 }
 
 void Player::set_movement_to_max_unit()
@@ -361,6 +386,11 @@ int Player::get_science_per_turn() const
 PlayerRes* Player::get_player_res() const
 {
   return player_res.get();
+}
+
+Countries Player::get_country() const
+{
+  return country;
 }
 
 void Player::del_unit(PlayerUnit* unit)

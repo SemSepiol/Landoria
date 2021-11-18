@@ -183,6 +183,8 @@ void GraphicsController::delete_townmenu()
   upper_menu->set_enable_move_map(true);
   bottom_menu->show();
 
+  game_controller->current_player()->del_menu_town();
+
   enabled_map = true;
 }
 

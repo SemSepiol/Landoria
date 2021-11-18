@@ -48,6 +48,8 @@ public:
   const std::vector<BuildInTown*>& get_build_queue() const;
   int get_production() const;
   int get_remains_production() const;
+
+  Countries get_country() const;
 private:  
   void del_build(BuildInTown* build);
 

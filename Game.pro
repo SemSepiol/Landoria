@@ -9,8 +9,8 @@ RESOURCES += \
 HEADERS += \
     Controllers/BuildingCharaterichtics.h \
     Controllers/Enums.h \
-    Controllers/FindUnitVision.h \
     Controllers/FindUnitWay.h \
+    Controllers/FindVision.h \
     Controllers/Game.h \
     Controllers/IGame.h \
     Controllers/Player/BuildInTown.h \
@@ -104,8 +104,8 @@ HEADERS += \
 
 SOURCES += \
     Controllers/FindUnitWay.cpp \
+    Controllers/FindVision.cpp \
     Controllers/Game.cpp \
-    Controllers/FindUnitVision.cpp \
     Controllers/Player/BuildInTown.cpp \
     Controllers/Player/Player.cpp \
     Controllers/Player/PlayerMap.cpp \

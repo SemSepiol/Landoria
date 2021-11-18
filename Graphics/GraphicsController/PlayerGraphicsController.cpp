@@ -115,6 +115,7 @@ void PlayerGraphicsController::draw_playermap(PlayerMap* playermap)
       ControlContents controcontents{map()->cell_by_indexes({i,j})};
       controcontents.set_show_cell(playermap->get_show_cell({i,j}));
     }
+  graphics_controller->get_game_window()->update();
 }
 
 IMapForFind* PlayerGraphicsController::mapforfind()

@@ -186,6 +186,11 @@ int PlayerTown::get_remains_production() const
   return remains_production;
 }
 
+Countries PlayerTown::get_country() const
+{
+  return player->get_country();
+}
+
 void PlayerTown::del_build(BuildInTown* build)
 {
   for(size_t i{0}; i < build_in_town.size(); ++i)
