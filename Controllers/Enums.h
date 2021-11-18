@@ -23,14 +23,14 @@ enum class Units
 
 enum class MainLandscapes
 {
-  Ocean,
-  Coast,
   Plain,
   Mountain,
   Tundra,
-  Desert,
   Snow,
-  Ice
+  Ice,
+  Coast,
+  Desert,
+  Ocean
 };
 
 enum class OtherLandscapes
