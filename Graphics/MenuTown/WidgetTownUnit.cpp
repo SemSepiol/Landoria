@@ -7,6 +7,13 @@ WidgetTownUnit::WidgetTownUnit(IMenuTown* _menu_town, Units _type_unit, TypeWork
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
   QWidget::setMouseTracking(true);
+
+  auto player = menu_town->player();
+  auto player_res = player->get_player_res();
+
+  for(auto res : TownBuildNeeds().get_build_need_res(type_unit))
+    if(player_res->get_resource(res.first) < res.second)
+      enable = false;
 }
 
 void WidgetTownUnit::set_geometry(QPoint pos, Size size)
@@ -29,8 +36,9 @@ size_t WidgetTownUnit::count_from_queue()
 void WidgetTownUnit::paintEvent(QPaintEvent* event)
 {
   Q_UNUSED(event)
-  draw();
+  draw_widget();
   draw_butt();
+  AWidgetTown::draw_enable();
 }
 
 void WidgetTownUnit::mouseMoveEvent(QMouseEvent *event)
@@ -53,8 +61,8 @@ void WidgetTownUnit::mouseReleaseEvent(QMouseEvent *event)
   if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
 
-  if(type_widget == Build
-     && menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
+  if(type_widget == Build && enable &&
+     menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
     menu_town->set_build(type_unit);
   if(type_widget == InQueue)
   {
@@ -73,7 +81,7 @@ void WidgetTownUnit::wheelEvent(QWheelEvent *event)
     menu_town->wheel_scroll(event->angleDelta().y());
 }
 
-void WidgetTownUnit::draw()
+void WidgetTownUnit::draw_widget()
 {
   QPainter qp(this);
   qp.setPen(QPen{Qt::white, 3});
@@ -95,7 +103,7 @@ void WidgetTownUnit::draw()
   ss << build_moves << " Ход";
   qp.drawText(rect3, Qt::AlignVCenter, QString::fromStdString(ss.str()));
 
-  if(type_widget == Build &&
+  if(type_widget == Build && enable &&
      menu_town->count_from_queue() == menu_town->town()->max_build_in_queue())
   {
     QRect rect{0, 0, width(), height()};
@@ -103,13 +111,26 @@ void WidgetTownUnit::draw()
   }
 }
 
-QString WidgetTownUnit::text()
+std::vector<std::pair<QString, QColor>>  WidgetTownUnit::text()
 {
   auto res = TownBuildNeeds().get_build_need_res(type_unit);
-  std::stringstream ss;
-  ss << FactoryString().unit_string(type_unit) << "\n";
+
+  std::vector<std::pair<QString, QColor>> text;
+  text.push_back({QString::fromStdString(
+                  FactoryString().unit_string(type_unit)), Qt::white});
+
+  auto player = menu_town->player();
+  auto player_res = player->get_player_res();
   for(size_t i{0}; i < res.size(); ++i)
+  {
+    std::stringstream ss;
     ss << FactoryString().resource_string(res[i].first)
-       << ": " << res[i].second << "\n";
-  return QString::fromStdString(ss.str());
+       << ": " << res[i].second;
+
+    QColor color = Qt::white;
+    if (player_res->get_resource(res[i].first) < res[i].second)
+      color = Qt::red;
+    text.push_back({QString::fromStdString(ss.str()), color});
+  }
+  return text;
 }

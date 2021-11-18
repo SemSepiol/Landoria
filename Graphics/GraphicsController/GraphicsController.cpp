@@ -225,7 +225,7 @@ void GraphicsController::next_move()
   game_controller->next_move();
 }
 
-void GraphicsController::do_inform_widget(QString text)
+void GraphicsController::do_inform_widget(std::vector<std::pair<QString, QColor>> text)
 {
   game_window->do_inform_widget(text);
 }

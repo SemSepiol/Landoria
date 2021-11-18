@@ -36,7 +36,7 @@ public:
   virtual void move_up_build(AWidgetTown* wid) override;
   virtual void move_down_build(AWidgetTown* wid) override;
   virtual void wheel_scroll(int angle_delta) override;
-  virtual void do_inform_widget(QString text) override;
+  virtual void do_inform_widget(std::vector<std::pair<QString, QColor>> text) override;
   virtual void del_inform_widget() override;
 
   virtual void set_type_work(TypeWork _type_work) override;

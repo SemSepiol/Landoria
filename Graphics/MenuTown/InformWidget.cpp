@@ -12,7 +12,7 @@ void InformWidget::set_set_geometry(QPoint pos, Size size)
   QWidget::setGeometry(QRect{pos.x(), pos.y(), size.width, size.height});
 }
 
-void InformWidget::set_text(QString _text)
+void InformWidget::set_text(std::vector<std::pair<QString, QColor>> _text)
 {
   text = _text;
 }
@@ -28,8 +28,11 @@ void InformWidget::draw()
   qp.setPen(QPen{Qt::white, 2});
 //  std::cout << text.toStdString() << std::endl;
   QFontMetrics fm = qp.fontMetrics();
-  std::string str = text.toStdString();
-  int count_str =  std::count(str.begin(), str.end(), '\n') +1;
-  resize(width(),fm.height()*count_str);
-  qp.drawText(QRectF{0, 0, width()*1., height()*1.}, Qt::AlignVCenter, text);
+  resize(width(), fm.height()*int(text.size()));
+  for(size_t i{}; i < text.size(); ++i)
+  {
+    QRect rect_str{0, fm.height()*int(i), width(), height()/int(text.size())};
+    qp.setPen(text[i].second);
+    qp.drawText(rect_str, Qt::AlignVCenter, text[i].first);
+  }
 }

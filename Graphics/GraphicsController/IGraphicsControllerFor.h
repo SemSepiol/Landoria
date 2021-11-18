@@ -1,6 +1,8 @@
 #ifndef IGRAPHICSCONTROLLERFOR_H
 #define IGRAPHICSCONTROLLERFOR_H
 
+#include <vector>
+
 #include <QWidget>
 #include <QPoint>
 #include <QSize>
@@ -52,7 +54,7 @@ public:
   virtual void show_minimap() = 0;
   virtual void next_move() = 0;
 
-  virtual void do_inform_widget(QString text) = 0;
+  virtual void do_inform_widget(std::vector<std::pair<QString, QColor>> text) = 0;
   virtual void del_inform_widget() = 0;
 };
 
@@ -80,7 +82,7 @@ class ITownMenuGraphicsController : public IObject
 public:
   virtual QWidget* window() const = 0;
   virtual void delete_townmenu() = 0;
-  virtual void do_inform_widget(QString text) = 0;
+  virtual void do_inform_widget(std::vector<std::pair<QString, QColor>> text) = 0;
   virtual void del_inform_widget() = 0;
 };
 

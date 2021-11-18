@@ -3,7 +3,7 @@
 PlayerRes::PlayerRes()
 {
   for(int i{0}; i < CountInEnums().resources(); ++i)
-    player_resources.insert({Resources(i), 0});
+    player_resources.insert({Resources(i), 3});
 }
 
 void PlayerRes::add_resource(Resources type_res, int count)

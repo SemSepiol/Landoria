@@ -31,6 +31,15 @@ void AWidgetTown::draw_butt()
   }
 }
 
+void AWidgetTown::draw_enable()
+{
+  if(!enable && type_widget == Build)
+  {
+    QPainter qp(this);
+    qp.fillRect(QRect(0,0, width(), height()), QBrush(QColor(0, 0, 0, 100)));
+  }
+}
+
 QRect AWidgetTown::rect_butt_del()
 {
   int side_butt = height()/2;

@@ -26,6 +26,7 @@ public:
 
 protected:
   virtual void draw_butt();
+  void draw_enable();
   QRect rect_butt_del();
   QRect rect_butt_up();
   QRect rect_butt_down();
@@ -36,6 +37,7 @@ protected:
   virtual size_t count_from_queue() = 0;
 
   TypeWork type_widget;
+  bool enable = true;
 };
 
 #endif // AWIDGETTOWN_H

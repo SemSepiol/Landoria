@@ -6,6 +6,14 @@ WidgetTownBuilding::WidgetTownBuilding(IMenuTown* _menu_town, TownBuildings _typ
 {
   QWidget::setAttribute( Qt::WA_TranslucentBackground, true );
   QWidget::setMouseTracking(true);
+
+  auto player = menu_town->player();
+  auto player_res = player->get_player_res();
+  int level = menu_town->town()->get_level_build(type_building);
+
+  for(auto res : TownBuildNeeds().get_build_need_res(type_building,level))
+    if(player_res->get_resource(res.first) < res.second)
+      enable = false;
 }
 
 void WidgetTownBuilding::set_geometry(QPoint pos, Size size)
@@ -30,6 +38,7 @@ void WidgetTownBuilding::paintEvent(QPaintEvent* event)
   Q_UNUSED(event)
   draw();
   draw_butt();
+  AWidgetTown::draw_enable();
 }
 
 void WidgetTownBuilding::mouseMoveEvent(QMouseEvent *event)
@@ -51,8 +60,8 @@ void WidgetTownBuilding::mouseReleaseEvent(QMouseEvent *event)
   QPoint mouse_move = event->pos() - mouse_pos_clicked;
   if(abs(mouse_move.x()) > 5 or abs(mouse_move.y()) > 5)
     return;
-  if(type_widget == Build
-     && menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
+  if(type_widget == Build && enable &&
+     menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
     menu_town->set_build(type_building);
 
   if(type_widget == InQueue)
@@ -65,7 +74,7 @@ void WidgetTownBuilding::mouseReleaseEvent(QMouseEvent *event)
       menu_town->move_down_build(this);
   }
   if(type_widget == AlreadyBuild)
-    if(point_in_rect(rect_butt_del(), event->pos()))
+    if(point_in_rect(rect_butt_del(), event->pos()) && enable)
       menu_town->set_build(type_building);
 }
 
@@ -97,6 +106,9 @@ void WidgetTownBuilding::draw_butt()
     QPixmap pixmap = FactoryPixmap().create_pixmap_for_upgrade();
     QRectF source = FactoryPixmap().size_picture_content();
     qp.drawPixmap(rect_butt_del(), pixmap, source);
+
+    if(!enable)
+      qp.fillRect(rect_butt_del(), QBrush(QColor(0, 0, 0, 100)));
   }
 }
 
@@ -127,7 +139,7 @@ void WidgetTownBuilding::draw_widget()
     qp.drawText(rect3, Qt::AlignLeft | Qt::AlignVCenter, QString::fromStdString(ss.str()));
   }
 
-  if(type_widget == Build &&
+  if(type_widget == Build && enable &&
      menu_town->count_from_queue() == menu_town->town()->max_build_in_queue())
   {
     QRect rect{0, 0, width(), height()};
@@ -154,14 +166,27 @@ void WidgetTownBuilding::draw_level()
               QString::fromStdString(ss.str()));
 }
 
-QString WidgetTownBuilding::text()
+std::vector<std::pair<QString, QColor>> WidgetTownBuilding::text()
 {
   int level = menu_town->town()->get_level_build(type_building);
   auto res = TownBuildNeeds().get_build_need_res(type_building, level);
-  std::stringstream ss;
-  ss << FactoryString().building_in_town_string(type_building) << "\n";
+
+  std::vector<std::pair<QString, QColor>> text;
+  text.push_back({QString::fromStdString(
+                  FactoryString().building_in_town_string(type_building)), Qt::white});
+
+  auto player = menu_town->player();
+  auto player_res = player->get_player_res();
   for(size_t i{0}; i < res.size(); ++i)
+  {
+    std::stringstream ss;
     ss << FactoryString().resource_string(res[i].first)
-       << ": " << res[i].second << "\n";
-  return QString::fromStdString(ss.str());
+       << ": " << res[i].second;
+
+    QColor color = Qt::white;
+    if (player_res->get_resource(res[i].first) < res[i].second)
+      color = Qt::red;
+    text.push_back({QString::fromStdString(ss.str()), color});
+  }
+  return text;
 }

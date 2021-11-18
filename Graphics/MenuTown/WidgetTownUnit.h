@@ -31,8 +31,8 @@ private:
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   virtual void wheelEvent(QWheelEvent *event) override;
 
-  void draw();
-  QString text();
+  void draw_widget();
+  std::vector<std::pair<QString, QColor>> text();
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;

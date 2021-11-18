@@ -147,7 +147,7 @@ void MenuTown::wheel_scroll(int angle_delta)
     menu_build_town->wheel_scroll(angle_delta);
 }
 
-void MenuTown::do_inform_widget(QString text)
+void MenuTown::do_inform_widget(std::vector<std::pair<QString, QColor>> text)
 {
   graphics_controller()->do_inform_widget(text);
 }

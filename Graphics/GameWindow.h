@@ -26,7 +26,7 @@ public:
   virtual void wheelEvent(QWheelEvent *event) override;
   virtual void keyPressEvent(QKeyEvent *event) override;
 
-  void do_inform_widget(QString text);
+  void do_inform_widget(std::vector<std::pair<QString, QColor>> text);
   void del_inform_widget();
 private:
   void control_mouse_at_edge(QPoint event_pos);

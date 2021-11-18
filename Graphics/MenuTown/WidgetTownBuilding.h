@@ -36,7 +36,7 @@ private:
   virtual void draw_butt() override;
   void draw_widget();
   void draw_level();
-  QString text();
+  std::vector<std::pair<QString, QColor>> text();
 
   IMenuTown* menu_town;
   QPoint mouse_pos_clicked;

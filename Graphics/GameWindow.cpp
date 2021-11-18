@@ -8,6 +8,7 @@ GameWindow::GameWindow(IWindowGraphicsController* game)
   setStyleSheet("background-color:black;");
   QWidget::setMouseTracking(true);
   setFocusPolicy(Qt::TabFocus);
+  inform_widget->resize(width()/20, width()/20);
 }
 
 void GameWindow::show()
@@ -75,13 +76,17 @@ void GameWindow::wheelEvent(QWheelEvent* event)
   graphics_controller->resize_map(coefficient, event->position().toPoint());
 }
 
-void GameWindow::do_inform_widget(QString text)
+void GameWindow::do_inform_widget(std::vector<std::pair<QString, QColor>> text)
 {
-  std::string str = text.toStdString();
+//  std::cout << "111" << std::endl;
+  //    std::string str = pair.first.toStdString();
   QPoint globalCursorPos = QCursor::pos();
-//  inform_widget->move(globalCursorPos - QPoint{width()/20, 0} - inform_widget->pos());
-//  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, count_str*height()/70});
-  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, inform_widget->height()});
+  //  inform_widget->move(globalCursorPos - QPoint{width()/20, 0} - inform_widget->pos());
+//    inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, int(text.size())*height()/70});
+  int a = inform_widget->height();
+  if(!inform_widget->height())
+    a = width()/20;
+  inform_widget->set_set_geometry(globalCursorPos - QPoint{width()/20, 0}, {width()/20, a});
   inform_widget->set_text(text);
   inform_widget->show();
 //  inform_widget->update();

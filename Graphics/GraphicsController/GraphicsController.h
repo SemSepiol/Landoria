@@ -50,7 +50,7 @@ public:
   virtual void show_minimap() override;
   virtual void next_move() override;
 
-  virtual void do_inform_widget(QString text) override;
+  virtual void do_inform_widget(std::vector<std::pair<QString, QColor>> text) override;
   virtual void del_inform_widget() override;
 
   virtual bool& get_is_tracking_unit() override;
