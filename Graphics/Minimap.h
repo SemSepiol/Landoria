@@ -1,14 +1,15 @@
 #ifndef MINIMAP_H
 #define MINIMAP_H
 
-#include <QWidget>
 #include <QPainter>
+#include <QWidget>
 
-#include "Map.h"
 #include "Cell.h"
-#include "./GraphicsController/IWindowGraphicsController.h"
+#include "Map.h"
 #include "GraphicsController/Calculations.h"
+#include "GraphicsController/IWindowGraphicsController.h"
 #include "../Controllers/Enums.h"
+
 
 class Minimap : public QWidget
 {
@@ -28,12 +29,13 @@ public:
   // coeff_height = height_win_map / height_map
   void set_win_rect(double coeffx, double coeffy, double coeff_width, double coeff_height);
 
+private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override {Q_UNUSED(event)}
 
-private:
+
   QPoint point_of_cell(Position pos);
   void draw_cell(QPoint bottomright, Cell* cell);
   QColor color(Cell* cell);

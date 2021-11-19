@@ -1,13 +1,14 @@
 #ifndef DRAWWAY_H
 #define DRAWWAY_H
 
-#include <QWidget>
 #include <QPainter>
+#include <QWidget>
 
 #include "IObject.h"
 #include "Map.h"
-#include "../Controllers/FindUnitWay.h"
 #include "Units/Unit.h"
+#include "../Controllers/FindUnitWay.h"
+
 
 class DrawWay : public IObject
 {

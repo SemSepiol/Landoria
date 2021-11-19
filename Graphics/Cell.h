@@ -1,26 +1,26 @@
 #ifndef CELL_H
 #define CELL_H
+
 #include <memory>
 #include <vector>
+
 #include <QPainter>
 #include <QWidget>
 
-#include "IMap.h"
+#include "Buildings/Building.h"
+#include "Factories/FactoryBuild.h"
+#include "Factories/FactoryColor.h"
+#include "Factories/FactoryPixmap.h"
+#include "Factories/FactoryRes.h"
+#include "Factories/FactoryUnits.h"
+#include "GraphicsController/Calculations.h"
 #include "ICell.h"
 #include "IContent.h"
-
-#include "../Controllers/Enums.h"
-#include "GraphicsController/Calculations.h"
-
-#include "Factories/FactoryBuild.h"
-#include "Factories/FactoryUnits.h"
-#include "Factories/FactoryRes.h"
-#include "Factories/FactoryPixmap.h"
-#include "Factories/FactoryColor.h"
-
+#include "IMap.h"
 #include "Resources/Res.h"
 #include "Units/Unit.h"
-#include "Buildings/Building.h"
+#include "../Controllers/Enums.h"
+
 
 struct Content
 {
@@ -29,6 +29,7 @@ struct Content
   bool highlight = false;
   Content(IContent* _content) : content{_content} {}
 };
+
 
 class Cell : public ICell
 {

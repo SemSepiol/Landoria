@@ -1,11 +1,12 @@
 #ifndef STARTMOVEINFORM_H
 #define STARTMOVEINFORM_H
 
-#include <QMouseEvent>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QWidget>
 
 #include "../../Controllers/IGame.h"
+
 
 class StartMoveInform : public QWidget
 {

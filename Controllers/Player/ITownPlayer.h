@@ -1,8 +1,9 @@
 #ifndef ITOWNPLAYER_H
 #define ITOWNPLAYER_H
 
-#include "../../IObject.h"
 #include "../Enums.h"
+#include "../../IObject.h"
+
 
 class ITownPlayer : public IObject
 {

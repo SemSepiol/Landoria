@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include "../GraphicsController/IMenuGraphicsController.h"
 
+
 class AMenuInWindow : public QWidget
 {
 public:

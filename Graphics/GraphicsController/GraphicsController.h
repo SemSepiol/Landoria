@@ -2,31 +2,15 @@
 #define GRAPHICSCONTROLLER_H
 
 #include <memory>
-#include <QWidget>
 #include <QPoint>
+#include <QWidget>
 
 #include "IGraphicsController.h"
-#include "Calculations.h"
-#include "../GameWindow.h"
-#include "../Map.h"
-#include "../Cell.h"
-#include "../../Controllers/IGame.h"
-#include "../Menus/UpperMenu.h"
-#include "../Menus/BottomMenu.h"
-#include "../Minimap.h"
-#include "../../Controllers/FindUnitWay.h"
-#include "../DrawWay.h"
-#include "../MenuTown/MenuTown.h"
-#include "../InformationWidgets/UnitInformation.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../InformationWidgets/StartMoveInform.h"
-#include "../Units/Unit.h"
-#include "EventsStructures.h"
-
-#include "PlayerGraphicsController.h"
-#include "MenuGraphicsController.h"
 #include "MapGraphicsController.h"
+#include "MenuGraphicsController.h"
+#include "PlayerGraphicsController.h"
 #include "WindowGraphicsController.h"
+
 
 class GraphicsController : public IGraphicsController
 {

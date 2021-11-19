@@ -4,10 +4,11 @@
 #include <QPainter>
 #include <QPixmap>
 
-#include "../IContent.h"
-#include "../ICell.h"
-#include "../../Controllers/Enums.h"
 #include "../Factories/FactoryPixmap.h"
+#include "../ICell.h"
+#include "../IContent.h"
+#include "../../Controllers/Enums.h"
+
 
 class Res : public IContent
 {

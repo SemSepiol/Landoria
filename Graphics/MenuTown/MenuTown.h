@@ -13,6 +13,7 @@
 #include "MenuAlreadyBuildTown.h"
 #include "InformWidget.h"
 
+
 class MenuTown : public IMenuTown
 {
 public:  

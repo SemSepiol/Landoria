@@ -1,9 +1,10 @@
 #ifndef CREATEMAP_H
 #define CREATEMAP_H
 
-#include "../../IObject.h"
-#include "../Map.h"
 #include "../Cell.h"
+#include "../Map.h"
+#include "../../IObject.h"
+
 
 class CreateMap : public IObject
 {

@@ -5,8 +5,9 @@
 
 #include <QColor>
 
-#include "../../IObject.h"
 #include "../../Controllers/Enums.h"
+#include "../../IObject.h"
+
 
 class FactoryColor : public IObject
 {

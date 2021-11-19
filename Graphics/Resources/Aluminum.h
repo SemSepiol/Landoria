@@ -4,6 +4,7 @@
 #include "Res.h"
 #include "../../Controllers/Enums.h"
 
+
 class Aluminum : public Res
 {
 public:

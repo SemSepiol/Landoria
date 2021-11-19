@@ -3,8 +3,9 @@
 
 #include <memory>
 
-#include "../../IObject.h"
 #include "../../Graphics/GraphicsController/EventsStructures.h"
+#include "../../IObject.h"
+
 
 struct PlayerUnit
 {

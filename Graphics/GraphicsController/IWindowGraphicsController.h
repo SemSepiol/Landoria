@@ -1,10 +1,11 @@
 #ifndef IWINDOWGRAPHICSCONTROLLER_H
 #define IWINDOWGRAPHICSCONTROLLER_H
 
-#include <QWidget>
 #include <QPoint>
+#include <QWidget>
 
 #include "../../IObject.h"
+
 
 class IWindowGraphicsController : public IObject
 {

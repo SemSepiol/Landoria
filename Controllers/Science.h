@@ -3,6 +3,7 @@
 
 #include "../IObject.h"
 
+
 enum class Studies
 {
   // Древнейший мир
@@ -122,6 +123,7 @@ enum class Studies
   Physics,
 };
 
+
 enum class Epochs
 {
   AncientWorld,
@@ -133,6 +135,7 @@ enum class Epochs
   AgeOfAtom,
   InformationAge
 };
+
 
 class Science : public IObject
 {

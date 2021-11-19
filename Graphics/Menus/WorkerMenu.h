@@ -2,11 +2,11 @@
 #define WORKERMENU_H
 
 #include <QPoint>
-#include <QObject>
 
 #include "AMenuForUnit.h"
-#include "../GraphicsController/EventsStructures.h"
 #include "../Cell.h"
+#include "../GraphicsController/EventsStructures.h"
+
 
 class MenuBuild;
 

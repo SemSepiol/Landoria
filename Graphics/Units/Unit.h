@@ -3,12 +3,13 @@
 
 #include <QPainter>
 
-#include "../IContent.h"
-#include "../../Controllers/Enums.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../Factories/FactoryColor.h"
-#include "../ICell.h"
 #include "UnitsCharaterichtics.h"
+#include "../ICell.h"
+#include "../IContent.h"
+#include "../Factories/FactoryColor.h"
+#include "../Factories/FactoryPixmap.h"
+#include "../../Controllers/Enums.h"
+
 
 class Unit : public IContent
 {

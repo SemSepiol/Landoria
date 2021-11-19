@@ -2,13 +2,15 @@
 #define UPPERMENU_H
 
 #include <sstream>
-#include <QPainter>
+
 #include <QMouseEvent>
+#include <QPainter>
 
 #include "AMenuInWindow.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../GraphicsController/IMenuGraphicsController.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
+
 
 class UpperMenu : public AMenuInWindow
 {

@@ -4,6 +4,7 @@
 #include "../TownBuildings.h"
 #include "../TownBuildNeeds.h"
 
+
 struct BuildInTown
 {
   enum TypeBuild{

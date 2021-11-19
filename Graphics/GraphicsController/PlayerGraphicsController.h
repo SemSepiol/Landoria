@@ -1,10 +1,11 @@
 #ifndef PLAYERGRAPHICSCONTROLLER_H
 #define PLAYERGRAPHICSCONTROLLER_H
 
-#include "IWindowGraphicsController.h"
 #include "IGraphicsController.h"
 #include "IPlayerGraphicsController.h"
+#include "IWindowGraphicsController.h"
 #include "../Factories/FactoryMenusUnit.h"
+
 
 class PlayerGraphicsController : public IPlayerGraphicsController
 {

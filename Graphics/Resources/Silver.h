@@ -4,6 +4,7 @@
 #include "Res.h"
 #include "../../Controllers/Enums.h"
 
+
 class Silver : public Res
 {
 public:

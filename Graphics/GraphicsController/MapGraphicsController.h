@@ -1,9 +1,10 @@
 #ifndef MAPGRAPHICSCONTROLLER_H
 #define MAPGRAPHICSCONTROLLER_H
 
-#include "IMapGraphicsController.h"
-#include "IGraphicsController.h"
 #include "CreateMap.h"
+#include "IGraphicsController.h"
+#include "IMapGraphicsController.h"
+
 
 class MapGraphicsController : public IMapGraphicsControllerFull
 {

@@ -3,11 +3,13 @@
 
 #include <memory>
 #include <vector>
+
 #include <QApplication>
 
 #include "IGame.h"
-#include "../Graphics/GraphicsController/GraphicsController.h"
 #include "Player/Player.h"
+#include "../Graphics/GraphicsController/GraphicsController.h"
+
 
 class Game : public IGameForGraphic, public IGameForPlayer, public IGameForWidget
 {

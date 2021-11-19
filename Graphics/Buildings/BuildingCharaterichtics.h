@@ -2,8 +2,10 @@
 #define BUILDINGCHARATERICHTICS_H
 
 #include <map>
+
 #include "../../Controllers/Enums.h"
 #include "../../IObject.h"
+
 
 class BuildingCharaterichtics : public IObject
 {

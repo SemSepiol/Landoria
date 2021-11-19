@@ -4,13 +4,14 @@
 #include <QMouseEvent>
 #include <QWidget>
 
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/PlayerTown.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../Factories/FactoryString.h"
-#include "IMenuTown.h"
 #include "AWidgetTown.h"
+#include "IMenuTown.h"
+#include "../Factories/FactoryString.h"
+#include "../Factories/FactoryPixmap.h"
+#include "../GraphicsController/IWindowGraphicsController.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../Controllers/Player/PlayerTown.h"
+
 
 class WidgetTownUnit : public AWidgetTown
 {

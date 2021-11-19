@@ -3,9 +3,10 @@
 
 #include <vector>
 
-#include "../IObject.h"
-#include "../Graphics/Units/Unit.h"
 #include "../Graphics/IMap.h"
+#include "../Graphics/Units/Unit.h"
+#include "../IObject.h"
+
 
 struct OneMove
 {
@@ -32,6 +33,7 @@ struct OneMove
   void add_move(Position pos);
 };
 
+
 class Way : public IObject
 {
   std::vector<OneMove> way;
@@ -41,6 +43,7 @@ public:
   size_t get_count_moves_in_way() const;
   void add_move(OneMove move);
 };
+
 
 class FindUnitWay : public IObject
 {

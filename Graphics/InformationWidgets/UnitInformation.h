@@ -2,9 +2,12 @@
 #define UNITINFORMATION_H
 
 #include <sstream>
+
 #include <QWidget>
-#include "../Units/Unit.h"
+
 #include "../Factories/FactoryPixmap.h"
+#include "../Units/Unit.h"
+
 
 class UnitInformation : public QWidget
 {

@@ -1,11 +1,12 @@
 #ifndef IPLAYERGRAPHICSCONTROLLER_H
 #define IPLAYERGRAPHICSCONTROLLER_H
 
-#include "../../Controllers/Player/PlayerTown.h"
-#include "../../Controllers/Player/PlayerMap.h"
-#include "../../Controllers/Player/PlayerUnit.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
 #include "../IMap.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../Controllers/Player/PlayerMap.h"
+#include "../../Controllers/Player/PlayerTown.h"
+#include "../../Controllers/Player/PlayerUnit.h"
+
 
 class IPlayerGraphicsController : public IObject
 {

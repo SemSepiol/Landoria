@@ -1,11 +1,14 @@
 #ifndef IDRAW_OBJECT_H
 #define IDRAW_OBJECT_H
+
 #include <memory>
-#include <QWidget>
+
 #include <QPoint>
+#include <QWidget>
 
 #include "GraphicsController/Calculations.h"
 #include "../IObject.h"
+
 
 class IDrawObject : public IObject
 {

@@ -4,15 +4,15 @@
 #include <QMouseEvent>
 #include <QWidget>
 
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/PlayerTown.h"
-#include "../Factories/FactoryPixmap.h"
-
 #include "IMenuTown.h"
+#include "InformWidget.h"
 #include "WidgetTownBuilding.h"
 #include "WidgetTownUnit.h"
-#include "InformWidget.h"
+#include "../Factories/FactoryPixmap.h"
+#include "../GraphicsController/IWindowGraphicsController.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../Controllers/Player/PlayerTown.h"
+
 
 class MenuAlreadyBuildTown : public QWidget
 {

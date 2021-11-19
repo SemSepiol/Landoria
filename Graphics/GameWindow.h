@@ -1,16 +1,16 @@
 #ifndef GAME_WINDOW_H
 #define GAME_WINDOW_H
-#include <memory>
-#include <string>
-#include <algorithm>
-#include <iterator>
 
-#include <QWidget>
+#include <memory>
+
+#include <QPalette>
 #include <QPoint>
 #include <QResizeEvent>
-#include <QPalette>
+#include <QWidget>
+
 #include "GraphicsController/IWindowGraphicsController.h"
 #include "MenuTown/InformWidget.h"
+
 
 class GameWindow : public QWidget
 {

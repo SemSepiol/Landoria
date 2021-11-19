@@ -3,12 +3,14 @@
 
 #include <map>
 
-#include "../../IObject.h"
 #include "../Enums.h"
+#include "../../IObject.h"
+
 
 class PlayerRes : public IObject
 {
   std::map<Resources, int> player_resources;
+
 public:
   PlayerRes();
 

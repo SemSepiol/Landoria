@@ -1,14 +1,16 @@
 #ifndef MENUTYPEWORKTOWN_H
 #define MENUTYPEWORKTOWN_H
 
-#include <QMouseEvent>
-#include <QWidget>
 #include <vector>
 
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/PlayerTown.h"
+#include <QMouseEvent>
+#include <QWidget>
+
 #include "IMenuTown.h"
+#include "../GraphicsController/IWindowGraphicsController.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../Controllers/Player/PlayerTown.h"
+
 
 class MenuTypeWorkTown : public QWidget
 {

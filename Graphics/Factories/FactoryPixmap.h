@@ -2,12 +2,14 @@
 #define FACTORYPIXMAP_H
 
 #include <sstream>
+
 #include <QPixmap>
 
-#include "../../IObject.h"
-#include "../../Controllers/Enums.h"
 #include "../GraphicsController/EventsStructures.h"
+#include "../../Controllers/Enums.h"
 #include "../../Controllers/TownBuildings.h"
+#include "../../IObject.h"
+
 
 class FactoryPixmap : public IObject
 {

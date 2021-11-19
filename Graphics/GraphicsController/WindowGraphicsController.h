@@ -1,8 +1,9 @@
 #ifndef WINDOWGRAPHICSCONTROLLER_H
 #define WINDOWGRAPHICSCONTROLLER_H
 
-#include "IWindowGraphicsController.h"
 #include "IGraphicsController.h"
+#include "IWindowGraphicsController.h"
+
 
 class WindowGraphicsController : public IWindowGraphicsControllerFull
 {
@@ -27,6 +28,7 @@ public:
   virtual void stop_check_move_unit() override;
 
   void set_win_settings();
+
 private:
   void unit_moved_to_cell(Cell* cell);
   Size& _size_win();

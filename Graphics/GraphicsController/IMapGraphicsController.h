@@ -1,11 +1,12 @@
 #ifndef IMAPGRAPHICSCONTROLLER_H
 #define IMAPGRAPHICSCONTROLLER_H
 
-#include <QWidget>
 #include <QPoint>
+#include <QWidget>
 
-#include "../../IObject.h"
 #include "Calculations.h"
+#include "../../IObject.h"
+
 
 class IMapGraphicsController : public IObject
 {
@@ -35,6 +36,7 @@ public:
   */
   virtual void move_map(double coeffx, double coeffy) = 0;
 };
+
 
 class IMapGraphicsControllerFull : public IMapGraphicsController, public IMiniMapGraphicsController
 {

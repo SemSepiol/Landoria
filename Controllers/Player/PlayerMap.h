@@ -3,8 +3,9 @@
 
 #include <vector>
 
-#include "../../IObject.h"
 #include "../../Graphics/ICell.h"
+#include "../../IObject.h"
+
 
 class PlayerMap : public IObject
 {
@@ -13,6 +14,7 @@ public:
   ICell::ShowCell get_show_cell(Position pos_cell) const;
   void set_show_cell(Position pos_cell);
   void set_notvisible_cell(Position pos_cell);
+
 private:
   std::vector<std::vector<ICell::ShowCell>> map;
 };

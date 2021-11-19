@@ -3,11 +3,12 @@
 
 #include <QPainter>
 
-#include "../../Controllers/Enums.h"
+#include "BuildingCharaterichtics.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../ICell.h"
 #include "../IContent.h"
-#include "BuildingCharaterichtics.h"
+#include "../../Controllers/Enums.h"
+
 
 class Building : public IContent
 {
@@ -25,8 +26,10 @@ public:
   int get_end_build_phase() const;
 
   bool is_built() const;
+
 protected:
   Building(ICell* cell) : cell{cell}{}
+
 private:
   void draw_build_phase(QPoint point);
 

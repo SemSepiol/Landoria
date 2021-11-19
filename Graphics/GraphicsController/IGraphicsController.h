@@ -1,18 +1,19 @@
 #ifndef IGRAPHICSCONTROLLER_H
 #define IGRAPHICSCONTROLLER_H
 
-#include "../Map.h"
-#include "../Minimap.h"
-#include "../GameWindow.h"
 #include "../DrawWay.h"
-#include "../MenuTown/MenuTown.h"
-#include "../InformationWidgets/UnitInformation.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../GameWindow.h"
 #include "../InformationWidgets/StartMoveInform.h"
+#include "../InformationWidgets/UnitInformation.h"
+#include "../Map.h"
 #include "../Menus/AMenuForUnit.h"
-#include "../Menus/UpperMenu.h"
 #include "../Menus/BottomMenu.h"
-#include "IMenuGraphicsController.h"
+#include "../Menus/UpperMenu.h"
+#include "../MenuTown/MenuTown.h"
+#include "../Minimap.h"
+#include "../../Controllers/IGame.h"
+#include "../../Controllers/Player/IMenuTownPlayer.h"
+
 
 class IGraphicsController : public IObject
 {

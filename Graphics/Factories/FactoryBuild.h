@@ -1,11 +1,7 @@
 #ifndef FUBRICBUILD_H
 #define FUBRICBUILD_H
 
-#include "../../Controllers/Enums.h"
-#include "../ICell.h"
-#include "../IContent.h"
 
-#include "../Buildings/Town.h"
 #include "../Buildings/Farm.h"
 #include "../Buildings/FishingBoat.h"
 #include "../Buildings/Fort.h"
@@ -14,7 +10,11 @@
 #include "../Buildings/OilWell.h"
 #include "../Buildings/Pasture.h"
 #include "../Buildings/Quarry.h"
+#include "../Buildings/Town.h"
 #include "../Buildings/TradingPost.h"
+#include "../ICell.h"
+#include "../IContent.h"
+#include "../../Controllers/Enums.h"
 
 
 class FactoryBuild : public QObject

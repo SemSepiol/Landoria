@@ -1,13 +1,14 @@
 #ifndef MAP_H
 #define MAP_H
+
 #include <memory>
 #include <vector>
 
+#include "Cell.h"
 #include "GameWindow.h"
 #include "IMap.h"
-#include "Cell.h"
-#include "GraphicsController/IMapGraphicsController.h"
 #include "GraphicsController/Calculations.h"
+#include "GraphicsController/IMapGraphicsController.h"
 
 
 class Map : public IMap, public IMapForFind

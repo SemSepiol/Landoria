@@ -1,9 +1,12 @@
 #ifndef CALCULATIONS_H
 #define CALCULATIONS_H
 
-#include <QPoint>
 #include <cmath>
+
+#include <QPoint>
+
 #include "../../IObject.h"
+
 
 class Calculations : public IObject
 {

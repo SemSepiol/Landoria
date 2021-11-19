@@ -1,13 +1,13 @@
 #ifndef FINDUNITVISION_H
 #define FINDUNITVISION_H
 
-#include <vector>
 #include <queue>
+#include <vector>
 
-#include "../IObject.h"
-#include "../Graphics/Units/Unit.h"
-#include "../Graphics/IMap.h"
 #include "Player/PlayerTown.h"
+#include "../IObject.h"
+#include "../Graphics/IMap.h"
+#include "../Graphics/Units/Unit.h"
 
 
 class FindVision : public IObject

@@ -1,10 +1,11 @@
 #ifndef IGAME_H
 #define IGAME_H
 
-#include "../IObject.h"
-#include "../Graphics/GraphicsController/IWindowGraphicsController.h"
-#include "../Graphics/GraphicsController/IPlayerGraphicsController.h"
 #include "Player/IPlayer.h"
+#include "../IObject.h"
+#include "../Graphics/GraphicsController/IPlayerGraphicsController.h"
+#include "../Graphics/GraphicsController/IWindowGraphicsController.h"
+
 
 class IGameForWidget : public IObject
 {
@@ -12,6 +13,7 @@ public:
   virtual void start_move() = 0;
   virtual QWidget* window() const = 0;
 };
+
 
 class IGameForGraphic : public IObject
 {
@@ -26,6 +28,7 @@ public:
   virtual IGameForWidget* igame_for_widget() = 0;
   virtual void start_move() = 0;
 };
+
 
 class IGameForPlayer : public IObject
 {

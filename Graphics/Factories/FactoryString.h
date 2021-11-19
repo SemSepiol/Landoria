@@ -4,9 +4,10 @@
 #include <map>
 #include <QString>
 
-#include "../../IObject.h"
 #include "../../Controllers/Enums.h"
 #include "../../Controllers/TownBuildings.h"
+#include "../../IObject.h"
+
 
 class FactoryString : IObject
 {

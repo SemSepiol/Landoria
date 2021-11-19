@@ -4,6 +4,7 @@
 #include "Res.h"
 #include "../../Controllers/Enums.h"
 
+
 class Stone : public Res
 {
 public:

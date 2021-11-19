@@ -2,18 +2,20 @@
 #define AMENUFORUNIT_H
 
 #include <memory>
-#include <QWidget>
-#include <QPoint>
+
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPoint>
+#include <QWidget>
 
-#include "../Units/Unit.h"
-#include "../../Controllers/Player/IPlayer.h"
+#include "../Cell.h"
+#include "../Factories/FactoryPixmap.h"
 #include "../GraphicsController/EventsStructures.h"
 #include "../GraphicsController/IMenuGraphicsController.h"
 #include "../GraphicsController/IPlayerGraphicsController.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../Cell.h"
+#include "../Units/Unit.h"
+#include "../../Controllers/Player/IPlayer.h"
+
 
 struct MyButton
 {

@@ -1,8 +1,8 @@
 #ifndef MENUGRAPHICSCONTROLLER_H
 #define MENUGRAPHICSCONTROLLER_H
 
-#include "IMenuGraphicsController.h"
 #include "IGraphicsController.h"
+#include "IMenuGraphicsController.h"
 
 
 class MenuGraphicsController : public IMenuGraphicsControllerFull

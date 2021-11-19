@@ -2,8 +2,9 @@
 #define IPLAYER_H
 
 #include "IObject.h"
-#include "../../Graphics/Units/Unit.h"
 #include "../../Graphics/GraphicsController/EventsStructures.h"
+#include "../../Graphics/Units/Unit.h"
+
 
 class IPlayer : public IObject
 {

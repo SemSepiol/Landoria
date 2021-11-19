@@ -1,10 +1,11 @@
 #ifndef INFORMWIDGET_H
 #define INFORMWIDGET_H
 
-#include <QWidget>
 #include <QPainter>
+#include <QWidget>
 
 #include "../../IObject.h"
+
 
 class InformWidget : public QWidget
 {

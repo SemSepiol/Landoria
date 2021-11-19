@@ -3,6 +3,7 @@
 
 #include <utility>
 
+
 struct Position
 {
   size_t x;
@@ -22,6 +23,7 @@ struct Position
   { return x != other.x or y != other.y; }
 };
 
+
 struct Size
 {
   int width;
@@ -31,6 +33,7 @@ struct Size
   Size()
     :width{0}, height{0} {}
 };
+
 
 class IObject
 {

@@ -3,9 +3,10 @@
 
 #include <vector>
 
-#include "../IObject.h"
-#include "TownBuildings.h"
 #include "Enums.h"
+#include "TownBuildings.h"
+#include "../IObject.h"
+
 
 class TownBuildNeeds : public IObject
 {

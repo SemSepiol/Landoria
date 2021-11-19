@@ -1,12 +1,14 @@
 #ifndef IMAP_H
 #define IMAP_H
+
 #include <QPoint>
 #include <QWidget>
 
-#include "IDrawObject.h"
 #include "GraphicsController/Calculations.h"
 #include "ICell.h"
+#include "IDrawObject.h"
 #include "../Controllers/Enums.h"
+
 
 class IMapForFind : public IObject
 {
@@ -16,6 +18,7 @@ public:
   virtual void set_cell_country(Position pos_cell, Countries coutry) = 0;
   virtual Countries get_cell_country(Position pos_cell) = 0;
 };
+
 
 class IMap : public IDrawObject
 {

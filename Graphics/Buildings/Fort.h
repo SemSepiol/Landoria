@@ -2,8 +2,9 @@
 #define FORT_H
 
 #include "Building.h"
-#include "../../Controllers/Enums.h"
 #include "../ICell.h"
+#include "../../Controllers/Enums.h"
+
 
 class Fort : public Building
 {

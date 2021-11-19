@@ -3,12 +3,12 @@
 
 #include <memory>
 
-#include "../../IObject.h"
+#include "BuildInTown.h"
+#include "ITownPlayer.h"
 #include "../../Graphics/Buildings/Town.h"
+#include "../../IObject.h"
 #include "../TownBuildings.h"
 #include "../TownBuildNeeds.h"
-#include "ITownPlayer.h"
-#include "BuildInTown.h"
 
 
 class PlayerTown : public IObject

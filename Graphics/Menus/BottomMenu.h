@@ -3,10 +3,11 @@
 
 #include <sstream>
 
-#include "../GraphicsController/IMenuGraphicsController.h"
 #include "AMenuInWindow.h"
 #include "../Cell.h"
 #include "../Factories/FactoryString.h"
+#include "../GraphicsController/IMenuGraphicsController.h"
+
 
 class BottomMenu : public AMenuInWindow
 {

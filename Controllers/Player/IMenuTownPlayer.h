@@ -2,8 +2,9 @@
 #define IMENUTOWNPLAYER_H
 
 #include "IObject.h"
-#include "PlayerScience.h"
 #include "PlayerRes.h"
+#include "PlayerScience.h"
+
 
 class IMenuTownPlayer : public IObject
 {

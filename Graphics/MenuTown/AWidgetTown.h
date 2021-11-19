@@ -2,10 +2,11 @@
 #define AWIDGETTOWN_H
 
 #include <QMouseEvent>
-#include <QWidget>
 #include <QPainter>
+#include <QWidget>
 
 #include "../Factories/FactoryPixmap.h"
+
 
 class AWidgetTown : public QWidget
 {

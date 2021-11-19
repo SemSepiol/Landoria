@@ -1,10 +1,12 @@
 #ifndef IMENUGRAPHICSCONTROLLER_H
 #define IMENUGRAPHICSCONTROLLER_H
 
-#include <QWidget>
 #include <QPoint>
-#include "../../IObject.h"
+#include <QWidget>
+
 #include "../Units/Unit.h"
+#include "../../IObject.h"
+
 
 class IMenuInWindowGraphicsController : public IObject
 {
@@ -19,11 +21,13 @@ public:
   virtual void del_inform_widget() = 0;
 };
 
+
 class IUnitMenuGraphicsController : public IObject
 {
 public:
   virtual void menu_unit_event(class Unit* unit, Event* event) = 0;
 };
+
 
 class ITownMenuGraphicsController : public IObject
 {

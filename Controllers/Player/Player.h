@@ -1,22 +1,24 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <vector>
 
-#include "IPlayer.h"
 #include "IMenuTownPlayer.h"
-#include "../../Graphics/Units/Unit.h"
-#include "../../Graphics/Units/Worker.h"
-#include "../../Graphics/Buildings/Building.h"
-#include "../../Graphics/GraphicsController/EventsStructures.h"
-#include "../IGame.h"
-#include "../FindVision.h"
-#include "../FindUnitWay.h"
-#include "PlayerTown.h"
+#include "IPlayer.h"
+#include "ITownPlayer.h"
+#include "PlayerBuild.h"
 #include "PlayerMap.h"
+#include "PlayerTown.h"
 #include "PlayerRes.h"
 #include "PlayerUnit.h"
-#include "PlayerBuild.h"
-#include "ITownPlayer.h"
+#include "../FindVision.h"
+#include "../FindUnitWay.h"
+#include "../IGame.h"
+#include "../../Graphics/Buildings/Building.h"
+#include "../../Graphics/GraphicsController/EventsStructures.h"
+#include "../../Graphics/Units/Unit.h"
+#include "../../Graphics/Units/Worker.h"
+
 
 class Player : public IPlayer, public IMenuTownPlayer, public ITownPlayer
 {
@@ -43,6 +45,7 @@ public:
     virtual int get_science_per_turn() const override;
     virtual PlayerRes* get_player_res() const override;
     virtual Countries get_country() const override;
+
 private:
     PlayerUnit* get_my_unit(class Unit* unit);
     size_t get_ind_my_unit(PlayerUnit* unit);

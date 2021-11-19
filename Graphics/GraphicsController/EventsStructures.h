@@ -2,8 +2,10 @@
 #define EVENTSSTRUCTURES_H
 
 #include <vector>
+
 #include "../../Controllers/Enums.h"
 #include "../../IObject.h"
+
 
 enum Events
 {
@@ -14,6 +16,7 @@ enum Events
   Demolish
 };
 
+
 struct Event
 {
   Events event;
@@ -23,12 +26,14 @@ protected:
   Event(Events _event) :event{_event} {}
 };
 
+
 struct NoEvent : Event
 {
   virtual Event* copy() const override;
   NoEvent()
     : Event{Events::NoEvent} {}
 };
+
 
 struct MoveEvent : Event
 {
@@ -37,6 +42,7 @@ struct MoveEvent : Event
   MoveEvent(Position _cell_move)
     : Event{Events::Move}, cell_move{_cell_move} {}
 };
+
 
 struct BuildEvent : Event
 {
@@ -47,6 +53,7 @@ struct BuildEvent : Event
     : Event{Events::Build}, building{_building} {}
 };
 
+
 struct SlipEvent : Event
 {
   virtual Event* copy() const override;
@@ -54,11 +61,13 @@ struct SlipEvent : Event
     : Event{Events::Slip} {}
 };
 
+
 struct DemolishEvent : Event
 {
   virtual Event* copy() const override;
   DemolishEvent()
     : Event{Events::Demolish} {}
 };
+
 
 #endif // EVENTSSTRUCTURES_H

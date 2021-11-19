@@ -16,6 +16,29 @@ void GraphicsController::start()
   game_window->show();
 }
 
+QWidget* GraphicsController::window() const
+{
+  return game_window.get();
+}
+
+void GraphicsController::do_start_inform(QString string)
+{
+  start_move_inform.reset(new StartMoveInform(game_controller->igame_for_widget(), string,
+                                              QPoint{_size_win.width/2, _size_win.height/2}));
+  Size size{_size_win.width/3, _size_win.height/3};
+  start_move_inform->set_geometry(QPoint{_size_win.width/2 - size.width/2, _size_win.height/2 - size.height/2}, size);
+  start_move_inform->hide();
+  start_move_inform->show();
+  start_move_inform->raise();
+  enabled_map = false;
+}
+
+void GraphicsController::del_start_inform()
+{
+  start_move_inform.reset();
+  enabled_map = true;
+}
+
 void GraphicsController::create_elements()
 {
   window_gc->set_win_settings();
@@ -99,29 +122,6 @@ Map* GraphicsController::get_map()
 Calculations* GraphicsController::get_calc()
 {
   return calc.get();
-}
-
-QWidget* GraphicsController::window() const
-{
-  return game_window.get();
-}
-
-void GraphicsController::do_start_inform(QString string)
-{
-  start_move_inform.reset(new StartMoveInform(game_controller->igame_for_widget(), string,
-                                              QPoint{_size_win.width/2, _size_win.height/2}));
-  Size size{_size_win.width/3, _size_win.height/3};
-  start_move_inform->set_geometry(QPoint{_size_win.width/2 - size.width/2, _size_win.height/2 - size.height/2}, size);
-  start_move_inform->hide();
-  start_move_inform->show();
-  start_move_inform->raise();
-  enabled_map = false;
-}
-
-void GraphicsController::del_start_inform()
-{
-  start_move_inform.reset();
-  enabled_map = true;
 }
 
 bool& GraphicsController::get_is_tracking_unit()
