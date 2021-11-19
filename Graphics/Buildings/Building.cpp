@@ -31,6 +31,11 @@ Calculations* Building::calculations() const
   return cell->calculations();
 }
 
+void Building::set_standard_charaterichtics()
+{
+  end_phase = BuildingCharaterichtics().get_building_count_phase(what_building_I());
+}
+
 void Building::set_build_phase(int _phase)
 {
   if(_phase < end_phase)

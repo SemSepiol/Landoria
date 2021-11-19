@@ -8,13 +8,12 @@
 #include "../Factories/FactoryPixmap.h"
 #include "../Factories/FactoryColor.h"
 #include "../ICell.h"
+#include "UnitsCharaterichtics.h"
 
 class Unit : public IContent
 {
 public:
-  Unit(ICell* _cell)
-    : cell{_cell}
-  {}
+  Unit(ICell* _cell);
 
   virtual void draw(QPoint point) override;
   virtual QWidget* window() const override;
@@ -22,6 +21,7 @@ public:
   virtual Contents what_content_I() const override {return Contents::Unit;}
   virtual Units what_unit_I() const = 0;
 
+  virtual void set_standard_charaterichtics();
   void set_health(int health);
   int get_health() const;
   void set_max_health(int max_health);

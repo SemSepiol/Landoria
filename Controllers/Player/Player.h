@@ -9,8 +9,6 @@
 #include "../../Graphics/Buildings/Building.h"
 #include "../../Graphics/GraphicsController/EventsStructures.h"
 #include "../IGame.h"
-#include "../UnitsCharaterichtics.h"
-#include "../BuildingCharaterichtics.h"
 #include "../FindVision.h"
 #include "../FindUnitWay.h"
 #include "PlayerTown.h"

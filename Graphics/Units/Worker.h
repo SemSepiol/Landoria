@@ -12,8 +12,9 @@ public:
     : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Worker; }
 
-  void set_build_speed(int _build_speed) { build_speed = _build_speed; }
-  int get_build_speed() const { return build_speed; }
+  virtual void set_standard_charaterichtics() override;
+  void set_build_speed(int _build_speed);
+  int get_build_speed() const;
 private:
   int build_speed;
 };

@@ -7,7 +7,7 @@ RESOURCES += \
     Images.qrc
 
 HEADERS += \
-    Controllers/BuildingCharaterichtics.h \
+    Graphics/Buildings/BuildingCharaterichtics.h \
     Controllers/Enums.h \
     Controllers/FindUnitWay.h \
     Controllers/FindVision.h \
@@ -27,7 +27,7 @@ HEADERS += \
     Controllers/Science.h \
     Controllers/TownBuildNeeds.h \
     Controllers/TownBuildings.h \
-    Controllers/UnitsCharaterichtics.h \
+    Graphics/Units/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
     Graphics/Buildings/FishingBoat.h \
@@ -154,5 +154,6 @@ SOURCES += \
     Graphics/Minimap.cpp \
     Graphics/Resources/Res.cpp \
     Graphics/Units/Unit.cpp \
+    Graphics/Units/Worker.cpp \
     main.cpp
 

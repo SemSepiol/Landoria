@@ -1,5 +1,9 @@
 #include "Unit.h"
 
+Unit::Unit(ICell* _cell)
+  : cell{_cell}
+{}
+
 void Unit::draw(QPoint point)
 {
   int rad = calculations()->circle_radius();
@@ -26,6 +30,17 @@ Calculations* Unit::calculations() const
 {
   return cell->calculations();
 }
+
+void Unit::set_standard_charaterichtics()
+{
+  auto uc = UnitsCharaterichtics();
+  max_health = uc.get_unit_max_health(what_unit_I());
+  health = uc.get_unit_max_health(what_unit_I());
+  max_movement = uc.get_unit_max_movement(what_unit_I());
+  movement = uc.get_unit_max_movement(what_unit_I());
+  vision = uc.get_unit_vision(what_unit_I());
+}
+
 
 void Unit::set_health(int _health)
 {

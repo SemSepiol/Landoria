@@ -7,6 +7,7 @@
 #include "../Factories/FactoryPixmap.h"
 #include "../ICell.h"
 #include "../IContent.h"
+#include "BuildingCharaterichtics.h"
 
 class Building : public IContent
 {
@@ -17,6 +18,7 @@ public:
   virtual Contents what_content_I() const override {return Contents::Building;}
   virtual Buildings what_building_I() const = 0;
 
+  void set_standard_charaterichtics();
   void set_build_phase(int phase);
   void set_end_build_phase(int end_phase);
   int get_build_phase() const;

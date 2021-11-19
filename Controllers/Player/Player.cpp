@@ -343,26 +343,12 @@ void Player::build_town(PlayerUnit* my_unit)
 
 void Player::add_unit(Units type_unit, Position pos_cell)
 {
-  UnitsCharaterichtics unitcharaterichtics;
-  int max_health = unitcharaterichtics.get_unit_max_health(type_unit);
-  int max_movement = unitcharaterichtics.get_unit_max_movement(type_unit);
-  int vision = unitcharaterichtics.get_unit_vision(type_unit);
   class Unit* unit = game_controller->graphics_controller()->add_unit(type_unit, pos_cell);
 
-  unit->set_max_health(max_health);
-  unit->set_health(max_health);
-  unit->set_max_movement(max_movement);
-  unit->set_movement(max_movement);
-  unit->set_vision(vision);
+  unit->set_standard_charaterichtics();
   unit->set_country(country);
 
   my_units.push_back(std::unique_ptr<PlayerUnit>{new PlayerUnit(unit, pos_cell)});
-
-  if(type_unit == Units::Worker)
-  {
-    class Worker* worker = static_cast<class Worker*>(unit);
-    worker->set_build_speed(UnitsCharaterichtics().get_worker_build_speed());
-  }
 
   capture_cell(pos_cell);
 }
@@ -431,8 +417,7 @@ void Player::add_build(PlayerUnit* unit, Buildings type_building)
 
   class Building* building = game_controller->graphics_controller()->build(type_building, unit->pos);
 
-  int end_phase = BuildingCharaterichtics().get_building_count_phase(building->what_building_I());
-  building->set_end_build_phase(end_phase);
+  building->set_standard_charaterichtics();
 
   if(unit->unit->get_movement() != 0)
   {
