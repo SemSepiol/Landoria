@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IWindowGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "IMenuTown.h"
 

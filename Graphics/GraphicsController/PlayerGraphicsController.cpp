@@ -61,7 +61,9 @@ void PlayerGraphicsController::do_menu_unit(PlayerUnit* unit)
   Cell* cell = map()->cell_by_indexes(unit->pos);
   Size size_win = graphics_controller->get_size_win();
   Size size_bottommenu = graphics_controller->get_size_bottommenu();
-  graphics_controller->set_unit_menu(FactoryMenusUnit().create_menu(game_window(), graphics_controller->get_iunit_menu_gc(), unit, cell));
+
+  auto imenu_gc = graphics_controller->get_imenu_gc_full();
+  graphics_controller->set_unit_menu(FactoryMenusUnit().create_menu(game_window(), imenu_gc, unit, cell));
 
   AMenuForUnit* unit_menu = graphics_controller->get_unit_menu();
   int side_square_unit_menu = graphics_controller->get_side_square_unit_menu();
@@ -79,7 +81,8 @@ void PlayerGraphicsController::do_menu_unit(PlayerUnit* unit)
 
 void PlayerGraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown* town)
 {
-  graphics_controller->set_town_menu(new MenuTown{player, graphics_controller->get_itown_menu_gc(), town});
+  auto imenu_gc = graphics_controller->get_imenu_gc_full();
+  graphics_controller->set_town_menu(new MenuTown{player, imenu_gc, town});
 
   Size size_win = graphics_controller->get_size_win();
   Size size_uppermenu = graphics_controller->get_size_uppermenu();
@@ -96,7 +99,9 @@ void PlayerGraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown*
 void PlayerGraphicsController::centering_by_cell(Position pos_cell)
 {
   QPoint point = map()->point_of_cell_in_win(pos_cell);
-  graphics_controller->move_map(graphics_controller->get_win_map_center() - point);
+
+  auto map_gc = graphics_controller->get_imap_gc_full();
+  map_gc->move_map(graphics_controller->get_win_map_center() - point);
 }
 
 void PlayerGraphicsController::highlight_unit(class Unit* unit, Position pos_cell)

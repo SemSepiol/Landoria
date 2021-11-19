@@ -1,7 +1,7 @@
 #ifndef PLAYERGRAPHICSCONTROLLER_H
 #define PLAYERGRAPHICSCONTROLLER_H
 
-#include "IGraphicsControllerFor.h"
+#include "IWindowGraphicsController.h"
 #include "IGraphicsController.h"
 #include "IPlayerGraphicsController.h"
 #include "../Factories/FactoryMenusUnit.h"
@@ -30,6 +30,7 @@ public:
   virtual Resources cell_resource(Position pos) override;
   virtual bool has_cell_building(Position pos) override;
   virtual Buildings cell_building(Position pos) override;
+
 private:
   Map* map();
   GameWindow* game_window();

@@ -2,7 +2,7 @@
 #define IGAME_H
 
 #include "../IObject.h"
-#include "../Graphics/GraphicsController/IGraphicsControllerFor.h"
+#include "../Graphics/GraphicsController/IWindowGraphicsController.h"
 #include "../Graphics/GraphicsController/IPlayerGraphicsController.h"
 #include "Player/IPlayer.h"
 

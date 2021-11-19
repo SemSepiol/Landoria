@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QMouseEvent>
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IMenuGraphicsController.h"
 
 class AMenuInWindow : public QWidget
 {

@@ -8,12 +8,13 @@
 class CreateMap : public IObject
 {
 public:
-  CreateMap(IMapGraphicsController* game_control) :game_control{game_control} {}
+  CreateMap(IMapGraphicsController* _graphics_controller)
+    :graphics_controller{_graphics_controller} {}
   void create_map(Map* map);
   void add_resource(Map* map);
 
 private:
-  IMapGraphicsController* game_control;
+  IMapGraphicsController* graphics_controller;
 };
 
 #endif // CREATEMAP_H

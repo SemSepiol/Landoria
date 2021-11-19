@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IMenuGraphicsController.h"
 #include "AMenuInWindow.h"
 #include "../Cell.h"
 #include "../Factories/FactoryString.h"

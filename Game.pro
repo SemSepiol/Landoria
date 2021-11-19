@@ -27,6 +27,13 @@ HEADERS += \
     Controllers/Science.h \
     Controllers/TownBuildNeeds.h \
     Controllers/TownBuildings.h \
+    Graphics/GraphicsController/GraphicsController.h \
+    Graphics/GraphicsController/IMapGraphicsController.h \
+    Graphics/GraphicsController/IMenuGraphicsController.h \
+    Graphics/GraphicsController/IWindowGraphicsController.h \
+    Graphics/GraphicsController/MapGraphicsController.h \
+    Graphics/GraphicsController/MenuGraphicsController.h \
+    Graphics/GraphicsController/WindowGraphicsController.h \
     Graphics/Units/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -49,13 +56,10 @@ HEADERS += \
     Graphics/Factories/FactoryString.h \
     Graphics/Factories/FactoryUnits.h \
     Graphics/GameWindow.h \
-    Graphics/GraphicsController/AGraphicsController.h \
     Graphics/GraphicsController/Calculations.h \
     Graphics/GraphicsController/CreateMap.h \
     Graphics/GraphicsController/EventsStructures.h \
-    Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IGraphicsController.h \
-    Graphics/GraphicsController/IGraphicsControllerFor.h \
     Graphics/GraphicsController/IPlayerGraphicsController.h \
     Graphics/GraphicsController/PlayerGraphicsController.h \
     Graphics/ICell.h \
@@ -126,12 +130,14 @@ SOURCES += \
     Graphics/Factories/FactoryString.cpp \
     Graphics/Factories/FactoryUnits.cpp \
     Graphics/GameWindow.cpp \
-    Graphics/GraphicsController/AGraphicsController.cpp \
     Graphics/GraphicsController/Calculations.cpp \
     Graphics/GraphicsController/CreateMap.cpp \
     Graphics/GraphicsController/EventsStructures.cpp \
     Graphics/GraphicsController/GraphicsController.cpp \
+    Graphics/GraphicsController/MapGraphicsController.cpp \
+    Graphics/GraphicsController/MenuGraphicsController.cpp \
     Graphics/GraphicsController/PlayerGraphicsController.cpp \
+    Graphics/GraphicsController/WindowGraphicsController.cpp \
     Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \

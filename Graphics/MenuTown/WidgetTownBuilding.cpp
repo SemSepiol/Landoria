@@ -64,7 +64,7 @@ void WidgetTownBuilding::mouseReleaseEvent(QMouseEvent *event)
      menu_town->count_from_queue() < menu_town->town()->max_build_in_queue())
     menu_town->set_build(type_building);
 
-  if(type_widget == InQueue)
+  else if(type_widget == InQueue)
   {
     if(point_in_rect(rect_butt_del(), event->pos()))
       menu_town->del_build_from_queue(this);
@@ -73,7 +73,7 @@ void WidgetTownBuilding::mouseReleaseEvent(QMouseEvent *event)
     else if(point_in_rect(rect_butt_down(), event->pos()))
       menu_town->move_down_build(this);
   }
-  if(type_widget == AlreadyBuild)
+  else if(type_widget == AlreadyBuild)
     if(point_in_rect(rect_butt_del(), event->pos()) && enable)
       menu_town->set_build(type_building);
 }

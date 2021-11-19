@@ -12,6 +12,7 @@
 #include "../Menus/AMenuForUnit.h"
 #include "../Menus/UpperMenu.h"
 #include "../Menus/BottomMenu.h"
+#include "IMenuGraphicsController.h"
 
 class IGraphicsController : public IObject
 {
@@ -43,6 +44,7 @@ public:
   virtual int& get_hexagon_side_minimap() = 0;
 
   virtual DrawWay* get_drawway() = 0;
+  virtual void set_drawway(DrawWay*) = 0;
 
   virtual AMenuForUnit* get_unit_menu() = 0;
   virtual void set_unit_menu(AMenuForUnit*) = 0;
@@ -56,11 +58,10 @@ public:
   virtual Minimap* get_minimap() = 0;
   virtual StartMoveInform* get_start_move_inform() = 0;
 
-  virtual IUnitMenuGraphicsController* get_iunit_menu_gc() = 0;
-  virtual ITownMenuGraphicsController* get_itown_menu_gc() = 0;
+  virtual IWindowGraphicsControllerFull* get_iwindow_gc_full() = 0;
+  virtual IMenuGraphicsControllerFull* get_imenu_gc_full() = 0;
   virtual IPlayerGraphicsController* get_iplayer_gc() = 0;
-
-  virtual void move_map(QPoint move_point) = 0;
+  virtual IMapGraphicsControllerFull* get_imap_gc_full() = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

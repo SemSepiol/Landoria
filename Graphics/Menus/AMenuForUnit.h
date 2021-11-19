@@ -10,7 +10,7 @@
 #include "../Units/Unit.h"
 #include "../../Controllers/Player/IPlayer.h"
 #include "../GraphicsController/EventsStructures.h"
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IMenuGraphicsController.h"
 #include "../GraphicsController/IPlayerGraphicsController.h"
 #include "../Factories/FactoryPixmap.h"
 #include "../Cell.h"

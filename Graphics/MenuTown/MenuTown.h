@@ -5,7 +5,7 @@
 
 #include "IMenuTown.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IWindowGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "MenuBuildTown.h"
 #include "MenuTypeWorkTown.h"

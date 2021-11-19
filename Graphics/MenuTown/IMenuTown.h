@@ -5,7 +5,7 @@
 
 #include "../../IObject.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IGraphicsControllerFor.h"
+#include "../GraphicsController/IMenuGraphicsController.h"
 #include "../../Controllers/Player/PlayerTown.h"
 #include "AWidgetTown.h"
 

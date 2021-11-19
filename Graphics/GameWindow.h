@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QResizeEvent>
 #include <QPalette>
-#include "GraphicsController/IGraphicsControllerFor.h"
+#include "GraphicsController/IWindowGraphicsController.h"
 #include "MenuTown/InformWidget.h"
 
 class GameWindow : public QWidget

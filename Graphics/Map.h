@@ -6,7 +6,7 @@
 #include "GameWindow.h"
 #include "IMap.h"
 #include "Cell.h"
-#include "GraphicsController/IGraphicsControllerFor.h"
+#include "GraphicsController/IMapGraphicsController.h"
 #include "GraphicsController/Calculations.h"
 
 
