@@ -2,8 +2,8 @@
 #define WARRIORMENU_H
 
 #include "AMenuForUnit.h"
-#include "../Cell.h"
-#include "../GraphicsController/EventsStructures.h"
+#include "../../Cell.h"
+#include "../../GraphicsController/EventsStructures.h"
 
 
 class WarriorMenu : public AMenuForUnit

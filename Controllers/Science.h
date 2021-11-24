@@ -136,6 +136,10 @@ enum class Epochs
   InformationAge
 };
 
+struct Knowledge
+{
+
+};
 
 class Science : public IObject
 {

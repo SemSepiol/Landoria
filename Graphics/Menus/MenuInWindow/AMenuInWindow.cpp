@@ -1,7 +1,7 @@
 #include "AMenuInWindow.h"
 
 AMenuInWindow::AMenuInWindow(IMenuInWindowGraphicsController* _graphics_controller)
-  : QWidget{_graphics_controller->window()} ,graphics_controller{_graphics_controller}
+  : QWidget{_graphics_controller->window()}, graphics_controller{_graphics_controller}
 {
   QWidget::setMouseTracking(true);
 }
@@ -12,7 +12,6 @@ void AMenuInWindow::set_geometry(QPoint pos, Size size)
   height_menu = size.height;
   QWidget::setGeometry(pos.x(), pos.y(), size.width, size.height);
 }
-
 
 void AMenuInWindow::paintEvent(QPaintEvent* event)
 {

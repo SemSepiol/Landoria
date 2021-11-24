@@ -19,6 +19,12 @@ public:
 
   virtual void do_inform_widget(std::vector<std::pair<QString, QColor>> text) = 0;
   virtual void del_inform_widget() = 0;
+
+  virtual void open_menu_lists() = 0;
+  virtual void close_menu_lists() = 0;
+
+  virtual void open_menu_science() = 0;
+  virtual void close_menu_science() = 0;
 };
 
 

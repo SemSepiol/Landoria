@@ -5,7 +5,7 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "../Factories/FactoryPixmap.h"
+#include "../../Factories/FactoryPixmap.h"
 
 
 class AWidgetTown : public QWidget

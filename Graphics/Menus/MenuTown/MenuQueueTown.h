@@ -9,10 +9,10 @@
 #include "IMenuTown.h"
 #include "WidgetTownBuilding.h"
 #include "WidgetTownUnit.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../../Controllers/Player/PlayerTown.h"
+#include "../../Factories/FactoryPixmap.h"
+#include "../../GraphicsController/IWindowGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../../Controllers/Player/PlayerTown.h"
 
 
 class MenuQueueTown : public QWidget

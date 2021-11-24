@@ -8,13 +8,13 @@
 #include <QPoint>
 #include <QWidget>
 
-#include "../Cell.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../GraphicsController/EventsStructures.h"
-#include "../GraphicsController/IMenuGraphicsController.h"
-#include "../GraphicsController/IPlayerGraphicsController.h"
-#include "../Units/Unit.h"
-#include "../../Controllers/Player/IPlayer.h"
+#include "../../Cell.h"
+#include "../../Factories/FactoryPixmap.h"
+#include "../../GraphicsController/EventsStructures.h"
+#include "../../GraphicsController/IMenuGraphicsController.h"
+#include "../../GraphicsController/IPlayerGraphicsController.h"
+#include "../../Units/Unit.h"
+#include "../../../Controllers/Player/IPlayer.h"
 
 
 struct MyButton

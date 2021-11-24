@@ -1,7 +1,8 @@
 #include "MenuGraphicsController.h"
+#include <iostream>
 
 MenuGraphicsController::MenuGraphicsController(IGraphicsController* _graphics_controller)
-  :graphics_controller{_graphics_controller}
+  :graphics_controller{_graphics_controller}, wid_open_menu_lists{new OpenMenuLists(this)}, menu_lists{new MenuLists(this)}
 {}
 
 QWidget* MenuGraphicsController::window() const
@@ -81,6 +82,33 @@ void MenuGraphicsController::del_inform_widget()
   graphics_controller->get_game_window()->del_inform_widget();
 }
 
+void MenuGraphicsController::open_menu_lists()
+{
+  menu_lists->show();
+}
+
+void MenuGraphicsController::close_menu_lists()
+{
+  menu_lists->hide();
+}
+
+void MenuGraphicsController::open_menu_science()
+{
+  menu_lists->hide();
+  PlayerScience* player_science = graphics_controller->get_game_controller()->current_player()->player_science();
+  menu_science.reset(new MenuScience(this, player_science));
+  Size size = graphics_controller->get_size_win();
+  QPoint pos = {0,0};
+  menu_science->set_geometry(pos, size);
+  menu_science->hide();
+  menu_science->show();
+}
+
+void MenuGraphicsController::close_menu_science()
+{
+  menu_science.reset();
+}
+
 void MenuGraphicsController::create_uppermenu()
 {
   Size size_win = graphics_controller->get_size_win();
@@ -98,6 +126,21 @@ void MenuGraphicsController::create_bottommenu()
   size_bottommenu = {size_win.width, size_win.height/30};
   QPoint pos{size_win.width - size_bottommenu.width, size_win.height - size_bottommenu.height};
   graphics_controller->get_bottom_menu()->set_geometry(pos, size_bottommenu);
+}
+
+void MenuGraphicsController::create_menu_lists()
+{
+  Size size_win = graphics_controller->get_size_win();
+  size_open_menu_lists = {size_win.height/30, size_win.height/30};
+  QPoint pos{0, graphics_controller->get_size_uppermenu().height};
+  wid_open_menu_lists->set_geometry(pos, size_open_menu_lists);
+  wid_open_menu_lists->hide();
+  wid_open_menu_lists->show();
+
+  size_menu_lists = {size_win.height/10, size_win.height/10};
+  pos += {0, size_open_menu_lists.height};
+  menu_lists->set_geometry(pos, size_menu_lists);
+  menu_lists->hide();
 }
 
 void MenuGraphicsController::del_menu_unit()

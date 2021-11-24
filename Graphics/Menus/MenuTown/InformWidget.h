@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "../../IObject.h"
+#include "../../../IObject.h"
 
 
 class InformWidget : public QWidget

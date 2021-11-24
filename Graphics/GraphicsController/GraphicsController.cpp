@@ -3,11 +3,14 @@
 #include <random>
 
 GraphicsController::GraphicsController(class IGameForGraphic* _game_controller)
-  :game_controller{_game_controller},
-    map_gc{new MapGraphicsController(this)}, window_gc{new WindowGraphicsController(this)},
-    player_gc{new PlayerGraphicsController(this)}, menu_gc{new MenuGraphicsController(this)},
-    game_window{new GameWindow(window_gc.get())}, upper_menu{new class UpperMenu(menu_gc.get())},
-    bottom_menu{new class BottomMenu(menu_gc.get())}, _map{new Map(map_gc.get())}, calc{new Calculations{}},
+  :game_controller{_game_controller}, window_gc{new WindowGraphicsController(this)},
+    game_window{new GameWindow(window_gc.get())},
+    map_gc{new MapGraphicsController(this)},
+    player_gc{new PlayerGraphicsController(this)},
+    menu_gc{new MenuGraphicsController(this)},
+    upper_menu{new class UpperMenu(menu_gc.get())},
+    bottom_menu{new class BottomMenu(menu_gc.get())},
+    _map{new Map(map_gc.get())}, calc{new Calculations{}},
     minimap{new Minimap{game_window.get(), _map.get(), map_gc.get()}}
 {}
 
@@ -44,6 +47,7 @@ void GraphicsController::create_elements()
   window_gc->set_win_settings();
   menu_gc->create_uppermenu();
   menu_gc->create_bottommenu();
+  menu_gc->create_menu_lists();
   map_gc->create_map();
   side_square_unit_menu = _size_win.width/20;
   map_gc->create_minimap();

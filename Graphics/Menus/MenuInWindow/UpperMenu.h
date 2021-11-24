@@ -7,9 +7,9 @@
 #include <QPainter>
 
 #include "AMenuInWindow.h"
-#include "../Factories/FactoryPixmap.h"
-#include "../GraphicsController/IMenuGraphicsController.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../Factories/FactoryPixmap.h"
+#include "../../GraphicsController/IMenuGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
 
 
 class UpperMenu : public AMenuInWindow

@@ -48,25 +48,85 @@ std::string FactoryString::build_string(Buildings type_building) const
 
 std::string FactoryString::building_in_town_string(TownBuildings type_building) const
 {
+  std::map<TownBuildings, std::string> building_in_town_str{
+    {TownBuildings::Aqueduct, "Акведук"},
+    {TownBuildings::Market, "Рынок"},
+    {TownBuildings::PublicSchool, "Школа"},
+    {TownBuildings::University, "Университет"},
+    {TownBuildings::Bank, "Банк"},
+    {TownBuildings::MedicalLab, "Медицинская лаборатория"},
+    {TownBuildings::ResearchLab, "Лаборатория"},
+    {TownBuildings::Walls, "Стены"},
+    {TownBuildings::Monument, "Монумент"},
+    {TownBuildings::Shrine, "Cвятилище"},
+    {TownBuildings::Windmill, "Ветряная мельница"},
+    {TownBuildings::Hospital, "Больница"},
+    {TownBuildings::Stadium, "Стадион"},
+    {TownBuildings::Workshop, "Мастерская"},
+    {TownBuildings::Library, "Библиотека"},
+    {TownBuildings::OperaHouse, "Опера"},
+    {TownBuildings::StockExchange, "Биржа"},
+    {TownBuildings::Zoo, "Зоопарк"},
+    {TownBuildings::Factory, "Фабрика"},
+    {TownBuildings::Museum, "Музей"}
+  };
   return building_in_town_str.at(type_building);
 }
 
 std::string FactoryString::resource_string(Resources type_res)
 {
+  std::map<Resources, std::string> res_str{
+    {Resources::Iron, "Железо"},
+    {Resources::Gold, "Золото"},
+    {Resources::Stone, "Камень"},
+    {Resources::Aluminum, "Алюминий"},
+    {Resources::Horses, "Лошади"},
+    {Resources::Oil, "Нефть"},
+    {Resources::Uranium, "Уран"},
+    {Resources::Coal, "Уголь"},
+    {Resources::Fish, "Рыба"},
+    {Resources::Silver, "Серебро"},
+  };
+
   return res_str.at(type_res);
 }
 
 std::string FactoryString::landscape_string(MainLandscapes landscape)
 {
+  std::map<MainLandscapes, std::string> main_landscape_str{
+    {MainLandscapes::Ocean, "Океан"},
+    {MainLandscapes::Coast, "Побережье"},
+    {MainLandscapes::Plain, "Равнина"},
+    {MainLandscapes::Mountain, "Горы"},
+    {MainLandscapes::Tundra, "Тундра"},
+    {MainLandscapes::Desert, "Пустыня"},
+    {MainLandscapes::Snow, "Снег"},
+    {MainLandscapes::Ice, "Лед"}
+  };
+
   return main_landscape_str.at(landscape);
 }
 
 std::string FactoryString::landscape_string(OtherLandscapes landscape)
 {
+  std::map<OtherLandscapes, std::string> other_landscape_str{
+    {OtherLandscapes::Nothing, ""},
+    {OtherLandscapes::Forest, "Лес"},
+    {OtherLandscapes::Jungles, "Джунгли"},
+    {OtherLandscapes::Hills, "Холмы"},
+    {OtherLandscapes::ForestAndHills, "Холмы, Лес"},
+    {OtherLandscapes::JunglesAndHills, "Холмы, Джунгли"}
+  };
+
   return other_landscape_str.at(landscape);
 }
 
 std::string FactoryString::country_string(Countries country)
 {
+  std::map<Countries, std::string> country_str{
+    {Countries::Nothing, ""},
+    {Countries::Russia, "Россия"}
+  };
+
   return country_str.at(country);
 }

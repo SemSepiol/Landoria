@@ -34,6 +34,10 @@ HEADERS += \
     Graphics/GraphicsController/MapGraphicsController.h \
     Graphics/GraphicsController/MenuGraphicsController.h \
     Graphics/GraphicsController/WindowGraphicsController.h \
+    Graphics/Menus/MenuInWindow/MenuLists.h \
+    Graphics/Menus/MenuInWindow/OpenMenuLists.h \
+    Graphics/Menus/MenuScience/MenuScience.h \
+    Graphics/Menus/MenuScience/WidgetKnowledge.h \
     Graphics/Units/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -68,24 +72,23 @@ HEADERS += \
     Graphics/IMap.h \
     Graphics/InformationWidgets/StartMoveInform.h \
     Graphics/Map.h \
-    Graphics/MenuTown.h \
-    Graphics/MenuTown/AWidgetTown.h \
-    Graphics/MenuTown/IMenuTown.h \
-    Graphics/MenuTown/InformWidget.h \
-    Graphics/MenuTown/MenuAlreadyBuildTown.h \
-    Graphics/MenuTown/MenuBuildTown.h \
-    Graphics/MenuTown/MenuQueueTown.h \
-    Graphics/MenuTown/MenuTown.h \
-    Graphics/MenuTown/MenuTypeWorkTown.h \
-    Graphics/MenuTown/WidgetTownBuilding.h \
-    Graphics/MenuTown/WidgetTownUnit.h \
-    Graphics/Menus/AMenuForUnit.h \
-    Graphics/Menus/AMenuInWindow.h \
-    Graphics/Menus/BottomMenu.h \
-    Graphics/Menus/CitizenMenu.h \
-    Graphics/Menus/UpperMenu.h \
-    Graphics/Menus/WarriorMenu.h \
-    Graphics/Menus/WorkerMenu.h \
+    Graphics/Menus/MenuTown/AWidgetTown.h \
+    Graphics/Menus/MenuTown/IMenuTown.h \
+    Graphics/Menus/MenuTown/InformWidget.h \
+    Graphics/Menus/MenuTown/MenuAlreadyBuildTown.h \
+    Graphics/Menus/MenuTown/MenuBuildTown.h \
+    Graphics/Menus/MenuTown/MenuQueueTown.h \
+    Graphics/Menus/MenuTown/MenuTown.h \
+    Graphics/Menus/MenuTown/MenuTypeWorkTown.h \
+    Graphics/Menus/MenuTown/WidgetTownBuilding.h \
+    Graphics/Menus/MenuTown/WidgetTownUnit.h \
+    Graphics/Menus/MenuInWindow/AMenuInWindow.h \
+    Graphics/Menus/MenuInWindow/BottomMenu.h \
+    Graphics/Menus/MenuInWindow/UpperMenu.h \
+    Graphics/Menus/MenuUnit/AMenuForUnit.h \
+    Graphics/Menus/MenuUnit/CitizenMenu.h \
+    Graphics/Menus/MenuUnit/WarriorMenu.h \
+    Graphics/Menus/MenuUnit/WorkerMenu.h \
     Graphics/Minimap.h \
     Graphics/Resources/Aluminum.h \
     Graphics/Resources/Coal.h \
@@ -141,22 +144,26 @@ SOURCES += \
     Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map.cpp \
-    Graphics/MenuTown/AWidgetTown.cpp \
-    Graphics/MenuTown/InformWidget.cpp \
-    Graphics/MenuTown/MenuAlreadyBuildTown.cpp \
-    Graphics/MenuTown/MenuBuildTown.cpp \
-    Graphics/MenuTown/MenuQueueTown.cpp \
-    Graphics/MenuTown/MenuTown.cpp \
-    Graphics/MenuTown/MenuTypeWorkTown.cpp \
-    Graphics/MenuTown/WidgetTownBuilding.cpp \
-    Graphics/MenuTown/WidgetTownUnit.cpp \
-    Graphics/Menus/AMenuForUnit.cpp \
-    Graphics/Menus/AMenuInWindow.cpp \
-    Graphics/Menus/BottomMenu.cpp \
-    Graphics/Menus/CitizenMenu.cpp \
-    Graphics/Menus/UpperMenu.cpp \
-    Graphics/Menus/WarriorMenu.cpp \
-    Graphics/Menus/WorkerMenu.cpp \
+    Graphics/Menus/MenuInWindow/MenuLists.cpp \
+    Graphics/Menus/MenuInWindow/OpenMenuLists.cpp \
+    Graphics/Menus/MenuScience/MenuScience.cpp \
+    Graphics/Menus/MenuScience/WidgetKnowledge.cpp \
+    Graphics/Menus/MenuTown/AWidgetTown.cpp \
+    Graphics/Menus/MenuTown/InformWidget.cpp \
+    Graphics/Menus/MenuTown/MenuAlreadyBuildTown.cpp \
+    Graphics/Menus/MenuTown/MenuBuildTown.cpp \
+    Graphics/Menus/MenuTown/MenuQueueTown.cpp \
+    Graphics/Menus/MenuTown/MenuTown.cpp \
+    Graphics/Menus/MenuTown/MenuTypeWorkTown.cpp \
+    Graphics/Menus/MenuTown/WidgetTownBuilding.cpp \
+    Graphics/Menus/MenuTown/WidgetTownUnit.cpp \
+    Graphics/Menus/MenuUnit/AMenuForUnit.cpp \
+    Graphics/Menus/MenuInWindow/AMenuInWindow.cpp \
+    Graphics/Menus/MenuInWindow/BottomMenu.cpp \
+    Graphics/Menus/MenuUnit/CitizenMenu.cpp \
+    Graphics/Menus/MenuInWindow/UpperMenu.cpp \
+    Graphics/Menus/MenuUnit/WarriorMenu.cpp \
+    Graphics/Menus/MenuUnit/WorkerMenu.cpp \
     Graphics/Minimap.cpp \
     Graphics/Resources/Res.cpp \
     Graphics/Units/Unit.cpp \

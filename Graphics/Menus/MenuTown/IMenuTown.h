@@ -4,10 +4,10 @@
 #include <QWidget>
 
 #include "AWidgetTown.h"
-#include "../GraphicsController/IMenuGraphicsController.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../../Controllers/Player/PlayerTown.h"
-#include "../../IObject.h"
+#include "../../GraphicsController/IMenuGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../../Controllers/Player/PlayerTown.h"
+#include "../../../IObject.h"
 
 
 class IMenuTown : public IObject

@@ -9,7 +9,7 @@
 #include <QWidget>
 
 #include "GraphicsController/IWindowGraphicsController.h"
-#include "MenuTown/InformWidget.h"
+#include "Menus/MenuTown/InformWidget.h"
 
 
 class GameWindow : public QWidget

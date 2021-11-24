@@ -3,15 +3,15 @@
 
 #include <memory>
 
-#include "IMenuTown.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/PlayerTown.h"
 #include "MenuBuildTown.h"
 #include "MenuTypeWorkTown.h"
 #include "MenuQueueTown.h"
 #include "MenuAlreadyBuildTown.h"
+#include "IMenuTown.h"
 #include "InformWidget.h"
+#include "../../GraphicsController/IWindowGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../../Controllers/Player/PlayerTown.h"
 
 
 class MenuTown : public IMenuTown

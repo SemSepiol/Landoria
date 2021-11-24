@@ -4,8 +4,8 @@
 #include <QPoint>
 
 #include "AMenuForUnit.h"
-#include "../Cell.h"
-#include "../GraphicsController/EventsStructures.h"
+#include "../../Cell.h"
+#include "../../GraphicsController/EventsStructures.h"
 
 
 class MenuBuild;

@@ -82,12 +82,14 @@ protected:
 
   IGameForGraphic* game_controller;
 
-  std::unique_ptr<MapGraphicsController> map_gc;
   std::unique_ptr<WindowGraphicsController> window_gc;
+
+  std::unique_ptr<GameWindow> game_window;
+
+  std::unique_ptr<MapGraphicsController> map_gc;
   std::unique_ptr<PlayerGraphicsController> player_gc;
   std::unique_ptr<MenuGraphicsController> menu_gc;
 
-  std::unique_ptr<GameWindow> game_window;
   std::unique_ptr<UpperMenu> upper_menu;
   std::unique_ptr<BottomMenu> bottom_menu;
   std::unique_ptr<Map> _map;
@@ -108,6 +110,8 @@ protected:
   std::unique_ptr<MenuTown> town_menu{nullptr};
   std::unique_ptr<Minimap> minimap;
   std::unique_ptr<StartMoveInform> start_move_inform;
+
+
 };
 
 #endif // GRAPHICSCONTROLLER_H

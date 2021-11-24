@@ -7,9 +7,9 @@
 #include <QWidget>
 
 #include "IMenuTown.h"
-#include "../GraphicsController/IWindowGraphicsController.h"
-#include "../../Controllers/Player/IMenuTownPlayer.h"
-#include "../../Controllers/Player/PlayerTown.h"
+#include "../../GraphicsController/IWindowGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../../Controllers/Player/PlayerTown.h"
 
 
 class MenuTypeWorkTown : public QWidget

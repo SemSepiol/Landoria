@@ -3,11 +3,10 @@
 
 #include <QWidget>
 
-#include "../Menus/AMenuForUnit.h"
-#include "../Menus/CitizenMenu.h"
-#include "../Menus/WarriorMenu.h"
-#include "../Menus/WorkerMenu.h"
-#include "../Units/Unit.h"
+#include "../Menus/MenuUnit/AMenuForUnit.h"
+#include "../Menus/MenuUnit/CitizenMenu.h"
+#include "../Menus/MenuUnit/WarriorMenu.h"
+#include "../Menus/MenuUnit/WorkerMenu.h"
 #include "../../Controllers/Player/IPlayer.h"
 #include "../../IObject.h"
 
