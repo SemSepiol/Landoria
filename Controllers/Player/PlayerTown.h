@@ -10,6 +10,24 @@
 #include "../TownBuildings.h"
 #include "../TownBuildNeeds.h"
 
+struct TownResource
+{
+  double production_per_turn = 0;
+  double coef_production = 1;
+  double get_production() const
+  { return coef_production * production_per_turn; }
+
+  double gold_per_turn = 0;
+  double coef_gold = 1;
+  double get_gold() const
+  { return coef_gold * gold_per_turn; }
+
+  double science_per_turn = 0;
+  double coef_science = 1;
+  double get_science() const
+  { return coef_science * science_per_turn; }
+};
+
 
 class PlayerTown : public IObject
 {
@@ -22,9 +40,6 @@ public:
   class Town* town() const;
   void move_build();
   void new_move();
-
-  int get_gold_per_turn() const;
-  int get_science_per_turn() const;
 
   size_t count_town_buildings() const;
   std::vector<TownBuildings> get_building_already_build() const;
@@ -40,14 +55,17 @@ public:
   void move_down_build(size_t i);
   size_t max_build_in_queue();
 
-  int get_build_need_production(TownBuildings type_building);
-  int get_build_need_production(Units type_unit);
+  double get_build_need_production(TownBuildings type_building);
+  double get_build_need_production(Units type_unit);
 
   int get_level_build(TownBuildings type_building);
 
   const std::vector<BuildInTown*>& get_build_queue() const;
-  int get_production() const;
-  int get_remains_production() const;
+  double get_production() const;
+  double get_remains_production() const;
+
+  double get_gold_per_turn() const;
+  double get_science_per_turn() const;
 
   Countries get_country() const;
 private:  
@@ -56,12 +74,10 @@ private:
   class Town* _town;
   ITownPlayer* player;
   Position _pos;
-  int production = 10;
-  int remains_production = 0;
-  bool build_in_this_move = false;
 
-  int gold_per_turn;
-  int science_per_turn;
+  TownResource town_resource{};
+  double remains_production = 0;
+  bool build_in_this_move = false;
 
   std::vector<std::unique_ptr<BuildInTown>> build_in_town;
   std::vector<BuildInTown*> build_queue;

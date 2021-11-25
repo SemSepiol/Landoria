@@ -34,13 +34,73 @@ void WidgetKnowledge::mouseReleaseEvent(QMouseEvent* event)
 
 void WidgetKnowledge::draw()
 {
+  draw_wid();
+  draw_knowledge_pixmap();
+  draw_text();
+  draw_open();
+}
+
+void WidgetKnowledge::draw_wid()
+{
   QPainter qp(this);
 
-  qp.setBrush(QBrush(QColor(Qt::red)));
+  qp.setPen(Qt::white);
   qp.drawRect(QRect{0, 0, width(), height()});
+  if(player_sience->is_knowledge_open(knowledge->name_knowledge))
+    qp.fillRect(QRect{0, 0, width(), height()}, QBrush(QColor(Qt::green)));
+}
+
+void WidgetKnowledge::draw_knowledge_pixmap()
+{
+  QPainter qp(this);
+
+  QRect rect_knowledge = rect_knowledge_pixmap();
+  qp.drawEllipse(rect_knowledge.center(), rect_knowledge.width()/2,
+                 rect_knowledge.width()/2);
+  QPixmap knowledge_pixmap = FactoryPixmap().create_pixmap_for_knowledges(knowledge->name_knowledge);
+  qp.drawPixmap(rect_knowledge, knowledge_pixmap);
+}
+
+void WidgetKnowledge::draw_text()
+{
+  QPainter qp(this);
+  qp.setPen(Qt::white);
+
+  QString text = QString::fromStdString(FactoryString().knowledge_string(knowledge->name_knowledge));
+  qp.drawText(rect_text(), Qt::AlignVCenter, text);
+}
+
+void WidgetKnowledge::draw_open()
+{
+  QPainter qp(this);
+
+  auto factory_pixmap = FactoryPixmap();
+  for(auto& town_buildings : knowledge->town_buildings)
+  {
+
+  }
 }
 
 void WidgetKnowledge::click(QPoint pos)
 {
   std::cout << "science" << std::endl;
+}
+
+QRect WidgetKnowledge::rect_knowledge_pixmap() const
+{
+  return QRect{0, 0, height(), height()};
+}
+
+QRect WidgetKnowledge::rect_text() const
+{
+  return QRect{rect_knowledge_pixmap().topRight(), QPoint{width(), height()/3}};
+}
+
+QRect WidgetKnowledge::rect_open_pixmap(int num) const
+{
+  QPoint pos{rect_text().bottomLeft()};
+  int rect_side = height() - pos.y();
+  int space = rect_side/5;
+  pos += QPoint(num*(rect_side+space) + space, 0);
+  return QRect{pos.x(), pos.y(), rect_side, rect_side};
 }

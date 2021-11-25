@@ -1,14 +1,14 @@
 #include "BuildInTown.h"
 
-int BuildInTown::build(int town_production)
+double BuildInTown::build(double town_production)
 {
   if(need_production > town_production)
   {
     need_production -= town_production;
-    return 0;
+    return 0.;
   }
   else{
-    int remains = town_production - need_production;
+    double remains = town_production - need_production;
     need_production = 0;
     return remains;
   }

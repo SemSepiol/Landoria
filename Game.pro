@@ -119,6 +119,7 @@ SOURCES += \
     Controllers/Player/PlayerRes.cpp \
     Controllers/Player/PlayerScience.cpp \
     Controllers/Player/PlayerTown.cpp \
+    Controllers/Science.cpp \
     Controllers/TownBuildNeeds.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \

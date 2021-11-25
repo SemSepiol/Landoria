@@ -16,7 +16,7 @@ struct BuildInTown
   TownBuildings building;
   int level = 0;
   Units unit;
-  int need_production;
+  double need_production;
 
   BuildInTown(Units type_unit)
     :type_build{TypeBuild::Unit}, unit{type_unit}
@@ -31,7 +31,7 @@ struct BuildInTown
   }
 
   //возвращает остаток
-  int build(int town_production);
+  double build(double town_production);
 
   void build_next_level();
 };

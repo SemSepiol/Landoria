@@ -145,6 +145,9 @@ void Player::end_move()
 {
   set_movement_to_max_unit();
   set_new_move_to_towns();
+  gold += get_gold_per_turn();
+  if(gold < 0.)
+    gold = 0.;
 }
 
 void Player::draw_my_map()
@@ -353,17 +356,22 @@ void Player::add_unit(Units type_unit, Position pos_cell)
   capture_cell(pos_cell);
 }
 
-int Player::get_gold_per_turn() const
+double Player::get_gold_per_turn() const
 {
-  int count = 0;
+  double count = 0;
   for(auto& town : my_towns)
     count += town->get_gold_per_turn();
   return count;
 }
 
-int Player::get_science_per_turn() const
+double Player::get_gold() const
 {
-  int count = 0;
+  return gold;
+}
+
+double Player::get_science_per_turn() const
+{
+  double count = 0;
   for(auto& town : my_towns)
     count += town->get_science_per_turn();
   return count;

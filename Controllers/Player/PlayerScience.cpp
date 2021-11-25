@@ -64,3 +64,14 @@ int PlayerScience::max_level_building(TownBuildings building) const
 {
   return 2;
 }
+
+bool PlayerScience::is_knowledge_open(Knowledges knowledge) const
+{
+  return std::find(open_knowledges.begin(), open_knowledges.end(), knowledge)
+      != open_knowledges.end();
+}
+
+void PlayerScience::set_study_knowledge(Knowledges knowledge)
+{
+
+}

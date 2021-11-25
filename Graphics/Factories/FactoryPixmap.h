@@ -7,6 +7,7 @@
 
 #include "../GraphicsController/EventsStructures.h"
 #include "../../Controllers/Enums.h"
+#include "../../Controllers/Science.h"
 #include "../../Controllers/TownBuildings.h"
 #include "../../IObject.h"
 
@@ -20,6 +21,7 @@ public:
   QPixmap create_pixmap_for_building(Buildings type_building) const;
   QPixmap create_pixmap_for_main_landscape(MainLandscapes type_landscape) const;
   QPixmap create_pixmap_for_other_landscape(OtherLandscapes type_landscape) const;
+  QPixmap create_pixmap_for_knowledges(Knowledges name_knowledge) const;
   QPixmap create_pixmap_for_butt_menu(Event* event) const;
   QPixmap create_pixmap_for_exit() const;
   QPixmap create_pixmap_for_del_in_queue() const;

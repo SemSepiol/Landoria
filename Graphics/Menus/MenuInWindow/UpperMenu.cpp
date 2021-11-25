@@ -9,8 +9,9 @@ UpperMenu::UpperMenu(IMenuInWindowGraphicsController* _graphic_controller)
 
 void UpperMenu::update_infofm(IMenuTownPlayer* player)
 {
-  count_gold = player->get_gold_per_turn();
-  count_science = player->get_science_per_turn();
+  count_gold = int(player->get_gold());
+  count_gold_per_turn = int(player->get_gold_per_turn());
+  count_science_per_turn = int(player->get_science_per_turn());
 
   draw_res.clear();
   PlayerRes* player_res = player->get_player_res();
@@ -57,7 +58,8 @@ void UpperMenu::draw()
   QPoint p2 = QPoint{width_menu, height_menu};
   qp.drawLine(p1, p2);
 
-  qp.drawLine(rect_science_pic().bottomRight(), rect_science_pic().topRight());
+  qp.drawLine(QPoint{rect_science_pic().bottomRight().x() + 2, 0},
+              QPoint{rect_science_pic().topRight().x() + 2, height()});
 }
 
 QRect UpperMenu::exit_butt() const
@@ -77,7 +79,7 @@ void UpperMenu::draw_gold()
 {
   QPainter qp(this);
   QColor color = Qt::white;
-  if(count_gold < 0)
+  if(count_gold_per_turn < 0)
     color = Qt::red;
 
   qp.setPen(QPen{color, 2, Qt::SolidLine});
@@ -88,12 +90,11 @@ void UpperMenu::draw_gold()
 
   std::stringstream ss;
 
-  if(count_gold < 0)
-    ss << "-";
-  else if(count_gold > 0)
+  ss << count_gold << " (";
+  if(count_gold_per_turn > 0)
     ss << "+";
 
-  ss << count_gold;
+  ss << count_gold_per_turn << ")";
   QRect rect2 = rect_gold();
   qp.drawText(rect2, Qt::AlignVCenter | Qt::AlignRight,  QString::fromStdString(ss.str()));
 }
@@ -102,7 +103,7 @@ void UpperMenu::draw_science()
 {
   QPainter qp(this);
   QColor color = Qt::white;
-  if(count_science < 0)
+  if(count_science_per_turn < 0)
     color = Qt::red;
 
   qp.setPen(QPen{color, 2, Qt::SolidLine});
@@ -113,12 +114,10 @@ void UpperMenu::draw_science()
 
   std::stringstream ss;
 
-  if(count_science < 0)
-    ss << "-";
-  else if(count_science > 0)
+  if(count_science_per_turn > 0)
     ss << "+";
 
-  ss << count_science;
+  ss << count_science_per_turn;
   QRect rect2 = rect_science();
   qp.drawText(rect2, Qt::AlignVCenter | Qt::AlignRight,  QString::fromStdString(ss.str()));
 }
@@ -141,9 +140,7 @@ void UpperMenu::draw_resource()
 
     std::stringstream ss;
 
-    if(draw_res[i].count_res < 0)
-      ss << "-";
-    else if(draw_res[i].count_res > 0)
+    if(draw_res[i].count_res > 0)
       ss << "+";
 
     ss << draw_res[i].count_res;
@@ -154,7 +151,8 @@ void UpperMenu::draw_resource()
 
 QRect UpperMenu::rect_gold() const
 {
-  return QRect{0, 0, height() * (count_simbols(count_gold)+1)/4, height()};
+  return QRect{0, 0,
+    height() * (count_simbols(count_gold) + count_simbols(count_gold_per_turn)+3)/4, height()};
 }
 
 QRect UpperMenu::rect_gold_pic() const
@@ -165,7 +163,7 @@ QRect UpperMenu::rect_gold_pic() const
 QRect UpperMenu::rect_science() const
 {
   return QRect{rect_gold_pic().bottomRight().x(), 0,
-        height() * (count_simbols(count_science)+1)/4, height()};
+        height() * (count_simbols(count_science_per_turn)+1)/4, height()};
 }
 
 QRect UpperMenu::rect_science_pic() const

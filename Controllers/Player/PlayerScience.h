@@ -1,9 +1,11 @@
 #ifndef PLAYERSCIENCE_H
 #define PLAYERSCIENCE_H
 
+#include <algorithm>
 #include <vector>
 
 #include "../Enums.h"
+#include "../Science.h"
 #include "../TownBuildings.h"
 #include "../../IObject.h"
 
@@ -23,10 +25,19 @@ public:
 
   int max_level_building(TownBuildings building) const;
 
+  bool is_knowledge_open(Knowledges knowledge) const;
+  void set_study_knowledge(Knowledges knowledge);
+
 private:
+//  IMenuTownPlayer* player;
+
   std::vector<TownBuildings> building;
   std::vector<Units> units;
   std::vector<Units> best_units;
+
+  std::vector<Knowledges> queue_science;
+
+  std::vector<Knowledges> open_knowledges = std::vector<Knowledges>();
 };
 
 #endif // PLAYERSCIENCE_H

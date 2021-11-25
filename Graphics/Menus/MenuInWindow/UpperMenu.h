@@ -53,7 +53,8 @@ protected:
 
   std::vector<DrawRes> draw_res;
   int count_gold = 0;
-  int count_science = 0;
+  int count_gold_per_turn = 0;
+  int count_science_per_turn = 0;
 };
 
 #endif // UPPERMENU_H

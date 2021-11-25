@@ -130,3 +130,9 @@ std::string FactoryString::country_string(Countries country)
 
   return country_str.at(country);
 }
+
+std::string FactoryString::knowledge_string(Knowledges name_knowledge)
+{
+  return "";
+}
+

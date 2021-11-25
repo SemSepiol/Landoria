@@ -141,6 +141,11 @@ QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_la
   }
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_knowledges(Knowledges name_knowledge) const
+{
+  return QPixmap{""};
+}
+
 QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const
 {
   if(!event)

@@ -4,6 +4,8 @@
 #include <QMouseEvent>
 #include <QWidget>
 
+#include "../../Factories/FactoryPixmap.h"
+#include "../../Factories/FactoryString.h"
 #include "../../GraphicsController/IMenuGraphicsController.h"
 #include "../../../Controllers/Player/PlayerScience.h"
 #include "../../../Controllers/Science.h"
@@ -23,7 +25,16 @@ private:
   virtual void mousePressEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
   void draw();
+  void draw_wid();
+  void draw_knowledge_pixmap();
+  void draw_text();
+  void draw_open();
+
   void click(QPoint pos);
+
+  QRect rect_knowledge_pixmap() const;
+  QRect rect_text() const;
+  QRect rect_open_pixmap(int num) const;
 
   IMenuInWindowGraphicsController* graphics_controller;
   Knowledge* knowledge;

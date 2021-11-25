@@ -133,8 +133,8 @@ void WidgetTownBuilding::draw_widget()
   {
     QRectF rect3{QPoint{height(), height()/2}, QPoint{width(), height()}};
     std::stringstream ss;
-    int build_moves =  menu_town->town()->get_build_need_production(type_building) /
-        menu_town->town()->get_production();
+    int build_moves =  int(round(menu_town->town()->get_build_need_production(type_building) /
+        menu_town->town()->get_production()));
     ss << build_moves << " Ход";
     qp.drawText(rect3, Qt::AlignLeft | Qt::AlignVCenter, QString::fromStdString(ss.str()));
   }

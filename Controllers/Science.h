@@ -1,10 +1,14 @@
 #ifndef SCIENCE_H
 #define SCIENCE_H
 
+#include <vector>
+
+#include "Enums.h"
+#include "TownBuildings.h"
 #include "../IObject.h"
 
 
-enum class Studies
+enum class Knowledges
 {
   // Древнейший мир
 
@@ -44,7 +48,7 @@ enum class Studies
   // Мелкие копейщики
   BronzeProcessing,
 
-/////////////////
+  /////////////////
   // Богословие
   // Храм
   Theology,
@@ -85,7 +89,7 @@ enum class Studies
   // Храм 2
   Philosophy,
 
-/////////////
+  /////////////
   // Гильдии
   // Тарговый пост
   Guilds,
@@ -136,14 +140,50 @@ enum class Epochs
   InformationAge
 };
 
+struct PositionKnowledge
+{
+  int num_x = 0;
+  int num_y = 0;
+  PositionKnowledge(int x, int y)
+    :num_x{x}, num_y{y}
+  {}
+
+  PositionKnowledge() {}
+};
+
+struct TownBuilding
+{
+  TownBuildings town_building;
+  int level;
+
+  TownBuilding(TownBuildings _town_building, int _level)
+    :town_building{_town_building}, level{_level}
+  {}
+};
+
 struct Knowledge
 {
+  Knowledges name_knowledge;
+  Epochs epoch;
 
+  PositionKnowledge position_knowledge;
+  std::vector<PositionKnowledge> necessary_knowledges;
+
+  std::vector<TownBuilding> town_buildings;
+  std::vector<Units> units;
+  std::vector<Resources> resources;
+  std::vector<Buildings> buildings;
+
+  Knowledge(Knowledges _name_knowledge)
+    :name_knowledge{_name_knowledge}
+  {}
 };
 
 class Science : public IObject
 {
-
+public:
+  std::vector<Knowledges> get_all_name_knowledges() const;
+  Knowledge get_knowledge(Knowledges name_knowledge) const;
 };
 
 #endif // SCIENCE_H
