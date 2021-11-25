@@ -16,10 +16,6 @@ enum class Knowledges
   // Ферма
   Agriculture,
 
-  // Каменная кладка
-  // Камень, Карьер
-  Masonry,
-
   // Животноводство
   // Лошади, Пасдбище
   AnimalHusbandry,
@@ -27,6 +23,14 @@ enum class Knowledges
   // Стрельба из лука
   // Лучники
   Archery,
+
+  // Каменная кладка
+  // Камень, Карьер
+  Masonry,
+
+  // Язык
+  // Манумент, Cвятилище
+  Language,
 
   // Добыча руды
   // Железо, Рудник
@@ -91,7 +95,7 @@ enum class Knowledges
 
   /////////////
   // Гильдии
-  // Тарговый пост
+  // Торговый пост
   Guilds,
 
   // Госслужба
@@ -121,10 +125,6 @@ enum class Knowledges
   // Сталеварение
   // Крутые мечники
   Steelmaking,
-
-  // Физика
-  // Требушет
-  Physics,
 };
 
 
@@ -167,7 +167,7 @@ struct Knowledge
   Epochs epoch;
 
   PositionKnowledge position_knowledge;
-  std::vector<PositionKnowledge> necessary_knowledges;
+  std::vector<Knowledges> necessary_knowledges;
 
   std::vector<TownBuilding> town_buildings;
   std::vector<Units> units;
