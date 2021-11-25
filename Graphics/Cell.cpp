@@ -166,12 +166,12 @@ void Cell::draw_fog_of_war(QPoint point)
 
 void Cell::draw_highlight(QPoint point)
 {
-  int rad = calculations()->circle_radius()+5;
+  int rad = calculations()->circle_radius();
 
   QPainter qp(window());
-  QPen pen(Qt::blue, 10, Qt::SolidLine);
+  QPen pen(Qt::blue, int(rad/5), Qt::SolidLine);
   qp.setBrush(QBrush (Qt::blue));
-  qp.drawEllipse(point, rad, rad);
+  qp.drawEllipse(point, rad*6/5, rad*6/5);
 }
 
 void Cell::draw_borders(QPoint point)
