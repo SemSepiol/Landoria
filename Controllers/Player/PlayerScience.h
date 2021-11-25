@@ -37,7 +37,7 @@ private:
 
   std::vector<Knowledges> queue_science;
 
-  std::vector<Knowledges> open_knowledges = std::vector<Knowledges>();
+  std::vector<Knowledges> open_knowledges{};
 };
 
 #endif // PLAYERSCIENCE_H

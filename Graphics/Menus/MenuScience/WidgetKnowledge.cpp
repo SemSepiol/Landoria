@@ -2,15 +2,21 @@
 #include <iostream>
 
 WidgetKnowledge::WidgetKnowledge(IMenuInWindowGraphicsController* _graphics_controller,
-                Knowledge* _knowledge, PlayerScience* _player_sience)
+                                 IMenuScience* _menu_science,
+                                 Knowledge _knowledge, PlayerScience* _player_sience)
   :QWidget{_graphics_controller->window()}, graphics_controller{_graphics_controller},
-    knowledge{_knowledge}, player_sience{_player_sience}
+    menu_science{_menu_science}, knowledge{_knowledge}, player_sience{_player_sience}
 {}
 
 
 void WidgetKnowledge::set_geometry(QPoint pos, Size size)
 {
   QWidget::setGeometry(pos.x(), pos.y(), size.width, size.height);
+}
+
+const Knowledge& WidgetKnowledge::get_knowledge() const
+{
+  return knowledge;
 }
 
 void WidgetKnowledge::paintEvent(QPaintEvent* event)
@@ -32,6 +38,11 @@ void WidgetKnowledge::mouseReleaseEvent(QMouseEvent* event)
   click(event->pos());
 }
 
+void WidgetKnowledge::wheelEvent(QWheelEvent *event)
+{
+  menu_science->wheel_scroll(event->angleDelta().y());
+}
+
 void WidgetKnowledge::draw()
 {
   draw_wid();
@@ -46,7 +57,7 @@ void WidgetKnowledge::draw_wid()
 
   qp.setPen(Qt::white);
   qp.drawRect(QRect{0, 0, width(), height()});
-  if(player_sience->is_knowledge_open(knowledge->name_knowledge))
+  if(player_sience->is_knowledge_open(knowledge.name_knowledge))
     qp.fillRect(QRect{0, 0, width(), height()}, QBrush(QColor(Qt::green)));
 }
 
@@ -55,9 +66,7 @@ void WidgetKnowledge::draw_knowledge_pixmap()
   QPainter qp(this);
 
   QRect rect_knowledge = rect_knowledge_pixmap();
-  qp.drawEllipse(rect_knowledge.center(), rect_knowledge.width()/2,
-                 rect_knowledge.width()/2);
-  QPixmap knowledge_pixmap = FactoryPixmap().create_pixmap_for_knowledges(knowledge->name_knowledge);
+  QPixmap knowledge_pixmap = FactoryPixmap().create_pixmap_for_knowledges(knowledge.name_knowledge);
   qp.drawPixmap(rect_knowledge, knowledge_pixmap);
 }
 
@@ -66,7 +75,7 @@ void WidgetKnowledge::draw_text()
   QPainter qp(this);
   qp.setPen(Qt::white);
 
-  QString text = QString::fromStdString(FactoryString().knowledge_string(knowledge->name_knowledge));
+  QString text = QString::fromStdString(FactoryString().knowledge_string(knowledge.name_knowledge));
   qp.drawText(rect_text(), Qt::AlignVCenter, text);
 }
 
@@ -75,7 +84,7 @@ void WidgetKnowledge::draw_open()
   QPainter qp(this);
 
   auto factory_pixmap = FactoryPixmap();
-  for(auto& town_buildings : knowledge->town_buildings)
+  for(auto& town_buildings : knowledge.town_buildings)
   {
 
   }

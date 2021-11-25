@@ -84,5 +84,28 @@
         <file>Graphics/image/menu/Gold.png</file>
         <file>Graphics/image/menu/Science.png</file>
         <file>Graphics/image/menu/Upgrade.png</file>
+        <file>Graphics/image/knowledges/Agriculture.png</file>
+        <file>Graphics/image/knowledges/AnimalHusbandry.png</file>
+        <file>Graphics/image/knowledges/Archery.png</file>
+        <file>Graphics/image/knowledges/BronzeProcessing.png</file>
+        <file>Graphics/image/knowledges/Compass.png</file>
+        <file>Graphics/image/knowledges/DramaAndPoetry.png</file>
+        <file>Graphics/image/knowledges/Education.png</file>
+        <file>Graphics/image/knowledges/Engineering.png</file>
+        <file>Graphics/image/knowledges/Guilds.png</file>
+        <file>Graphics/image/knowledges/HorseRiding.png</file>
+        <file>Graphics/image/knowledges/IronProcessing.png</file>
+        <file>Graphics/image/knowledges/Knighthood.png</file>
+        <file>Graphics/image/knowledges/Machinery.png</file>
+        <file>Graphics/image/knowledges/Mathematics.png</file>
+        <file>Graphics/image/knowledges/Money.png</file>
+        <file>Graphics/image/knowledges/Navigation.png</file>
+        <file>Graphics/image/knowledges/Optics.png</file>
+        <file>Graphics/image/knowledges/OreMining.png</file>
+        <file>Graphics/image/knowledges/Philosophy.png</file>
+        <file>Graphics/image/knowledges/StoneProcessing.png</file>
+        <file>Graphics/image/knowledges/Theology.png</file>
+        <file>Graphics/image/knowledges/Wheel.png</file>
+        <file>Graphics/image/knowledges/Writing.png</file>
     </qresource>
 </RCC>

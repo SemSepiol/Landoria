@@ -36,6 +36,7 @@ HEADERS += \
     Graphics/GraphicsController/WindowGraphicsController.h \
     Graphics/Menus/MenuInWindow/MenuLists.h \
     Graphics/Menus/MenuInWindow/OpenMenuLists.h \
+    Graphics/Menus/MenuScience/IMenuScience.h \
     Graphics/Menus/MenuScience/MenuScience.h \
     Graphics/Menus/MenuScience/WidgetKnowledge.h \
     Graphics/Units/UnitsCharaterichtics.h \

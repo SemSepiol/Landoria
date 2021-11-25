@@ -49,6 +49,7 @@ private:
   const QString units_dir {"units/"};
   const QString buildings_dir {"building/"};
   const QString landscapes_dir {"landscapes/"};
+  const QString knowledges_dir {"knowledges/"};
   const QString menu_dir {"menu/"};
   const QString town_building_dir{"town_building/"};
 };

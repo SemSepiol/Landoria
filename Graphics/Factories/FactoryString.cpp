@@ -133,6 +133,72 @@ std::string FactoryString::country_string(Countries country)
 
 std::string FactoryString::knowledge_string(Knowledges name_knowledge)
 {
-  return "";
+  switch (name_knowledge)
+  {
+  case Knowledges::Agriculture:
+    return "Земледелие";
+  case Knowledges::StoneProcessing:
+    return "Обработка Камня";
+  case Knowledges::Language:
+    return "Язык";
+  case Knowledges::WoodProcessing:
+    return "Обработка дерева";
+  case Knowledges::Writing:
+    return "Письменность";
+  case Knowledges::AnimalHusbandry:
+    return "Животноводство";
+  case Knowledges::Wheel:
+    return "Колесо";
+  case Knowledges::OreMining:
+    return "Добыча руды";
+  case Knowledges::Archery:
+    return "Стрельба из лука";
+  case Knowledges::Theology:
+    return "Богословие";
+  case Knowledges::Navigation:
+    return "Мореходство";
+  case Knowledges::HorseRiding:
+    return "Верховая езда";
+  case Knowledges::Winemaking:
+    return "Виноделие";
+  case Knowledges::BronzeProcessing:
+    return "Обработка бронзы";
+  case Knowledges::Money:
+    return "Деньги";
+  case Knowledges::Philosophy:
+    return "Философия";
+  case Knowledges::Optics:
+    return "Оптика";
+  case Knowledges::IronProcessing:
+    return "Обработка Железа";
+  case Knowledges::PreciousOres:
+    return "Драгоценные руды";
+  case Knowledges::DramaAndPoetry:
+    return "Драма и поэзия";
+  case Knowledges::Mathematics:
+    return "Математика";
+  case Knowledges::MetalStructures:
+    return "Металлоконструкции";
+  case Knowledges::Engineering:
+    return "Инженерное дело";
+  case Knowledges::Guilds:
+    return "Гильдии";
+  case Knowledges::Education:
+    return "Образование";
+  case Knowledges::Compass:
+    return "Компас";
+  case Knowledges::Knighthood:
+    return "Рыцарство";
+  case Knowledges::Steelmaking:
+    return "Сталеварение";
+  case Knowledges::Machinery:
+    return "Машиностроение";
+  case Knowledges::Trading:
+    return "Торговля";
+  case Knowledges::Medicine:
+    return "Медицина";
+  default:
+    return "";
+  }
 }
 

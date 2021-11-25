@@ -143,7 +143,73 @@ QPixmap FactoryPixmap::create_pixmap_for_other_landscape(OtherLandscapes type_la
 
 QPixmap FactoryPixmap::create_pixmap_for_knowledges(Knowledges name_knowledge) const
 {
-  return QPixmap{""};
+  switch (name_knowledge)
+  {
+  case Knowledges::Agriculture:
+    return QPixmap{image_path + knowledges_dir + "Agriculture.png/"};
+  case Knowledges::StoneProcessing:
+    return QPixmap{image_path + knowledges_dir + "StoneProcessing.png/"};
+  case Knowledges::Language:
+    return QPixmap{image_path + knowledges_dir + "Language.png/"};
+  case Knowledges::WoodProcessing:
+    return QPixmap{image_path + knowledges_dir + "WoodProcessing.png/"};
+  case Knowledges::Writing:
+    return QPixmap{image_path + knowledges_dir + "Writing.png/"};
+  case Knowledges::AnimalHusbandry:
+    return QPixmap{image_path + knowledges_dir + "AnimalHusbandry.png/"};
+  case Knowledges::Wheel:
+    return QPixmap{image_path + knowledges_dir + "Wheel.png/"};
+  case Knowledges::OreMining:
+    return QPixmap{image_path + knowledges_dir + "OreMining.png/"};
+  case Knowledges::Archery:
+    return QPixmap{image_path + knowledges_dir + "Archery.png/"};
+  case Knowledges::Theology:
+    return QPixmap{image_path + knowledges_dir + "Theology.png/"};
+  case Knowledges::Navigation:
+    return QPixmap{image_path + knowledges_dir + "Navigation.png/"};
+  case Knowledges::HorseRiding:
+    return QPixmap{image_path + knowledges_dir + "HorseRiding.png/"};
+  case Knowledges::Winemaking:
+    return QPixmap{image_path + knowledges_dir + "Winemaking.png/"};
+  case Knowledges::BronzeProcessing:
+    return QPixmap{image_path + knowledges_dir + "BronzeProcessing.png/"};
+  case Knowledges::Money:
+    return QPixmap{image_path + knowledges_dir + "Money.png/"};
+  case Knowledges::Philosophy:
+    return QPixmap{image_path + knowledges_dir + "Philosophy.png/"};
+  case Knowledges::Optics:
+    return QPixmap{image_path + knowledges_dir + "Optics.png/"};
+  case Knowledges::IronProcessing:
+    return QPixmap{image_path + knowledges_dir + "IronProcessing.png/"};
+  case Knowledges::PreciousOres:
+    return QPixmap{image_path + knowledges_dir + "PreciousOres.png/"};
+  case Knowledges::DramaAndPoetry:
+    return QPixmap{image_path + knowledges_dir + "DramaAndPoetry.png/"};
+  case Knowledges::Mathematics:
+    return QPixmap{image_path + knowledges_dir + "Mathematics.png/"};
+  case Knowledges::MetalStructures:
+    return QPixmap{image_path + knowledges_dir + "MetalStructures.png/"};
+  case Knowledges::Engineering:
+    return QPixmap{image_path + knowledges_dir + "Engineering.png/"};
+  case Knowledges::Guilds:
+    return QPixmap{image_path + knowledges_dir + "Guilds.png/"};
+  case Knowledges::Education:
+    return QPixmap{image_path + knowledges_dir + "Education.png/"};
+  case Knowledges::Compass:
+    return QPixmap{image_path + knowledges_dir + "Compass.png/"};
+  case Knowledges::Knighthood:
+    return QPixmap{image_path + knowledges_dir + "Knighthood.png/"};
+  case Knowledges::Steelmaking:
+    return QPixmap{image_path + knowledges_dir + "Steelmaking.png/"};
+  case Knowledges::Machinery:
+    return QPixmap{image_path + knowledges_dir + "Machinery.png/"};
+  case Knowledges::Trading:
+    return QPixmap{image_path + knowledges_dir + "Trading.png/"};
+  case Knowledges::Medicine:
+    return QPixmap{image_path + knowledges_dir + "Medicine.png/"};
+  default:
+    return QPixmap{image_path + knowledges_dir + ""};
+  }
 }
 
 QPixmap FactoryPixmap::create_pixmap_for_butt_menu(Event* event) const

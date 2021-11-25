@@ -2,6 +2,7 @@
 #define SCIENCE_H
 
 #include <vector>
+#include <stdexcept>
 
 #include "Enums.h"
 #include "TownBuildings.h"
@@ -10,121 +11,42 @@
 
 enum class Knowledges
 {
-  // Древнейший мир
-
-  // Земледелие
-  // Ферма
+  /////////////////
   Agriculture,
-
-  // Животноводство
-  // Лошади, Пасдбище
-  AnimalHusbandry,
-
-  // Стрельба из лука
-  // Лучники
-  Archery,
-
-  // Каменная кладка
-  // Камень, Карьер
-  Masonry,
-
-  // Язык
-  // Манумент, Cвятилище
+  StoneProcessing,
   Language,
-
-  // Добыча руды
-  // Железо, Рудник
-  OreMining,
-
-  // Мореходство
-  // Какие-нибудь караблики
-  Navigation,
-
-  // Письменность
-  // Школа
+  WoodProcessing,
   Writing,
 
-  // Колесо
-  // Колесницы
-  Wheel,
-
-  // Обработка бронзы
-  // Мелкие копейщики
-  BronzeProcessing,
-
   /////////////////
-  // Богословие
-  // Храм
+  AnimalHusbandry,
+  Wheel,
+  OreMining,
+  Archery,
   Theology,
-
-  // Верховая езда
-  // Кавалерия
+  Navigation,
   HorseRiding,
-
-  // Деньги
-  // Рынок
+  Winemaking,
+  BronzeProcessing,
   Money,
-
-  // Драма и поэзия
-  // Амфитеатор
+  Philosophy,
+  Optics,
+  IronProcessing,
+  PreciousOres,
   DramaAndPoetry,
-
-  // Инженерное дело
-  // Аквидук, Форт
-  Engineering,
-
-  // Математика
-  // Школа, Катапульта
   Mathematics,
 
-  // Металлоконструкции
-  // Лесопилка, Крутые лучники
-  MetalStructures,
-
-  // Обработка железа
-  // Мечники
-  IronProcessing,
-
-  // Оптика
-  // Маяк
-  Optics,
-
-  // Философия
-  // Храм 2
-  Philosophy,
-
   /////////////
-  // Гильдии
-  // Торговый пост
+  MetalStructures,
+  Engineering,
   Guilds,
-
-  // Госслужба
-  // Крутые копейщики
-  CivilService,
-
-  // Компас
-  // Гавань, Галеас
-  Compass,
-
-  // Литьё
-  // Мастерская
-  Casting,
-
-  // Машиностроение
-  // Мастерская 2
-  MechanicalEngineering,
-
-  // Образование
-  // Институт
   Education,
-
-  // Рыцарство
-  // Стены 2, Тяж. конница
+  Compass,
   Knighthood,
-
-  // Сталеварение
-  // Крутые мечники
   Steelmaking,
+  Machinery,
+  Trading,
+  Medicine,
 };
 
 

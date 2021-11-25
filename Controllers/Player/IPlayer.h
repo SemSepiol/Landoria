@@ -1,10 +1,10 @@
 #ifndef IPLAYER_H
 #define IPLAYER_H
 
-#include "IObject.h"
 #include "PlayerScience.h"
 #include "../../Graphics/GraphicsController/EventsStructures.h"
 #include "../../Graphics/Units/Unit.h"
+#include "../../IObject.h"
 
 
 class IPlayer : public IObject
