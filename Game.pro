@@ -27,6 +27,7 @@ HEADERS += \
     Controllers/Science.h \
     Controllers/TownBuildNeeds.h \
     Controllers/TownBuildings.h \
+    Graphics/GraphicsController/CreateMap.h \
     Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IMapGraphicsController.h \
     Graphics/GraphicsController/IMenuGraphicsController.h \
