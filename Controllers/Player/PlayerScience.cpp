@@ -1,4 +1,5 @@
 #include "PlayerScience.h"
+#include <iostream>
 
 PlayerScience::PlayerScience()
 {
@@ -73,5 +74,5 @@ bool PlayerScience::is_knowledge_open(Knowledges knowledge) const
 
 void PlayerScience::set_study_knowledge(Knowledges knowledge)
 {
-
+  std::cout << "ok" << std::endl;
 }

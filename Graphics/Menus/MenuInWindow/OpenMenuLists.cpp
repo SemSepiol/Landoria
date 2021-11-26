@@ -30,3 +30,9 @@ void OpenMenuLists::click(QPoint pos)
   is_menu_open = !is_menu_open;
   update();
 }
+
+void OpenMenuLists::switch_arrow()
+{
+  is_menu_open = !is_menu_open;
+  update();
+}

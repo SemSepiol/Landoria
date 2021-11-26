@@ -84,15 +84,37 @@ void WidgetKnowledge::draw_open()
   QPainter qp(this);
 
   auto factory_pixmap = FactoryPixmap();
-  for(auto& town_buildings : knowledge.town_buildings)
-  {
 
+  int num = 0;
+  for(auto& res : knowledge.resources)
+  {
+    QRect rect = rect_open_pixmap(num++);
+    QPixmap pixmap = factory_pixmap.create_pixmap_for_res(res);
+    qp.drawPixmap(rect, pixmap);
+  }
+  for(auto& building : knowledge.buildings)
+  {
+    QRect rect = rect_open_pixmap(num++);
+    QPixmap pixmap = factory_pixmap.create_pixmap_for_building(building);
+    qp.drawPixmap(rect, pixmap);
+  }
+  for(auto& town_building : knowledge.town_buildings)
+  {
+    QRect rect = rect_open_pixmap(num++);
+    QPixmap pixmap = factory_pixmap.create_pixmap_for_town_building(town_building.town_building);
+    qp.drawPixmap(rect, pixmap);
+  }
+  for(auto& unit : knowledge.units)
+  {
+    QRect rect = rect_open_pixmap(num++);
+    QPixmap pixmap = factory_pixmap.create_pixmap_for_unit(unit);
+    qp.drawPixmap(rect, pixmap);
   }
 }
 
 void WidgetKnowledge::click(QPoint pos)
 {
-  std::cout << "science" << std::endl;
+  player_sience->set_study_knowledge(knowledge.name_knowledge);
 }
 
 QRect WidgetKnowledge::rect_knowledge_pixmap() const

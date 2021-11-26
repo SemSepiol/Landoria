@@ -95,6 +95,7 @@ void MenuGraphicsController::close_menu_lists()
 void MenuGraphicsController::open_menu_science()
 {
   menu_lists->hide();
+  wid_open_menu_lists->switch_arrow();
   PlayerScience* player_science = graphics_controller->get_game_controller()->current_player()->player_science();
 
   menu_science.reset(new MenuScience(this, player_science));
