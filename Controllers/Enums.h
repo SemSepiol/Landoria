@@ -50,13 +50,13 @@ enum class Units
 
 enum class Resources
 {
+  Fish,
+  Oil,
   Aluminum,
   Coal,
-  Fish,
   Horses,
   Gold,
   Iron,
-  Oil,
   Silver,
   Stone,
   Uranium,
