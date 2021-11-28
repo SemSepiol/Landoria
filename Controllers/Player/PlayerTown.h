@@ -44,6 +44,8 @@ public:
   size_t count_town_buildings() const;
   std::vector<TownBuildings> get_building_already_build() const;
   std::vector<TownBuildings> get_queue_buildings() const;
+  std::vector<TownBuildings> get_open_build_buildings() const;
+  size_t get_count_can_build() const;
   void add_town_building(TownBuildings town_building);
 
   void add_queue_build(Units type_unit);

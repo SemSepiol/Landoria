@@ -117,9 +117,11 @@ bool Player::is_finish()
   }
 
   for(size_t i{0}; i < my_towns.size(); ++i)
-    if(my_towns[i]->get_build_queue().size() == 0)
-      return false;
+    if(my_towns[i]->get_count_can_build())
+        return false;
 
+  if(player_science()->get_queue_science().size() == 0)
+    return false;
 
   return true;
 }
@@ -134,17 +136,21 @@ void Player::start_move()
       return;
     }
   for(size_t i{0}; i < my_towns.size(); ++i)
-    if(my_towns[i]->get_build_queue().size() == 0)
-    {
-      click_town(my_towns[i].get()->town());
-      return;
-    }
+    if(my_towns[i]->get_count_can_build())
+      {
+        click_town(my_towns[i].get()->town());
+        return;
+      }
+
+  if(player_science()->get_queue_science().size() == 0)
+    game_controller->graphics_controller()->do_menu_science();
 }
 
 void Player::end_move()
 {
   set_movement_to_max_unit();
   set_new_move_to_towns();
+  player_science()->study(get_science_per_turn());
   gold += get_gold_per_turn();
   if(gold < 0.)
     gold = 0.;
@@ -340,7 +346,7 @@ void Player::build_town(PlayerUnit* my_unit)
   for(auto cell_pos : adjacent)
     if(map->get_cell_country(cell_pos) == Countries::Nothing)
       map->set_cell_country(cell_pos, country);
-//  add_unit(Units::Worker, pos);
+  //  add_unit(Units::Worker, pos);
   game_controller->graphics_controller()->update_res_inform(this);
 }
 

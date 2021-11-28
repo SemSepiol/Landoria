@@ -30,6 +30,7 @@ void MenuScience::paintEvent(QPaintEvent* event)
 {
   Q_UNUSED(event)
   draw();
+  draw_queue();
   draw_connections();
   draw_scroll();
 }
@@ -155,6 +156,30 @@ void MenuScience::draw_scroll()
 
   qp.setPen(QPen{Qt::white});
   qp.drawRect(QRect{0, height()-scroll_height, width(), scroll_height});
+}
+
+void MenuScience::draw_queue()
+{
+  auto& queue = player_science->get_queue_science();
+  if(queue.size() < 2)
+    return;
+
+  QPainter qp(this);
+  qp.setPen(QPen{Qt::white});
+
+  auto science = Science();
+  for(size_t i{1}; i < queue.size(); ++i)
+  {
+    auto pos_knowledge = science.get_knowledge(queue[i]).position_knowledge;
+    QPoint pos_rect = pos_knowledge_widget(pos_knowledge) + QPoint{size_block.width, 0};
+    QPoint size_rect{size_block.height/4, size_block.height/4};
+    QRect rect{pos_rect, pos_rect+size_rect};
+
+    qp.drawEllipse(rect);
+    std::stringstream ss;
+    ss << i;
+    qp.drawText(rect, Qt::AlignCenter, QString::fromStdString(ss.str()));
+  }
 }
 
 void MenuScience::click(QPoint pos)

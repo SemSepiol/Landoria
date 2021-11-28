@@ -115,20 +115,15 @@ void MenuBuildTown::do_units()
 void MenuBuildTown::do_buildings()
 {
   widget_town_buildings.clear();
-  PlayerScience* player_science = menu_town->player()->player_science();
-  auto open_buildings = player_science->get_open_town_buildings();
-  auto already_build = menu_town->town()->get_building_already_build();
-  auto queue_building = menu_town->town()->get_queue_buildings();
-  for(size_t i{0}; i < open_buildings.size(); ++i)
+
+  auto open_build_buildings = menu_town->town()->get_open_build_buildings();
+
+  for(auto building : open_build_buildings)
   {
-    if(std::find(already_build.begin(), already_build.end(), open_buildings[i]) != already_build.end())
-      continue;
-
-    if(std::find(queue_building.begin(), queue_building.end(), open_buildings[i]) != queue_building.end())
-      continue;
-
     widget_town_buildings.push_back(
-          std::unique_ptr<WidgetTownBuilding>{new WidgetTownBuilding(menu_town,  open_buildings[i], WidgetTownBuilding::Build)});
+          std::unique_ptr<WidgetTownBuilding>{
+            new WidgetTownBuilding(menu_town,  building, WidgetTownBuilding::Build)
+          });
   }
 }
 

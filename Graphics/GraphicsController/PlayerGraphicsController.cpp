@@ -96,6 +96,11 @@ void PlayerGraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown*
   graphics_controller->get_enabled_map() = false;
 }
 
+void PlayerGraphicsController::do_menu_science()
+{
+  graphics_controller->get_imenu_gc_full()->open_menu_science();
+}
+
 void PlayerGraphicsController::centering_by_cell(Position pos_cell)
 {
   QPoint point = map()->point_of_cell_in_win(pos_cell);

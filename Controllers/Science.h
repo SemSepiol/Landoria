@@ -71,6 +71,11 @@ struct PositionKnowledge
   {}
 
   PositionKnowledge() {}
+
+  bool operator<(const PositionKnowledge& pos1)
+  {
+    return num_x < pos1.num_x || (num_x == pos1.num_x && num_y < pos1.num_y);
+  }
 };
 
 struct TownBuilding
@@ -90,6 +95,7 @@ struct Knowledge
 
   PositionKnowledge position_knowledge;
   std::vector<Knowledges> necessary_knowledges;
+  double need_science_glasses = 2;
 
   std::vector<TownBuilding> town_buildings;
   std::vector<Units> units;

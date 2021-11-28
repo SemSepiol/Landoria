@@ -20,6 +20,7 @@ public:
 
   virtual void do_menu_unit(PlayerUnit* unit) override;
   virtual void do_menu_town(IMenuTownPlayer* player, PlayerTown* town) override;
+  virtual void do_menu_science() override;
   virtual void centering_by_cell(Position pos_cell) override;
   virtual void highlight_unit(class Unit* unit, Position pos) override;
   virtual void draw_playermap(PlayerMap* playermap) override;

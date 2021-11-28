@@ -1,6 +1,8 @@
 #ifndef MENUSCIENCE_H
 #define MENUSCIENCE_H
 
+#include <sstream>
+
 #include <QMouseEvent>
 #include <QWidget>
 
@@ -36,6 +38,7 @@ private:
   void draw();
   void draw_connections();
   void draw_scroll();
+  void draw_queue();
   void click(QPoint pos);
   void set_geometry_widgets();
 

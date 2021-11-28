@@ -88,6 +88,58 @@ std::vector<TownBuildings> PlayerTown::get_queue_buildings() const
   return building_queue;
 }
 
+std::vector<TownBuildings> PlayerTown::get_open_build_buildings() const
+{
+  PlayerScience* player_science = player->player_science();
+  auto open_buildings = player_science->get_open_town_buildings();
+  auto already_build = get_building_already_build();
+  auto queue_building = get_queue_buildings();
+
+  std::vector<TownBuildings> res;
+
+  for(size_t i{0}; i < open_buildings.size(); ++i)
+  {
+    if(std::find(already_build.begin(), already_build.end(), open_buildings[i]) != already_build.end())
+      continue;
+
+    if(std::find(queue_building.begin(), queue_building.end(), open_buildings[i]) != queue_building.end())
+      continue;
+
+    res.push_back(open_buildings[i]);
+  }
+  return res;
+}
+
+size_t PlayerTown::get_count_can_build() const
+{
+  size_t count{0};
+
+  auto science = player->player_science();
+  auto town_building_needs = TownBuildNeeds();
+  for(auto unit : science->get_best_open_units())
+  {
+    auto resurces = town_building_needs.get_build_need_res(unit);
+    bool can = true;
+    for(auto res : resurces)
+      if(player->get_player_res()->get_resource(res.first) < res.second)
+        can = false;
+    if(can)
+      count++;
+  }
+
+  for(auto building : get_open_build_buildings())
+  {
+    auto resurces = town_building_needs.get_build_need_res(building, 1);
+    bool can = true;
+    for(auto res : resurces)
+      if(player->get_player_res()->get_resource(res.first) < res.second)
+        can = false;
+    if(can)
+      count++;
+  }
+  return count;
+}
+
 void PlayerTown::add_queue_build(Units type_unit)
 {
   build_in_town.push_back(std::unique_ptr<BuildInTown>{new BuildInTown(type_unit)});

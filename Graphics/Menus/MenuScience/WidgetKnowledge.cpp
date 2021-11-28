@@ -57,7 +57,10 @@ void WidgetKnowledge::draw_wid()
 
   qp.setPen(Qt::white);
   qp.drawRect(QRect{0, 0, width(), height()});
-  if(player_sience->is_knowledge_open(knowledge.name_knowledge))
+  if(player_sience->get_queue_science().size() > 0 &&
+     player_sience->get_queue_science()[0] == knowledge.name_knowledge)
+    qp.fillRect(QRect{0, 0, width(), height()}, QBrush(QColor(Qt::yellow)));
+  else if(player_sience->is_knowledge_open(knowledge.name_knowledge))
     qp.fillRect(QRect{0, 0, width(), height()}, QBrush(QColor(Qt::green)));
 }
 
@@ -114,7 +117,10 @@ void WidgetKnowledge::draw_open()
 
 void WidgetKnowledge::click(QPoint pos)
 {
-  player_sience->set_study_knowledge(knowledge.name_knowledge);
+  Q_UNUSED(pos)
+  if(!player_sience->is_knowledge_open(knowledge.name_knowledge))
+    player_sience->set_study_knowledge(knowledge.name_knowledge);
+  menu_science->update();
 }
 
 QRect WidgetKnowledge::rect_knowledge_pixmap() const
