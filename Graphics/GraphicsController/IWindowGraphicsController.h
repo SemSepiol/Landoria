@@ -20,6 +20,7 @@ public:
   virtual void stop_check_move_unit(QPoint mouse_pos) = 0;
   virtual void move_mouse(QPoint new_pos) = 0;
   virtual void press_enter() = 0;
+  virtual void press_escape() = 0;
 
   virtual int map_upper_edge() const = 0;
   virtual int map_bottom_edge() const = 0;

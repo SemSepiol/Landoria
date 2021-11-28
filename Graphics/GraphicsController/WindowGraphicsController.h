@@ -20,6 +20,7 @@ public:
   virtual void stop_check_move_unit(QPoint mouse_pos) override;
   virtual void move_mouse(QPoint new_pos) override;
   virtual void press_enter() override;
+  virtual void press_escape() override;
 
   virtual int map_upper_edge() const override;
   virtual int map_bottom_edge() const override;

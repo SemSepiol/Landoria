@@ -105,6 +105,13 @@ void WindowGraphicsController::press_enter()
     game_controller()->start_move();
 }
 
+void WindowGraphicsController::press_escape()
+{
+  if(graphics_controller->get_start_move_inform())
+    game_controller()->start_move();
+  graphics_controller->get_imenu_gc_full()->press_escape();
+}
+
 int WindowGraphicsController::map_upper_edge() const
 {
   return graphics_controller->get_size_uppermenu().height;

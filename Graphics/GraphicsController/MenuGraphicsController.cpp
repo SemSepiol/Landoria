@@ -159,3 +159,11 @@ void MenuGraphicsController::del_menu_unit()
   is_tracking_unit = false;
   tracking_unit = nullptr;
 }
+
+void MenuGraphicsController::press_escape()
+{
+  if(menu_science)
+    close_menu_science();
+  if(graphics_controller->get_town_menu())
+    delete_townmenu();
+}

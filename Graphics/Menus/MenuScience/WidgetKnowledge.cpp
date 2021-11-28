@@ -76,7 +76,13 @@ void WidgetKnowledge::draw_knowledge_pixmap()
 void WidgetKnowledge::draw_text()
 {
   QPainter qp(this);
-  qp.setPen(Qt::white);
+  if(player_sience->get_queue_science().size() > 0 &&
+     player_sience->get_queue_science()[0] == knowledge.name_knowledge)
+    qp.setPen(Qt::black);
+  else if(player_sience->is_knowledge_open(knowledge.name_knowledge))
+    qp.setPen(Qt::black);
+  else
+    qp.setPen(Qt::white);
 
   QString text = QString::fromStdString(FactoryString().knowledge_string(knowledge.name_knowledge));
   qp.drawText(rect_text(), Qt::AlignVCenter, text);

@@ -49,6 +49,7 @@ class IMenuGraphicsControllerFull : public IMenuInWindowGraphicsController,
 {
 public:
   virtual void del_menu_unit() = 0;
+  virtual void press_escape() = 0;
 };
 
 #endif // IMENUGRAPHICSCONTROLLER_H

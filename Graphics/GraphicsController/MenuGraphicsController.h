@@ -34,6 +34,7 @@ public:
   void create_bottommenu();
   void create_menu_lists();
   virtual void del_menu_unit() override;
+  virtual void press_escape() override;
 private:
   IGraphicsController* graphics_controller;
 

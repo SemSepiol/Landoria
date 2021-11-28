@@ -97,6 +97,9 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 {
   if(event->key() == Qt::Key_Enter-1 || event->key() == Qt::Key_Enter)
     graphics_controller->press_enter();
+  if(event->key() == Qt::Key_Escape)
+    graphics_controller->press_escape();
+
 }
 
 void GameWindow::del_inform_widget()
