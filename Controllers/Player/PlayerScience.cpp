@@ -30,6 +30,27 @@ PlayerScience::PlayerScience()
 //  best_units.push_back(Units::Swordsman);
 }
 
+size_t PlayerScience::count_open_buildings() const
+{
+  return get_open_buildings().size();
+}
+
+std::vector<Buildings> PlayerScience::get_open_buildings() const
+{
+  std::vector<Buildings> res;
+  auto science = Science();
+  for(auto knowledge : open_knowledges)
+    for(auto buildings : science.get_knowledge(knowledge).buildings)
+        res.push_back(buildings);
+  return res;
+}
+
+bool PlayerScience::is_open_buildings(Buildings building) const
+{
+  auto buildings = get_open_buildings();
+  return std::find(buildings.begin(), buildings.end(), building) != buildings.end();
+}
+
 size_t PlayerScience::count_open_resources() const
 {
   return get_open_resources().size();

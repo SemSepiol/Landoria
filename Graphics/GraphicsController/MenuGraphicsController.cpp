@@ -58,7 +58,7 @@ void MenuGraphicsController::menu_unit_event(class Unit* unit, Event* event)
 
   auto imenu_gc = graphics_controller->get_imenu_gc_full();
   imenu_gc->del_menu_unit();
-//  no_highlight_unit(unit)
+  //  no_highlight_unit(unit)
 }
 
 void MenuGraphicsController::delete_townmenu()
@@ -96,9 +96,8 @@ void MenuGraphicsController::open_menu_science()
 {
   menu_lists->hide();
   wid_open_menu_lists->switch_arrow();
-  PlayerScience* player_science = graphics_controller->get_game_controller()->current_player()->player_science();
 
-  menu_science.reset(new MenuScience(this, player_science));
+  menu_science.reset(new MenuScience(this, player_science()));
   Size size = graphics_controller->get_size_win();
   QPoint pos = {0,0};
   menu_science->set_geometry(pos, size);
@@ -109,6 +108,11 @@ void MenuGraphicsController::open_menu_science()
 void MenuGraphicsController::close_menu_science()
 {
   menu_science.reset();
+}
+
+PlayerScience* MenuGraphicsController::player_science()
+{
+  return graphics_controller->get_game_controller()->current_player()->player_science();
 }
 
 void MenuGraphicsController::create_uppermenu()

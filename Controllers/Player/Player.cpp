@@ -117,7 +117,8 @@ bool Player::is_finish()
   }
 
   for(size_t i{0}; i < my_towns.size(); ++i)
-    if(my_towns[i]->get_count_can_build())
+    if(!my_towns[i]->get_build_queue().size())
+      if(my_towns[i]->get_count_can_build())
         return false;
 
   if(player_science()->get_queue_science().size() == 0)
@@ -136,7 +137,8 @@ void Player::start_move()
       return;
     }
   for(size_t i{0}; i < my_towns.size(); ++i)
-    if(my_towns[i]->get_count_can_build())
+    if(!my_towns[i]->get_build_queue().size())
+      if(my_towns[i]->get_count_can_build())
       {
         click_town(my_towns[i].get()->town());
         return;
@@ -144,6 +146,8 @@ void Player::start_move()
 
   if(player_science()->get_queue_science().size() == 0)
     game_controller->graphics_controller()->do_menu_science();
+
+  same_centering();
 }
 
 void Player::end_move()
@@ -226,11 +230,10 @@ void Player::move_unit_event(PlayerUnit* my_unit, MoveEvent* event)
           my_unit->unit, my_unit->pos, move_cell);
     my_unit->pos = move_cell;
 
-    if(is_military_unit(my_unit->unit->what_unit_I()))
+    if(my_unit->unit->what_my_type() != Unit::Peaceful)
       capture_cell(my_unit->pos);
     set_vision(true);
   }
-
 
   if(my_unit->pos == event->cell_move || my_unit->unit->get_movement() != 0)
   {
@@ -540,9 +543,10 @@ void Player::del_res(Position pos)
   game_controller->graphics_controller()->update_res_inform(this);
 }
 
-bool Player::is_military_unit(Units type_unit)
+void Player::same_centering()
 {
-  if(type_unit == Units::Worker || type_unit == Units::Citizen)
-    return false;
-  return true;
+  if(my_units.size())
+    game_controller->graphics_controller()->centering_by_cell(my_units[0]->pos);
+  else if(my_towns.size())
+    game_controller->graphics_controller()->centering_by_cell(my_towns[0]->position_town());
 }

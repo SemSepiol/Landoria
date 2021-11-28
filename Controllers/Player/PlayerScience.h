@@ -16,6 +16,10 @@ class PlayerScience : public IObject
 {
 public:
   PlayerScience();
+  size_t count_open_buildings() const;
+  std::vector<Buildings> get_open_buildings() const;
+  bool is_open_buildings(Buildings building) const;
+
   size_t count_open_resources() const;
   std::vector<Resources> get_open_resources() const;
 

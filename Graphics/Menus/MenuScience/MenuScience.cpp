@@ -62,7 +62,7 @@ void MenuScience::update_information()
   init_space_y = height()/20;
   space_x = width()/8;
   space_y = height()/20;
-  size_block = {width()/8, height()/15};
+  size_block = {width()/7, height()/15};
   scroll_height = height()/50;
   count_columns = 0;
   for(auto name_knowledge : Science().get_all_name_knowledges())

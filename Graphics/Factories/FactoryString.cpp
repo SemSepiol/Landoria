@@ -125,7 +125,8 @@ std::string FactoryString::country_string(Countries country)
 {
   std::map<Countries, std::string> country_str{
     {Countries::Nothing, ""},
-    {Countries::Russia, "Россия"}
+    {Countries::Russia, "Россия"},
+    {Countries::America, "Америка"}
   };
 
   return country_str.at(country);

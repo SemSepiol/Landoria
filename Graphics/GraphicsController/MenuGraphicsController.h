@@ -30,6 +30,8 @@ public:
   virtual void open_menu_science() override;
   virtual void close_menu_science() override;
 
+  virtual PlayerScience* player_science() override;
+
   void create_uppermenu();
   void create_bottommenu();
   void create_menu_lists();

@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "../Units/Unit.h"
+#include "../../Controllers/Player/PlayerScience.h"
 #include "../../IObject.h"
 
 
@@ -32,6 +33,7 @@ class IUnitMenuGraphicsController : public IObject
 {
 public:
   virtual void menu_unit_event(class Unit* unit, Event* event) = 0;
+  virtual PlayerScience* player_science() = 0;
 };
 
 

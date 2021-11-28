@@ -73,7 +73,7 @@ private:
     void add_res(Position pos);
     void del_res(Position pos);
 
-    bool is_military_unit(Units type_unit);
+    void same_centering();
 
     IGameForPlayer* game_controller;
     Countries country;

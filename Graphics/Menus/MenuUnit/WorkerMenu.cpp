@@ -42,7 +42,7 @@ void WorkerMenu::click_butt(size_t num_butt)
   {
     AMenuForUnit::click_butt(num_butt);
     has_menu = false;
-//    menu.reset();
+    //    menu.reset();
     return;
   }
   if(!buttons[num_butt].is_enable)
@@ -100,19 +100,20 @@ MenuBuild::MenuBuild(QWidget* _win, IUnitMenuGraphicsController* _graphics_contr
                      PlayerUnit* _unit, Cell* _cell)
   :AMenuForUnit(_win, _graphics_controller, _unit, _cell)
 {
- set_buttons();
+  set_buttons();
 }
 
 void MenuBuild::set_buttons()
 {
-  buttons.push_back(new BuildEvent{Buildings::Farm});
-  buttons.push_back(new BuildEvent{Buildings::Fort});
-  buttons.push_back(new BuildEvent{Buildings::LumberMill});
-  buttons.push_back(new BuildEvent{Buildings::Mine});
-  buttons.push_back(new BuildEvent{Buildings::OilWell});
-  buttons.push_back(new BuildEvent{Buildings::Pasture});
-  buttons.push_back(new BuildEvent{Buildings::Quarry});
-  buttons.push_back(new BuildEvent{Buildings::TradingPost});
+  add_farm();
+  add_lumbermill();
+  add_mine();
+  add_pasture();
+  add_oilwell();
+  add_quarry();
+  add_tradingpost();
+  add_fort();
+
   set_is_enable();
 }
 
@@ -140,5 +141,85 @@ void MenuBuild::set_is_enable()
         buttons[i].is_enable = false;
     }
   }
+}
+
+void MenuBuild::add_farm()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::Farm))
+    if(cc.get_main_landscape() == MainLandscapes::Plain)
+      buttons.push_back(new BuildEvent{Buildings::Farm});
+}
+
+void MenuBuild::add_lumbermill()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::LumberMill))
+    if(cc.get_other_landscape() == OtherLandscapes::Forest ||
+       cc.get_other_landscape() == OtherLandscapes::ForestAndHills)
+      buttons.push_back(new BuildEvent{Buildings::LumberMill});
+}
+
+void MenuBuild::add_mine()
+{
+  ControlContents cc(cell);
+
+  if(!graphics_controller->player_science()->is_open_buildings(Buildings::Mine))
+    return;
+
+  if(cc.get_other_landscape() == OtherLandscapes::Hills ||
+     cc.get_other_landscape() == OtherLandscapes::ForestAndHills ||
+     cc.get_other_landscape() == OtherLandscapes::JunglesAndHills)
+    buttons.push_back(new BuildEvent{Buildings::Mine});
+  else if(cc.has_resource())
+    if(cc.get_resource() == Resources::Aluminum ||
+       cc.get_resource() == Resources::Coal ||
+       cc.get_resource() == Resources::Gold ||
+       cc.get_resource() == Resources::Iron ||
+       cc.get_resource() == Resources::Silver ||
+       cc.get_resource() == Resources::Uranium
+       )
+      buttons.push_back(new BuildEvent{Buildings::Mine});
+}
+
+void MenuBuild::add_pasture()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::Pasture))
+    if(cc.has_resource())
+      if(cc.get_resource() == Resources::Horses)
+        buttons.push_back(new BuildEvent{Buildings::Pasture});
+}
+
+void MenuBuild::add_oilwell()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::OilWell))
+    if(cc.has_resource())
+      if(cc.get_resource() == Resources::Oil)
+        buttons.push_back(new BuildEvent{Buildings::OilWell});
+}
+
+void MenuBuild::add_quarry()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::Quarry))
+    if(cc.has_resource())
+      if(cc.get_resource() == Resources::Stone)
+        buttons.push_back(new BuildEvent{Buildings::Quarry});
+}
+
+void MenuBuild::add_tradingpost()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::TradingPost))
+    buttons.push_back(new BuildEvent{Buildings::TradingPost});
+}
+
+void MenuBuild::add_fort()
+{
+  ControlContents cc(cell);
+  if(graphics_controller->player_science()->is_open_buildings(Buildings::Fort))
+    buttons.push_back(new BuildEvent{Buildings::Fort});
 }
 

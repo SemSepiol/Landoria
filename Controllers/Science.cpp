@@ -44,6 +44,8 @@ Knowledge Science::get_knowledge(Knowledges name_knowledge) const
   {
     knowledge.position_knowledge = {0,1};
     knowledge.buildings.push_back(Buildings::Farm);
+    knowledge.units.push_back(Units::Worker);
+    knowledge.units.push_back(Units::Citizen);
   }
   else if(name_knowledge == Knowledges::StoneProcessing)
   {
@@ -51,6 +53,7 @@ Knowledge Science::get_knowledge(Knowledges name_knowledge) const
     //    knowledge.units.push_back(Units::) Воины
     knowledge.town_buildings.push_back({TownBuildings::Walls, 1});
     knowledge.resources.push_back(Resources::Stone);
+    knowledge.buildings.push_back(Buildings::Quarry);
   }
   else if(name_knowledge == Knowledges::Language)
   {
@@ -80,13 +83,15 @@ Knowledge Science::get_knowledge(Knowledges name_knowledge) const
   {
     knowledge.position_knowledge = {2,1};
     knowledge.necessary_knowledges.push_back(Knowledges::Agriculture);
+    //    knowledge.units.push_back(Units::) Колесницы
   }
   else if(name_knowledge == Knowledges::OreMining)
   {
     knowledge.position_knowledge = {2,2};
     knowledge.necessary_knowledges.push_back(Knowledges::Agriculture);
     knowledge.necessary_knowledges.push_back(Knowledges::WoodProcessing);
-    //    knowledge.units.push_back(Units::) Колесницы
+    knowledge.resources.push_back(Resources::Iron);
+    knowledge.buildings.push_back(Buildings::Mine);
   }
   else if(name_knowledge == Knowledges::Archery)
   {

@@ -11,7 +11,7 @@ public:
   Citizen(ICell* cell)
     : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Citizen; }
-
+  virtual TypeUnit what_my_type() const override { return Peaceful; }
 };
 
 #endif // CITIZEN_H

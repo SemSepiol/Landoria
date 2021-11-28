@@ -167,7 +167,7 @@ void CreateMap::create_map(Map* map)
     }
 }
 
-Resources give_resourse(int number)
+Resources CreateMap::give_resourse(int number)
 {
   Resources result = Resources(0);
   if(number <= 9)
@@ -257,4 +257,9 @@ void CreateMap::add_resource(Map* map)
 
       }
     }
+}
+
+Position CreateMap::initial_pos_player(int num_player)
+{
+  return (num_player == 0) ? Position{10,10} : Position{40,10};
 }

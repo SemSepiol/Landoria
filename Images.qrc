@@ -107,5 +107,6 @@
         <file>Graphics/image/knowledges/Theology.png</file>
         <file>Graphics/image/knowledges/Wheel.png</file>
         <file>Graphics/image/knowledges/Writing.png</file>
+        <file>Graphics/image/knowledges/Language.png</file>
     </qresource>
 </RCC>

@@ -14,7 +14,9 @@ public:
   void create_map(Map* map);
   void add_resource(Map* map);
 
+  Position initial_pos_player(int num_player);
 private:
+  Resources give_resourse(int number);
   IMapGraphicsController* graphics_controller;
 };
 

@@ -55,7 +55,7 @@ void WidgetKnowledge::draw_wid()
 {
   QPainter qp(this);
 
-  qp.setPen(Qt::white);
+  qp.setPen(QPen(Qt::white, 3));
   qp.drawRect(QRect{0, 0, width(), height()});
   if(player_sience->get_queue_science().size() > 0 &&
      player_sience->get_queue_science()[0] == knowledge.name_knowledge)

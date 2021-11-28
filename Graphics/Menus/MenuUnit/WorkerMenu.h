@@ -37,6 +37,16 @@ protected:
   void set_buttons() override;
   QRectF rect_butt(size_t i) override;
   void set_is_enable();
+
+
+  void add_farm();
+  void add_lumbermill();
+  void add_mine();
+  void add_pasture();
+  void add_oilwell();
+  void add_quarry();
+  void add_tradingpost();
+  void add_fort();
 };
 
 #endif // WORKERMENU_H

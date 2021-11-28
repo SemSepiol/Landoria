@@ -59,6 +59,7 @@ void Game::next_move()
   if(++num_player == players.size())
     num_player = 0;
   _current_player = players[num_player].get();
+  _current_player->draw_my_map();
   do_start_inform();
   _graphics_controller->window()->update();
 }
@@ -94,8 +95,9 @@ void Game::do_players(size_t count_players)
 {
   for(size_t i{0}; i < count_players; ++i)
   {
-    players.push_back(std::unique_ptr<Player>{new Player(this, Countries::Russia)});
-    players[i]->set_initial_units({10, 10});
+    players.push_back(std::unique_ptr<Player>{new Player(this, Countries(i+1))});
+    auto create_map = CreateMap{_graphics_controller.get()->get_imap_gc_full()};
+    players[i]->set_initial_units(create_map.initial_pos_player(int(i)));
   }
 }
 

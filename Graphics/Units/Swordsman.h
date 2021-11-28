@@ -11,6 +11,7 @@ public:
   Swordsman(ICell* cell)
     : Unit{cell}{}
   virtual Units what_unit_I() const override { return Units::Swordsman; }
+  virtual TypeUnit what_my_type() const override { return CloseCombat; }
 };
 
 #endif // SWORDSMAN_H

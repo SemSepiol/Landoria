@@ -81,7 +81,8 @@ enum class Buildings
 enum class Countries
 {
   Nothing,
-  Russia
+  Russia,
+  America
 };
 
 #endif // ENUMS_H

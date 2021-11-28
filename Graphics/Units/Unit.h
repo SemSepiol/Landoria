@@ -14,6 +14,14 @@
 class Unit : public IContent
 {
 public:
+  enum TypeUnit
+  {
+    Peaceful,
+    RangedCombat,
+    CloseCombat,
+    Cavalry
+  };
+
   Unit(ICell* _cell);
 
   virtual void draw(QPoint point) override;
@@ -21,6 +29,7 @@ public:
   virtual Calculations* calculations() const override;
   virtual Contents what_content_I() const override {return Contents::Unit;}
   virtual Units what_unit_I() const = 0;
+  virtual TypeUnit what_my_type() const = 0;
 
   virtual void set_standard_charaterichtics();
   void set_health(int health);
