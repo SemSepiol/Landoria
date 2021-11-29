@@ -116,14 +116,17 @@ void PlayerGraphicsController::highlight_unit(class Unit* unit, Position pos_cel
   controlcontents.set_highlight_unit(unit, true);
 }
 
-void PlayerGraphicsController::draw_playermap(PlayerMap* playermap)
+void PlayerGraphicsController::draw_playermap(PlayerMap* playermap, PlayerScience* player_science)
 {
   Position num_cell = graphics_controller->get_num_cell();
   for(size_t i{0}; i < num_cell.x; ++i)
     for(size_t j{0}; j < num_cell.y; ++j)
     {
-      ControlContents controcontents{map()->cell_by_indexes({i,j})};
-      controcontents.set_show_cell(playermap->get_show_cell({i,j}));
+      ControlContents cc{map()->cell_by_indexes({i,j})};
+      cc.set_show_cell(playermap->get_show_cell({i,j}));
+
+      if(cc.has_resource())
+          cc.set_show_res(player_science->is_open_resource(cc.get_resource()));
     }
   graphics_controller->get_game_window()->update();
 }

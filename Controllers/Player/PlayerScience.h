@@ -18,10 +18,11 @@ public:
   PlayerScience();
   size_t count_open_buildings() const;
   std::vector<Buildings> get_open_buildings() const;
-  bool is_open_buildings(Buildings building) const;
+  bool is_open_building(Buildings building) const;
 
   size_t count_open_resources() const;
   std::vector<Resources> get_open_resources() const;
+  bool is_open_resource(Resources resource) const;
 
   size_t count_open_town_buildings() const;
   std::vector<TownBuildings> get_open_town_buildings() const;

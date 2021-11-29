@@ -10,6 +10,29 @@
 #include "../Controllers/Enums.h"
 
 
+struct TypeMap
+{
+  enum Overlay {
+    NoOverlay,
+    Political,
+    HighlightResources
+  };
+
+  enum TypeContent{
+    All,
+    Nothing,
+    Units,
+    Resources,
+    Building,
+  };
+
+  Overlay overplay = NoOverlay;
+  TypeContent type_content = All;
+  bool show_notvisible = true;
+  bool show_other_landscapes = true;
+};
+
+
 class IMapForFind : public IObject
 {
 public:
@@ -31,6 +54,8 @@ public:
 
   virtual Position indexes_by_cell(ICell* cell) const = 0;
   virtual ICell* icell_by_indexes(Position pos) const = 0;
+
+  virtual const TypeMap& get_type_map() const = 0;
 };
 
 #endif // IMAP_H

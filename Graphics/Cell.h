@@ -53,6 +53,10 @@ private:
   void draw_highlight(QPoint point);
   Countries cell_country(Position pos_cell);
 
+  void draw_unit(Content* content, QPoint point_cell, int count_drawn_unit);
+  void draw_resource(Content* content, QPoint point_cell);
+  void draw_building(Content* content, QPoint point_cell);
+
   IMap* map;
   std::vector<Content> contents;
 

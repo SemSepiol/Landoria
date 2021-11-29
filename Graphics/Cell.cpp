@@ -11,12 +11,20 @@ void Cell::draw(QPoint point)
   if(show_cell == ShowCell::FogOfWar)
   {
     draw_fog_of_war(point);
+    draw_cell(point);
   }
   else{
-    draw_landscape(point);
+    auto overplay = map->get_type_map().overplay;
+    ControlContents cc{this};
+
+    if(overplay == TypeMap::NoOverlay ||
+       (overplay == TypeMap::Political && country == Countries::Nothing) ||
+       (overplay == TypeMap::HighlightResources && !cc.has_resource()))
+      draw_landscape(point);
+
+    draw_cell(point);
     draw_contents(point);
   }
-  draw_cell(point);
 }
 
 QWidget* Cell::window() const
@@ -86,13 +94,21 @@ void Cell::draw_cell(QPoint point)
 
   QWidget* win = window();
   QPainter qp(win);
-  QPen pen(Qt::black, calc->hexagon_height()/10, Qt::SolidLine);
-  if(show_cell == ShowCell::NotVisible)
+
+  if(show_cell == ShowCell::NotVisible && map->get_type_map().show_notvisible)
   {
     qp.setBrush(QBrush(QColor(0, 0, 0, 200)));
   }
 
-  qp.setPen(pen);
+  auto overplay = map->get_type_map().overplay;
+  ControlContents cc{this};
+  if(overplay == TypeMap::Political && country != Countries::Nothing)
+    qp.setBrush(FactoryColor().country_color(country));
+  else if (show_cell != ShowCell::FogOfWar && overplay == TypeMap::HighlightResources && cc.has_resource())
+    qp.setBrush(Qt::green);
+
+  qp.setPen(QPen(Qt::black, calc->hexagon_height()/10));
+
   QPointF points[6] {p1, p2, p3, p4, p5, p6};
   qp.drawPolygon(points, 6);
 }
@@ -112,13 +128,19 @@ void Cell::draw_landscape(QPoint point)
         calc->hexagon_side()*2., calc->hexagon_side()*2.};
   qp.drawPixmap(target, pixmap, source);
 
-  QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
-  qp.drawPixmap(target, pixmap2, source);
+  if(map->get_type_map().show_other_landscapes)
+  {
+    QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
+    qp.drawPixmap(target, pixmap2, source);
+  }
 }
 
 void Cell::draw_contents(QPoint point)
 {
-  Calculations* calc = calculations();
+  auto map_type_content = map->get_type_map().type_content;
+  if(map_type_content == TypeMap::Nothing)
+    return;
+
   int count_drawn_unit = 0;
   for(size_t i{0}; i < contents.size(); ++i)
   {
@@ -129,21 +151,12 @@ void Cell::draw_contents(QPoint point)
     if(!contents[i].show_content)
       continue;
 
-    if(type_content == Contents::Unit){
-      QPoint p = calc->point_circle_for_unit(count_drawn_unit) + point;
-      if(contents[i].highlight)
-        draw_highlight(p);
-      contents[i].content->draw(p);
-      count_drawn_unit++;
-    }
-    else if (type_content == Contents::Resource){
-      QPoint p = calc->point_circle_for_res();
-      contents[i].content->draw(point + p);
-    }
-    else if (type_content == Contents::Building) {
-      QPoint p = calc->point_circle_for_build();
-      contents[i].content->draw(point + p);
-    }
+    if(type_content == Contents::Unit)
+      draw_unit(&contents[i], point, count_drawn_unit++);
+    else if (type_content == Contents::Resource)
+      draw_resource(&contents[i], point);
+    else if (type_content == Contents::Building)
+      draw_building(&contents[i], point);
   }
 }
 
@@ -153,15 +166,11 @@ void Cell::draw_fog_of_war(QPoint point)
   QWidget* win = window();
   QPainter qp(win);
 
-
   QPixmap pixmap = FactoryPixmap().create_pixmap_for_fog_of_war();
   QRectF source = FactoryPixmap().size_picture_landscape();
   QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
         calc->hexagon_side()*2., calc->hexagon_side()*2.};
   qp.drawPixmap(target, pixmap, source);
-
-  QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
-  qp.drawPixmap(target, pixmap2, source);
 }
 
 void Cell::draw_highlight(QPoint point)
@@ -297,4 +306,63 @@ Countries Cell::cell_country(Position pos_cell)
 }
 
 
+void Cell::draw_unit(Content* content, QPoint point_cell, int count_drawn_unit)
+{
+  auto map_type_content = map->get_type_map().type_content;
+  Calculations* calc = calculations();
+  QPoint p;
+  if(map_type_content == TypeMap::All)
+  {
+    content->content->set_type_draw(IContent::PartCell);
+    p = calc->point_circle_for_unit(count_drawn_unit);
+  }
+  else
+    return;
+
+  if(content->highlight)
+    draw_highlight(p + point_cell);
+  content->content->draw(p + point_cell);
+}
+
+void Cell::draw_resource(Content* content, QPoint point_cell)
+{
+  auto map_type_content = map->get_type_map().type_content;
+  Calculations* calc = calculations();
+
+  QPoint p;
+  if(map_type_content == TypeMap::All)
+  {
+    content->content->set_type_draw(IContent::PartCell);
+    p = calc->point_circle_for_res();
+  }
+  else if(map_type_content == TypeMap::Resources)
+  {
+    content->content->set_type_draw(IContent::FullCell);
+    p = {0,0};
+  }
+  else
+    return;
+  content->content->draw(point_cell + p);
+}
+
+void Cell::draw_building(Content* content, QPoint point_cell)
+{
+  auto map_type_content = map->get_type_map().type_content;
+  Calculations* calc = calculations();
+
+  QPoint p;
+  if(map_type_content == TypeMap::All)
+  {
+    content->content->set_type_draw(IContent::PartCell);
+    p = calc->point_circle_for_build();
+  }
+  else if(map_type_content == TypeMap::Building)
+  {
+    content->content->set_type_draw(IContent::FullCell);
+    p = {0,0};
+  }
+  else
+    return;
+  content->content->draw(point_cell + p);
+}
 

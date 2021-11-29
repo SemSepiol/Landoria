@@ -31,7 +31,6 @@ void Map::draw(QPoint point)
   int width_map = size_map.width;
   int height_map = size_map.height;
 
-
   QPoint corner_of_map_win = graphics_controller->win_map_center() -
       QPoint{width_win_map/2, height_win_map/2};
 
@@ -65,7 +64,9 @@ void Map::draw(QPoint point)
         continue;
       if (cell_point.y() - calc->hexagon_side() > corner_of_map_win.y() + height_win_map)
         continue;
-      cells[i][j]->draw_borders(cell_point);
+
+      if(type_map.overplay != TypeMap::Political)
+        cells[i][j]->draw_borders(cell_point);
     }
 }
 
@@ -180,6 +181,16 @@ QPoint Map::point_of_cell_in_win(Position pos)
   QPoint corner_of_map = graphics_controller->map_center() -
       QPoint{width_map/2, height_map/2};
   return point_of_cell(pos) + corner_of_map;
+}
+
+void Map::set_type_map(TypeMap _type_map)
+{
+  type_map = _type_map;
+}
+
+const TypeMap& Map::get_type_map() const
+{
+  return type_map;
 }
 
 int Map::sign(int a)

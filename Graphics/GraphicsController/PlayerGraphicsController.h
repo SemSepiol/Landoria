@@ -23,7 +23,7 @@ public:
   virtual void do_menu_science() override;
   virtual void centering_by_cell(Position pos_cell) override;
   virtual void highlight_unit(class Unit* unit, Position pos) override;
-  virtual void draw_playermap(PlayerMap* playermap) override;
+  virtual void draw_playermap(PlayerMap* playermap, PlayerScience* player_science) override;
   virtual IMapForFind* mapforfind() override;
 
   virtual void update_res_inform(IMenuTownPlayer* player) override;

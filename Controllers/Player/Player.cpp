@@ -162,7 +162,7 @@ void Player::end_move()
 
 void Player::draw_my_map()
 {
-  game_controller->graphics_controller()->draw_playermap(player_map.get());
+  game_controller->graphics_controller()->draw_playermap(player_map.get(), _player_science.get());
 }
 
 PlayerScience* Player::player_science() const

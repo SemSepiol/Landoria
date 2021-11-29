@@ -146,7 +146,7 @@ void MenuBuild::set_is_enable()
 void MenuBuild::add_farm()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::Farm))
+  if(graphics_controller->player_science()->is_open_building(Buildings::Farm))
     if(cc.get_main_landscape() == MainLandscapes::Plain)
       buttons.push_back(new BuildEvent{Buildings::Farm});
 }
@@ -154,7 +154,7 @@ void MenuBuild::add_farm()
 void MenuBuild::add_lumbermill()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::LumberMill))
+  if(graphics_controller->player_science()->is_open_building(Buildings::LumberMill))
     if(cc.get_other_landscape() == OtherLandscapes::Forest ||
        cc.get_other_landscape() == OtherLandscapes::ForestAndHills)
       buttons.push_back(new BuildEvent{Buildings::LumberMill});
@@ -164,7 +164,7 @@ void MenuBuild::add_mine()
 {
   ControlContents cc(cell);
 
-  if(!graphics_controller->player_science()->is_open_buildings(Buildings::Mine))
+  if(!graphics_controller->player_science()->is_open_building(Buildings::Mine))
     return;
 
   if(cc.get_other_landscape() == OtherLandscapes::Hills ||
@@ -185,7 +185,7 @@ void MenuBuild::add_mine()
 void MenuBuild::add_pasture()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::Pasture))
+  if(graphics_controller->player_science()->is_open_building(Buildings::Pasture))
     if(cc.has_resource())
       if(cc.get_resource() == Resources::Horses)
         buttons.push_back(new BuildEvent{Buildings::Pasture});
@@ -194,7 +194,7 @@ void MenuBuild::add_pasture()
 void MenuBuild::add_oilwell()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::OilWell))
+  if(graphics_controller->player_science()->is_open_building(Buildings::OilWell))
     if(cc.has_resource())
       if(cc.get_resource() == Resources::Oil)
         buttons.push_back(new BuildEvent{Buildings::OilWell});
@@ -203,7 +203,7 @@ void MenuBuild::add_oilwell()
 void MenuBuild::add_quarry()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::Quarry))
+  if(graphics_controller->player_science()->is_open_building(Buildings::Quarry))
     if(cc.has_resource())
       if(cc.get_resource() == Resources::Stone)
         buttons.push_back(new BuildEvent{Buildings::Quarry});
@@ -212,14 +212,14 @@ void MenuBuild::add_quarry()
 void MenuBuild::add_tradingpost()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::TradingPost))
+  if(graphics_controller->player_science()->is_open_building(Buildings::TradingPost))
     buttons.push_back(new BuildEvent{Buildings::TradingPost});
 }
 
 void MenuBuild::add_fort()
 {
   ControlContents cc(cell);
-  if(graphics_controller->player_science()->is_open_buildings(Buildings::Fort))
+  if(graphics_controller->player_science()->is_open_building(Buildings::Fort))
     buttons.push_back(new BuildEvent{Buildings::Fort});
 }
 

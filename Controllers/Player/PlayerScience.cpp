@@ -45,7 +45,7 @@ std::vector<Buildings> PlayerScience::get_open_buildings() const
   return res;
 }
 
-bool PlayerScience::is_open_buildings(Buildings building) const
+bool PlayerScience::is_open_building(Buildings building) const
 {
   auto buildings = get_open_buildings();
   return std::find(buildings.begin(), buildings.end(), building) != buildings.end();
@@ -57,12 +57,31 @@ size_t PlayerScience::count_open_resources() const
 }
 std::vector<Resources> PlayerScience::get_open_resources() const
 {
-  std::vector<Resources> res;
-  auto science = Science();
-  for(auto knowledge : open_knowledges)
-    for(auto resource : science.get_knowledge(knowledge).resources)
-        res.push_back(resource);
-  return res;
+//  std::vector<Resources> res;
+//  auto science = Science();
+//  for(auto knowledge : open_knowledges)
+//    for(auto resource : science.get_knowledge(knowledge).resources)
+//        res.push_back(resource);
+//  return res;
+
+
+  //для разработки
+  return {Resources::Fish,
+        Resources::Oil,
+        Resources::Aluminum,
+        Resources::Coal,
+        Resources::Horses,
+        Resources::Gold,
+        Resources::Iron,
+        Resources::Silver,
+        Resources::Stone,
+        Resources::Uranium,};
+}
+
+bool PlayerScience::is_open_resource(Resources resource) const
+{
+  auto resources = get_open_resources();
+  return std::find(resources.begin(), resources.end(), resource) != resources.end();
 }
 
 size_t PlayerScience::count_open_town_buildings() const

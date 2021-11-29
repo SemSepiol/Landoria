@@ -23,7 +23,7 @@ public:
   virtual void do_menu_science() = 0;
   virtual void centering_by_cell(Position pos_cell) = 0;
   virtual void highlight_unit(class Unit* unit, Position pos) = 0;
-  virtual void draw_playermap(PlayerMap* playermap) = 0;
+  virtual void draw_playermap(PlayerMap* playermap, PlayerScience* player_science) = 0;
   virtual IMapForFind* mapforfind() = 0;
   virtual void update_res_inform(IMenuTownPlayer* player) = 0;
 
