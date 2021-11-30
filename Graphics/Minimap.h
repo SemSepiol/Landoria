@@ -4,10 +4,10 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "Cell.h"
-#include "Map.h"
 #include "GraphicsController/Calculations.h"
 #include "GraphicsController/IWindowGraphicsController.h"
+#include "Map/Cell.h"
+#include "Map/Map.h"
 #include "../Controllers/Enums.h"
 
 
@@ -29,6 +29,10 @@ public:
   // coeff_height = height_win_map / height_map
   void set_win_rect(double coeffx, double coeffy, double coeff_width, double coeff_height);
 
+  bool is_enable() const;
+
+  virtual void show();
+  virtual void hide();
 private:
   virtual void paintEvent(QPaintEvent* event) override;
   virtual void mouseMoveEvent(QMouseEvent *event) override {Q_UNUSED(event)}
@@ -47,6 +51,8 @@ private:
   Calculations calc;
   int width_minimap;
   int height_minimap;
+
+  bool enable = false;
 };
 
 #endif // MINIMAP_H

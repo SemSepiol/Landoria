@@ -5,10 +5,10 @@
 #include <vector>
 
 #include "Cell.h"
-#include "GameWindow.h"
 #include "IMap.h"
-#include "GraphicsController/Calculations.h"
-#include "GraphicsController/IMapGraphicsController.h"
+#include "../GameWindow.h"
+#include "../GraphicsController/Calculations.h"
+#include "../GraphicsController/IMapGraphicsController.h"
 
 
 

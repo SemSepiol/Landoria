@@ -4,6 +4,7 @@
 #include <QPoint>
 #include <QWidget>
 
+#include "../Map/TypeMap.h"
 #include "../Units/Unit.h"
 #include "../../Controllers/Player/PlayerScience.h"
 #include "../../IObject.h"
@@ -26,6 +27,11 @@ public:
 
   virtual void open_menu_science() = 0;
   virtual void close_menu_science() = 0;
+
+  virtual void click_open_menu_type_map() = 0;
+  virtual void open_menu_type_map() = 0;
+  virtual void close_menu_type_map() = 0;
+  virtual void set_type_map(TypeMap type_map) = 0;
 };
 
 
@@ -52,6 +58,7 @@ class IMenuGraphicsControllerFull : public IMenuInWindowGraphicsController,
 public:
   virtual void del_menu_unit() = 0;
   virtual void press_escape() = 0;
+  virtual void event_open_menu_type_map() = 0;
 };
 
 #endif // IMENUGRAPHICSCONTROLLER_H

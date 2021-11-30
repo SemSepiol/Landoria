@@ -16,6 +16,13 @@ void BottomMenu::del_inform()
   update();
 }
 
+QRect BottomMenu::open_type_map_butt() const
+{
+  QPoint topleft = QPoint{width_menu - 3*height_menu, 0};
+  QPoint bottomright = QPoint{width_menu - 2*height_menu, height_menu};
+  return QRect{topleft, bottomright};
+}
+
 void BottomMenu::mouseMoveEvent(QMouseEvent *event)
 {
   if(event->pos().y() > height_menu - 5)
@@ -34,6 +41,8 @@ void BottomMenu::draw()
   QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_nextmotion();
   qp.drawPixmap(next_move_butt(), pixmap2, source);
 
+  qp.drawPixmap(open_type_map_butt(), pixmap2, source);
+
   QPen pen{Qt::white, 2, Qt::SolidLine};
   qp.setPen(pen);
   QPoint p1 = QPoint{0, 0};
@@ -45,8 +54,10 @@ void BottomMenu::click(QPoint pos)
 {
   if (point_in_rect(show_minimap_butt(), pos))
     graphics_controller->show_minimap();
-  if (point_in_rect(next_move_butt(), pos))
+  else if (point_in_rect(next_move_butt(), pos))
     graphics_controller->next_move();
+  else if (point_in_rect(open_type_map_butt(), pos))
+    graphics_controller->click_open_menu_type_map();
 }
 
 void BottomMenu::draw_text()

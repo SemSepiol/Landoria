@@ -5,7 +5,7 @@
 #include <QPixmap>
 
 #include "../Factories/FactoryPixmap.h"
-#include "../ICell.h"
+#include "../Map/ICell.h"
 #include "../IContent.h"
 #include "../../Controllers/Enums.h"
 

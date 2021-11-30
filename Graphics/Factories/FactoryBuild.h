@@ -12,8 +12,8 @@
 #include "../Buildings/Quarry.h"
 #include "../Buildings/Town.h"
 #include "../Buildings/TradingPost.h"
-#include "../ICell.h"
 #include "../IContent.h"
+#include "../Map/ICell.h"
 #include "../../Controllers/Enums.h"
 
 

@@ -4,33 +4,11 @@
 #include <QPoint>
 #include <QWidget>
 
-#include "GraphicsController/Calculations.h"
 #include "ICell.h"
-#include "IDrawObject.h"
-#include "../Controllers/Enums.h"
-
-
-struct TypeMap
-{
-  enum Overlay {
-    NoOverlay,
-    Political,
-    HighlightResources
-  };
-
-  enum TypeContent{
-    All,
-    Nothing,
-    Units,
-    Resources,
-    Building,
-  };
-
-  Overlay overplay = NoOverlay;
-  TypeContent type_content = All;
-  bool show_notvisible = true;
-  bool show_other_landscapes = true;
-};
+#include "TypeMap.h"
+#include "../GraphicsController/Calculations.h"
+#include "../IDrawObject.h"
+#include "../../Controllers/Enums.h"
 
 
 class IMapForFind : public IObject

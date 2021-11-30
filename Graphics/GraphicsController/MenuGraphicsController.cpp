@@ -29,6 +29,7 @@ void MenuGraphicsController::show_minimap()
     minimap->hide();
   else
     minimap->show();
+  event_open_menu_type_map();
 }
 
 void MenuGraphicsController::next_move()
@@ -108,6 +109,58 @@ void MenuGraphicsController::open_menu_science()
 void MenuGraphicsController::close_menu_science()
 {
   menu_science.reset();
+}
+
+void MenuGraphicsController::event_open_menu_type_map()
+{
+  if(menu_type_map)
+  {
+    close_menu_type_map();
+    open_menu_type_map();
+  }
+}
+
+void MenuGraphicsController::click_open_menu_type_map()
+{
+  if(menu_type_map)
+    close_menu_type_map();
+  else
+    open_menu_type_map();
+}
+
+void MenuGraphicsController::open_menu_type_map()
+{
+  menu_type_map.reset(new MenuTypeMap(this, graphics_controller->get_map()));
+  QPoint pos;
+  Size size_win = graphics_controller->get_size_win();
+  Size size{size_win.width/10, size_win.height/5};
+  if(graphics_controller->get_minimap()->is_enable())
+  {
+    Calculations calc{graphics_controller->get_hexagon_side_minimap()};
+    int num_cell_x = int(graphics_controller->get_num_cell().x);
+    int width_minimap = calc.hexagon_height()*(num_cell_x*2+1);
+
+    pos = {size_win.width - size.width - width_minimap,
+           size_win.height - graphics_controller->get_size_bottommenu().height - size.height};
+  }
+  else{
+    pos = graphics_controller->get_bottom_menu()->open_type_map_butt().topRight() -
+        QPoint{size.width, -size_win.height + size.height + graphics_controller->get_size_bottommenu().height};
+  }
+
+  menu_type_map->set_geometry(pos, size);
+  menu_type_map->hide();
+  menu_type_map->show();
+}
+
+void MenuGraphicsController::close_menu_type_map()
+{
+  menu_type_map.reset();
+}
+
+void MenuGraphicsController::set_type_map(TypeMap type_map)
+{
+  graphics_controller->get_map()->set_type_map(type_map);
 }
 
 PlayerScience* MenuGraphicsController::player_science()

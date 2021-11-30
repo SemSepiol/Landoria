@@ -5,7 +5,7 @@
 #include <QWidget>
 
 #include "IObject.h"
-#include "Map.h"
+#include "Map/Map.h"
 #include "Units/Unit.h"
 #include "../Controllers/FindUnitWay.h"
 

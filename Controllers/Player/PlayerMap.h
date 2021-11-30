@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../../Graphics/ICell.h"
+#include "../../Graphics/Map/ICell.h"
 #include "../../IObject.h"
 
 

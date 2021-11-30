@@ -16,6 +16,7 @@ public:
 
 private:
   bool is_menu_open = false;
+
 };
 
 #endif // OPENMENULISTS_H

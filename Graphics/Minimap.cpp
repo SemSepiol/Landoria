@@ -38,6 +38,23 @@ void Minimap::set_win_rect(double coeffx, double coeffy, double coeff_width, dou
   win_on_map = QRectF(win_center_x, win_center_y, win_width, win_height);
 }
 
+bool Minimap::is_enable() const
+{
+  return enable;
+}
+
+void Minimap::show()
+{
+  enable = true;
+  QWidget::show();
+}
+
+void Minimap::hide()
+{
+  enable = false;
+  QWidget::hide();
+}
+
 void Minimap::paintEvent(QPaintEvent* event)
 {
   Q_UNUSED(event)
@@ -84,7 +101,7 @@ QColor Minimap::color(Cell* cell)
 {
   ControlContents controlcontents{cell};
   if(controlcontents.get_show_cell() == ICell::FogOfWar)
-    return QColor(Qt::black);
+    return QColor(Qt::white);
 
   switch (controlcontents.get_main_landscape())
   {
@@ -103,7 +120,7 @@ QColor Minimap::color(Cell* cell)
   case MainLandscapes::Snow:
     return QColor(Qt::white);
   case MainLandscapes::Ice:
-    return QColor(Qt::white);
+    return QColor(10, 10, 10);
   default:
     throw std::runtime_error("Minimap::color(): here are no color for this landscape");
   }

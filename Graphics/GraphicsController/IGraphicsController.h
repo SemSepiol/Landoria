@@ -5,7 +5,7 @@
 #include "../GameWindow.h"
 #include "../InformationWidgets/StartMoveInform.h"
 #include "../InformationWidgets/UnitInformation.h"
-#include "../Map.h"
+#include "../Map/Map.h"
 #include "../Menus/MenuInWindow/BottomMenu.h"
 #include "../Menus/MenuInWindow/UpperMenu.h"
 #include "../Menus/MenuTown/MenuTown.h"

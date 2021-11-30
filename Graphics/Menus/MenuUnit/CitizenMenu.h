@@ -2,8 +2,8 @@
 #define CITIZENMENU_H
 
 #include "AMenuForUnit.h"
-#include "../../Cell.h"
 #include "../../GraphicsController/EventsStructures.h"
+#include "../../Map/Cell.h"
 
 
 class CitizenMenu : public AMenuForUnit

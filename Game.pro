@@ -36,10 +36,13 @@ HEADERS += \
     Graphics/GraphicsController/MenuGraphicsController.h \
     Graphics/GraphicsController/WindowGraphicsController.h \
     Graphics/Menus/MenuInWindow/MenuLists.h \
+    Graphics/Menus/MenuInWindow/MenuTypeMap.h \
     Graphics/Menus/MenuInWindow/OpenMenuLists.h \
     Graphics/Menus/MenuScience/IMenuScience.h \
     Graphics/Menus/MenuScience/MenuScience.h \
     Graphics/Menus/MenuScience/WidgetKnowledge.h \
+    Graphics/Menus/MenuTypeMap/MenuTypeMap.h \
+    Graphics/Map/TypeMap.h \
     Graphics/Units/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -52,7 +55,7 @@ HEADERS += \
     Graphics/Buildings/Quarry.h \
     Graphics/Buildings/Town.h \
     Graphics/Buildings/TradingPost.h \
-    Graphics/Cell.h \
+    Graphics/Map/Cell.h \
     Graphics/DrawWay.h \
     Graphics/Factories/FactoryBuild.h \
     Graphics/Factories/FactoryColor.h \
@@ -68,12 +71,12 @@ HEADERS += \
     Graphics/GraphicsController/IGraphicsController.h \
     Graphics/GraphicsController/IPlayerGraphicsController.h \
     Graphics/GraphicsController/PlayerGraphicsController.h \
-    Graphics/ICell.h \
+    Graphics/Map/ICell.h \
     Graphics/IContent.h \
     Graphics/IDrawObject.h \
-    Graphics/IMap.h \
+    Graphics/Map/IMap.h \
     Graphics/InformationWidgets/StartMoveInform.h \
-    Graphics/Map.h \
+    Graphics/Map/Map.h \
     Graphics/Menus/MenuTown/AWidgetTown.h \
     Graphics/Menus/MenuTown/IMenuTown.h \
     Graphics/Menus/MenuTown/InformWidget.h \
@@ -125,8 +128,8 @@ SOURCES += \
     Controllers/TownBuildNeeds.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
-    Graphics/Cell.cpp \
-    Graphics/ControlContents.cpp \
+    Graphics/Map/Cell.cpp \
+    Graphics/Map/ControlContents.cpp \
     Graphics/DrawWay.cpp \
     Graphics/Factories/FactoryBuild.cpp \
     Graphics/Factories/FactoryColor.cpp \
@@ -146,7 +149,7 @@ SOURCES += \
     Graphics/GraphicsController/WindowGraphicsController.cpp \
     Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
-    Graphics/Map.cpp \
+    Graphics/Map/Map.cpp \
     Graphics/Menus/MenuInWindow/MenuLists.cpp \
     Graphics/Menus/MenuInWindow/OpenMenuLists.cpp \
     Graphics/Menus/MenuScience/MenuScience.cpp \
@@ -160,6 +163,7 @@ SOURCES += \
     Graphics/Menus/MenuTown/MenuTypeWorkTown.cpp \
     Graphics/Menus/MenuTown/WidgetTownBuilding.cpp \
     Graphics/Menus/MenuTown/WidgetTownUnit.cpp \
+    Graphics/Menus/MenuTypeMap/MenuTypeMap.cpp \
     Graphics/Menus/MenuUnit/AMenuForUnit.cpp \
     Graphics/Menus/MenuInWindow/AMenuInWindow.cpp \
     Graphics/Menus/MenuInWindow/BottomMenu.cpp \

@@ -4,10 +4,10 @@
 #include <QPainter>
 
 #include "UnitsCharaterichtics.h"
-#include "../ICell.h"
 #include "../IContent.h"
 #include "../Factories/FactoryColor.h"
 #include "../Factories/FactoryPixmap.h"
+#include "../Map/ICell.h"
 #include "../../Controllers/Enums.h"
 
 

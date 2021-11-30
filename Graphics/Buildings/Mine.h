@@ -2,7 +2,7 @@
 #define MINE_H
 
 #include "Building.h"
-#include "../ICell.h"
+#include "../Map/ICell.h"
 #include "../../Controllers/Enums.h"
 
 

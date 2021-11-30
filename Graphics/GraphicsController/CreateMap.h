@@ -1,8 +1,8 @@
 #ifndef CREATEMAP_H
 #define CREATEMAP_H
 
-#include "../Cell.h"
-#include "../Map.h"
+#include "../Map/Cell.h"
+#include "../Map/Map.h"
 #include "../../IObject.h"
 
 

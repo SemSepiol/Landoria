@@ -5,8 +5,8 @@
 
 #include "BuildingCharaterichtics.h"
 #include "../Factories/FactoryPixmap.h"
-#include "../ICell.h"
 #include "../IContent.h"
+#include "../Map/ICell.h"
 #include "../../Controllers/Enums.h"
 
 

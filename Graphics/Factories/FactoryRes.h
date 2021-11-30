@@ -1,7 +1,7 @@
 #ifndef FUBRICRES_H
 #define FUBRICRES_H
 
-#include "../ICell.h"
+#include "../Map/ICell.h"
 #include "../IContent.h"
 #include "../Resources/Aluminum.h"
 #include "../Resources/Coal.h"

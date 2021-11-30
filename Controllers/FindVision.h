@@ -6,7 +6,7 @@
 
 #include "Player/PlayerTown.h"
 #include "../IObject.h"
-#include "../Graphics/IMap.h"
+#include "../Graphics/Map/IMap.h"
 #include "../Graphics/Units/Unit.h"
 
 

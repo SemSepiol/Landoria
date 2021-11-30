@@ -4,9 +4,9 @@
 #include <sstream>
 
 #include "AMenuInWindow.h"
-#include "../../Cell.h"
 #include "../../Factories/FactoryString.h"
 #include "../../GraphicsController/IMenuGraphicsController.h"
+#include "../../Map/Cell.h"
 
 
 class BottomMenu : public AMenuInWindow
@@ -17,6 +17,7 @@ public:
   void update_infofm(Cell* cell);
   void del_inform();
 
+  QRect open_type_map_butt() const;
 protected:
   virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void draw() override;
@@ -24,8 +25,8 @@ protected:
 
   void draw_text();
 
-  virtual QRect show_minimap_butt() const;
-  virtual QRect next_move_butt() const;
+  QRect show_minimap_butt() const;
+  QRect next_move_butt() const;
 
   Cell* cell = nullptr;
 };

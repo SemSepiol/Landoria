@@ -29,6 +29,7 @@ public:
 
   void set_enable_move_map(bool enable_move_map);
   void update_infofm(IMenuTownPlayer* player);
+
 protected:
   virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void draw() override;

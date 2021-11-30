@@ -6,6 +6,7 @@
 #include "../Menus/MenuInWindow/MenuLists.h"
 #include "../Menus/MenuInWindow/OpenMenuLists.h"
 #include "../Menus/MenuScience/MenuScience.h"
+#include "../Menus/MenuTypeMap/MenuTypeMap.h"
 
 class MenuGraphicsController : public IMenuGraphicsControllerFull
 {
@@ -30,6 +31,12 @@ public:
   virtual void open_menu_science() override;
   virtual void close_menu_science() override;
 
+  virtual void event_open_menu_type_map() override;
+  virtual void click_open_menu_type_map() override;
+  virtual void open_menu_type_map() override;
+  virtual void close_menu_type_map() override;
+  virtual void set_type_map(TypeMap type_map) override;
+
   virtual PlayerScience* player_science() override;
 
   void create_uppermenu();
@@ -46,6 +53,7 @@ private:
   std::unique_ptr<OpenMenuLists> wid_open_menu_lists;
   std::unique_ptr<MenuLists> menu_lists;
   std::unique_ptr<MenuScience> menu_science;
+  std::unique_ptr<MenuTypeMap> menu_type_map;
 };
 
 #endif // MENUGRAPHICSCONTROLLER_H

@@ -73,7 +73,7 @@ std::string FactoryString::building_in_town_string(TownBuildings type_building) 
   return building_in_town_str.at(type_building);
 }
 
-std::string FactoryString::resource_string(Resources type_res)
+std::string FactoryString::resource_string(Resources type_res) const
 {
   std::map<Resources, std::string> res_str{
     {Resources::Iron, "Железо"},
@@ -91,7 +91,7 @@ std::string FactoryString::resource_string(Resources type_res)
   return res_str.at(type_res);
 }
 
-std::string FactoryString::landscape_string(MainLandscapes landscape)
+std::string FactoryString::landscape_string(MainLandscapes landscape) const
 {
   std::map<MainLandscapes, std::string> main_landscape_str{
     {MainLandscapes::Ocean, "Океан"},
@@ -107,7 +107,7 @@ std::string FactoryString::landscape_string(MainLandscapes landscape)
   return main_landscape_str.at(landscape);
 }
 
-std::string FactoryString::landscape_string(OtherLandscapes landscape)
+std::string FactoryString::landscape_string(OtherLandscapes landscape) const
 {
   std::map<OtherLandscapes, std::string> other_landscape_str{
     {OtherLandscapes::Nothing, ""},
@@ -121,7 +121,7 @@ std::string FactoryString::landscape_string(OtherLandscapes landscape)
   return other_landscape_str.at(landscape);
 }
 
-std::string FactoryString::country_string(Countries country)
+std::string FactoryString::country_string(Countries country) const
 {
   std::map<Countries, std::string> country_str{
     {Countries::Nothing, ""},
@@ -132,7 +132,7 @@ std::string FactoryString::country_string(Countries country)
   return country_str.at(country);
 }
 
-std::string FactoryString::knowledge_string(Knowledges name_knowledge)
+std::string FactoryString::knowledge_string(Knowledges name_knowledge) const
 {
   switch (name_knowledge)
   {
@@ -198,6 +198,38 @@ std::string FactoryString::knowledge_string(Knowledges name_knowledge)
     return "Торговля";
   case Knowledges::Medicine:
     return "Медицина";
+  default:
+    return "";
+  }
+}
+
+std::string FactoryString::typemap_overlay_string(TypeMap::Overlay overlay) const
+{
+  switch (overlay) {
+  case TypeMap::NoOverlay:
+    return "Без наложения";
+  case TypeMap::Political:
+    return "Политическая";
+  case TypeMap::HighlightResources:
+    return "Ресурсы";
+  default:
+    return "";
+  }
+}
+
+std::string FactoryString::typemap_typecontent_string(TypeMap::TypeContent typecontent) const
+{
+  switch (typecontent) {
+  case TypeMap::All:
+    return "Все";
+  case TypeMap::Nothing:
+    return "Ничего";
+  case TypeMap::Units:
+    return "Юниты";
+  case TypeMap::Resources:
+    return "Ресурсы";
+  case TypeMap::Building:
+    return "Улучшения";
   default:
     return "";
   }

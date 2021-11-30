@@ -1,7 +1,7 @@
 #ifndef FABRICUNITS_H
 #define FABRICUNITS_H
 
-#include "../ICell.h"
+#include "../Map/ICell.h"
 #include "../IContent.h"
 #include "../Units/Bowman.h"
 #include "../Units/Citizen.h"

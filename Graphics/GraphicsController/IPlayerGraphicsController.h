@@ -1,7 +1,7 @@
 #ifndef IPLAYERGRAPHICSCONTROLLER_H
 #define IPLAYERGRAPHICSCONTROLLER_H
 
-#include "../IMap.h"
+#include "../Map/IMap.h"
 #include "../../Controllers/Player/IMenuTownPlayer.h"
 #include "../../Controllers/Player/PlayerMap.h"
 #include "../../Controllers/Player/PlayerTown.h"

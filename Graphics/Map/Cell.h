@@ -7,19 +7,19 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "Buildings/Building.h"
-#include "Factories/FactoryBuild.h"
-#include "Factories/FactoryColor.h"
-#include "Factories/FactoryPixmap.h"
-#include "Factories/FactoryRes.h"
-#include "Factories/FactoryUnits.h"
-#include "GraphicsController/Calculations.h"
 #include "ICell.h"
-#include "IContent.h"
 #include "IMap.h"
-#include "Resources/Res.h"
-#include "Units/Unit.h"
-#include "../Controllers/Enums.h"
+#include "../Buildings/Building.h"
+#include "../Factories/FactoryBuild.h"
+#include "../Factories/FactoryColor.h"
+#include "../Factories/FactoryPixmap.h"
+#include "../Factories/FactoryRes.h"
+#include "../Factories/FactoryUnits.h"
+#include "../GraphicsController/Calculations.h"
+#include "../IContent.h"
+#include "../Resources/Res.h"
+#include "../Units/Unit.h"
+#include "../../Controllers/Enums.h"
 
 
 struct Content
