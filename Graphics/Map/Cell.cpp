@@ -39,14 +39,16 @@ Calculations* Cell::calculations() const
 
 IContent* Cell::click(QPoint pos)
 {
-  int num_circle = calculations()->point_in_circle(pos);
+  auto map_type_content = map->get_type_map().type_content;
+  int num_circle = calculations()->point_in_circle(pos, count_units());
 
   if (num_circle == -1)
     return nullptr;
 
   ControlContents control_contents{this};
 
-  if (num_circle < 4)
+  if ((map_type_content == TypeMap::All || map_type_content == TypeMap::Units) &&
+      num_circle < 4)
   {
     if (control_contents.count_units() < num_circle+1)
       return nullptr;
@@ -57,8 +59,8 @@ IContent* Cell::click(QPoint pos)
         if(++counter == num_circle+1)
           return contents[j].content.get();
   }
-
-  if(num_circle == 4)
+  else if((map_type_content == TypeMap::All && num_circle == 4) ||
+          (map_type_content == TypeMap::Resources && num_circle == 0))
   {
     if (!control_contents.has_resource())
       return nullptr;
@@ -67,8 +69,8 @@ IContent* Cell::click(QPoint pos)
       if(contents[j].content->what_content_I() == Contents::Resource)
         return contents[j].content.get();
   }
-
-  if(num_circle == 5)
+  else if((map_type_content == TypeMap::All && num_circle == 5) ||
+          (map_type_content == TypeMap::Building && num_circle == 0))
   {
     if (!control_contents.has_building())
       return nullptr;
@@ -79,6 +81,12 @@ IContent* Cell::click(QPoint pos)
   }
 
   throw std::runtime_error("Can't find content");
+}
+
+int Cell::count_units()
+{
+  ControlContents cc{this};
+  return cc.count_units();
 }
 
 void Cell::draw_cell(QPoint point)
@@ -305,16 +313,15 @@ Countries Cell::cell_country(Position pos_cell)
   return cc.get_country();
 }
 
-
 void Cell::draw_unit(Content* content, QPoint point_cell, int count_drawn_unit)
 {
   auto map_type_content = map->get_type_map().type_content;
   Calculations* calc = calculations();
   QPoint p;
-  if(map_type_content == TypeMap::All)
+  if(map_type_content == TypeMap::All || map_type_content == TypeMap::Units)
   {
-    content->content->set_type_draw(IContent::PartCell);
-    p = calc->point_circle_for_unit(count_drawn_unit);
+    ControlContents cc{this};
+    p = calc->point_circle_for_unit(count_drawn_unit, cc.count_units());
   }
   else
     return;
@@ -330,16 +337,8 @@ void Cell::draw_resource(Content* content, QPoint point_cell)
   Calculations* calc = calculations();
 
   QPoint p;
-  if(map_type_content == TypeMap::All)
-  {
-    content->content->set_type_draw(IContent::PartCell);
+  if(map_type_content == TypeMap::All || map_type_content == TypeMap::Resources)
     p = calc->point_circle_for_res();
-  }
-  else if(map_type_content == TypeMap::Resources)
-  {
-    content->content->set_type_draw(IContent::FullCell);
-    p = {0,0};
-  }
   else
     return;
   content->content->draw(point_cell + p);
@@ -351,18 +350,11 @@ void Cell::draw_building(Content* content, QPoint point_cell)
   Calculations* calc = calculations();
 
   QPoint p;
-  if(map_type_content == TypeMap::All)
-  {
-    content->content->set_type_draw(IContent::PartCell);
+  if(map_type_content == TypeMap::All || map_type_content == TypeMap::Building)
     p = calc->point_circle_for_build();
-  }
-  else if(map_type_content == TypeMap::Building)
-  {
-    content->content->set_type_draw(IContent::FullCell);
-    p = {0,0};
-  }
   else
     return;
+
   content->content->draw(point_cell + p);
 }
 

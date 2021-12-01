@@ -44,12 +44,12 @@ void Player::del_menu_town()
 void Player::set_initial_units(Position initial_cell)
 {
   //  add_unit(Units::Worker, initial_cell);
-  //  add_unit(Units::Worker, initial_cell);
+//    add_unit(Units::Worker, initial_cell);
   add_unit(Units::Citizen, initial_cell);
   //  build_town(&my_units[0]);
   //  click_town(my_towns[0]->town());
-  //  add_unit(Units::Bowman, initial_cell);
-  //  add_unit(Units::Swordsman, initial_cell);
+//    add_unit(Units::Bowman, initial_cell);
+//    add_unit(Units::Swordsman, initial_cell);
   set_vision(true);
 }
 

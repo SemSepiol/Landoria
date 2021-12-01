@@ -20,6 +20,7 @@ public:
   virtual void draw(QPoint point) = 0;
   virtual QWidget* window() const = 0;
   virtual Calculations* calculations() const = 0;
+  virtual int count_units() = 0;
 };
 
 #endif // ICELL_H

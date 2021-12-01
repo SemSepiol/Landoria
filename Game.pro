@@ -41,8 +41,10 @@ HEADERS += \
     Graphics/Menus/MenuScience/IMenuScience.h \
     Graphics/Menus/MenuScience/MenuScience.h \
     Graphics/Menus/MenuScience/WidgetKnowledge.h \
+    Graphics/Menus/MenuTypeMap/IMenuTypeMap.h \
     Graphics/Menus/MenuTypeMap/MenuTypeMap.h \
     Graphics/Map/TypeMap.h \
+    Graphics/Menus/MenuTypeMap/TypesList.h \
     Graphics/Units/UnitsCharaterichtics.h \
     Graphics/Buildings/Building.h \
     Graphics/Buildings/Farm.h \
@@ -164,6 +166,7 @@ SOURCES += \
     Graphics/Menus/MenuTown/WidgetTownBuilding.cpp \
     Graphics/Menus/MenuTown/WidgetTownUnit.cpp \
     Graphics/Menus/MenuTypeMap/MenuTypeMap.cpp \
+    Graphics/Menus/MenuTypeMap/TypesList.cpp \
     Graphics/Menus/MenuUnit/AMenuForUnit.cpp \
     Graphics/Menus/MenuInWindow/AMenuInWindow.cpp \
     Graphics/Menus/MenuInWindow/BottomMenu.cpp \

@@ -2,11 +2,7 @@
 
 void Building::draw(QPoint point)
 {
-  int rad;
-  if(type_draw == PartCell)
-    rad = calculations()->circle_radius();
-  else
-    rad = calculations()->hexagon_height()*9/10;
+  int rad = calculations()->circle_radius();
 
   if(phase < end_phase)
     draw_build_phase(point);
@@ -70,15 +66,10 @@ bool Building::is_built() const
 
 void Building::draw_build_phase(QPoint point)
 {
-  int rad;
-  if(type_draw == PartCell)
-    rad = calculations()->circle_radius();
-  else
-    rad = calculations()->hexagon_height()*9/10;
+  int rad = calculations()->circle_radius();
 
   QPainter qp(window());
   QPen pen(Qt::black, 2, Qt::SolidLine);
-
 
   QRect rect1{QPoint{point.x() - rad, point.y() - rad - rad/5},
               QPoint{point.x() + rad, point.y() - rad}};

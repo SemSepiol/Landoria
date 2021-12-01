@@ -2,11 +2,7 @@
 
 void Res::draw(QPoint point)
 {
-  int rad;
-  if(type_draw == PartCell)
-    rad = calculations()->circle_radius();
-  else
-    rad = calculations()->hexagon_height()*9/10;
+  int rad = calculations()->circle_radius();
 
   QPainter qp(window());
   QPen pen(Qt::black, 2, Qt::SolidLine);

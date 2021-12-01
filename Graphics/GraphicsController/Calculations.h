@@ -6,6 +6,7 @@
 #include <QPoint>
 
 #include "../../IObject.h"
+#include "../../Graphics/Map/TypeMap.h"
 
 
 class Calculations : public IObject
@@ -31,7 +32,7 @@ public:
    * 5:   номер окружности строения
    * если точка не в окружностях, то выдает -1
   */
-  int point_in_circle(QPoint point);
+  int point_in_circle(QPoint point, int count_units = 4);
 
 
   // функции возвращающие вершины относительно центра, число - градусы от вертикали вверх
@@ -44,11 +45,13 @@ public:
 
   // функции возвращающие центры окружности относительно центра,
   // число - градусы от вертикали вверх
-  QPoint point_circle_for_unit(int num_unit);
+  QPoint point_circle_for_unit(int num_unit, int count_units = 4);
   QPoint point_circle_for_res();
   QPoint point_circle_for_build();
 
-  int circle_radius();
+  int circle_radius(int count_units = 4);
+
+  void set_type_content(TypeMap::TypeContent type_content);
 
 private:
   typedef std::pair<QPoint, QPoint> pair_of_QPoint;
@@ -56,6 +59,7 @@ private:
   bool check_intersect_of_vectors(pair_of_QPoint v1, pair_of_QPoint v2);
 
   int side = 0;
+  TypeMap::TypeContent type_content = TypeMap::All;
 };
 
 #endif // CALCULATIONS_H

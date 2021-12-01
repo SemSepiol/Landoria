@@ -7,7 +7,6 @@
 
 void CreateMap::create_map(Map* map)
 {
-
   for(size_t i{1}; i < 4; ++i)
     for(size_t j{0}; j < graphics_controller->count_cell_y(); ++j)
     {

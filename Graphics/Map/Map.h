@@ -14,7 +14,6 @@
 
 class Map : public IMap, public IMapForFind
 {
-
 public:
   Map(IMapGraphicsController* graphics_controller);
 
@@ -37,7 +36,7 @@ public:
   std::pair<Cell*, IContent*> click(QPoint pos);
   QPoint point_of_cell_in_win(Position pos);
 
-  void set_type_map(TypeMap type_map);
+  virtual void set_type_map(TypeMap type_map) override;
   virtual const TypeMap& get_type_map() const override;
 
 private:

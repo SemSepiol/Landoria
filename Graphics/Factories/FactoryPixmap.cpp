@@ -275,6 +275,11 @@ QPixmap FactoryPixmap::create_pixmap_for_nextmotion() const
   return QPixmap{image_path + menu_dir + "NextMotion.png"};
 }
 
+QPixmap FactoryPixmap::create_pixmap_for_type_map() const
+{
+  return QPixmap{image_path + menu_dir + "TypeMap.png"};
+}
+
 QPixmap FactoryPixmap::create_pixmap_for_butt_build() const
 {
   return QPixmap{image_path + menu_dir + "Build.png"};

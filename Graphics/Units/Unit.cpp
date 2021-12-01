@@ -6,7 +6,7 @@ Unit::Unit(ICell* _cell)
 
 void Unit::draw(QPoint point)
 {
-  int rad = calculations()->circle_radius();
+  int rad = calculations()->circle_radius(cell->count_units());
 
   QPainter qp(window());
   QPen pen(Qt::black, 2, Qt::SolidLine);

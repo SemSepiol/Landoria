@@ -29,6 +29,7 @@ public:
   QPixmap create_pixmap_for_down_in_queue() const;
   QPixmap create_pixmap_for_minimap() const;
   QPixmap create_pixmap_for_nextmotion() const;
+  QPixmap create_pixmap_for_type_map() const;
   QPixmap create_pixmap_for_butt_build() const;
   QPixmap create_pixmap_for_town_building(TownBuildings type_building) const;
   QPixmap create_pixmap_for_fog_of_war() const;

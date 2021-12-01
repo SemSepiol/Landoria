@@ -186,6 +186,8 @@ QPoint Map::point_of_cell_in_win(Position pos)
 void Map::set_type_map(TypeMap _type_map)
 {
   type_map = _type_map;
+  calculations()->set_type_content(type_map.type_content);
+  window()->update();
 }
 
 const TypeMap& Map::get_type_map() const

@@ -45,6 +45,7 @@ public:
   // точка относительно центра клетки
   IContent* click(QPoint pos);
 
+  virtual int count_units() override;
 private:
   void draw_cell(QPoint point);
   void draw_landscape(QPoint point);

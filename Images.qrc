@@ -108,5 +108,6 @@
         <file>Graphics/image/knowledges/Wheel.png</file>
         <file>Graphics/image/knowledges/Writing.png</file>
         <file>Graphics/image/knowledges/Language.png</file>
+        <file>Graphics/image/menu/TypeMap.png</file>
     </qresource>
 </RCC>

@@ -41,7 +41,8 @@ void BottomMenu::draw()
   QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_nextmotion();
   qp.drawPixmap(next_move_butt(), pixmap2, source);
 
-  qp.drawPixmap(open_type_map_butt(), pixmap2, source);
+  QPixmap pixmap3 = FactoryPixmap().create_pixmap_for_type_map();
+  qp.drawPixmap(open_type_map_butt(), pixmap3, source);
 
   QPen pen{Qt::white, 2, Qt::SolidLine};
   qp.setPen(pen);

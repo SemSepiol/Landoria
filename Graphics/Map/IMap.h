@@ -34,6 +34,7 @@ public:
   virtual ICell* icell_by_indexes(Position pos) const = 0;
 
   virtual const TypeMap& get_type_map() const = 0;
+  virtual void set_type_map(TypeMap type_map) = 0;
 };
 
 #endif // IMAP_H
