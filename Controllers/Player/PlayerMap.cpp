@@ -12,8 +12,8 @@ PlayerMap::PlayerMap(Position count_cell)
 
 ICell::ShowCell PlayerMap::get_show_cell(Position pos_cell) const
 {
-  //return ICell::Show;
-  return map[pos_cell.x][pos_cell.y];
+  return ICell::Show;
+  //return map[pos_cell.x][pos_cell.y];
 }
 
 void PlayerMap::set_show_cell(Position pos_cell)

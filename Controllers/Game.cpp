@@ -93,11 +93,13 @@ QWidget* Game::window() const
 
 void Game::do_players(size_t count_players)
 {
+  players.clear();
+  auto create_map = CreateMap{_graphics_controller.get()->get_imap_gc_full()};
+  auto positions = create_map.initial_pos_player(count_players, _graphics_controller->get_map());
   for(size_t i{0}; i < count_players; ++i)
   {
     players.push_back(std::unique_ptr<Player>{new Player(this, Countries(i+1))});
-    auto create_map = CreateMap{_graphics_controller.get()->get_imap_gc_full()};
-    players[i]->set_initial_units(create_map.initial_pos_player(int(i)));
+    players[i]->set_initial_units(positions[i]);
   }
 }
 
