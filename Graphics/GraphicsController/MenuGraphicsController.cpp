@@ -2,7 +2,7 @@
 #include <iostream>
 
 MenuGraphicsController::MenuGraphicsController(IGraphicsController* _graphics_controller)
-  :graphics_controller{_graphics_controller}, wid_open_menu_lists{new OpenMenuLists(this)}, menu_lists{new MenuLists(this)}
+  :graphics_controller{_graphics_controller}
 {}
 
 QWidget* MenuGraphicsController::window() const
@@ -24,7 +24,7 @@ void MenuGraphicsController::exit()
 
 void MenuGraphicsController::show_minimap()
 {
-  auto minimap = graphics_controller->get_minimap();
+  auto minimap = graphics_controller->get_imap_gc_full()->get_minimap();
   if(minimap->isVisible())
     minimap->hide();
   else
@@ -65,8 +65,8 @@ void MenuGraphicsController::menu_unit_event(class Unit* unit, Event* event)
 void MenuGraphicsController::delete_townmenu()
 {
   graphics_controller->set_town_menu(nullptr);
-  graphics_controller->get_upper_menu()->set_enable_move_map(true);
-  graphics_controller->get_bottom_menu()->show();
+  upper_menu->set_enable_move_map(true);
+  bottom_menu->show();
 
   graphics_controller->get_game_controller()->current_player()->del_menu_town();
 
@@ -130,11 +130,11 @@ void MenuGraphicsController::click_open_menu_type_map()
 
 void MenuGraphicsController::open_menu_type_map()
 {
-  menu_type_map.reset(new MenuTypeMap(this, graphics_controller->get_map()));
+  menu_type_map.reset(new MenuTypeMap(this, map()));
   QPoint pos;
   Size size_win = graphics_controller->get_size_win();
   Size size{size_win.width/10, size_win.height/5};
-  if(graphics_controller->get_minimap()->is_enable())
+  if(graphics_controller->get_imap_gc_full()->get_minimap()->is_enable())
   {
     Calculations calc{graphics_controller->get_hexagon_side_minimap()};
     int num_cell_x = int(graphics_controller->get_num_cell().x);
@@ -144,7 +144,7 @@ void MenuGraphicsController::open_menu_type_map()
            size_win.height - graphics_controller->get_size_bottommenu().height - size.height};
   }
   else{
-    pos = graphics_controller->get_bottom_menu()->open_type_map_butt().topRight() -
+    pos = bottom_menu->open_type_map_butt().topRight() -
         QPoint{size.width, -size_win.height + size.height + graphics_controller->get_size_bottommenu().height};
   }
 
@@ -160,7 +160,7 @@ void MenuGraphicsController::close_menu_type_map()
 
 void MenuGraphicsController::set_type_map(TypeMap type_map)
 {
-  graphics_controller->get_map()->set_type_map(type_map);
+  map()->set_type_map(type_map);
 }
 
 PlayerScience* MenuGraphicsController::player_science()
@@ -168,27 +168,42 @@ PlayerScience* MenuGraphicsController::player_science()
   return graphics_controller->get_game_controller()->current_player()->player_science();
 }
 
+void MenuGraphicsController::create_elements()
+{
+  create_bottommenu();
+  create_uppermenu();
+  create_menu_lists();
+}
+
 void MenuGraphicsController::create_uppermenu()
 {
+  upper_menu.reset(new class UpperMenu(this));
   Size size_win = graphics_controller->get_size_win();
   Size& size_uppermenu = graphics_controller->get_size_uppermenu();
 
   size_uppermenu = {size_win.width, size_win.height/30};
-  graphics_controller->get_upper_menu()->set_geometry({0,0}, size_uppermenu);
+  upper_menu->set_geometry({0,0}, size_uppermenu);
+  upper_menu->hide();
+  upper_menu->show();
 }
 
 void MenuGraphicsController::create_bottommenu()
 {
+  bottom_menu.reset(new class BottomMenu(this));
   Size size_win = graphics_controller->get_size_win();
   Size& size_bottommenu = graphics_controller->get_size_bottommenu();
-
   size_bottommenu = {size_win.width, size_win.height/30};
   QPoint pos{size_win.width - size_bottommenu.width, size_win.height - size_bottommenu.height};
-  graphics_controller->get_bottom_menu()->set_geometry(pos, size_bottommenu);
+  bottom_menu->set_geometry(pos, size_bottommenu);
+  bottom_menu->hide();
+  bottom_menu->show();
 }
 
 void MenuGraphicsController::create_menu_lists()
 {
+  wid_open_menu_lists.reset(new OpenMenuLists(this));
+  menu_lists.reset(new MenuLists(this));
+
   Size size_win = graphics_controller->get_size_win();
   size_open_menu_lists = {size_win.height/30, size_win.height/30};
   QPoint pos{0, graphics_controller->get_size_uppermenu().height};
@@ -207,7 +222,7 @@ void MenuGraphicsController::del_menu_unit()
   graphics_controller->set_unit_menu(nullptr);
   graphics_controller->set_unit_information(nullptr);
 
-  bool& is_tracking_unit = graphics_controller->get_is_tracking_unit();
+  bool& is_tracking_unit = graphics_controller->get_iplayer_gc()->get_is_tracking_unit();
   Position pos_tracking_unit = graphics_controller->get_pos_tracking_unit();
   class Unit* tracking_unit = graphics_controller->get_tracking_unit();
 
@@ -223,4 +238,19 @@ void MenuGraphicsController::press_escape()
     close_menu_science();
   if(graphics_controller->get_town_menu())
     delete_townmenu();
+}
+
+UpperMenu* MenuGraphicsController::get_upper_menu()
+{
+  return upper_menu.get();
+}
+
+BottomMenu* MenuGraphicsController::get_bottom_menu()
+{
+  return bottom_menu.get();
+}
+
+Map* MenuGraphicsController::map()
+{
+  return graphics_controller->get_imap_gc_full()->get_map();
 }

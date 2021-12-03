@@ -33,4 +33,10 @@ public:
   virtual Buildings cell_building(Position pos) = 0;
 };
 
+class IPlayerGraphicsControllerFull : public IPlayerGraphicsController
+{
+public:
+  virtual bool& get_is_tracking_unit() = 0;
+};
+
 #endif // IPLAYERGRAPHICSCONTROLLER_H

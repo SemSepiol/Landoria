@@ -8,6 +8,7 @@
 #include "IGraphicsController.h"
 #include "MapGraphicsController.h"
 #include "MenuGraphicsController.h"
+#include "MenuStartGraphicsController.h"
 #include "PlayerGraphicsController.h"
 #include "WindowGraphicsController.h"
 
@@ -17,7 +18,8 @@ class GraphicsController : public IGraphicsController
 public:
   GraphicsController(IGameForGraphic* game_controller);
   QWidget* window() const;
-  void start();
+  virtual void start_game() override;
+  void do_start_menu();
   void do_start_inform(QString string);
   void del_start_inform();
   virtual void create_elements();
@@ -35,12 +37,7 @@ public:
   virtual IGameForGraphic* get_game_controller() override;
 
   virtual GameWindow* get_game_window() override;
-  virtual UpperMenu* get_upper_menu() override;
-  virtual BottomMenu* get_bottom_menu() override;
-  virtual Map* get_map() override;
-  virtual Calculations* get_calc() override;
 
-  virtual bool& get_is_tracking_unit() override;
   virtual bool& get_is_moving_unit() override;
   virtual class Unit*& get_tracking_unit() override;
   virtual Position& get_pos_tracking_unit() override;
@@ -60,14 +57,13 @@ public:
   virtual MenuTown* get_town_menu() override;
   virtual void set_town_menu(MenuTown*) override;
 
-  virtual Minimap* get_minimap() override;
-
   virtual StartMoveInform* get_start_move_inform() override;
 
   virtual IWindowGraphicsControllerFull* get_iwindow_gc_full() override;
   virtual IMenuGraphicsControllerFull* get_imenu_gc_full() override;
-  virtual IPlayerGraphicsController* get_iplayer_gc() override;
+  virtual IPlayerGraphicsControllerFull* get_iplayer_gc() override;
   virtual IMapGraphicsControllerFull* get_imap_gc_full() override;
+  virtual IMenuStartGraphicsController* get_imenu_start_full() override;
 
 protected:
   Size _size_win;
@@ -83,19 +79,12 @@ protected:
   IGameForGraphic* game_controller;
 
   std::unique_ptr<WindowGraphicsController> window_gc;
-
-  std::unique_ptr<GameWindow> game_window;
-
   std::unique_ptr<MapGraphicsController> map_gc;
   std::unique_ptr<PlayerGraphicsController> player_gc;
   std::unique_ptr<MenuGraphicsController> menu_gc;
+  std::unique_ptr<MenuStartGraphicsController> menu_start_gc;
 
-  std::unique_ptr<UpperMenu> upper_menu;
-  std::unique_ptr<BottomMenu> bottom_menu;
-  std::unique_ptr<Map> _map;
-  std::unique_ptr<Calculations> calc;
 
-  bool is_tracking_unit = false;
   bool is_moving_unit = false;
   class Unit* tracking_unit = nullptr;
   Position pos_tracking_unit;

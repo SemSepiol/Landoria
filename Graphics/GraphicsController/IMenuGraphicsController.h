@@ -52,13 +52,6 @@ public:
   virtual void del_inform_widget() = 0;
 };
 
-class IMenuGraphicsControllerFull : public IMenuInWindowGraphicsController,
-    public IUnitMenuGraphicsController, public ITownMenuGraphicsController
-{
-public:
-  virtual void del_menu_unit() = 0;
-  virtual void press_escape() = 0;
-  virtual void event_open_menu_type_map() = 0;
-};
+
 
 #endif // IMENUGRAPHICSCONTROLLER_H

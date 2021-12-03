@@ -2,7 +2,7 @@
 #define MENUGRAPHICSCONTROLLER_H
 
 #include "IGraphicsController.h"
-#include "IMenuGraphicsController.h"
+#include "IMenuGraphicsControllerFull.h"
 #include "../Menus/MenuInWindow/MenuLists.h"
 #include "../Menus/MenuInWindow/OpenMenuLists.h"
 #include "../Menus/MenuScience/MenuScience.h"
@@ -39,17 +39,23 @@ public:
 
   virtual PlayerScience* player_science() override;
 
+  void create_elements();
   void create_uppermenu();
   void create_bottommenu();
   void create_menu_lists();
   virtual void del_menu_unit() override;
   virtual void press_escape() override;
+  virtual BottomMenu* get_bottom_menu() override;
+  virtual UpperMenu* get_upper_menu() override;
 private:
+  Map* map();
   IGraphicsController* graphics_controller;
 
   Size size_open_menu_lists;
   Size size_menu_lists;
 
+  std::unique_ptr<UpperMenu> upper_menu;
+  std::unique_ptr<BottomMenu> bottom_menu;
   std::unique_ptr<OpenMenuLists> wid_open_menu_lists;
   std::unique_ptr<MenuLists> menu_lists;
   std::unique_ptr<MenuScience> menu_science;

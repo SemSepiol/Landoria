@@ -7,7 +7,7 @@
 #include "../Factories/FactoryMenusUnit.h"
 
 
-class PlayerGraphicsController : public IPlayerGraphicsController
+class PlayerGraphicsController : public IPlayerGraphicsControllerFull
 {
 public:
   PlayerGraphicsController(IGraphicsController* graphics_controller);
@@ -33,9 +33,12 @@ public:
   virtual bool has_cell_building(Position pos) override;
   virtual Buildings cell_building(Position pos) override;
 
+  virtual bool& get_is_tracking_unit() override;
 private:
   Map* map();
   GameWindow* game_window();
+
+  bool is_tracking_unit = false;
 
   IGraphicsController* graphics_controller;
 };

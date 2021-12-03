@@ -18,6 +18,7 @@ public:
 class IGameForGraphic : public IObject
 {
 public:
+  virtual void start_game() = 0;
   virtual size_t count_cell_x() const = 0;
   virtual size_t count_cell_y() const = 0;
   virtual int width_win() const = 0;

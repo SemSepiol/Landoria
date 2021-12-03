@@ -11,7 +11,7 @@ QWidget* MapGraphicsController::window() const
 
 Calculations* MapGraphicsController::calculations() const
 {
-  return graphics_controller->get_calc();
+  return calc.get();
 }
 
 size_t MapGraphicsController::count_cell_x() const
@@ -82,7 +82,7 @@ void MapGraphicsController::set_win_rect_minimap()
   double coeffy = map_center_in_win_map().y()*1. / size_map().height;
   double coeff_width = size_win_map().width*1. / size_map().width;
   double coeff_height = size_win_map().height*1. / size_map().height;
-  minimap()->set_win_rect(coeffx, coeffy, coeff_width, coeff_height);
+  minimap->set_win_rect(coeffx, coeffy, coeff_width, coeff_height);
 }
 
 void MapGraphicsController::move_map(QPoint move_point)
@@ -138,6 +138,9 @@ void MapGraphicsController::do_size_map()
 
 void MapGraphicsController::create_map()
 {
+  calc.reset(new Calculations());
+  map.reset(new Map(this));
+
   auto game_controller = graphics_controller->get_game_controller();
   graphics_controller->get_num_cell() = {game_controller->count_cell_x(), game_controller->count_cell_y()};
   calculations()->set_side(130);
@@ -149,18 +152,20 @@ void MapGraphicsController::create_map()
   do_size_map();
   _win_map_center() = {_size_win_map().width/2, _size_win_map().height/2 + height_uppermenu};
   _map_center() = _win_map_center();
-  map()->do_cells();
+  map->do_cells();
 
 
   CreateMap creator_map{this};
-  creator_map.create_map(map());
-  creator_map.add_resource(map());
+  creator_map.create_map(map.get());
+  creator_map.add_resource(map.get());
 
   //  game_window->update();
 }
 
 void MapGraphicsController::create_minimap()
 {
+  minimap.reset(new Minimap(window(), map.get(), this));
+
   Size size_win = graphics_controller->get_size_win();
 
   int width_minimap = size_win.width/3;
@@ -176,30 +181,20 @@ void MapGraphicsController::create_minimap()
   hexagon_side_minimap = std::min(side1, side2);
 
   int height_bottommenu = graphics_controller->get_size_bottommenu().height;
-  minimap()->set_geometry(QPoint{size_win.width, size_win.height - height_bottommenu}, hexagon_side_minimap);
+  minimap->set_geometry(QPoint{size_win.width, size_win.height - height_bottommenu}, hexagon_side_minimap);
   set_win_rect_minimap();
-  minimap()->hide();
+  minimap->hide();
 }
 
 void MapGraphicsController::no_highlight_unit(class Unit* unit, Position pos_cell)
 {
-  ControlContents controlcontents{map()->cell_by_indexes(pos_cell)};
+  ControlContents controlcontents{map->cell_by_indexes(pos_cell)};
   controlcontents.set_highlight_unit(unit, false);
 }
 
 Size MapGraphicsController::size_win() const
 {
   return graphics_controller->get_size_win();
-}
-
-Map* MapGraphicsController::map()
-{
-  return graphics_controller->get_map();
-}
-
-Minimap* MapGraphicsController::minimap()
-{
-  return graphics_controller->get_minimap();
 }
 
 Size& MapGraphicsController::_size_map()
@@ -220,4 +215,14 @@ QPoint& MapGraphicsController::_win_map_center()
 QPoint& MapGraphicsController::_map_center()
 {
   return graphics_controller->get_map_center();
+}
+
+Map* MapGraphicsController::get_map()
+{
+  return map.get();
+}
+
+Minimap* MapGraphicsController::get_minimap()
+{
+  return minimap.get();
 }

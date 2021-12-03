@@ -1,6 +1,9 @@
 #ifndef IGRAPHICSCONTROLLER_H
 #define IGRAPHICSCONTROLLER_H
 
+#include "IMenuStartGraphicsController.h"
+#include "IMapGraphicsControllerFull.h"
+#include "IMenuGraphicsControllerFull.h"
 #include "../DrawWay.h"
 #include "../GameWindow.h"
 #include "../InformationWidgets/StartMoveInform.h"
@@ -18,6 +21,8 @@
 class IGraphicsController : public IObject
 {
 public:
+  virtual void start_game() = 0;
+
   virtual Size& get_size_win() = 0;
   virtual Size& get_size_uppermenu() = 0;
   virtual Size& get_size_bottommenu() = 0;
@@ -31,12 +36,7 @@ public:
   virtual IGameForGraphic* get_game_controller() = 0;
 
   virtual GameWindow* get_game_window() = 0;
-  virtual UpperMenu* get_upper_menu() = 0;
-  virtual BottomMenu* get_bottom_menu() = 0;
-  virtual Map* get_map() = 0;
-  virtual Calculations* get_calc() = 0;
 
-  virtual bool& get_is_tracking_unit() = 0;
   virtual bool& get_is_moving_unit() = 0;
   virtual class Unit*& get_tracking_unit() = 0;
   virtual Position& get_pos_tracking_unit() = 0;
@@ -56,13 +56,13 @@ public:
   virtual MenuTown* get_town_menu() = 0;
   virtual void set_town_menu(MenuTown*) = 0;
 
-  virtual Minimap* get_minimap() = 0;
   virtual StartMoveInform* get_start_move_inform() = 0;
 
   virtual IWindowGraphicsControllerFull* get_iwindow_gc_full() = 0;
   virtual IMenuGraphicsControllerFull* get_imenu_gc_full() = 0;
-  virtual IPlayerGraphicsController* get_iplayer_gc() = 0;
+  virtual IPlayerGraphicsControllerFull* get_iplayer_gc() = 0;
   virtual IMapGraphicsControllerFull* get_imap_gc_full() = 0;
+  virtual IMenuStartGraphicsController* get_imenu_start_full() = 0;
 };
 
 #endif // IGRAPHICSCONTROLLER_H

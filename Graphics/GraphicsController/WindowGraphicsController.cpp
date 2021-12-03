@@ -11,7 +11,10 @@ Size WindowGraphicsController::size_win() const
 
 void WindowGraphicsController::draw_elements()
 {
-  graphics_controller->get_map()->draw(graphics_controller->get_map_center());
+  if(!map())
+    return;
+
+  map()->draw(graphics_controller->get_map_center());
   if(drawway())
     drawway()->draw();
 }
@@ -33,7 +36,7 @@ void WindowGraphicsController::click(QPoint pos)
   if(!graphics_controller->get_enabled_map())
     return;
 
-  auto pair = graphics_controller->get_map()->click(pos - graphics_controller->get_map_center());
+  auto pair = map()->click(pos - graphics_controller->get_map_center());
   Cell* cell = pair.first;
   IContent* content = pair.second;
 
@@ -57,7 +60,7 @@ void WindowGraphicsController::click(QPoint pos)
         game_controller()->current_player()->click_town(static_cast<class Town*>(building));
     }
   }
-  game_window()->update();
+  game_window->update();
 }
 
 void WindowGraphicsController::start_check_move_unit()
@@ -71,7 +74,7 @@ void WindowGraphicsController::stop_check_move_unit(QPoint mouse_pos)
   if(!graphics_controller->get_tracking_unit())
     return;
 
-  auto pair = graphics_controller->get_map()->click(mouse_pos - graphics_controller->get_map_center());
+  auto pair = map()->click(mouse_pos - graphics_controller->get_map_center());
   Cell* cell = pair.first;
   if(cell)
     unit_moved_to_cell(cell);
@@ -84,18 +87,18 @@ void WindowGraphicsController::move_mouse(QPoint new_pos)
   if(!graphics_controller->get_enabled_map())
     return;
 
-  auto pair = graphics_controller->get_map()->click(new_pos - graphics_controller->get_map_center());
+  auto pair = map()->click(new_pos - graphics_controller->get_map_center());
   Cell* cell = pair.first;
   if(!cell)
     return;
-  graphics_controller->get_bottom_menu()->update_infofm(cell);
+  graphics_controller->get_imenu_gc_full()->get_bottom_menu()->update_infofm(cell);
 
   if(graphics_controller->get_is_moving_unit())
   {
-    Position end_way = graphics_controller->get_map()->indexes_by_cell(pair.first);
+    Position end_way = map()->indexes_by_cell(pair.first);
     if(drawway())
       drawway()->set_end_way(end_way);
-    game_window()->update();
+    game_window->update();
   }
 }
 
@@ -126,9 +129,8 @@ void WindowGraphicsController::start_check_move_unit(class Unit* unit)
 {
   graphics_controller->get_is_moving_unit() = true;
 
-  Map* map = graphics_controller->get_map();
   Position pos_tracking_unit = graphics_controller->get_pos_tracking_unit();
-  DrawWay* new_drawWay = new DrawWay{game_window(), map, pos_tracking_unit, unit};
+  DrawWay* new_drawWay = new DrawWay{game_window.get(), map(), pos_tracking_unit, unit};
   graphics_controller->set_drawway(new_drawWay);
 }
 
@@ -136,7 +138,7 @@ void WindowGraphicsController::stop_check_move_unit()
 {
   graphics_controller->set_drawway(nullptr);
   graphics_controller->get_is_moving_unit() = false;
-  game_window()->update();
+  game_window->update();
 }
 
 void WindowGraphicsController::set_win_settings()
@@ -146,10 +148,10 @@ void WindowGraphicsController::set_win_settings()
 
 void WindowGraphicsController::unit_moved_to_cell(Cell* cell)
 {
-  Position pos_cell = graphics_controller->get_map()->indexes_by_cell(cell);
+  Position pos_cell = map()->indexes_by_cell(cell);
   if(!graphics_controller->get_tracking_unit())
     throw std::runtime_error("click: unit_what_moving not set");
-  FindUnitWay().get_way(graphics_controller->get_tracking_unit(), graphics_controller->get_map(),
+  FindUnitWay().get_way(graphics_controller->get_tracking_unit(), map(),
                         graphics_controller->get_pos_tracking_unit(), pos_cell);
 
   MoveEvent* move_event = new MoveEvent{pos_cell};
@@ -175,7 +177,17 @@ DrawWay* WindowGraphicsController::drawway() const
   return graphics_controller->get_drawway();
 }
 
-GameWindow* WindowGraphicsController::game_window() const
+Map* WindowGraphicsController::map()
 {
-  return graphics_controller->get_game_window();
+  return graphics_controller->get_imap_gc_full()->get_map();
+}
+
+GameWindow* WindowGraphicsController::get_window()
+{
+  return game_window.get();
+}
+
+void WindowGraphicsController::do_window()
+{
+  game_window.reset(new GameWindow(this));
 }

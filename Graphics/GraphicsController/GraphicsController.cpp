@@ -4,24 +4,28 @@
 
 GraphicsController::GraphicsController(class IGameForGraphic* _game_controller)
   :game_controller{_game_controller}, window_gc{new WindowGraphicsController(this)},
-    game_window{new GameWindow(window_gc.get())},
     map_gc{new MapGraphicsController(this)},
     player_gc{new PlayerGraphicsController(this)},
     menu_gc{new MenuGraphicsController(this)},
-    upper_menu{new class UpperMenu(menu_gc.get())},
-    bottom_menu{new class BottomMenu(menu_gc.get())},
-    _map{new Map(map_gc.get())}, calc{new Calculations{}},
-    minimap{new Minimap{game_window.get(), _map.get(), map_gc.get()}}
+    menu_start_gc{new MenuStartGraphicsController(this)}
 {}
 
-void GraphicsController::start()
+void GraphicsController::start_game()
 {
-  game_window->show();
+  game_controller->start_game();
+}
+
+void GraphicsController::do_start_menu()
+{
+  window_gc->do_window();
+  window_gc->get_window()->show();
+  window_gc->set_win_settings();
+  menu_start_gc->do_start_menu();
 }
 
 QWidget* GraphicsController::window() const
 {
-  return game_window.get();
+  return window_gc->get_window();
 }
 
 void GraphicsController::do_start_inform(QString string)
@@ -44,13 +48,13 @@ void GraphicsController::del_start_inform()
 
 void GraphicsController::create_elements()
 {
-  window_gc->set_win_settings();
-  menu_gc->create_uppermenu();
-  menu_gc->create_bottommenu();
-  menu_gc->create_menu_lists();
+  menu_gc->create_elements();
   map_gc->create_map();
+
+
   side_square_unit_menu = _size_win.width/20;
   map_gc->create_minimap();
+  window_gc->get_window()->update();
 }
 
 Size& GraphicsController::get_size_win()
@@ -105,32 +109,7 @@ IGameForGraphic* GraphicsController::get_game_controller()
 
 GameWindow* GraphicsController::get_game_window()
 {
-  return game_window.get();
-}
-
-UpperMenu* GraphicsController::get_upper_menu()
-{
-  return upper_menu.get();
-}
-
-BottomMenu* GraphicsController::get_bottom_menu()
-{
-  return bottom_menu.get();
-}
-
-Map* GraphicsController::get_map()
-{
-  return _map.get();
-}
-
-Calculations* GraphicsController::get_calc()
-{
-  return calc.get();
-}
-
-bool& GraphicsController::get_is_tracking_unit()
-{
-  return is_tracking_unit;
+  return window_gc->get_window();
 }
 
 bool& GraphicsController::get_is_moving_unit()
@@ -197,12 +176,6 @@ void GraphicsController::set_town_menu(MenuTown* _town_menu)
 {
   town_menu.reset(_town_menu);
 }
-
-Minimap* GraphicsController::get_minimap()
-{
-  return minimap.get();
-}
-
 StartMoveInform* GraphicsController::get_start_move_inform()
 {
   return start_move_inform.get();
@@ -218,7 +191,7 @@ IMenuGraphicsControllerFull* GraphicsController::get_imenu_gc_full()
   return menu_gc.get();
 }
 
-IPlayerGraphicsController* GraphicsController::get_iplayer_gc()
+IPlayerGraphicsControllerFull* GraphicsController::get_iplayer_gc()
 {
   return player_gc.get();
 }
@@ -228,3 +201,7 @@ IMapGraphicsControllerFull* GraphicsController::get_imap_gc_full()
   return map_gc.get();
 }
 
+IMenuStartGraphicsController* GraphicsController::get_imenu_start_full()
+{
+  return menu_start_gc.get();
+}

@@ -30,11 +30,16 @@ HEADERS += \
     Graphics/GraphicsController/CreateMap.h \
     Graphics/GraphicsController/GraphicsController.h \
     Graphics/GraphicsController/IMapGraphicsController.h \
+    Graphics/GraphicsController/IMapGraphicsControllerFull.h \
     Graphics/GraphicsController/IMenuGraphicsController.h \
+    Graphics/GraphicsController/IMenuGraphicsControllerFull.h \
+    Graphics/GraphicsController/IMenuStartGraphicsController.h \
     Graphics/GraphicsController/IWindowGraphicsController.h \
     Graphics/GraphicsController/MapGraphicsController.h \
     Graphics/GraphicsController/MenuGraphicsController.h \
+    Graphics/GraphicsController/MenuStartGraphicsController.h \
     Graphics/GraphicsController/WindowGraphicsController.h \
+    Graphics/Menus/ManuStart/StartMenu.h \
     Graphics/Menus/MenuInWindow/MenuLists.h \
     Graphics/Menus/MenuInWindow/MenuTypeMap.h \
     Graphics/Menus/MenuInWindow/OpenMenuLists.h \
@@ -130,6 +135,7 @@ SOURCES += \
     Controllers/TownBuildNeeds.cpp \
     Graphics/Buildings/Building.cpp \
     Graphics/Buildings/Town.cpp \
+    Graphics/GraphicsController/MenuStartGraphicsController.cpp \
     Graphics/Map/Cell.cpp \
     Graphics/Map/ControlContents.cpp \
     Graphics/DrawWay.cpp \
@@ -152,6 +158,7 @@ SOURCES += \
     Graphics/InformationWidgets/StartMoveInform.cpp \
     Graphics/InformationWidgets/UnitInformation.cpp \
     Graphics/Map/Map.cpp \
+    Graphics/Menus/ManuStart/StartMenu.cpp \
     Graphics/Menus/MenuInWindow/MenuLists.cpp \
     Graphics/Menus/MenuInWindow/OpenMenuLists.cpp \
     Graphics/Menus/MenuScience/MenuScience.cpp \

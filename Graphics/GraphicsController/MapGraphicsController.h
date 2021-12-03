@@ -3,7 +3,7 @@
 
 #include "CreateMap.h"
 #include "IGraphicsController.h"
-#include "IMapGraphicsController.h"
+#include "IMapGraphicsControllerFull.h"
 
 
 class MapGraphicsController : public IMapGraphicsControllerFull
@@ -37,15 +37,19 @@ public:
   void create_map();
   void create_minimap();
   virtual void no_highlight_unit(class Unit* unit, Position pos) override;
+  virtual Map* get_map() override;
+  virtual Minimap* get_minimap() override;
 private:
-  Map* map();
-  Minimap* minimap();
   Size size_win() const;
 
   Size& _size_map();
   Size& _size_win_map();
   QPoint& _win_map_center();
   QPoint& _map_center();
+
+  std::unique_ptr<Calculations> calc;
+  std::unique_ptr<Map> map;
+  std::unique_ptr<Minimap> minimap;
 
   IGraphicsController* graphics_controller;
 };

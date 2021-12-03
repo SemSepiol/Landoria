@@ -29,13 +29,17 @@ public:
   virtual void stop_check_move_unit() override;
 
   void set_win_settings();
+  GameWindow* get_window();
+  void do_window();
 
 private:
+  Map* map();
+
   void unit_moved_to_cell(Cell* cell);
   Size& _size_win();
   IGameForGraphic* game_controller() const;
   DrawWay* drawway() const;
-  GameWindow* game_window() const;
+  std::unique_ptr<GameWindow> game_window;
 
   IGraphicsController* graphics_controller;
 };

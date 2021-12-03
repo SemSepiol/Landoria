@@ -51,10 +51,9 @@ void PlayerGraphicsController::del_build(Position pos_cell)
   controlcontents.del_building();
 }
 
-
 void PlayerGraphicsController::do_menu_unit(PlayerUnit* unit)
 {
-  graphics_controller->get_is_tracking_unit() = true;
+  is_tracking_unit = true;
   graphics_controller->get_tracking_unit() = unit->unit;
   graphics_controller->get_pos_tracking_unit() = unit->pos;
 
@@ -89,10 +88,10 @@ void PlayerGraphicsController::do_menu_town(IMenuTownPlayer* player, PlayerTown*
   graphics_controller->get_town_menu()->set_geometry({0, size_uppermenu.height},
                           {size_win.width, size_win.height-size_uppermenu.height});
   graphics_controller->get_town_menu()->start();
-  graphics_controller->get_upper_menu()->set_enable_move_map(false);
+  graphics_controller->get_imenu_gc_full()->get_upper_menu()->set_enable_move_map(false);
 
-  graphics_controller->get_bottom_menu()->hide();
-  graphics_controller->get_minimap()->hide();
+  graphics_controller->get_imenu_gc_full()->get_bottom_menu()->hide();
+  graphics_controller->get_imap_gc_full()->get_minimap()->hide();
   graphics_controller->get_enabled_map() = false;
 }
 
@@ -138,39 +137,44 @@ IMapForFind* PlayerGraphicsController::mapforfind()
 
 void PlayerGraphicsController::update_res_inform(IMenuTownPlayer* player)
 {
-  graphics_controller->get_upper_menu()->update_infofm(player);
+  graphics_controller->get_imenu_gc_full()->get_upper_menu()->update_infofm(player);
 }
 
 int PlayerGraphicsController::count_cell_resource(Position pos)
 {
-  ControlContents cc{graphics_controller->get_map()->cell_by_indexes(pos)};
+  ControlContents cc{map()->cell_by_indexes(pos)};
   return cc.get_count_of_res();
 }
 
 Resources PlayerGraphicsController::cell_resource(Position pos)
 {
-  ControlContents cc{graphics_controller->get_map()->cell_by_indexes(pos)};
+  ControlContents cc{map()->cell_by_indexes(pos)};
   return cc.get_resource();
 }
 
 bool PlayerGraphicsController::has_cell_building(Position pos)
 {
-  ControlContents cc{graphics_controller->get_map()->cell_by_indexes(pos)};
+  ControlContents cc{map()->cell_by_indexes(pos)};
   return cc.has_building();
 }
 
 Buildings PlayerGraphicsController::cell_building(Position pos)
 {
-  ControlContents cc{graphics_controller->get_map()->cell_by_indexes(pos)};
+  ControlContents cc{map()->cell_by_indexes(pos)};
   return cc.get_building()->what_building_I();
 }
 
 Map* PlayerGraphicsController::map()
 {
-  return graphics_controller->get_map();
+  return graphics_controller->get_imap_gc_full()->get_map();
 }
 
 GameWindow* PlayerGraphicsController::game_window()
 {
   return graphics_controller->get_game_window();
+}
+
+bool& PlayerGraphicsController::get_is_tracking_unit()
+{
+  return is_tracking_unit;
 }

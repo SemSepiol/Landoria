@@ -16,6 +16,7 @@ class Game : public IGameForGraphic, public IGameForPlayer, public IGameForWidge
 public:
   Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players);
   void start();
+  virtual void start_game() override;
 
   virtual size_t count_cell_x() const override;
   virtual size_t count_cell_y() const override;
@@ -41,6 +42,7 @@ private:
 
   size_t _count_cell_x;
   size_t _count_cell_y;
+  size_t _count_players;
   int _width_win;
   int _height_win;
 };
