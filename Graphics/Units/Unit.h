@@ -53,6 +53,8 @@ private:
   int movement;
   int vision;
   Countries country;
+
+  std::unique_ptr<QPixmap> pixmap_for_unit;
 };
 
 #endif // UNIT_H

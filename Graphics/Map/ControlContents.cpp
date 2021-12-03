@@ -7,6 +7,7 @@ void ControlContents::set_main_landscape(MainLandscapes type_landscape)
 
   cell->is_there_main_landscape = true;
   cell->mainlandscape = type_landscape;
+  cell->update_pixmap_for_main_landscape();
 }
 
 void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
@@ -16,6 +17,7 @@ void ControlContents::set_other_landscape(OtherLandscapes type_landscape)
 
   cell->is_there_other_landscape = true;
   cell->otherlandscape = type_landscape;
+  cell->update_pixmap_for_other_landscape();
 }
 
 IContent* ControlContents::add_resource(Resources type_resource, int count_of_res)

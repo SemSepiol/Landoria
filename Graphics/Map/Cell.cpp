@@ -89,6 +89,16 @@ int Cell::count_units()
   return cc.count_units();
 }
 
+void Cell::update_pixmap_for_main_landscape()
+{
+  pixmap_for_main_landscape = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
+}
+
+void Cell::update_pixmap_for_other_landscape()
+{
+  pixmap_for_other_landscape = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
+}
+
 void Cell::draw_cell(QPoint point)
 {
   Calculations* calc = calculations();
@@ -130,16 +140,14 @@ void Cell::draw_landscape(QPoint point)
   if (!is_there_main_landscape)
     throw std::runtime_error("The main landscape is not set in the cell");
 
-  QPixmap pixmap = FactoryPixmap().create_pixmap_for_main_landscape(mainlandscape);
   QRectF source = FactoryPixmap().size_picture_landscape();
   QRectF target{1.* (point.x() - calc->hexagon_side()), 1.* (point.y() - calc->hexagon_side()),
         calc->hexagon_side()*2., calc->hexagon_side()*2.};
-  qp.drawPixmap(target, pixmap, source);
+  qp.drawPixmap(target, pixmap_for_main_landscape, source);
 
   if(map->get_type_map().show_other_landscapes)
   {
-    QPixmap pixmap2 = FactoryPixmap().create_pixmap_for_other_landscape(otherlandscape);
-    qp.drawPixmap(target, pixmap2, source);
+    qp.drawPixmap(target, pixmap_for_other_landscape, source);
   }
 }
 

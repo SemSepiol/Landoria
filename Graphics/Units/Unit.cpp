@@ -6,6 +6,9 @@ Unit::Unit(ICell* _cell)
 
 void Unit::draw(QPoint point)
 {
+  if(!pixmap_for_unit)
+    pixmap_for_unit.reset(new QPixmap{FactoryPixmap().create_pixmap_for_unit_on_map(what_unit_I())});
+
   int rad = calculations()->circle_radius(cell->count_units());
 
   QPainter qp(window());
@@ -13,12 +16,11 @@ void Unit::draw(QPoint point)
   qp.setBrush(QBrush(FactoryColor().country_color(country)));
   qp.drawEllipse(point, rad, rad);
 
-  QPixmap pixmap = FactoryPixmap().create_pixmap_for_unit_on_map(what_unit_I());
   QRectF source = FactoryPixmap().size_picture_content();
   int adjustment = 0;
   int a = static_cast<int>(round(rad/sqrt(2)));
   QRectF target{(point.x() - a - adjustment)*1., (point.y() - a - adjustment)*1., 2.*(a+adjustment), 2.*(a+adjustment)};
-  qp.drawPixmap(target, pixmap, source);
+  qp.drawPixmap(target, *pixmap_for_unit.get(), source);
 }
 
 QWidget* Unit::window() const

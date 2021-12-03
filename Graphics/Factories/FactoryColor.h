@@ -11,12 +11,6 @@
 
 class FactoryColor : public IObject
 {
-  std::map<Countries, QColor> _country_color{
-    {Countries::Nothing, Qt::red},
-    {Countries::Russia, Qt::yellow},
-    {Countries::America, Qt::blue}
-  };
-
 public:
   QColor country_color(Countries country) const;
 };

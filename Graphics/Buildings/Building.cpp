@@ -2,6 +2,9 @@
 
 void Building::draw(QPoint point)
 {
+  if(!pixmap_for_building)
+    pixmap_for_building.reset(new QPixmap{FactoryPixmap().create_pixmap_for_building(what_building_I())});
+
   int rad = calculations()->circle_radius();
 
   if(phase < end_phase)
@@ -10,11 +13,10 @@ void Building::draw(QPoint point)
   QPainter qp(window());
   QPen pen(Qt::black, 2, Qt::SolidLine);
 
-  QPixmap pixmap = FactoryPixmap().create_pixmap_for_building(what_building_I());
   QRectF source = FactoryPixmap().size_picture_content();
   int adjustment = rad/10;
   QRectF target{(point.x() - rad - adjustment)*1., (point.y() - rad - adjustment)*1., 2.*(rad+adjustment), 2.*(rad+adjustment)};
-  qp.drawPixmap(target, pixmap, source);
+  qp.drawPixmap(target, *pixmap_for_building.get(), source);
 
   if(phase < end_phase)
     qp.setBrush(QBrush(QColor(100, 100, 255, 200)));

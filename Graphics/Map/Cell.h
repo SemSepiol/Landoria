@@ -47,6 +47,9 @@ public:
 
   virtual int count_units() override;
 private:
+  void update_pixmap_for_main_landscape();
+  void update_pixmap_for_other_landscape();
+
   void draw_cell(QPoint point);
   void draw_landscape(QPoint point);
   void draw_contents(QPoint point);
@@ -70,6 +73,9 @@ private:
   ShowCell show_cell = Show;
 
   friend class ControlContents;
+
+  QPixmap pixmap_for_main_landscape;
+  QPixmap pixmap_for_other_landscape;
 };
 
 

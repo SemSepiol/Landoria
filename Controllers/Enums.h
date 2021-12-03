@@ -82,7 +82,9 @@ enum class Countries
 {
   Nothing,
   Russia,
-  America
+  America,
+  China,
+  England
 };
 
 #endif // ENUMS_H

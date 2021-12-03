@@ -36,6 +36,8 @@ private:
   ICell* cell;
   int phase = 0;
   int end_phase = 0;
+
+  std::unique_ptr<QPixmap> pixmap_for_building;
 };
 
 #endif // BUILDING_H

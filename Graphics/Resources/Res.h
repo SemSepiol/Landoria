@@ -20,14 +20,16 @@ public:
   virtual Resources what_resource_I() const = 0;
 
   virtual int get_count_of_res() const {return count_of_res;}
-  virtual void set_count_of_res(int count_of_res) { count_of_res = count_of_res; }
+  virtual void set_count_of_res(int _count_of_res) { count_of_res = _count_of_res; }
 
 protected:
-  Res(ICell* cell, int count_of_res = 0) : cell{cell}, count_of_res{count_of_res}{}
+  Res(ICell* cell, int count_of_res = 0);
 
 private:
   ICell* cell;
   int count_of_res;
+
+  std::unique_ptr<QPixmap> pixmap_for_res;
 };
 
 #endif // RES_H
