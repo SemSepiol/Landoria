@@ -1,6 +1,7 @@
 #include "PlayerMap.h"
 
-PlayerMap::PlayerMap(Position count_cell)
+PlayerMap::PlayerMap(Position count_cell, Mod _mod)
+  :mod{_mod}
 {
   for(size_t i{0}; i < count_cell.x; ++i)
   {
@@ -12,8 +13,9 @@ PlayerMap::PlayerMap(Position count_cell)
 
 ICell::ShowCell PlayerMap::get_show_cell(Position pos_cell) const
 {
-  return ICell::Show;
-  //return map[pos_cell.x][pos_cell.y];
+  if(mod == Mod::Show)
+    return ICell::Show;
+  return map[pos_cell.x][pos_cell.y];
 }
 
 void PlayerMap::set_show_cell(Position pos_cell)

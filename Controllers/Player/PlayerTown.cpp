@@ -1,10 +1,15 @@
 #include "PlayerTown.h"
 #include <iostream>
 
-PlayerTown::PlayerTown(class Town* town, ITownPlayer* _player, Position pos)
-  :_town{town}, player{_player}, _pos{pos}
+PlayerTown::PlayerTown(class Town* town, ITownPlayer* _player, Position pos, Mod _mod)
+  :_town{town}, player{_player}, _pos{pos}, mod{_mod}
 {
-  town_resource.gold_per_turn = -1;
+  town_resource.gold_per_turn = 1;
+  if(mod == Mod::Show)
+  {
+    town_resource.gold_per_turn = -1;
+  }
+
   town_resource.science_per_turn = 1;
   town_resource.production_per_turn = 10;
 }

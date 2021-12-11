@@ -1,10 +1,10 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(IGameForPlayer* _game_controller, Countries _country)
-  :game_controller{_game_controller}, country{_country},
-    player_map{new PlayerMap({_game_controller->count_cell_x(), _game_controller->count_cell_y()})},
-    player_res{new PlayerRes()}, _player_science{new PlayerScience()}
+Player::Player(IGameForPlayer* _game_controller, Countries _country, Mod _mod)
+  :game_controller{_game_controller}, country{_country}, mod{_mod},
+    player_map{new PlayerMap({_game_controller->count_cell_x(), _game_controller->count_cell_y()}, _mod)},
+    player_res{new PlayerRes(_mod)}, _player_science{new PlayerScience(_mod)}
 {}
 
 Player::~Player()
@@ -339,7 +339,7 @@ void Player::build_town(PlayerUnit* my_unit)
   class Building* building = game_controller->
       graphics_controller()->build(Buildings::Town, pos);
   class Town* town = static_cast<class Town*>(building);
-  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, this, pos}});
+  my_towns.push_back(std::unique_ptr<PlayerTown>{new PlayerTown{town, this, pos, mod}});
   del_unit(my_unit);
 
   auto map = game_controller->graphics_controller()->mapforfind();

@@ -12,7 +12,7 @@ class PlayerRes : public IObject
   std::map<Resources, int> player_resources;
 
 public:
-  PlayerRes();
+  PlayerRes(Mod mod);
 
   ///Добавляет к уже имеющимся
   void add_resource(Resources type_res, int count);
@@ -25,6 +25,9 @@ public:
 
   /// Возвращает количество ресурса
   int get_resource(Resources type_res);
+
+private:
+  Mod mod;
 };
 
 #endif // PLAYERRES_H

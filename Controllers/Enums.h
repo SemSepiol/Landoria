@@ -87,4 +87,9 @@ enum class Countries
   England
 };
 
+enum class Mod{
+  Show,
+  Play
+};
+
 #endif // ENUMS_H

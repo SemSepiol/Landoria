@@ -1,9 +1,13 @@
 #include "PlayerRes.h"
 
-PlayerRes::PlayerRes()
+PlayerRes::PlayerRes(Mod _mod)
+  :mod{_mod}
 {
+  int a = 3;
+  if(mod == Mod::Play)
+    a = 0;
   for(int i{0}; i < CountInEnums().resources(); ++i)
-    player_resources.insert({Resources(i), 3});
+    player_resources.insert({Resources(i), a});
 }
 
 void PlayerRes::add_resource(Resources type_res, int count)

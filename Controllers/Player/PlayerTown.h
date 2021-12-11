@@ -34,7 +34,7 @@ class PlayerTown : public IObject
   const size_t _max_build_in_queue = 6;
 
 public:
-  PlayerTown(class Town* town, ITownPlayer* player, Position position_town);
+  PlayerTown(class Town* town, ITownPlayer* player, Position position_town, Mod mod);
 
   Position position_town() const;
   class Town* town() const;
@@ -83,6 +83,7 @@ private:
 
   std::vector<std::unique_ptr<BuildInTown>> build_in_town;
   std::vector<BuildInTown*> build_queue;
+  Mod mod;
 };
 
 #endif // PLAYERTOWN_H

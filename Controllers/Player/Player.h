@@ -23,7 +23,7 @@
 class Player : public IPlayer, public IMenuTownPlayer, public ITownPlayer
 {
 public:
-    Player(IGameForPlayer* game_controller, Countries country);
+    Player(IGameForPlayer* game_controller, Countries country, Mod mod);
     virtual ~Player() override;
 
     virtual void click_unit(class Unit* unit) override;
@@ -77,6 +77,7 @@ private:
 
     IGameForPlayer* game_controller;
     Countries country;
+    Mod mod;
     double gold = 0;
 
     std::vector<std::unique_ptr<PlayerUnit>> my_units;

@@ -203,6 +203,8 @@ void Cell::draw_borders(QPoint point)
 {
   if(country == Countries::Nothing)
     return;
+  if(show_cell == ShowCell::FogOfWar)
+    return;
 
   Calculations* calc = calculations();
   int width_border = calc->hexagon_height()/20;

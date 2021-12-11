@@ -14,7 +14,7 @@
 class Game : public IGameForGraphic, public IGameForPlayer, public IGameForWidget
 {
 public:
-  Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players);
+  Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players, Mod mod);
   void start();
   virtual void start_game() override;
 
@@ -45,6 +45,8 @@ private:
   size_t _count_players;
   int _width_win;
   int _height_win;
+
+  Mod mod;
 };
 
 #endif // GAME_H

@@ -1,8 +1,8 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players)
-  :_graphics_controller {new GraphicsController(this)}
+Game::Game(QApplication* app, size_t count_cell_x, size_t count_cell_y, size_t count_players, Mod _mod)
+  :_graphics_controller {new GraphicsController(this)}, mod{_mod}
 {
   _count_cell_x = count_cell_x;
   _count_cell_y = count_cell_y;
@@ -102,7 +102,7 @@ void Game::do_players(size_t count_players)
   auto positions = create_map.initial_pos_player(int(count_players), _graphics_controller->get_imap_gc_full()->get_map());
   for(size_t i{0}; i < count_players; ++i)
   {
-    players.push_back(std::unique_ptr<Player>{new Player(this, Countries(i+1))});
+    players.push_back(std::unique_ptr<Player>{new Player(this, Countries(i+1), mod)});
     players[i]->set_initial_units(positions[i]);
   }
 }

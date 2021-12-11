@@ -15,7 +15,7 @@
 class PlayerScience : public IObject
 {
 public:
-  PlayerScience();
+  PlayerScience(Mod mod);
   size_t count_open_buildings() const;
   std::vector<Buildings> get_open_buildings() const;
   bool is_open_building(Buildings building) const;
@@ -51,6 +51,8 @@ private:
 
   std::map<Knowledges, double> knowledge_science_glasses;
   double remains_science_glasses = 0;
+
+  Mod mod;
 };
 
 #endif // PLAYERSCIENCE_H

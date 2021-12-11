@@ -1,33 +1,34 @@
 #include "PlayerScience.h"
 #include <iostream>
 
-PlayerScience::PlayerScience()
+PlayerScience::PlayerScience(Mod _mod)
+  :mod{_mod}
 {
-//  building.push_back(TownBuildings::Walls);
-//  building.push_back(TownBuildings::Aqueduct);
-//  building.push_back(TownBuildings::Market);
-//  building.push_back(TownBuildings::PublicSchool);
-//  building.push_back(TownBuildings::University);
-//  building.push_back(TownBuildings::Bank);
-//  building.push_back(TownBuildings::MedicalLab);
-//  building.push_back(TownBuildings::ResearchLab);
-//  building.push_back(TownBuildings::Factory);
-//  building.push_back(TownBuildings::Monument);
-//  building.push_back(TownBuildings::Shrine);
-//  building.push_back(TownBuildings::Windmill);
-//  building.push_back(TownBuildings::Museum);
-//  building.push_back(TownBuildings::Hospital);
-//  building.push_back(TownBuildings::Stadium);
-//  building.push_back(TownBuildings::Workshop);
-//  building.push_back(TownBuildings::Library);
-//  building.push_back(TownBuildings::OperaHouse);
-//  building.push_back(TownBuildings::StockExchange);
-//  building.push_back(TownBuildings::Zoo);
+  //  building.push_back(TownBuildings::Walls);
+  //  building.push_back(TownBuildings::Aqueduct);
+  //  building.push_back(TownBuildings::Market);
+  //  building.push_back(TownBuildings::PublicSchool);
+  //  building.push_back(TownBuildings::University);
+  //  building.push_back(TownBuildings::Bank);
+  //  building.push_back(TownBuildings::MedicalLab);
+  //  building.push_back(TownBuildings::ResearchLab);
+  //  building.push_back(TownBuildings::Factory);
+  //  building.push_back(TownBuildings::Monument);
+  //  building.push_back(TownBuildings::Shrine);
+  //  building.push_back(TownBuildings::Windmill);
+  //  building.push_back(TownBuildings::Museum);
+  //  building.push_back(TownBuildings::Hospital);
+  //  building.push_back(TownBuildings::Stadium);
+  //  building.push_back(TownBuildings::Workshop);
+  //  building.push_back(TownBuildings::Library);
+  //  building.push_back(TownBuildings::OperaHouse);
+  //  building.push_back(TownBuildings::StockExchange);
+  //  building.push_back(TownBuildings::Zoo);
 
-//  best_units.push_back(Units::Citizen);
-//  best_units.push_back(Units::Worker);
-//  best_units.push_back(Units::Bowman);
-//  best_units.push_back(Units::Swordsman);
+  //  best_units.push_back(Units::Citizen);
+  //  best_units.push_back(Units::Worker);
+  //  best_units.push_back(Units::Bowman);
+  //  best_units.push_back(Units::Swordsman);
 }
 
 size_t PlayerScience::count_open_buildings() const
@@ -41,7 +42,7 @@ std::vector<Buildings> PlayerScience::get_open_buildings() const
   auto science = Science();
   for(auto knowledge : open_knowledges)
     for(auto buildings : science.get_knowledge(knowledge).buildings)
-        res.push_back(buildings);
+      res.push_back(buildings);
   return res;
 }
 
@@ -57,12 +58,15 @@ size_t PlayerScience::count_open_resources() const
 }
 std::vector<Resources> PlayerScience::get_open_resources() const
 {
-//  std::vector<Resources> res;
-//  auto science = Science();
-//  for(auto knowledge : open_knowledges)
-//    for(auto resource : science.get_knowledge(knowledge).resources)
-//        res.push_back(resource);
-//  return res;
+  if(mod == Mod::Play)
+  {
+    std::vector<Resources> res;
+    auto science = Science();
+    for(auto knowledge : open_knowledges)
+      for(auto resource : science.get_knowledge(knowledge).resources)
+        res.push_back(resource);
+    return res;
+  }
 
 
   //для разработки
@@ -152,8 +156,8 @@ void PlayerScience::set_study_knowledge(Knowledges name_knowledge)
   while (!stack.empty())
   {
     auto& [knowledge, i] = stack.top();
-    auto& need_knowledges = knowledge.necessary_knowledges;
-    if(i == need_knowledges.size())
+        auto& need_knowledges = knowledge.necessary_knowledges;
+        if(i == need_knowledges.size())
     {
       if(std::find(queue_science.begin(), queue_science.end(), knowledge.name_knowledge) == queue_science.end())
         queue_science.push_back(knowledge.name_knowledge);
