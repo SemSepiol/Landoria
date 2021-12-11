@@ -1,0 +1,43 @@
+#ifndef WIDGETTOWNUNIT_H
+#define WIDGETTOWNUNIT_H
+
+#include <QMouseEvent>
+#include <QWidget>
+
+#include "AWidgetTown.h"
+#include "IMenuTown.h"
+#include "../../Factories/FactoryString.h"
+#include "../../Factories/FactoryPixmap.h"
+#include "../../GraphicsController/IWindowGraphicsController.h"
+#include "../../../Controllers/Player/IMenuTownPlayer.h"
+#include "../../../Controllers/Player/PlayerTown.h"
+
+
+class WidgetTownUnit : public AWidgetTown
+{
+public:
+  WidgetTownUnit(IMenuTown* menu_town, Units type_unit, TypeWork type_widget);
+  void set_geometry(QPoint pos, Size size);
+
+  virtual TypeWidget who_i() const override{ return ForUnit; }
+
+protected:
+  virtual size_t num_from_queue() override;
+  virtual size_t count_from_queue() override;
+
+private:
+  virtual void paintEvent(QPaintEvent* event) override;
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
+  virtual void mousePressEvent(QMouseEvent *event) override;
+  virtual void mouseReleaseEvent(QMouseEvent *event) override;
+  virtual void wheelEvent(QWheelEvent *event) override;
+
+  void draw_widget();
+  std::vector<std::pair<QString, QColor>> text();
+
+  IMenuTown* menu_town;
+  QPoint mouse_pos_clicked;
+  Units type_unit;
+};
+
+#endif // WIDGETTOWNUNIT_H
